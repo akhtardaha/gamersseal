@@ -160,3 +160,34 @@ img.help_tip {
     height: 1px;
     margin: 0;
     background: #242B37; }
+	
+/*========================================CUSTOM CSS=======================================*/
+fieldset {
+    border: 1px solid #c6c6c6 !important;
+    margin-right: 25px !important;
+    padding: 20px !important;
+}
+
+.confSections
+{
+	width:100%;
+	float:left;
+}
+
+.configurationPage {
+    background: none repeat scroll 0 0 #f2f2f2;
+    float: left;
+    margin: 50px 0 0 !important;
+    padding: 25px 4% !important;
+    width: 92%;
+}
+
+.previewIcon
+{
+	float:left;
+	width:100px;
+}
+.previewIcon img
+{
+	width:100%;
+}
