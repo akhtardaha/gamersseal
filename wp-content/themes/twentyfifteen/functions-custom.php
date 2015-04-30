@@ -36,6 +36,17 @@ function app_configuration_options()
 	$app_background_color = $option['app_background_color'];
 	$app_icon = $option['app_icon'];
 	$terms_and_conditions = $option['terms_and_conditions'];
+	
+	$guest_daily_purchase =  $option['guest_daily_purchase'];
+	$standard_daily_purchase =  $option['standard_daily_purchase'];
+	$premium_daily_purchase =  $option['premium_daily_purchase'];
+	
+	$guest_daily_transaction =  $option['guest_daily_transaction'];
+	$standard_daily_transaction =  $option['standard_daily_transaction'];
+	$premium_daily_transaction =  $option['premium_daily_transaction'];
+	
+	
+	
  }
 ?>
 
@@ -79,7 +90,7 @@ function app_configuration_options()
             		<fieldset>
                         <legend>App Background Color:</legend>
                          <p><strong>Choose Color :</strong><br />
-                            <input type="text" id="appbgclr" name="appbgclr" value="<?php echo $app_background_color; ?>" />
+                            <input type="text" style="background-color:<?php echo $app_background_color; ?>;" id="appbgclr" name="appbgclr" value="<?php echo $app_background_color; ?>" />
                          </p>
                          <p><strong>App Icon :</strong><br />
                             <input type="file" id="appicon" name="appicon" value="<?php echo $app_icon; ?>" />
@@ -90,9 +101,38 @@ function app_configuration_options()
                 </div>
             </div>
             <div class="confSections">
+            	<div class="confSection" style="width:33%; float:left;">
             	<p><strong>Terms and Conditions:</strong><br />
-                <textarea id="terms" style="width: 500px; height: 200px;" name="terms"><?php echo $terms_and_conditions; ?></textarea>
-            </p>
+                <textarea id="terms" style="width: 95%; height: 200px;" name="terms"><?php echo $terms_and_conditions; ?></textarea></p>
+                </div>
+                <div class="confSection" style="width:33%; float:left;">
+            		<fieldset>
+                        <legend>Max Purchase Amount per Day :</legend>
+                         <p><strong>Guest :</strong><br />
+                            <input type="text" id="guestBuyAmountDay" name="guestBuyAmountDay" value="<?php echo $guest_daily_purchase; ?>" />
+                         </p>
+                         <p><strong>Standard :</strong><br />
+                            <input type="text" id="standardBuyAmountDay" name="standardBuyAmountDay" value="<?php echo $standard_daily_purchase; ?>" />
+                         </p>
+                         <p><strong>Premium :</strong><br />
+                            <input type="text" id="premiumBuyAmountDay" name="premiumBuyAmountDay" value="<?php echo $premium_daily_purchase; ?>" />
+                         </p>
+              		</fieldset>
+                </div>
+                <div class="confSection" style="width:33%; float:left;">
+            		<fieldset>
+                        <legend>Max Transaction per Day :</legend>
+                         <p><strong>Guest :</strong><br />
+                            <input type="text" id="guestTransactionDay" name="guestTransactionDay" value="<?php echo $guest_daily_transaction; ?>" />
+                         </p>
+                         <p><strong>Standard :</strong><br />
+                            <input type="text" id="standardTransactionDay" name="standardTransactionDay" value="<?php echo $standard_daily_transaction; ?>" />
+                         </p>
+                         <p><strong>Premium :</strong><br />
+                            <input type="text" id="premiumTransactionDay" name="premiumTransactionDay" value="<?php echo $premium_daily_transaction; ?>" />
+                         </p>
+              		</fieldset>
+                </div>
             </div>
             <div class="confSections">
             	<p><input type="button" onClick="return submitConfiguration();" name="Submit" value="Store Configuration" /></p>
@@ -107,7 +147,26 @@ function app_configuration_options()
 }
 ?>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/colorpicker.js"></script>
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/colorpicker.css" type="text/css" />
 <script type="text/javascript">
+$(document).ready(function(){
+	$('#appbgclr').ColorPicker({
+		onSubmit: function(hsb, hex, rgb, el) {
+			$(el).val(hex);
+			$(el).ColorPickerHide();
+		},
+		onBeforeShow: function () {
+			$(this).ColorPickerSetColor(this.value);
+		},
+		onChange: function (hsb, hex, rgb) {
+		$('#appbgclr').css('backgroundColor', '#' + hex);
+		}
+	})
+	.bind('keyup', function(){
+		$(this).ColorPickerSetColor(this.value);
+	});
+});
 function submitConfiguration()
 {
 	var gst = $('#gst').val();
@@ -118,13 +177,21 @@ function submitConfiguration()
 	var standarditemday = $('#standarditemday').val();
 	var premiumitemday = $('#premiumitemday').val();
 	var appbgclr = $('#appbgclr').val();
+	appbgclr = '#'+appbgclr;
 	var appicon = $('#appicon').val();
 	var terms = $('#terms').val();
 	var siteUrl = $('#siteUrl').val();
 	var confID = $('#confID').val();
 	
+	var guestBuyAmountDay = $('#guestBuyAmountDay').val();
+	var standardBuyAmountDay = $('#standardBuyAmountDay').val();
+	var premiumBuyAmountDay = $('#premiumBuyAmountDay').val();
+	var guestTransactionDay = $('#guestTransactionDay').val();
+	var standardTransactionDay = $('#standardTransactionDay').val();
+	var premiumTransactionDay = $('#premiumTransactionDay').val();
 	
-	var data = { gst: gst, desclimit: desclimit,guestcharges: guestcharges ,standardcharges: standardcharges ,premiumcharges: premiumcharges ,standarditemday: standarditemday ,premiumitemday: premiumitemday,appbgclr:appbgclr,appicon:appicon, terms:terms, confID:confID};
+	
+	var data = { gst: gst, desclimit: desclimit,guestcharges: guestcharges ,standardcharges: standardcharges ,premiumcharges: premiumcharges ,standarditemday: standarditemday ,premiumitemday: premiumitemday,appbgclr:appbgclr,appicon:appicon, terms:terms, confID:confID,guestBuyAmountDay:guestBuyAmountDay,standardBuyAmountDay:standardBuyAmountDay,premiumBuyAmountDay:premiumBuyAmountDay,guestTransactionDay:guestTransactionDay,standardTransactionDay:standardTransactionDay,premiumTransactionDay:premiumTransactionDay};
 	var url = siteUrl+'/update_app_configuration.php';
 	$.ajax({
 	  type: "POST",

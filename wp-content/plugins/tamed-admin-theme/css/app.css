@@ -162,12 +162,14 @@ img.help_tip {
     background: #242B37; }
 	
 /*========================================CUSTOM CSS=======================================*/
+
 fieldset {
     border: 1px solid #c6c6c6 !important;
+    margin-bottom: 20px;
     margin-right: 25px !important;
+    min-height: 240px;
     padding: 20px !important;
 }
-
 .confSections
 {
 	width:100%;
