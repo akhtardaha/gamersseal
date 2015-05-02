@@ -1,0 +1,29 @@
+@charset "utf-8";
+/* CSS Document */
+.terms{
+	text-align:justify;}
+.lastRow{
+	position:relative;}
+.lastRow label{
+	position:absolute;
+	left:40px;}
+.lastRow .ui-checkbox{
+	top:10px;}
+.register .ui-submit{margin-top:25px !important;}
+.ui-submit{
+	float:left;
+	}
+.ui-clear{
+	clear:both;}
+.file{
+	padding:5px 15px;
+	margin:5px 0;
+	}
+.filterCat{
+	margin-bottom:25px;}
+.portfolio-item .ui-btn-icon-notext, .ui-li>.ui-btn-inner{
+	padding:0px !important;}
+.fileImg{
+		padding:5px 18px;}
+.products .ui-corner-tr{
+	border-radius:0px !important;}
