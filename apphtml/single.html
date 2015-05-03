@@ -12,18 +12,43 @@
 <body>
     <div data-role="page">
 	 <div data-role="header">
+     <a href="games.html" data-icon="arrow-l" data-transition="flip" data-theme="a" data-corners="false">Back</a>
         <h4 class="ui-title" role="heading" aria-level="1"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
-        <a data-role="button" href="games.html" data-transition="flip" data-icon="home" data-corners="false" class="ui-btn-left ui-btn ui-shadow ui-btn-icon-left ui-btn-up-a" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Back</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>
-        
+       <a href="cart.html" data-icon="cart" data-transition="flip" data-theme="a" data-corners="false">Cart (0)</a>
         </div><!-- /header -->
  
         <div data-role="content">
-           <ul data-role="listview" data-inset="true" >
-				<li><a href="login.html">Sign in</a></li>
-                <li><a href="register.html">Sign up</a></li>
-				<li><a href="postgame.html">Post a Game</a></li>
-				<li><a href="games.html">Buy Games</a></li>
-			</ul>
+        	<div class="gallery">
+            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 01" class="popphoto"></a>
+            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 02" class="popphoto"></a>
+            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 03" class="popphoto"></a>
+            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 04" class="popphoto"></a>
+            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 05" class="popphoto"></a>
+            <div data-role="popup" id="popupNinja" data-overlay-theme="c" data-theme="c" data-corners="false">
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" title="Close"><span class="ui-btn-inner"><span class="ui-btn-text">Close</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a><img class="popphoto" src="img/game.jpg" style="max-height:512px;" alt="Paris, France">
+</div>
+            </div>
+            <a href="#" data-role="button" data-icon="star">Game Specifications</a>
+            <div class="ui-grid-a">
+    			<div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">Ninja Game</a></div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">XBOX</a></div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">user@gmail.com</a></div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">Ninja Game Just a game of XBox.</a></div>
+			</div>
+            <button class="ui-btn ui-btn-icon-left ui-btn-corner-all">Add to cart</button>
+            <div data-role="collapsible">
+    <h4>Send Message to Saller</h4>
+    <p><form action="" method="get" name="message">
+    <input type="text" placeholder="Title" name="title" />
+    <textarea placeholder="Message" name="message" ></textarea>
+    <input type="submit" name="submit" value="Send" />
+    </form></p>
+</div>
+    
         </div><!-- /content -->
  
         <div data-role="footer">
