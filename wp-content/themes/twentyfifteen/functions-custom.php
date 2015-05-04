@@ -36,6 +36,17 @@ function app_configuration_options()
 	$app_background_color = $option['app_background_color'];
 	$app_icon = $option['app_icon'];
 	$terms_and_conditions = $option['terms_and_conditions'];
+	
+	$guest_daily_purchase =  $option['guest_daily_purchase'];
+	$standard_daily_purchase =  $option['standard_daily_purchase'];
+	$premium_daily_purchase =  $option['premium_daily_purchase'];
+	
+	$guest_daily_transaction =  $option['guest_daily_transaction'];
+	$standard_daily_transaction =  $option['standard_daily_transaction'];
+	$premium_daily_transaction =  $option['premium_daily_transaction'];
+	
+	
+	
  }
 ?>
 
@@ -79,7 +90,7 @@ function app_configuration_options()
             		<fieldset>
                         <legend>App Background Color:</legend>
                          <p><strong>Choose Color :</strong><br />
-                            <input type="text" id="appbgclr" name="appbgclr" value="<?php echo $app_background_color; ?>" />
+                            <input type="text" style="background-color:<?php echo $app_background_color; ?>;" id="appbgclr" name="appbgclr" value="<?php echo $app_background_color; ?>" />
                          </p>
                          <p><strong>App Icon :</strong><br />
                             <input type="file" id="appicon" name="appicon" value="<?php echo $app_icon; ?>" />
@@ -90,9 +101,38 @@ function app_configuration_options()
                 </div>
             </div>
             <div class="confSections">
+            	<div class="confSection" style="width:33%; float:left;">
             	<p><strong>Terms and Conditions:</strong><br />
-                <textarea id="terms" style="width: 500px; height: 200px;" name="terms"><?php echo $terms_and_conditions; ?></textarea>
-            </p>
+                <textarea id="terms" style="width: 95%; height: 200px;" name="terms"><?php echo $terms_and_conditions; ?></textarea></p>
+                </div>
+                <div class="confSection" style="width:33%; float:left;">
+            		<fieldset>
+                        <legend>Max Purchase Amount per Day :</legend>
+                         <p><strong>Guest :</strong><br />
+                            <input type="text" id="guestBuyAmountDay" name="guestBuyAmountDay" value="<?php echo $guest_daily_purchase; ?>" />
+                         </p>
+                         <p><strong>Standard :</strong><br />
+                            <input type="text" id="standardBuyAmountDay" name="standardBuyAmountDay" value="<?php echo $standard_daily_purchase; ?>" />
+                         </p>
+                         <p><strong>Premium :</strong><br />
+                            <input type="text" id="premiumBuyAmountDay" name="premiumBuyAmountDay" value="<?php echo $premium_daily_purchase; ?>" />
+                         </p>
+              		</fieldset>
+                </div>
+                <div class="confSection" style="width:33%; float:left;">
+            		<fieldset>
+                        <legend>Max Transaction per Day :</legend>
+                         <p><strong>Guest :</strong><br />
+                            <input type="text" id="guestTransactionDay" name="guestTransactionDay" value="<?php echo $guest_daily_transaction; ?>" />
+                         </p>
+                         <p><strong>Standard :</strong><br />
+                            <input type="text" id="standardTransactionDay" name="standardTransactionDay" value="<?php echo $standard_daily_transaction; ?>" />
+                         </p>
+                         <p><strong>Premium :</strong><br />
+                            <input type="text" id="premiumTransactionDay" name="premiumTransactionDay" value="<?php echo $premium_daily_transaction; ?>" />
+                         </p>
+              		</fieldset>
+                </div>
             </div>
             <div class="confSections">
             	<p><input type="button" onClick="return submitConfiguration();" name="Submit" value="Store Configuration" /></p>
@@ -105,9 +145,130 @@ function app_configuration_options()
     </div>
 <?php
 }
+
+add_action( 'admin_menu', 'message_board_menu' );
+
+/** Step 1. */
+function message_board_menu() {
+	add_options_page( 'Message Board', 'Message Board', 'manage_options', 'message_board', 'message_board_options' );
+}
+
+/** Step 3. */
+/*function app_configuration_options() {
+	
+	echo '<div class="wrap">';
+	echo '<h2>App Configuration</h2>';
+	echo '<p>Here is where the form would go if I actually had options.</p>';
+	echo '</div>';
+}*/
+ 
+function message_board_options()
+{
+ global $wpdb;
+ $querystr = "SELECT * FROM message_board";
+ $messages = $wpdb->get_results($querystr, ARRAY_A);
 ?>
+
+    <div class="wrap configurationPage">
+        <h2>Message Board</h2>
+        <div class="confSections">
+            	<div class="confSection" style="width:50%; float:left;">
+            		<fieldset>
+                        <legend>Send New Admin Message</legend>
+                         <p><strong>Choose User to Send Message:</strong><br />
+                            <select id="users" name="users">
+                            	<option value="">Choose Reciever</option>
+                                <?php
+								$all_Users = get_users();
+								// Array of WP_User objects.
+								foreach ( $all_Users as $user ) {?>
+                                	<?php $user_ID = get_current_user_id(); 
+									if($user_ID != $user->id) { ?> 
+                                	<option value="<?php echo esc_html($user->id); ?>"><?php echo esc_html($user->display_name); ?></option>
+                                    <?php } ?>
+								<?php }?>
+                            </select>
+                         </p>
+                         <p><strong>Message :</strong><br />
+                           <textarea id="message" style="width: 95%; height: 300px;" name="message"></textarea></p>
+                         </p>
+                         <p><input type="button" onClick="return submitMessage();" name="SubmitMessage" value="Send Message" /></p>
+                         <input type="hidden" name="siteUrl" id="siteUrl" value="<?php echo get_site_url(); ?>">
+              		</fieldset>
+                </div>
+                <div class="confSection" style="width:100%; float:left;">
+ 					<fieldset>
+                        <legend>Message Board History</legend>
+                         <table width="100%" border="1" cellpadding="1" name="message_history" id="message_history">
+                         	<thead style="background: none repeat scroll 0% 0% rgb(203, 203, 204);">
+                            	<tr>
+                                	<th style="text-align: left;">Message ID</th>
+                                    <th style="text-align: left;">Sender</th>
+                                    <th style="text-align: left;">Reciever</th>
+                                    <th style="text-align: left;">Message</th>
+                                    <th style="text-align: left;">Message Type</th>
+                                    <th style="text-align: left;">Options</th>
+                                </tr>
+                         	</thead>
+                            <tbody style="font-size:12px;">
+								<?php
+                                foreach ($messages as $message) {?>
+									<tr>
+                                	<td><?php echo $message['message_id']; ?></td>
+                                    <td><?php if($message['sender_id'] == 'admin')
+										{
+											echo $message['sender_id'];
+										}
+										else
+										{
+											$sender = get_userdata($message['sender_id']); 
+											echo $sender->display_name;	
+										}?>
+									 </td>
+                                    <td><?php $reciever = get_userdata($message['reciever_id']); echo $reciever->display_name; ?></td>
+                                    <td><?php echo $message['message_txt'];?></td>
+                                    <td><?php echo $message['message_type'];?></td>
+                                    <td><a href="javascript:void(0)" onclick="return deleteMessage(<?php echo $message['message_id']; ?>);">Delete</a></td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                         </table>
+              		</fieldset>
+                </div>
+         </div>
+        
+    </div>
+<?php
+}
+?>
+
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">  
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/colorpicker.js"></script>
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/colorpicker.css" type="text/css" />
 <script type="text/javascript">
+$(document).ready(function(){
+	$('#appbgclr').ColorPicker({
+		onSubmit: function(hsb, hex, rgb, el) {
+			$(el).val(hex);
+			$(el).ColorPickerHide();
+		},
+		onBeforeShow: function () {
+			$(this).ColorPickerSetColor(this.value);
+		},
+		onChange: function (hsb, hex, rgb) {
+		$('#appbgclr').css('backgroundColor', '#' + hex);
+		}
+	})
+	.bind('keyup', function(){
+		$(this).ColorPickerSetColor(this.value);
+	});
+	
+	$('#message_history').DataTable();
+});
 function submitConfiguration()
 {
 	var gst = $('#gst').val();
@@ -118,13 +279,21 @@ function submitConfiguration()
 	var standarditemday = $('#standarditemday').val();
 	var premiumitemday = $('#premiumitemday').val();
 	var appbgclr = $('#appbgclr').val();
+	appbgclr = '#'+appbgclr;
 	var appicon = $('#appicon').val();
 	var terms = $('#terms').val();
 	var siteUrl = $('#siteUrl').val();
 	var confID = $('#confID').val();
 	
+	var guestBuyAmountDay = $('#guestBuyAmountDay').val();
+	var standardBuyAmountDay = $('#standardBuyAmountDay').val();
+	var premiumBuyAmountDay = $('#premiumBuyAmountDay').val();
+	var guestTransactionDay = $('#guestTransactionDay').val();
+	var standardTransactionDay = $('#standardTransactionDay').val();
+	var premiumTransactionDay = $('#premiumTransactionDay').val();
 	
-	var data = { gst: gst, desclimit: desclimit,guestcharges: guestcharges ,standardcharges: standardcharges ,premiumcharges: premiumcharges ,standarditemday: standarditemday ,premiumitemday: premiumitemday,appbgclr:appbgclr,appicon:appicon, terms:terms, confID:confID};
+	
+	var data = { gst: gst, desclimit: desclimit,guestcharges: guestcharges ,standardcharges: standardcharges ,premiumcharges: premiumcharges ,standarditemday: standarditemday ,premiumitemday: premiumitemday,appbgclr:appbgclr,appicon:appicon, terms:terms, confID:confID,guestBuyAmountDay:guestBuyAmountDay,standardBuyAmountDay:standardBuyAmountDay,premiumBuyAmountDay:premiumBuyAmountDay,guestTransactionDay:guestTransactionDay,standardTransactionDay:standardTransactionDay,premiumTransactionDay:premiumTransactionDay};
 	var url = siteUrl+'/update_app_configuration.php';
 	$.ajax({
 	  type: "POST",
@@ -137,6 +306,48 @@ function submitConfiguration()
 	});
 	
 	//alert(desclimit);
+}
+
+function deleteMessage(message_id)
+{
+	var siteUrl = $('#siteUrl').val();
+	if(confirm("Are you sure to Delete this Message"))
+	{
+		window.location = siteUrl+'/deleteMessage.php?message_id='+message_id;
+	}
+}
+
+function submitMessage()
+{
+	var sender = 'admin';
+	var reciever = $('#users').val();
+	var message = $('#message').val();
+	var message_type = 'admin';
+	var status = 1;
+	var siteUrl = $('#siteUrl').val();
+	
+	if(reciever != '' || message != '')
+	{
+		var data = { sender: sender, reciever: reciever,message: message ,message_type: message_type ,status: status};
+		var url = siteUrl+'/admin_message.php';
+		$.ajax({
+		  type: "POST",
+		  url: url,
+		  data: data,
+		  success: function(data) 
+		  {
+			  alert(data);
+			  $('#users').val('');
+			  $('#message').val('');
+			  setTimeout(function(){location.reload();},500);
+			  
+		  }
+		});	
+	}
+	else
+	{
+		 alert("Please Enter Message Recipient and Message!");
+	}
 }
 
 $(document).ready(function(){

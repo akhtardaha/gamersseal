@@ -1,6 +1,6 @@
 <?php
-	$link = mysql_connect('localhost', 'root', '');
-	$con = mysql_select_db('gamingmobileapp',$link);
+	include('config.php');
+	
 	//print_r($_FILES);
     if ( 0 < $_FILES['file']['error'] ) {
         echo 'Error: ' . $_FILES['file']['error'] . '<br>';
