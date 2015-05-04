@@ -1,6 +1,5 @@
 <?php
-	$link = mysql_connect('localhost', 'root', '');
-	$con = mysql_select_db('gamingmobileapp',$link);
+	include('config.php');
 	
 	$confID = $_POST['confID'];
     $gst = $_POST['gst'];
