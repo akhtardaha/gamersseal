@@ -742,7 +742,7 @@ function awpcp_opsconfig_categories() {
 
 		// Start the page display
 		$output .= "<div class=\"wrap\"><h2>";
-		$output .= __("AWPCP Classifieds Management System Categories Management","AWPCP");
+		$output .= __("GamerSeal","AWPCP");
 		$output .= "</h2>";
 		if (isset($message) && !empty($message))
 		{
