@@ -1890,3 +1890,5 @@ function wp_clean_plugins_cache( $clear_update_cache = true ) {
 		delete_site_transient( 'update_plugins' );
 	wp_cache_delete( 'plugins', 'plugins' );
 }
+
+
