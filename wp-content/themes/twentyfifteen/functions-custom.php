@@ -1,5 +1,5 @@
 <?php 
-
+ob_start();
 /** Step 2 (from text above). */
 add_action( 'admin_menu', 'my_plugin_menu' );
 
