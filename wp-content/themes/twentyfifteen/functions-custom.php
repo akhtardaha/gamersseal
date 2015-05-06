@@ -1,7 +1,9 @@
 <?php 
 ob_start();
 /** Step 2 (from text above). */
+add_action( 'admin_menu', 'addScripts' );
 add_action( 'admin_menu', 'my_plugin_menu' );
+
 
 /** Step 1. */
 function my_plugin_menu() {
@@ -240,8 +242,9 @@ function message_board_options()
     </div>
 <?php
 }
-?>
 
+function addScripts()
+{?>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">  
@@ -375,4 +378,6 @@ $(document).ready(function(){
 })
 
 </script>
+<?php }
+
 
