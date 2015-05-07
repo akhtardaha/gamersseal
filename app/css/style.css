@@ -45,3 +45,46 @@
 .gallery a img{
 	margin:5px;
 	width:130px;}
+	
+.submitBtn {
+  float: left;
+  width: 100%;
+  color: #000;
+  border-radius: 45px;
+  padding: 10px 0px !important;
+}
+
+.lastRow {
+  float: left;
+  width: 100%;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.error {
+  background: url(../img/error.png) no-repeat 95% center #fff !important;
+  background-size:16px !important;
+}
+
+.pass {
+  background: url(../img/pass.png) no-repeat 95% center #fff !important;
+  background-size:16px !important;
+}
+
+.loadingSmall {
+  background: url(../img/loadingSmall.gif) no-repeat 95% center #fff !important;
+  background-size:16px !important;
+}
+
+.fieldError {
+  float: left;
+  width: 95%;
+  color: #fff;
+  font-size: 15px;
+  background: goldenrod;
+  display: block;
+  border-radius: 7px;
+  padding: 10px 2%;
+  text-shadow: none !important;
+  margin-bottom: 2px;
+}

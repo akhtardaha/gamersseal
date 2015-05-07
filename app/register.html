@@ -21,20 +21,24 @@
         </div><!-- /header -->
  
         <div data-role="content">
+        <div class="fieldError" style="display:none;"></div>
         <form action="" name="login" class="register" onsubmit="return false;">
-        <input type="text" name="Name" placeholder="First Name"/>
-        <input type="text" name="lastName" placeholder="Last Name"/>
+        <input type="text" id="fname" name="fname" placeholder="First Name"/>
+        <input type="text" id="lname" name="lname" placeholder="Last Name"/>
         <input type="text" id="username" name="username" onblur="return checkUsernameExist();" placeholder="User Name" />
         <input type="email" id="email" name="email" onblur="return checkEmailExist();" placeholder="E-mail" />
-        <input type="text" name="id" placeholder="Australian ID"/>
-        <select name="userType">
-        	<option selected="selected">Select User Type</option>
-            <option value="0">Guest</option>
-            <option value="1">Standard</option>
-            <option value="2">Premium</option>
+        <input type="text" id="australianId" name="australianId" placeholder="Australian ID"/>
+        <div class="usertypeSelect">
+        <select name="userType" id="userType">
+        	<option value="" selected="selected">Select User Type</option>
+            <option value="Guest">Guest</option>
+            <option value="Standard">Standard</option>
+            <option value="Preminum">Preminum</option>
         </select>
-        <div class="lastRow"><input type="checkbox" name="terms" /><label>agree with <a href="terms.html" title="terms and conditions">terms and conditions</a></label></div>
-        <input type="button" id="submit" name="SignIn" value="Sign Up" class="submit" />
+        </div>
+        <div class="lastRow"><input type="checkbox" name="terms" id="terms"  /><label>agree with <a href="terms.html" title="terms and conditions">terms and conditions</a></label></div>
+        <a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c" onclick="return registerUser();">Register</a>
+        <!--<input type="button" id="submit" name="SignIn" value="Sign Up" class="submit" />-->
         </form>
         </div><!-- /content -->
  
