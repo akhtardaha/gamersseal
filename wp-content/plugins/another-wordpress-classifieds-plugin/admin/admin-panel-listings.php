@@ -17,8 +17,8 @@ class AWPCP_Admin_Listings extends AWPCP_AdminPageWithTable {
 
     public function __construct($page=false, $title=false) {
         $page = $page ? $page : 'awpcp-admin-listings';
-        $title = $title ? $title : __('AWPCP Classifieds Management System - Manage Ad Listings', 'AWPCP');
-        parent::__construct($page, $title, __('Listings', 'AWPCP'));
+        $title = $title ? $title : __('GamersSeal Products Management System - Manage Products Listings', 'AWPCP');
+        parent::__construct($page, $title, __('Products', 'AWPCP'));
 
         $this->table = null;
 

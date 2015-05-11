@@ -6,7 +6,7 @@ require_once(AWPCP_DIR . '/includes/helpers/admin-page.php');
 class AWPCP_AdminHome extends AWPCP_AdminPage {
 
     public function AWPCP_AdminHome() {
-        parent::__construct('awpcp.php', __('AWPCP Classifieds Management System', 'AWPCP'), __('Classifieds', 'AWPCP'));
+        parent::__construct('awpcp.php', __('GamersSeal Management System', 'AWPCP'), __('GamersSeal', 'AWPCP'));
     }
 
     public function scripts() {

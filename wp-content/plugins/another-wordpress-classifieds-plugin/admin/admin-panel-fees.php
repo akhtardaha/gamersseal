@@ -11,7 +11,7 @@ class AWPCP_AdminFees extends AWPCP_AdminPageWithTable {
 
     public function __construct() {
         $page = 'awpcp-admin-fees';
-        $title = __('AWPCP Classifieds Management System - Listing Fees Management', 'AWPCP');
+        $title = __('GamersSeal Management System - Products Fees Management', 'AWPCP');
         parent::__construct($page, $title, __('Fees', 'AWPCP'));
 
         add_action('wp_ajax_awpcp-fees-add', array($this, 'ajax'));

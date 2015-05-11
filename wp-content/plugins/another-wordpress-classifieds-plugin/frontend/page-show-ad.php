@@ -59,7 +59,6 @@ class AWPCP_Show_Ad_Page {
 	}
 }
 
-
 /**
  * @since 3.0
  */
@@ -148,6 +147,7 @@ function showad( $adid=null, $omitmenu=false, $preview=false, $send_email=true, 
 			$results = AWPCP_Ad::query( array( 'where' => $wpdb->prepare( 'ad_id = %d', $adid ) ) );
 			if (count($results) === 1) {
 				$ad = array_shift($results);
+				$results;
 			} else {
 				$ad = null;
 			}
@@ -167,6 +167,20 @@ function showad( $adid=null, $omitmenu=false, $preview=false, $send_email=true, 
 			$content_after_page = apply_filters( 'awpcp-content-after-listing-page', '' );
 
 			$output = '<div id="classiwrapper">%s%s<!--awpcp-single-ad-layout-->%s</div><!--close classiwrapper-->';
+			
+			
+			global $wpdb;
+ $querystr1 = "SELECT * FROM wp_awpcp_ads WHERE ad_id=$adid";
+ $pageposts1 = $wpdb->get_results($querystr1, ARRAY_A);
+ //print_r($pageposts);
+ foreach ($pageposts1 as $option)
+ {
+	 $ad_title =  $option['ad_title'];
+	$ad_item_price =  $option['ad_item_price'];
+	}
+			//echo $adid;
+			echo do_shortcode( '[scabn name="'.$ad_title.'" price="'.$ad_item_price.'" b_title="Add To Cart"]' );
+
 			$output = sprintf( $output, $content_before_page, $omitmenu ? '' : awpcp_menu_items(), $content_after_page );
 
 			if (!$isadmin && !$is_ad_owner && !$preview && $ad->disabled == 1) {
@@ -209,4 +223,5 @@ function showad( $adid=null, $omitmenu=false, $preview=false, $send_email=true, 
 	}
 
 	return $output;
+	
 }

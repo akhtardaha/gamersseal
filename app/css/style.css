@@ -1,0 +1,90 @@
+@charset "utf-8";
+/* CSS Document */
+.terms{
+	text-align:justify;}
+.lastRow{
+	position:relative;}
+.lastRow label{
+	position:absolute;
+	left:40px;}
+.lastRow .ui-checkbox{
+	top:10px;}
+.register .ui-submit{margin-top:25px !important;}
+.ui-submit{
+	float:left;
+	}
+.ui-clear{
+	clear:both;}
+.file{
+	padding:5px 15px;
+	margin:5px 0;
+	}
+.filterCat{
+	margin-bottom:25px;}
+.portfolio-item .ui-btn-icon-notext, .ui-li>.ui-btn-inner{
+	padding:0px !important;}
+.fileImg{
+		padding:5px 18px;}
+.products .ui-corner-tr{
+	border-radius:0px !important;}
+.gallery {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align:center;
+}
+.gallery a{
+ /* width: 33.33333333%;*/
+ width:140px;
+  display: inline-block;
+}
+.ui-icon-cart{
+	background:url(../img/cart.png) no-repeat !important;
+	background-size:18px 18px !important;
+	}
+.gallery a img{
+	margin:5px;
+	width:130px;}
+	
+.submitBtn {
+  float: left;
+  width: 100%;
+  color: #000;
+  border-radius: 45px;
+  padding: 10px 0px !important;
+}
+
+.lastRow {
+  float: left;
+  width: 100%;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.error {
+  background: url(../img/error.png) no-repeat 95% center #fff !important;
+  background-size:16px !important;
+}
+
+.pass {
+  background: url(../img/pass.png) no-repeat 95% center #fff !important;
+  background-size:16px !important;
+}
+
+.loadingSmall {
+  background: url(../img/loadingSmall.gif) no-repeat 95% center #fff !important;
+  background-size:16px !important;
+}
+
+.fieldError {
+  float: left;
+  width: 95%;
+  color: #fff;
+  font-size: 15px;
+  background: goldenrod;
+  display: block;
+  border-radius: 7px;
+  padding: 10px 2%;
+  text-shadow: none !important;
+  margin-bottom: 2px;
+}

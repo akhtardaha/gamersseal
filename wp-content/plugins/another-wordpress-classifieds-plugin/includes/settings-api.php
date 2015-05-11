@@ -45,7 +45,7 @@ class AWPCP_Settings_API {
 
 		$key = $this->add_section( $group, __( 'User Ad Management Panel', 'AWPCP' ), 'user-panel', 5, array( $this, 'section' ) );
 
-		$help_text = __( 'You must have registered users to use this setting. Turning it on will automatically enable "Require Registration" for AWPCP. Make sure you site allows users to register under <wp-settings-link>Settings->General</a>.', 'AWPCP' );
+		$help_text = __( 'You must have registered users to use this setting. Turning it on will automatically enable "Require Registration" for GamersSeal. Make sure you site allows users to register under <wp-settings-link>Settings->General</a>.', 'AWPCP' );
 		$help_text = str_replace( '<wp-settings-link>', sprintf( '<a href="%s">', admin_url( 'options-general.php' ) ), $help_text );
 		$this->add_setting( $key, 'enable-user-panel', __( 'Enable User Ad Management Panel', 'AWPCP' ), 'checkbox', 0, $help_text );
 
@@ -60,7 +60,7 @@ class AWPCP_Settings_API {
 		$this->add_setting( $key, 'uiwelcome', __( 'Welcome message in Classified page', 'AWPCP' ), 'textarea', __( 'Looking for a job? Trying to find a date? Looking for an apartment? Browse our classifieds. Have a job to advertise? An apartment to rent? Post a Classified Ad.', 'AWPCP' ), __( 'The welcome text for your classified page on the user side', 'AWPCP' ) );
 
         $options = array('admin' => __( 'Administrator', 'AWPCP' ), 'admin,editor' => __( 'Administrator & Editor', 'AWPCP' ) );
-        $this->add_setting( $key, 'awpcpadminaccesslevel', __( 'Who can access AWPCP Admin Dashboard', 'AWPCP' ), 'radio', 'admin', __( 'Role of WordPress users who can have admin access to Classifieds.', 'AWPCP' ), array( 'options' => $options ) );
+        $this->add_setting( $key, 'awpcpadminaccesslevel', __( 'Who can access GamersSeal Admin Dashboard', 'AWPCP' ), 'radio', 'admin', __( 'Role of WordPress users who can have admin access to Classifieds.', 'AWPCP' ), array( 'options' => $options ) );
 		$this->add_setting( $key, 'awpcppagefilterswitch', __( 'Enable page filter', 'AWPCP' ), 'checkbox', 1, __( 'Uncheck this if you need to turn off the AWPCP page filter that prevents AWPCP classifieds children pages from showing up in your wp pages menu (You might need to do this if for example the AWPCP page filter is messing up your page menu. It means you will have to manually exclude the AWPCP children pages from showing in your page list. Some of the pages really should not be visible to your users by default).', 'AWPCP') );
 
 		// Section: General - Date & Time Format
@@ -144,7 +144,7 @@ class AWPCP_Settings_API {
 
 		$key = $this->add_section($group, __('Classifieds Pages', 'AWPCP'), 'default', 10, array($this, 'section'));
 
-		$this->add_setting( $key, 'main-page-name', __( 'AWPCP Main page', 'AWPCP' ), 'textfield', 'AWPCP', __( 'Name for Classifieds page.', 'AWPCP' ) );
+		$this->add_setting( $key, 'main-page-name', __( 'GamersSeal Main page', 'AWPCP' ), 'textfield', 'AWPCP', __( 'Name for Classifieds page.', 'AWPCP' ) );
 		$this->add_setting( $key, 'show-ads-page-name', __( 'Show Ad page', 'AWPCP' ), 'textfield', 'Show Ad', __( 'Name for Show Ads page.', 'AWPCP' ) );
 		$this->add_setting( $key, 'place-ad-page-name', __( 'Place Ad page', 'AWPCP' ), 'textfield', 'Place Ad', __( 'Name for Place Ads page.', 'AWPCP' ) );
 		$this->add_setting( $key, 'edit-ad-page-name', __( 'Edit Ad page', 'AWPCP' ), 'textfield', 'Edit Ad', __( 'Name for edit ad page.', 'AWPCP' ) );
@@ -320,7 +320,7 @@ class AWPCP_Settings_API {
 
 		$this->add_setting( $key, 'imagesallowdisallow', __( 'Allow images in Ads?', 'AWPCP' ), 'checkbox', 1, __( 'Allow images in ads? (affects both free and pay mode)', 'AWPCP' ) );
 		$this->add_setting( $key, 'imagesapprove', __( 'Hide images until admin approves them', 'AWPCP' ), 'checkbox', 0, '');
-		$this->add_setting( $key, 'awpcp_thickbox_disabled', __( 'Disable AWPCP Lightbox feature', 'AWPCP' ), 'checkbox', 0, __( 'Turn off the lightbox/thickbox element used by AWPCP. Some themes cannot handle it and a conflict results.', 'AWPCP' ) );
+		$this->add_setting( $key, 'awpcp_thickbox_disabled', __( 'Disable GamersSeal Lightbox feature', 'AWPCP' ), 'checkbox', 0, __( 'Turn off the lightbox/thickbox element used by AWPCP. Some themes cannot handle it and a conflict results.', 'AWPCP' ) );
 		$this->add_setting( $key, 'show-click-to-enlarge-link', __( 'Show click to enlarge link?', 'AWPCP' ), 'checkbox', 1, '' );
 		$this->add_setting( $key, 'imagesallowedfree', __( 'Number of images allowed in Free mode', 'AWPCP' ), 'textfield', 4, __( 'Number of Image Uploads Allowed (Free Mode)', 'AWPCP' ) );
 
