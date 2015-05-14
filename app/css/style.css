@@ -88,3 +88,9 @@
   text-shadow: none !important;
   margin-bottom: 2px;
 }
+
+.tabContent
+{
+	float:left;
+	width:100%;
+}
