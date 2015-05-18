@@ -42,9 +42,10 @@
 	background:url(../img/cart.png) no-repeat !important;
 	background-size:18px 18px !important;
 	}
-.gallery a img{
-	margin:5px;
-	width:130px;}
+.gallery a img {
+  margin: 5px;
+  width: 95%;
+}
 	
 .submitBtn {
   float: left;

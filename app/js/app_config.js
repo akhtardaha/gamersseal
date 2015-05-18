@@ -2,12 +2,12 @@
 
 var API_URL ='http://gamersseal.com/development/api/userplus/';
 var API_URL_DEFAULT ='http://gamersseal.com/development/api/';
+var GAME_IMAGES_PATH = 'http://gamersseal.com/development/wp-content/uploads/wpmp-previews/';
 
 
 
 $(document).ready(function(){
-	//$('.content').css('height',totalScreenHeight+'px');
-	//alert(totalScreenHeight);
+
 })
 
 function goBack() {
@@ -76,9 +76,9 @@ function dateFormat(dateObject) {
         month = "0" + month;
     }
     var date = day + "/" + month + "/" + year;
-
     return date;
 }
+
 
 function signOutUser()
 {
