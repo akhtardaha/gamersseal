@@ -32,8 +32,8 @@ function getPosts(type)
 				{
 					$.each(posts, function (i, value) {
 						if(counter == totalPosts){ var last = 'last'} else {var last ='';}
-						html += '<li class="item '+last+'"><a href="single.html?id='+value.id+'">';
-						html += '<img src="http://gamersseal.com/development/wp-content/uploads/wpmp-previews/'+value.custom_fields.images[0]+'">';
+						html += '<li class="item '+last+'"><a href="single.html?post_id='+value.id+'">';
+						html += '<img src="'+GAME_IMAGES_PATH+value.custom_fields.images[0]+'">';
 						html += '<h2>'+value.title+'</h2>';
 						html += '<p>'+value.excerpt+'</p>';
 						//console.log(decodeURIComponent( $.param(value.custom_fields.images[0]) ));
