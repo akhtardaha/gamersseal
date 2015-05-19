@@ -55,6 +55,7 @@ function getPostDetail(post_id)
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.name+'</a></div>';
                  descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt+'</a></div>';
+				 $('#seller_id').val(author.id);
 				 console.log(descBoxes);
 				 $('.descBoxes').html(descBoxes);
 			}
@@ -73,4 +74,59 @@ function getPostDetail(post_id)
     });
 		
 }
+
+function sendMessagetoSeller()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var seller_id = $('#seller_id').val();
+		var title = $('#title').val();
+		var message = $('#message').val();
+		var url = API_URL+'send_message_seller/?key=1234567891011&user_id='+user_id+'&seller_id='+seller_id+'&title='+title+'&message='+message;
+		console.log(url);
+		var html = '';
+		var imageGallery = '';
+		var descBoxes = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			stopLoading();
+			console.log(data);
+			if(data.status == 'ok')
+			{
+				$('#title').val('');
+				$('#message').val('');
+				console.log(data.msg.status);
+				navigator.notification.alert(
+                    data.msg.status,  // message
+                    function(){},         // callback
+                    'Sending Message to Seller',            // title
+                    'OK'                  // buttonName
+                );
+			}
+			else
+			{
+				console.log(data.msg.status);
+				navigator.notification.alert(
+                    data.msg.status,  // message
+                    function(){},         // callback
+                    'Sending Message to Seller',            // title
+                    'OK'                  // buttonName
+                );
+				//html += '<p>'+data.error+'</p>';
+				
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
+
 

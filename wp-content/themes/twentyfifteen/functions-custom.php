@@ -167,7 +167,7 @@ function message_board_menu() {
 function message_board_options()
 {
  global $wpdb;
- $querystr = "SELECT * FROM message_board";
+ $querystr = "SELECT * FROM message_board ORDER BY message_id DESC";
  $messages = $wpdb->get_results($querystr, ARRAY_A);
 ?>
 
@@ -178,7 +178,7 @@ function message_board_options()
             		<fieldset>
                         <legend>Send New Admin Message</legend>
                          <p><strong>Choose User to Send Message:</strong><br />
-                            <select id="users" name="users">
+                            <select style="width: 50%; border: thin solid rgb(161, 172, 191); height: 32px;" id="users" name="users">
                             	<option value="">Choose Reciever</option>
                                 <?php
 								$all_Users = get_users();
@@ -190,6 +190,9 @@ function message_board_options()
                                     <?php } ?>
 								<?php }?>
                             </select>
+                         </p>
+                         <p><strong>Message Title :</strong><br />
+                           <input id="title" style="width: 50%; border: thin solid rgb(161, 172, 191); height: 32px;"  name="title" /></p>
                          </p>
                          <p><strong>Message :</strong><br />
                            <textarea id="message" style="width: 95%; height: 300px;" name="message"></textarea></p>
@@ -207,6 +210,7 @@ function message_board_options()
                                 	<th style="text-align: left;">Message ID</th>
                                     <th style="text-align: left;">Sender</th>
                                     <th style="text-align: left;">Reciever</th>
+                                    <th style="text-align: left;">Title</th>
                                     <th style="text-align: left;">Message</th>
                                     <th style="text-align: left;">Message Type</th>
                                     <th style="text-align: left;">Options</th>
@@ -228,6 +232,7 @@ function message_board_options()
 										}?>
 									 </td>
                                     <td><?php $reciever = get_userdata($message['reciever_id']); echo $reciever->display_name; ?></td>
+                                    <td><?php echo $message['message_title'];?></td>
                                     <td><?php echo $message['message_txt'];?></td>
                                     <td><?php echo $message['message_type'];?></td>
                                     <td><a href="javascript:void(0)" onclick="return deleteMessage(<?php echo $message['message_id']; ?>);">Delete</a></td>
@@ -246,6 +251,7 @@ function message_board_options()
 function addScripts()
 {?>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">  
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
 
@@ -323,6 +329,7 @@ function submitMessage()
 {
 	var sender = 'admin';
 	var reciever = $('#users').val();
+	var title = $('#title').val();
 	var message = $('#message').val();
 	var message_type = 'admin';
 	var status = 1;
@@ -330,7 +337,7 @@ function submitMessage()
 	
 	if(reciever != '' || message != '')
 	{
-		var data = { sender: sender, reciever: reciever,message: message ,message_type: message_type ,status: status};
+		var data = { sender: sender, reciever: reciever, title:title, message: message ,message_type: message_type ,status: status};
 		var url = siteUrl+'/admin_message.php';
 		$.ajax({
 		  type: "POST",
@@ -339,7 +346,8 @@ function submitMessage()
 		  success: function(data) 
 		  {
 			  alert(data);
-			  $('#users').val('');
+			  $('#users').val(''); 
+			  $('#title').val('');
 			  $('#message').val('');
 			  setTimeout(function(){location.reload();},500);
 			  
@@ -378,3 +386,5 @@ $(document).ready(function(){
 
 </script>
 <?php }
+
+
