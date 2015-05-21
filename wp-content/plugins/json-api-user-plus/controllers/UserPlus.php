@@ -3420,6 +3420,81 @@ public function delete_account(){
   		
 		
   	}
+	
+	
+	public function fetch_products_categories(){
+
+  		global $json_api;
+		global $wpdb;	
+			
+			$query = "SELECT terms.term_id,terms.slug,terms.name,taxonomy.term_taxonomy_id FROM wp_terms as terms INNER JOIN wp_term_taxonomy as taxonomy ON terms.term_id=taxonomy.term_taxonomy_id WHERE taxonomy.taxonomy = 'ptype'";
+			$categories = $wpdb->get_results($query);
+			if($categories)
+			{
+				return array('data' => $categories);
+				
+			}
+			else
+			{
+				return array('msg'=>"There is some Error while fetching categories.");
+			}
+				
+		
+  		
+		
+  	}
+	
+	public function fetch_category_products()
+	{
+		global $json_api;
+		global $wpdb;
+		
+		if(!$json_api->query->term_id)
+		{
+			$json_api->error("You must include 'term_id' var in your request. ");	
+		}
+		else
+		{
+		$term_id = $json_api->query->term_id;
+		$postsArray = get_posts(array(
+			'post_type' => 'wpmarketplace',
+			'tax_query' => array(
+				array(
+				'taxonomy' => 'ptype',
+				'field' => 'term_id',
+				'terms' => $term_id)
+			))
+		);
+		$allProducts = array();
+		$custom_fields = array();
+		if($postsArray)
+			{
+				foreach($postsArray as $product)
+				{
+					$product_id = $product->ID;
+					$custom_fields_object = get_post_custom($product_id);
+					foreach ($custom_fields_object as $key => $value ) {
+						if($key == 'images' || $key == 'images1')
+						{
+						$custom_fields[$key] = unserialize($value[0]);
+						}
+						else
+						{
+						$custom_fields[$key] = $value;	
+						}
+					 }
+					$product->custom_fields = $custom_fields;
+					$allProducts[] = $product;
+				}
+				return array('products' => $allProducts);
+				
+			}
+			else
+			{
+				return array('msg'=>"There is some Error while fetching products.");
+			}
+		}
+	}
 
   
 

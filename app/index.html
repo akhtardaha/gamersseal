@@ -48,13 +48,9 @@
             <a href="#">XBOX360</a>
             <a href="#">PS3</a>
             <a href="#">PSP</a>
-            <a href="#">XBOX</a>
-            <a href="#">XBOX360</a>
-            <a href="#">PS3</a>
-            <a href="#">PSP</a>
         </div>
         <form name="product-dropdown" id="product-dropdown">
-        	<select name="product" id="product-filter" class="mobile-dropdown">
+        	<select name="product" id="product-filter" class="mobile-dropdown" onchange="return gotoProduct();">
             	<option>Select</option>
                 <option value="1">Moha</option>
                 <option value="2">Ninja</option>
@@ -63,35 +59,35 @@
             </select>
         </form>
         <div class="home-tabs" id="home-tabs">
-  <ul>
-    <li class="tab-open"><a href="#tabs-1">Recent Viewed</a></li>
-    <li><a href="#tabs-2">Newest Items</a></li>
-  </ul>
-  <div id="tabs-1" style="display:block;">
-    <ul  class="products-list">
-    	<li><a href="#">
-        	<img src="img/game.jpg" alt="ninja" class="product-thumb"/>
-            <div class="product-list-right">
-            <h5>Moha</h5>
-            <p>its networking game like ware zone...</p>
-            <span class="price">Price: 175$</span>
-            </div>
-        </a></li>
-        <li><a href="#">
-        	<img src="img/game.jpg" alt="ninja" class="product-thumb"/>
-            <div class="product-list-right">
-            <h5>counter Force</h5>
-            <p>its networking game like ware zone...</p>
-            <span class="price">Price: 1245$</span>
-            </div>
-        </a></li>
-        <li><a href="#">
-        	<img src="img/game.jpg" alt="ninja" class="product-thumb"/>
-            <div class="product-list-right">
-            <h5>Moha</h5>
-            <p>its networking game like ware zone...</p>
-            <span class="price">Price: 55$</span>
-            </div>
+          <ul>
+            <li class="tab-open"><a href="#tabs-1">Recent Viewed</a></li>
+            <li><a href="#tabs-2">Newest Items</a></li>
+          </ul>
+          <div id="tabs-1" style="display:block;">
+            <ul  class="products-list">
+                <li><a href="#">
+                    <img src="img/game.jpg" alt="ninja" class="product-thumb"/>
+                    <div class="product-list-right">
+                    <h5>Moha</h5>
+                    <p>its networking game like ware zone...</p>
+                    <span class="price">Price: 175$</span>
+                    </div>
+                </a></li>
+                <li><a href="#">
+                    <img src="img/game.jpg" alt="ninja" class="product-thumb"/>
+                    <div class="product-list-right">
+                    <h5>counter Force</h5>
+                    <p>its networking game like ware zone...</p>
+                    <span class="price">Price: 1245$</span>
+                    </div>
+                </a></li>
+                <li><a href="#">
+                    <img src="img/game.jpg" alt="ninja" class="product-thumb"/>
+                    <div class="product-list-right">
+                    <h5>Moha</h5>
+                    <p>its networking game like ware zone...</p>
+                    <span class="price">Price: 55$</span>
+           </div>
         </a></li>
     </ul>
   </div>

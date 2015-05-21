@@ -106,16 +106,18 @@ input.search{
   height: 20px;
   padding:3px 0 3px 8%;
 	}
-.categoury-box a{
+.categoury-box a {
   text-decoration: none;
-  display:inline-block;
-  float:left;
+  display: inline-block;
+  float: left;
   color: #000;
   margin: 5px;
-  padding: 5px 25px;
+  padding: 5px 13px;
   border: 1px solid #ccc;
   border-radius: 15px;
-	}
+  font-size: 15px;
+  font-family: arial;
+}
 .categoury-box{
 	display:block;
 	float:left;
