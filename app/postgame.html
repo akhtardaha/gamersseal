@@ -5,17 +5,39 @@
 <title>Post a Game Gamers Seal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
-	<link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css">
     <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.2.0.min.js"></script>
 </head>
 <body>
-    <div data-role="page">
-	 <div data-role="header" data-theme="c">
-      	<a href="index.html" data-icon="home" data-transition="flip" data-theme="c" data-corners="false">Home</a>
-        <h4 class="ui-title" role="heading" aria-level="1"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4></div><!-- /header -->
- 
-        <div data-role="content">
+    <div class="page-wraper">
+	  <div class="header">
+     	<div class="cart"><a href="cart.html"><img src="img/cart.png" alt="Cart"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
+        </div>
+ <div class="main-wraper">
+        <div class="slide-menu close">
+           <ul >
+           		<li><a href="#">Continue Shopping</a></li>
+                <li><a href="#">Shopping Cart</a></li>
+                <li><a href="#">Message Board</a></li>
+                <li><a href="#">Order Status (for buyer)</a></li>
+                <li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>
+                <li><a href="#">Stock Management (for Buyer)</a></li>
+                <li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>
+                <li class="bdr-btm"><a href="#">Settings</a></li>
+                <li><a href="#">Sales Reports</a></li>
+                <li class="bdr-btm"><a href="#">Hall of Fame</a></li>
+				<li class="loginMenu"><a href="login.html">Sign in</a></li>
+                <li class="registerMenu"><a href="register.html">Sign up</a></li>
+                <li class="profileMenu"><a href="profile.html">Profile</a></li>
+				<li><a href="postgame.html">Post a Game</a></li>
+				<li class="gameMenu"><a href="games.html">Buy Games</a></li>
+                <li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>
+			</ul>
+        </div>
+        
+        <div class="content-wraper">
         <form action="" name="addgame" class="addgame">
         <select name="gameType">
         	<option selected="selected">Select Game Type</option>
@@ -23,10 +45,15 @@
             <option value="2">PSP</option>
             <option value="3">PS3</option>
         </select>
-        <input type="text" name="title" placeholder="Title"/>
-        <input type="text" name="price" placeholder="Price"/>
-        <input type="email" name="email" placeholder="Contact Person's E-mail" />
-        <textarea placeholder="Details" name="details"></textarea>
+        <input type="text" name="title" placeholder="Title" class="search not-srch"/>
+        <input type="text" name="price" placeholder="Price" class="search not-srch"/>
+        <input type="email" name="email" placeholder="Contact Person's E-mail" class="search not-srch" />
+        <input type="text" name="delivery-time" placeholder="Delivery Time" class="search not-srch"/>
+        <input type="text" name="stock" placeholder="Stock" class="search not-srch"/>
+        <input type="text" name="shiping-cost" placeholder="Shipping Cost" class="search not-srch"/>
+        <input type="text" name="min-order" placeholder="Minimum Order" class="search not-srch"/>
+        <input type="text" name="max-order" placeholder="Maximum Order" class="search not-srch"/>
+        <textarea placeholder="Details" name="details" class="search not-srch"></textarea>
         <label class="fileImg">Add Images:</label>
         <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c file">
        		<input type="file" name="image1" />
@@ -43,11 +70,22 @@
         <div class="ui-input-text ui-shadow-inset ui-corner-all ui-btn-shadow ui-body-c file">
         	<input name="image2" type="file" />
         </div>
-        <input type="submit" name="SignIn" value="Add"  />
+        <select name="age-limit">
+        	<option selected="selected">Age Restriction</option>
+            <option value="15">15+</option>
+            <option value="18">18+</option>
+            <option value="20">20+</option>
+        </select>
+        <select name="visible">
+        	<option selected="selected">visible</option>
+            <option value="1">YES</option>
+            <option value="0">NO</option>
+        </select>
+        <input type="submit" name="SignIn" value="Add" class="search btn not-srch" />
         </form>
-        </div><!-- /content -->
+        </div></div><!-- /content -->
  
-        <div data-role="footer" data-theme="c">
+        <div class="footer">
             <h4>Powered by GamersSeal</h4>
         </div><!-- /footer -->
  

@@ -6,6 +6,9 @@ body{
 	padding:0;
 	overflow-x:hidden;
 	}
+p, h1, h2, h3, h4, h5{
+	margin:5px 0;
+	padding:0;}
 a{
 	text-decoration:none;
 	color:#000;
@@ -22,6 +25,8 @@ a{
 	display:block;
 	width:100%;
 	float:left;}
+.home-tabs ul.products-list li a{
+	}
 .product-thumb{
 	width:30%;
 	height:auto;
@@ -93,7 +98,29 @@ select.mobile-dropdown, select{
 	padding-left:10px;
 	width:100%;
 	margin:10px 0;
+	border-radius:15px;
 	}
+.specification{
+	text-align:center;
+	font-size:20px;
+	width:100%;
+	display:block;
+	float:left;
+	border:1px solid #ccc;
+	border-radius:25px;
+	margin: 10px 0;
+  	padding: 5px 0;}
+.a-btn, .a-btn.submitBtn{
+	border:1px solid #ccc;
+	padding:5px 15px !important;
+	}
+.descBoxes .ui-block-a, .descBoxes .ui-block-b{
+	width:48%;
+	float:left;
+	display:block;
+	padding:0 1%;}
+h4.send{
+	margin:0px 0;}
 .search.btn.not-srch{
 	width:auto;
 	padding:5px 15px;
@@ -232,9 +259,10 @@ input.search{
   float: left;
   width: 100%;
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
-
+.register{
+	width:95%;}
 .error {
   background: url(../img/error.png) no-repeat 95% center #fff !important;
   background-size:16px !important;

@@ -5,32 +5,50 @@
 <title>Games Gamers Seal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css">
     <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.2.0.min.js"></script>
     <script src="js/app_config.js"></script>
     <script src="js/gameDetail.js"></script>
 </head>
 <body>
-    <div data-role="page">
-	 <div data-role="header" data-theme="c">
-     <a href="games.html" data-icon="arrow-l" data-transition="flip" data-theme="c" data-corners="false">Back</a>
-        <h4 class="ui-title" role="heading" aria-level="1"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
-       <a href="cart.html" data-icon="cart" data-transition="flip" data-theme="c" data-corners="false">Cart (0)</a>
+    <div class="page-wraper">
+	 <div class="header">
+     	<div class="cart"><a href="cart.html"><img src="img/cart.png" alt="Cart"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
         </div><!-- /header -->
- 
-        <div data-role="content">
+  <div class="main-wraper">
+        <div class="slide-menu close">
+           <ul >
+           		<li><a href="#">Continue Shopping</a></li>
+                <li><a href="#">Shopping Cart</a></li>
+                <li><a href="#">Message Board</a></li>
+                <li><a href="#">Order Status (for buyer)</a></li>
+                <li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>
+                <li><a href="#">Stock Management (for Buyer)</a></li>
+                <li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>
+                <li class="bdr-btm"><a href="#">Settings</a></li>
+                <li><a href="#">Sales Reports</a></li>
+                <li class="bdr-btm"><a href="#">Hall of Fame</a></li>
+				<li class="loginMenu"><a href="login.html">Sign in</a></li>
+                <li class="registerMenu"><a href="register.html">Sign up</a></li>
+                <li class="profileMenu"><a href="profile.html">Profile</a></li>
+				<li><a href="postgame.html">Post a Game</a></li>
+				<li class="gameMenu"><a href="games.html">Buy Games</a></li>
+                <li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>
+			</ul>
+        </div>
+        <div class="content-wraper">
+  		
         	<div class="gallery">
-            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 01" class="popphoto"></a>
-            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 02" class="popphoto"></a>
-            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 03" class="popphoto"></a>
-            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 04" class="popphoto"></a>
-            <a href="#popupNinja" data-rel="popup" data-position-to="window" data-transition="fade"><img src="img/game.jpg" alt="Game Image 05" class="popphoto"></a>
-            <div data-role="popup" id="popupNinja" data-overlay-theme="c" data-theme="c" data-corners="false">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-notext ui-btn-up-a" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" title="Close"><span class="ui-btn-inner"><span class="ui-btn-text">Close</span><span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span></span></a><img class="popphoto" src="img/game.jpg" style="max-height:512px;" alt="Paris, France">
-</div>
+            <a href="#"><img src="img/game.jpg" alt="Game Image 01" class="popphoto"></a>
+            <a href="#"><img src="img/game.jpg" alt="Game Image 02" class="popphoto"></a>
+            <a href="#"><img src="img/game.jpg" alt="Game Image 03" class="popphoto"></a>
+            <a href="#"><img src="img/game.jpg" alt="Game Image 04" class="popphoto"></a>
+            <a href="#"><img src="img/game.jpg" alt="Game Image 05" class="popphoto"></a>
+            
             </div>
-            <a href="#" data-role="button" data-icon="star">Game Specifications</a>
+            <a href="#" class="specification">Game Specifications</a>
             <div class="ui-grid-a descBoxes">
     			<div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>
    				<div class="ui-block-b"><a class="ui-shadow ui-btn">Ninja Game</a></div>
@@ -41,20 +59,20 @@
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>
    				<div class="ui-block-b"><a class="ui-shadow ui-btn">Ninja Game Just a game of XBox.</a></div>
 			</div>
-            <button class="ui-btn ui-btn-icon-left ui-btn-corner-all">Add to cart</button>
-            <div data-role="collapsible">
-    <h4>Send Message to Saller</h4>
-    <p><form action="" method="get" name="message">
-    <input type="text" id="title" placeholder="Title" name="title" />
+            <button class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>
+            <div>
+    <h4 class="send">Send Message to Saller</h4>
+    <form action="" method="get" name="message">
+    <input type="text" id="title" placeholder="Title" name="title" class="search not-srch" />
     <input type="hidden" id="seller_id" />
-    <textarea id="message" placeholder="Message" name="message" ></textarea>
-    <input type="button" name="submit" onclick="return sendMessagetoSeller();" value="Send" />
-    </form></p>
-</div>
+    <textarea id="message" placeholder="Message" name="message" class="search not-srch" ></textarea>
+    <input type="button" name="submit" onclick="return sendMessagetoSeller();" value="Send" class="search btn not-srch" />
+    </form>
     
         </div><!-- /content -->
- 
-        <div data-role="footer" data-theme="c">
+ </div>
+  </div>
+        <div class="footer">
             <h4>Powered by GamersSeal</h4>
         </div><!-- /footer -->
  

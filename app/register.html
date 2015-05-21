@@ -5,29 +5,58 @@
 <title>Login Gamers Seal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css">
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.2.0.min.js"></script>
     <script src="js/app_config.js"></script>
     <script src="js/register.js"></script>
 </head>
 <body>
-    <div data-role="page">
-	 <div data-role="header" data-theme="c">
-     <a href="index.html" data-icon="home" data-transition="flip" data-theme="c" data-corners="false">Home</a>
-        <h4 class="ui-title" role="heading" aria-level="1"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
-        <a href="cart.html" data-icon="cart" data-transition="flip" data-theme="c" data-corners="false">Cart (0)</a>
+    <div class="page-wraper">
+	 <div class="header">
+     	<div class="cart"><a href="cart.html"><img src="img/cart.png" alt="Cart"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
         </div><!-- /header -->
- 
-        <div data-role="content">
+  <div class="main-wraper">
+        <div class="slide-menu close">
+           <ul >
+           		<li><a href="#">Continue Shopping</a></li>
+                <li><a href="#">Shopping Cart</a></li>
+                <li><a href="#">Message Board</a></li>
+                <li><a href="#">Order Status (for buyer)</a></li>
+                <li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>
+                <li><a href="#">Stock Management (for Buyer)</a></li>
+                <li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>
+                <li class="bdr-btm"><a href="#">Settings</a></li>
+                <li><a href="#">Sales Reports</a></li>
+                <li class="bdr-btm"><a href="#">Hall of Fame</a></li>
+				<li class="loginMenu"><a href="login.html">Sign in</a></li>
+                <li class="registerMenu"><a href="register.html">Sign up</a></li>
+                <li class="profileMenu"><a href="profile.html">Profile</a></li>
+				<li><a href="postgame.html">Post a Game</a></li>
+				<li class="gameMenu"><a href="games.html">Buy Games</a></li>
+                <li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>
+			</ul>
+        </div>
+        <div class="content-wraper"><!-- /header -->
         <div class="fieldError" style="display:none;"></div>
         <form action="" name="login" class="register" onsubmit="return false;">
-        <input type="text" id="fname" name="fname" placeholder="First Name"/>
-        <input type="text" id="lname" name="lname" placeholder="Last Name"/>
-        <input type="text" id="username" name="username" onblur="return checkUsernameExist();" placeholder="User Name" />
-        <input type="email" id="email" name="email" onblur="return checkEmailExist();" placeholder="E-mail" />
-        <input type="text" id="australianId" name="australianId" placeholder="Australian ID"/>
+        <input type="text" id="fname" name="fname" class="search not-srch" placeholder="First Name"/>
+        <input type="text" id="lname" name="lname" class="search not-srch" placeholder="Last Name"/>
+        <input type="text" id="username" name="username" class="search not-srch" onblur="return checkUsernameExist();" placeholder="User Name" />
+        <input type="email" id="email" name="email" class="search not-srch" onblur="return checkEmailExist();" placeholder="E-mail" />
+        <input type="text" id="dob" name="dob" class="search not-srch" placeholder="DOB"/>
+        <input type="text" id="address" name="address" class="search not-srch" placeholder="Address"/>
+        <input type="text" id="Suburb" name="Suburb" class="search not-srch" placeholder="Suburb"/>
+        <input type="text" id="state" name="state" class="search not-srch" placeholder="State"/>
+        <input type="text" id="postcode" name="postcode" class="search not-srch" placeholder="Post Code"/>
+        <input type="text" id="hphone" name="hphone" class="search not-srch" placeholder="Home Phone"/>
+        <input type="text" id="mphone" name="mphone" class="search not-srch" placeholder="Mobile Phone"/>
+        <input type="text" id="abn" name="abn" class="search not-srch" placeholder="ABN#"/>
+        <input type="text" id="mphone" name="mphone" class="search not-srch" placeholder="Driving Licince"/>
+        <input type="text" id="passport" name="passport" class="search not-srch" placeholder="Passport#"/>
+        <input type="text" id="australianId" class="search not-srch" name="australianId" placeholder="Australian ID"/>
         <div class="usertypeSelect">
         <select name="userType" id="userType">
         	<option value="" selected="selected">Select User Type</option>
@@ -36,13 +65,15 @@
             <option value="Preminum">Preminum</option>
         </select>
         </div>
+        <input type="password" id="pass" name="password" class="search not-srch" placeholder="Password"/>
+        <input type="password" id="pass-c" name="password-c" class="search not-srch" placeholder="Confirm Password"/>
         <div class="lastRow"><input type="checkbox" name="terms" id="terms"  /><label>agree with <a href="terms.html" title="terms and conditions">terms and conditions</a></label></div>
-        <a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c" onclick="return registerUser();">Register</a>
-        <!--<input type="button" id="submit" name="SignIn" value="Sign Up" class="submit" />-->
+        <a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c search btn not-srch a-btn" onclick="return registerUser();">Register</a>
+       
         </form>
-        </div><!-- /content -->
+        </div></div><!-- /content -->
  
-        <div data-role="footer"  data-position="fixed" data-theme="c">
+        <div class="footer">
             <h4>Powered by GamersSeal</h4>
         </div><!-- /footer -->
  
