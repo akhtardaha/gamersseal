@@ -193,3 +193,19 @@ fieldset {
 {
 	width:100%;
 }
+@media all and (max-width:800px){
+.confSections .confSection{
+	width:100% !important;}
+.confSections .confSection fieldset{
+	padding:0 !important;
+	margin:0 !important;}
+}
+
+
+@media all and (max-width:700px) {
+.settings_page_message_board .wrap.configurationPage .confSection:nth-of-type(2){
+	overflow:auto;
+	}
+.settings_page_message_board .wrap.configurationPage .confSection:nth-of-type(2) fieldset{
+	min-width:650px;}
+}

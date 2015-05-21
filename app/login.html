@@ -5,31 +5,53 @@
 <title>Login Gamers Seal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
-    <link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css">
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
-    <script src="js/jquery.mobile-1.2.0.min.js"></script>
     <script src="js/app_config.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/home.js"></script>
 </head>
 <body>
-    <div data-role="page">
-	 <div data-role="header" data-theme="c">
-     <a href="index.html" data-icon="home" data-transition="flip" data-theme="c" data-corners="false">Home</a>
-        <h4 class="ui-title" role="heading" aria-level="1"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
-        <a href="cart.html" data-icon="cart" data-transition="flip" data-theme="c" data-corners="false">Cart (0)</a>
+    <div class="page-wraper">
+	 <div class="header">
+     	<div class="cart"><a href="cart.html"><img src="img/cart.png" alt="Cart"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
         </div><!-- /header -->
  
-        <div data-role="content">
+        <div class="main-wraper">
+        <div class="slide-menu close">
+           <ul >
+           		<li><a href="#">Continue Shopping</a></li>
+                <li><a href="#">Shopping Cart</a></li>
+                <li><a href="#">Message Board</a></li>
+                <li><a href="#">Order Status (for buyer)</a></li>
+                <li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>
+                <li><a href="#">Stock Management (for Buyer)</a></li>
+                <li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>
+                <li class="bdr-btm"><a href="#">Settings</a></li>
+                <li><a href="#">Sales Reports</a></li>
+                <li class="bdr-btm"><a href="#">Hall of Fame</a></li>
+				<li class="loginMenu"><a href="login.html">Sign in</a></li>
+                <li class="registerMenu"><a href="register.html">Sign up</a></li>
+                <li class="profileMenu"><a href="profile.html">Profile</a></li>
+				<li><a href="postgame.html">Post a Game</a></li>
+				<li class="gameMenu"><a href="games.html">Buy Games</a></li>
+                <li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>
+			</ul>
+        </div>
+        <div class="content-wraper">
         <form action="profile.html" name="login" method="post">
-        	<input type="text" id="username" name="userName" placeholder="User Name"/>
-        	<input type="password" id="password" name="password" placeholder="Password"/>
-        <input type="button" name="SignIn" value="Sign In" onclick="return signInUser();" />
+        	<input type="text" id="username" name="userName" placeholder="User Name" class="search not-srch"/>
+        	<input type="password" id="password" name="password" placeholder="Password" class="search not-srch"/>
+        <input type="button" name="SignIn" value="Sign In" onclick="return signInUser();" class="search btn not-srch" />
         </form>
         <p class="ui-clear"><a href="#" >Forgot your password</a></p>
+        </div>
         </div><!-- /content -->
  
-        <div data-role="footer" data-position="fixed" data-theme="c">
+        <div class="footer">
             <h4>Powered by GamersSeal</h4>
         </div><!-- /footer -->
  

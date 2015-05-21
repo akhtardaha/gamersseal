@@ -33,13 +33,14 @@ function getPosts(type)
 					$.each(posts, function (i, value) {
 						if(counter == totalPosts){ var last = 'last'} else {var last ='';}
 						html += '<li class="item '+last+'"><a href="single.html?post_id='+value.id+'">';
-						html += '<img src="'+GAME_IMAGES_PATH+value.custom_fields.images[0]+'">';
-						html += '<h2>'+value.title+'</h2>';
+						html += '<img src="'+GAME_IMAGES_PATH+value.custom_fields.images[0]+'" class="product-thumb">';
+						html += '<div class="product-list-right">';
+						html += '<h5>'+value.title+'</h5>';
 						html += '<p>'+value.excerpt+'</p>';
 						//console.log(decodeURIComponent( $.param(value.custom_fields.images[0]) ));
 						console.log(value.custom_fields.images[0]);
-						html += '<p>Price: '+value.custom_fields.sales_price[0]+'</p>';
-						html += '</a></li>';
+						html += '<span class="price">Price: '+value.custom_fields.sales_price[0]+'</span>';
+						html += '<div></a></li>';
 						counter++;
 					})
 				}
