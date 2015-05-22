@@ -7,7 +7,20 @@ var GAME_IMAGES_PATH = 'http://gamersseal.com/development/wp-content/uploads/wpm
 
 
 $(document).ready(function(){
-
+sideBarMenu();
+$( ".setting" ).click(function() {  
+    if ( $(".slide-menu").hasClass( "open" ) ) {
+     $( ".slide-menu" ).animate({left: "2000px"}, 500);
+	 $( ".slide-menu" ).removeClass('open');
+     $( ".slide-menu" ).addClass('close');
+    }
+    else
+    {
+     $( ".slide-menu" ).animate({left: "0px"}, 500);
+	 $( ".slide-menu" ).removeClass('close');
+     $( ".slide-menu" ).addClass('open');
+    }
+});
 })
 
 function goBack() {
@@ -93,4 +106,27 @@ function signOutUser()
 			window.localStorage.setItem("loginuserUsername",'');
 			location.reload();
 }
-   
+
+function sideBarMenu()
+{
+			var html = '';
+			html += '<ul >';
+           		html += '<li><a href="#">Continue Shopping</a></li>';
+                html += '<li><a href="#">Shopping Cart</a></li>';
+                html += '<li><a href="#">Message Board</a></li>';
+                html += '<li><a href="#">Order Status (for buyer)</a></li>';
+                html += '<li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>';
+                html += '<li><a href="#">Stock Management (for Buyer)</a></li>';
+                html += '<li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>';
+                html += '<li class="bdr-btm"><a href="#">Settings</a></li>';
+                html += '<li><a href="#">Sales Reports</a></li>';
+                html += '<li class="bdr-btm"><a href="#">Hall of Fame</a></li>';
+				html += '<li class="loginMenu"><a href="login.html">Sign in</a></li>';
+                html += '<li class="registerMenu"><a href="register.html">Sign up</a></li>';
+                html += '<li class="profileMenu"><a href="profile.html">Profile</a></li>';
+				html += '<li><a href="postgame.html">Post a Game</a></li>';
+				html += '<li class="gameMenu"><a href="games.html">Buy Games</a></li>';
+                html += '<li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>';
+			html += '</ul>';
+			$('.slide-menu').html(html);
+}

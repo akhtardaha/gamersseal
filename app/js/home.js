@@ -15,22 +15,6 @@ $(document).ready(function(){
 		$('.gameMenu').addClass('ui-corner-bottom');
 		
 	}
-
-
-   $( ".setting" ).click(function() {
-    
-    if ( $(".slide-menu").hasClass( "open" ) ) {
-     $( ".slide-menu" ).animate({left: "2000px"}, 500);
-	 $( ".slide-menu" ).removeClass('open');
-     $( ".slide-menu" ).addClass('close');
-    }
-    else
-    {
-     $( ".slide-menu" ).animate({left: "0px"}, 500);
-	 $( ".slide-menu" ).removeClass('close');
-     $( ".slide-menu" ).addClass('open');
-    }
-   });
   $( ".home-tabs ul li a" ).click(function() {
     	$( ".home-tabs > div" ).css('display','none');
 		 $( '.home-tabs ul li').removeClass('tab-open');
@@ -203,7 +187,7 @@ function getProductCategories()
 			if(data.status == 'ok')
 			{
 				$.each(data.data, function (i, value) {
-        			html += '<a href="categories.html?term_id='+value.term_id+'&term_taxonomy_id='+value.term_taxonomy_id+'&slug='+value.slug+'">'+value.name+'</a>';
+        			html += '<a href="category.html?term_id='+value.term_id+'&term_taxonomy_id='+value.term_taxonomy_id+'&slug='+value.slug+'">'+value.name+'</a>';
 				})
 			}
 			$('.categoury-box').html(html);
@@ -235,7 +219,6 @@ function getCategoryProducts(term_id)
 			{
 				
 			}
-			//$('.categoury-box').html(html);
 			
 		},
         error:function(){

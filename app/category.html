@@ -2,13 +2,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Gategoury Listing Gamers Seal</title>
+<title>Login Gamers Seal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
-    
+    <script src="js/category.js"></script>
+    <script src="js/jquery.deserialize.js"></script>  
+<style>
+.specification {
+  text-align: center;
+  font-size: 20px;
+  width: 100%;
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
+  text-transform: uppercase;
+}
+</style>
 </head>
 <body>
     <div class="page-wraper">
@@ -19,29 +34,10 @@
         
         </div>
  <div class="main-wraper">
-        <div class="slide-menu close">
-           <ul >
-           		<li><a href="#">Continue Shopping</a></li>
-                <li><a href="#">Shopping Cart</a></li>
-                <li><a href="#">Message Board</a></li>
-                <li><a href="#">Order Status (for buyer)</a></li>
-                <li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>
-                <li><a href="#">Stock Management (for Buyer)</a></li>
-                <li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>
-                <li class="bdr-btm"><a href="#">Settings</a></li>
-                <li><a href="#">Sales Reports</a></li>
-                <li class="bdr-btm"><a href="#">Hall of Fame</a></li>
-				<li class="loginMenu"><a href="login.html">Sign in</a></li>
-                <li class="registerMenu"><a href="register.html">Sign up</a></li>
-                <li class="profileMenu"><a href="profile.html">Profile</a></li>
-				<li><a href="postgame.html">Post a Game</a></li>
-				<li class="gameMenu"><a href="games.html">Buy Games</a></li>
-                <li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>
-			</ul>
-        </div>
+        <div class="slide-menu close"></div>
         
         <div class="ui-content content-wraper">
-        	<a href="#" class="specification">XBOX</a>
+        	<a href="#" class="specification" id="categoryTitle">XBOX</a>
         	<ul class="tabContent products-list">
             <li>
                 <a href="single.html">

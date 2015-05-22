@@ -1,5 +1,10 @@
 @charset "utf-8";
 /* CSS Document */
+* {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important; 
+    -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; 
+    outline: none !important;
+}
 
 body{
 	margin:0;
@@ -93,13 +98,13 @@ select.mobile-dropdown, select{
 	padding:5px 15px;
 	border-radius:25px;
 	margin:5px 0;}
-.search.not-srch{
-	background:none;
-	padding-left:10px;
-	width:100%;
-	margin:10px 0;
-	border-radius:15px;
-	}
+.search.not-srch {
+  background: none;
+  padding-left: 10px;
+  width: 96%;
+  margin: 10px 0;
+  border-radius: 15px;
+}
 .specification{
 	text-align:center;
 	font-size:20px;
