@@ -8,34 +8,38 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
-    <script src="js/login.js"></script>
-    <script src="js/home.js"></script>
 </head>
 <body>
     <div class="page-wraper">
-	 <div class="header">
+	  <div class="header">
      	<div class="cart"><a href="cart.html"><img src="img/cart.png" alt="Cart"/></a></div>
         <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
         <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
         
-        </div><!-- /header -->
- 
-        <div class="main-wraper">
-        <div class="slide-menu close">
-           
         </div>
-        <div class="content-wraper">
+ <div class="main-wraper">
+        <div class="slide-menu close"></div>
         
-        <form action="profile.html" name="login" method="post">
-        	<input type="text" id="username" name="userName" placeholder="User Name" class="search not-srch"/>
-        	<input type="password" id="password" name="password" placeholder="Password" class="search not-srch"/>
-        <input type="button" name="SignIn" value="Sign In" onclick="return signInUser();" class="search btn not-srch" />
-        </form>
-        <p class="ui-clear"><a href="#" >Forgot your password</a></p>
-        <p class="ui-clear"><a href="gust.html" >Login as Gust</a></p>
-        </div>
-        </div><!-- /content -->
- 
+        <div class="ui-content content-wraper">
+        	<a href="#" class="specification">Order Confirmation</a>
+        	<ul class="tabContent products-list">
+            <li>
+                <a href="single.html">
+                    <img src="img/game.jpg" class="product-thumb">
+                    <div class="product-list-right">
+                    <h5>Ninja Game</h5>
+                    <p>Special type of name World war</p>
+                    <p>Price: 199$</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+                <form name="deletproduct">
+               <input type="submit" id="delete" name="delete" class="search btn not-srch" value="Delete"/>
+               <input type="submit" id="cancel" name="cancel" class="search btn not-srch" value="Cancel"/>
+               </form>
+     	</div><!-- /content -->
+ </div>
         <div class="footer">
             <h4>Powered by GamersSeal</h4>
         </div><!-- /footer -->

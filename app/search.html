@@ -21,18 +21,25 @@
         </div><!-- /header -->
  
         <div class="main-wraper">
-        <div class="slide-menu close">
-           
+        <div class="slide-menu close"> 
         </div>
         <div class="content-wraper">
-        
-        <form action="profile.html" name="login" method="post">
-        	<input type="text" id="username" name="userName" placeholder="User Name" class="search not-srch"/>
+        <a class="specification">Advance Search</a>
+        <form  name="search" method="post">
+        	<input type="text" id="sallername" name="sallerName" placeholder="Seller Name" class="search not-srch"/>
+            <input type="text" id="gtype" name="gtype" placeholder="Game Type" class="search not-srch"/>
+            <input type="text" id="iname" name="iName" placeholder="Item Name" class="search not-srch"/>
+            <input type="text" id="fromdate" name="fromdate" placeholder="From Date" class="search not-srch"/>
+            <input type="text" id="afterdate" name="afterdate" placeholder="After Date" class="search not-srch"/>
         	<input type="password" id="password" name="password" placeholder="Password" class="search not-srch"/>
-        <input type="button" name="SignIn" value="Sign In" onclick="return signInUser();" class="search btn not-srch" />
+            <select name="agelimit" id="agelimit">
+        	<option value="" selected="selected">Age Restriction</option>
+            <option value="15">15</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+        </select>
+        <input type="button" name="search" value="Serach" class="search btn not-srch" />
         </form>
-        <p class="ui-clear"><a href="#" >Forgot your password</a></p>
-        <p class="ui-clear"><a href="gust.html" >Login as Gust</a></p>
         </div>
         </div><!-- /content -->
  
