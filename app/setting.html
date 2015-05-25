@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Login Gamers Seal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/app_config.js"></script>
+</head>
+<body>
+    <div class="page-wraper">
+	 <div class="header">
+     	<div class="cart"><a href="cart.html"><img src="img/cart.png" alt="Cart"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
+        </div><!-- /header -->
+ 
+        <div class="main-wraper">
+        <div class="slide-menu close">
+           
+        </div>
+        <div class="content-wraper">
+        <a href="#" class="specification" >Change Your Password</a>
+        <form action="profile.html" name="login" method="post">
+        	<input type="password" id="currentpass" name="currenpass" placeholder="Current Password" class="search not-srch"/>
+        	<input type="password" id="newpassword" name="newpassword" placeholder="New Password" class="search not-srch"/>
+            <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" class="search not-srch"/>
+        <input type="button" name="SignIn" value="Change" class="search btn not-srch" />
+        </form>
+        <div class="favrt-games">
+        <a href="#" class="specification">Favorite Game Type</a>
+        <form action="" method="post" name="SearchCat" class="filterCat">
+            <select name="filterCat mobile-dropdown" >
+            <option selected="selected">Add Game Type</option>
+            <option value="1">PSP</option>
+            <option value="2">XBOX</option>
+            <option value="3">PS3</option>
+            </select>
+            <input type="button" name="add" value="Add in Favorite" class="search btn not-srch" />
+        </form>
+        
+        <ul class="tabContent products-list message-board">
+            <li>
+                <a href="#">
+                    <div class="product-list-user">
+                    <h5>XBOX</h5>
+                    <p>All XBOX game</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="product-list-user">
+                    <h5>PSP3</h5>
+                    <p>All PSP3 games</p>
+                    </div>
+                </a>
+            </li>
+            </ul>
+        </div>
+        </div>
+        </div><!-- /content -->
+ 
+        <div class="footer">
+            <h4>Powered by GamersSeal</h4>
+        </div><!-- /footer -->
+ 
+    </div><!-- /page -->
+</body>
+</html>
