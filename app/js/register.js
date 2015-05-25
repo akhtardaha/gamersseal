@@ -5,7 +5,19 @@ function registerUser(){
 		var lname = $('#lname').val();
 		var username = $('#username').val();
 		var email = $('#email').val();
+		
+		var dob = $('#dob').val();
+		var address = $('#address').val();
+		var Suburb = $('#Suburb').val();
+		var state = $('#state').val();
+		var postcode = $('#postcode').val();
+		var hphone = $('#hphone').val();
+		var mphone = $('#mphone').val();
+		var abn = $('#abn').val();
+		var dlicense = $('#dlicense').val();
+		var passport = $('#passport').val();
 		var australianId = $('#australianId').val();
+		
 		var role = $('#userType').val();
 		
 		if(fname == '')
@@ -83,8 +95,8 @@ function registerUser(){
 							{
 							var regCookie = data.cookie;
 							var regUserid = data.user_id;
-							var fullname  = fname+' '+lname; 
-							extraProfileUpdate(regCookie,fullname,australianId);	
+							var fullname  = fname+' '+lname; ;
+							extraProfileUpdate(regCookie,fullname,australianId,dob,address,Suburb,state,postcode,hphone,mphone,abn,dlicense,passport);	
 							}
 							else
 							{
@@ -123,10 +135,10 @@ function registerUser(){
 		//console.log(birthday);
 }
 
-function extraProfileUpdate(cookie,fullname,australianId)
+function extraProfileUpdate(cookie,fullname,australianId,dob,address,Suburb,state,postcode,hphone,mphone,abn,dlicense,passport)
 {
 	    $.ajax({
-        url:API_URL+'xprofile_update/?key=1234567891011&cookie='+cookie+'&Name='+fullname+'&Australian ID='+australianId+' ',
+        url:API_URL+'xprofile_update/?key=1234567891011&cookie='+cookie+'&Name='+fullname+'&Australian ID='+australianId+'&DOB='+dob+'&Address='+address+'&Suburb='+Suburb+'&State='+state+'&Post Code='+postcode+'&Home Phone='+hphone+'&Mobile Phone='+mphone+'&ABN='+abn+'&Driving License='+dlicense+'&Passport='+passport+' ',
         type: "POST",
 		contentType: "application/json",
 		dataType: 'jsonp',
@@ -140,10 +152,7 @@ function extraProfileUpdate(cookie,fullname,australianId)
 						function(){setTimeout(function(){ window.location = 'login.html'; }, 200);},        // callback
 					   'Registration Completed',            // title
 						'OK'                  // buttonName
-					);	
-			//var regCookie = data.cookie;
-			//var regUserid = data.user_id;
-				
+					);
 			}
 			else
 			{

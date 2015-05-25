@@ -68,7 +68,7 @@ function getPosts()
 						html += '<p>'+value.excerpt+'</p>';
 						console.log(value.custom_fields.images[0]);
 						html += '<span class="price">Price: '+value.custom_fields.sales_price[0]+'</span>';
-						html += '<div></a></li>';
+						html += '</div></a></li>';
 						counter++;
 					})
 					html += '</ul>';

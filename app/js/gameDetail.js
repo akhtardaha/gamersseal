@@ -10,7 +10,8 @@ function getPostDetail(post_id)
 		$('.tabContent').html('');
 		tabContentstartLoading();
 		var user_id = window.localStorage.getItem("loginUserID");	
-		var cooke = window.localStorage.getItem("loginUserCookie");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		console.log(cooke);
 		var url = API_URL_DEFAULT+'get_post/?id='+post_id+'&post_type=wpmarketplace';
 		console.log(url);
 		var html = '';
