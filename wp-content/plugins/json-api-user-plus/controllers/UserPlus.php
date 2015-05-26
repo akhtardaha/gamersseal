@@ -6238,13 +6238,16 @@ public function update_post_meta() {
 		if (!$user_id) {
 			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
 		}
-		
+	
+	 if (!$json_api->query->post_id) {
+			$json_api->error("You must include a 'post_id' var in your request.");
+		}else $post_id = (int) $json_api->query->post_id;	
 		
 	$author = get_post_field( 'post_author', $json_api->query->post_id );
 	
 	
 	if ($author!=$user_id ) {
-    $json_api->error("You need to login with same user who created post. Only author of post can update post.");
+    $json_api->error("You need to login with same user who created post. Only author of post can update post meta.");
       }	
 		
 		
@@ -6253,7 +6256,7 @@ public function update_post_meta() {
 //d($_REQUEST);
 foreach($_REQUEST as $meta_key => $value){
 		
-	if($meta_key=='cookie' || $meta_key=='key' || $meta_key=='secret') continue;
+	if($meta_key=='cookie' || $meta_key=='key' || $meta_key=='secret' || $meta_key=='post_id') continue;
 	
 	
 	if( strpos($value,',') !== false ) {
@@ -6261,10 +6264,8 @@ foreach($_REQUEST as $meta_key => $value){
 	   $values = array_map('trim',$values);
 	   }
 	else $values = trim($value);
-	//echo 'field-values: '.$field.'=>'.$value;
-	//d($values);
-    $prev_meta_value = get_post_meta( $post_id, $meta_key);
-   $result[$meta_key]['updated'] =  update_post_meta(  $post_id, $meta_key, $values, $prev_meta_value);
+	
+   $result['post_meta'][$meta_key]['updated'] =  update_post_meta(  $post_id, $meta_key, $values);
  
 }
 
@@ -6287,32 +6288,37 @@ public function delete_post_meta() {
 		if (!$user_id) {
 			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
 		}
-		
-	if( sizeof($_REQUEST) <=1) $json_api->error("You must include one or more vars in your request to add or update as user_meta. e.g. 'name', 'website', 'skills'. You must provide multiple meta_key vars in this format: &name=Ali&website=parorrey.com&skills=php,css,js,web design");
-
-d($_REQUEST);
-foreach($_REQUEST as $field => $value){
-		
-	if($field=='cookie') continue;
 	
-	$field_label = str_replace('_',' ',$field);
+	 if (!$json_api->query->post_id) {
+			$json_api->error("You must include a 'post_id' var in your request.");
+		}else $post_id = (int) $json_api->query->post_id;	
+		
+	$author = get_post_field( 'post_author', $json_api->query->post_id );
 	
-	if( strpos($value,',') !== false ) {
-		$values = explode(",", $value);
-	   $values = array_map('trim',$values);
-	   }
-	else $values = trim($value);
-	//echo 'field-values: '.$field.'=>'.$value;
-	//d($values);
+	
+	if ($author!=$user_id ) {
+    $json_api->error("You need to login with same user who created post. Only author of post can delete post meta.");
+      }	
+		
+		
+	if (!$json_api->query->meta_keys) $json_api->error("You must include 'meta_keys' var in your request to delete post_meta. Provide comma separated meta_key to delete from post_meta.");
+	
+$meta_keys = explode(",", $json_api->query->meta_keys);
 
-   $result[$field_label]['updated'] =  update_user_meta(  $user_id, $field, $values);
+foreach($meta_keys as $k){
+		
+	//if($meta_key=='cookie' || $meta_key=='key' || $meta_key=='secret' || $meta_key=='post_id') continue;
+	
+	 $meta_key = trim($k);
+	
+   $result['post_meta'][$meta_key]['deleted'] =  delete_post_meta(  $post_id, $meta_key);
  
 }
 
 	 return $result;
    
 
-  } 	 		
+  }
 	
 	public function send_message_seller(){
 
@@ -6344,6 +6350,91 @@ foreach($_REQUEST as $field => $value){
 			{
 				$response['success'] = 0;
 				$response['status'] = "There is some Error while Sending Message to Seller.";
+			}
+				
+		}  
+		return array('msg'=>$response);
+  		
+		
+  	}
+	
+	public function get_user_messages(){
+
+  		global $json_api;
+		global $wpdb;	
+
+  
+
+   		if (!$json_api->query->user_id) {
+			$json_api->error("You must include 'user_id' var in your request. ");
+		}
+		else {
+			$user_id = $json_api->query->user_id;	
+			
+			$query = "SELECT * FROM message_board where reciever_id = $user_id group by message_title order by message_id DESC";
+			$res = $wpdb->query($query);
+			$messages = $wpdb->get_results($query);
+			$data = array();
+			if($messages)
+			{
+				$response['success'] = 1;
+				foreach($messages as $message)
+				{
+					$message->sender_name = get_the_author_meta( 'display_name', $message->sender_id);
+					$message->date_sent = mysql2date('l, jS F, Y', $message->date);
+					$message->avatar = get_avatar( $message->sender_id, 32 );
+					$data[] = $message;
+				}
+				$response['messages'] = $data;
+				
+			}
+			else
+			{
+				$response['success'] = 0;
+				$response['status'] = "There is some Error while Fetching Messages.";
+			}
+				
+		}  
+		return array('msg'=>$response);
+  		
+		
+  	}
+	
+	public function get_user_messages_by_subject(){
+
+  		global $json_api;
+		global $wpdb;	
+
+  
+
+   		if (!$json_api->query->user_id || !$json_api->query->subject) {
+			$json_api->error("You must include 'user_id' and 'subject' var in your request. ");
+		}
+		else {
+			$user_id = $json_api->query->user_id;
+			$subject = $json_api->query->subject;	
+			
+			$query = "SELECT * FROM message_board where message_title = '".$subject."' Order by message_id ASC";
+			$res = $wpdb->query($query);
+			$messages = $wpdb->get_results($query);
+			$data = array();
+			if($messages)
+			{
+				$response['success'] = 1;
+				foreach($messages as $message)
+				{
+					$message->sender_name = get_the_author_meta( 'display_name', $message->sender_id);
+					$message->date_sent = mysql2date('l, jS F, Y', $message->date);
+					$message->avatar = get_avatar( $message->sender_id, 150 );
+					$data[] = $message;
+				}
+				$response['messages'] = $data;
+				
+			}
+			else
+			{
+				$response['success'] = 0;
+				$response['status'] = "There is some Error while Fetching Messages.";
 			}
 				
 		}  

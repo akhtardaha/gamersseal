@@ -8,27 +8,53 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
-    <script src="js/message-board.js"></script>
+    <script src="js/reply.js"></script>
 <style>
+.specification {
+  text-align: center;
+  font-size: 20px;
+  width: 100%;
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
+  text-transform: capitalize;
+}
+.tabContent img {
+  max-width: 90px;
+  max-height: 70px;
+}
 .tabContent h5{
   text-transform: capitalize;
 }
 .tabContent p {
   font-size: 14px;
 }
-.user-img {
+textarea  {
+  background: none;
+  padding-left: 10px;
+  width: 96%;
+  margin: 10px 0;
+  border-radius: 15px;
+  min-height: 60px;
+}
+.user-message .single-message {
+  width: 68%;
   float: left;
-  width: 13%;
-  margin-right: 2%;
-  margin-top: 5px;
+  text-align: right;
+  min-height: 75px;
 }
-.user-img img {
-  max-width: 100%;
+.your-reply .single-message {
+  width: 68%;
+  float: left;
+  text-align: left;
+    min-height: 75px;
 }
-.product-list-user
+.your-reply img
 {
 	float:left;
-	width:80%;
 }
 </style>
 </head>
@@ -46,12 +72,14 @@
         </div>
         
         <div class="ui-content content-wraper">
-        	<a href="#" class="specification">Message Board</a>
+        <a href="#" class="specification"></a>
         	<ul class="tabContent products-list message-board">
-         	<img id="loading" src="img/loading.gif" alt="Loading" />
+           <img id="loading" src="img/loading.gif" alt="Loading" />
         	</ul>
-                
-        	
+            <form name="sendmessage">
+            <textarea name="message" id="replyMessage"  class="search not-srch" placeholder="Reply"></textarea>
+            <input type="button" name="reply" value="Reply" onclick="return replyUserMessage();" class="search btn not-srch a-btn" />
+            </form>
      	</div><!-- /content -->
  </div>
         <div class="footer">

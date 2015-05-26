@@ -104,7 +104,7 @@ function signOutUser()
 			window.localStorage.setItem("loginuserNicename",'');
 			window.localStorage.setItem("loginuserNickname",'');
 			window.localStorage.setItem("loginuserUsername",'');
-			location.reload();
+			window.location = 'index.html';
 }
 
 function sideBarMenu()
@@ -113,7 +113,7 @@ function sideBarMenu()
 			html += '<ul >';
            		html += '<li><a href="#">Continue Shopping</a></li>';
                 html += '<li><a href="#">Shopping Cart</a></li>';
-                html += '<li><a href="#">Message Board</a></li>';
+                html += '<li><a href="message-board.html">Message Board</a></li>';
                 html += '<li><a href="#">Order Status (for buyer)</a></li>';
                 html += '<li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>';
                 html += '<li><a href="#">Stock Management (for Buyer)</a></li>';
@@ -121,12 +121,19 @@ function sideBarMenu()
                 html += '<li class="bdr-btm"><a href="#">Settings</a></li>';
                 html += '<li><a href="#">Sales Reports</a></li>';
                 html += '<li class="bdr-btm"><a href="#">Hall of Fame</a></li>';
+				if(!(window.localStorage.getItem("loginuserCookie")))
+				{
 				html += '<li class="loginMenu"><a href="login.html">Sign in</a></li>';
                 html += '<li class="registerMenu"><a href="register.html">Sign up</a></li>';
-                html += '<li class="profileMenu"><a href="profile.html">Profile</a></li>';
+				}
+				else
+				{
+				html += '<li class="profileMenu"><a href="profile.html">Profile</a></li>';	
+				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();">Sign out</a></li>';
+				}
 				html += '<li><a href="postgame.html">Post a Game</a></li>';
 				html += '<li class="gameMenu"><a href="games.html">Buy Games</a></li>';
-                html += '<li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>';
+                
 			html += '</ul>';
 			$('.slide-menu').html(html);
 }

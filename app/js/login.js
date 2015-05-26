@@ -1,7 +1,7 @@
 // JavaScript Document
 if(window.localStorage.getItem("loginuserCookie"))
 {
-	setTimeout(function(){ window.location = 'games.html'; }, 500);
+	setTimeout(function(){ window.location = 'index.html'; }, 500);
 }
 function signInUser()
 {

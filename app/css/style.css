@@ -18,6 +18,11 @@ a{
 	text-decoration:none;
 	color:#000;
 	}
+#loading {
+  width: 50px;
+  margin-left: 44%;
+  padding: 20px 0px;
+}
 .single-message{
 	width:68%;
 	float:left;}
