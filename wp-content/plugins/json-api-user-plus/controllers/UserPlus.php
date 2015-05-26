@@ -16,13 +16,15 @@
 
   
 
-  updated: 2015-03-21
+  updated: 2015-05-08
 
 */
 
 class JSON_API_UserPlus_Controller {
 
 	var $disable_nonce;
+
+	var $disable_author_check;
 
 	
 
@@ -35,6 +37,8 @@ public function __construct() {
 	
 
 	$this->disable_nonce = $jaup_options['nonce'];
+
+	$this->disable_author_check = $jaup_options['authoring'];
 
 	
 
@@ -77,19 +81,45 @@ public function email_exists(){
   
 
    if (!$json_api->query->email) {
+
 			$json_api->error("You must include 'email' var in your request. ");
+
 		}
+
 	else {
+
 		$email = $json_api->query->email;
+
 	if ( !is_email( $email ) ) {
+
    	 $json_api->error("E-mail address is invalid.");
+
              }
+
     elseif (email_exists($email)) {
+
+
+
 	 $json_api->error("E-mail address is already in use.");
+
+
+
           }	
+
    else $response = $email.' address is available for registration.';	
+
+	 
+
+	 
+
 	}  
+
+  
+
   return array('msg'=>$response);
+
+  
+
   }
 
   
@@ -876,9 +906,9 @@ public function generate_auth_cookie() {
 
 
 
-		preg_match('|src="(.+?)"|', get_avatar( $user->ID, 32 ), $avatar);	
+		preg_match('|src="(.+?)"|', get_avatar( $user->ID, 512 ), $avatar);	
 
-
+		
 
 		return array(
 
@@ -1060,8 +1090,6 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
 	
 
-	
-
 	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
 
 	//echo '$user_id: '.$user_id;	
@@ -1076,11 +1104,21 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
 	
 
+	
+
+	if(!$this->disable_author_check){
+
+		
+
 	if (!user_can($user_id,'edit_posts')) {
 
     $json_api->error("You need to login with a user capable of creating posts.");
 
       }
+
+	  
+
+	}
 
 		
 
@@ -1182,7 +1220,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
     );
 
-  } 
+  }  
 
   
 
@@ -1272,7 +1310,23 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
 	
 
-	if ($author!=$user_id || !user_can($user_id,'edit_posts') ) {
+	if(!$this->disable_author_check){
+
+		
+
+	if (!user_can($user_id,'edit_posts') ) {
+
+    $json_api->error("You need to login with a user capable of editing posts. Only author of post or admin can update posts.");
+
+      }
+
+	  
+
+	}
+
+	
+
+	if ($author!=$user_id ) {
 
     $json_api->error("You need to login with a user capable of editing posts. Only author of post or admin can update posts.");
 
@@ -1356,7 +1410,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
     );
 
-  } 
+  }  
 
   
 
@@ -1444,7 +1498,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
 	
 
-	
+	if(!$this->disable_author_check){
 
 	if ( !user_can($user_id, 'delete_posts') ) {
 
@@ -1452,7 +1506,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
       }
 
-	  
+	}
 
 	
 
@@ -1524,7 +1578,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
     return array('post'=>$id);
 
-  }		
+  }	  	
 
 	  
 
@@ -1588,7 +1642,7 @@ public function get_user_meta() {
 
 	  
 
-	  }
+	  }   
 
 	  
 
@@ -1657,6 +1711,88 @@ public function update_user_meta() {
 	  
 
 	  }
+
+	  
+
+public function update_user_meta_vars() {
+
+	 
+
+	  global $json_api;	
+
+
+
+	  if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+		$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+//	echo '$user_id: '.$user_id;	
+
+	
+
+		if (!$user_id) {
+
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+
+		}
+
+		
+
+	if( sizeof($_REQUEST) <=1) $json_api->error("You must include one or more vars in your request to add or update as user_meta. e.g. 'name', 'website', 'skills'. You must provide multiple meta_key vars in this format: &name=Ali&website=parorrey.com&skills=php,css,js,web design");
+
+
+
+d($_REQUEST);
+
+foreach($_REQUEST as $field => $value){
+
+		
+
+	if($field=='cookie') continue;
+
+	
+
+	$field_label = str_replace('_',' ',$field);
+
+	
+
+	if( strpos($value,',') !== false ) {
+
+		$values = explode(",", $value);
+
+	   $values = array_map('trim',$values);
+
+	   }
+
+	else $values = trim($value);
+
+	//echo 'field-values: '.$field.'=>'.$value;
+
+	//d($values);
+
+
+
+   $result[$field_label]['updated'] =  update_user_meta(  $user_id, $field, $values);
+
+ 
+
+}
+
+
+
+	 return $result;
+
+   
+
+
+
+  }	  
 
 	  
 
@@ -1758,6 +1894,12 @@ if (function_exists('bp_is_active')) {
 
   
 
+  preg_match('|src="(.+?)"|', get_avatar( $user_id, 512 ), $avatar);
+
+  
+
+  $fields_data['avatar'] = $avatar[1];
+
   
 
   $fields = explode(",", $field_label);
@@ -1777,6 +1919,8 @@ if (function_exists('bp_is_active')) {
 		  
 
 		  }
+
+	
 
 	
 
@@ -2200,6 +2344,118 @@ $user_info = get_userdata(  $user_id );
 
    }
 
+   
+
+public function comments(){
+
+	  global $json_api;	    
+
+	
+
+	 $oReturn = new stdClass();
+
+	
+
+	 if (!$json_api->query->post_id) {
+
+			$json_api->error("You must include a 'post_id' var in your request.");
+
+		}else $post_id = (int) $json_api->query->post_id;
+
+	
+
+	 if (!$json_api->query->per_page) {
+
+			$limit = 10;
+
+		}else $limit = (int) $json_api->query->per_page;
+
+		
+
+		 if (!$json_api->query->page) $page = 1;
+
+     else $page = (int) $json_api->query->page;	
+
+	 
+
+	  if (!$json_api->query->sort) $sort = 'DESC';
+
+     else $sort = $json_api->query->sort;
+
+
+
+$offset = ($page * $limit) - $limit;
+
+
+
+$args = array(
+
+    'status'=>'approve',
+
+    'offset'=>$offset,
+
+    'number'=>$limit,
+
+	'post_id' => $post_id,
+
+	'order'  => $sort
+
+
+
+);
+
+
+
+$total_comments = get_comments(array('status'=>'approve', 'post_id' => $post_id));
+
+
+
+$oReturn->total_pages = ceil(count($total_comments)/$limit);
+
+$oReturn->current_page = $page;
+
+
+
+$comments = get_comments($args);
+
+   
+
+
+
+  foreach($comments as $comment) { 
+
+		 $tmp = new stdClass();
+
+	$tmp->comment_id = $comment->comment_ID;   
+
+	$tmp->user_id = $comment->user_id; 
+
+	$tmp->avatar = bp_core_fetch_avatar(array('item_id'=>$tmp->user_id,'html'=>false));;
+
+	$tmp->comment_date = $comment->comment_date;
+
+	$tmp->time_since =  bp_core_time_since($comment->comment_date);
+
+		
+
+	$tmp->author = $comment->comment_author; 
+
+	$tmp->content = $comment->comment_content;
+
+	
+
+	$oReturn->comments[] = $tmp;
+
+     }
+
+
+
+   return $oReturn;
+
+	   
+
+	   }   
+
 	  
 
 public function profile() { 
@@ -2320,85 +2576,7 @@ if (function_exists('bp_is_active')) {
 
    }
 
-   
-
-public function friends() { 
-
-		global $json_api;
-
-        
-
-        $oReturn = new stdClass();
-
-
-
-  if (function_exists('bp_is_active')) {	
-
-
-
-    if (!$json_api->query->cookie) {
-
-			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
-
-		}
-
-
-
-		$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
-
-		if (!$user_id) {
-
-			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
-
-		}
-
-
-
-        $sFriends = bp_get_friend_ids($user_id);
-
-        $aFriends = explode(",", $sFriends);
-
-       
-
-		if ($aFriends[0] == "") $json_api->error("No friend found.");
-
-		
-
-        foreach ($aFriends as $sFriendID) {
-
-			 $aTemp = new stdClass();
-
-            $oUser = get_user_by('id', $sFriendID);
-
-            $aTemp->user_id = $oUser->data->ID;
-
-			$aTemp->username = $oUser->data->user_login;
-
-            $aTemp->display_name = $oUser->data->display_name;
-
-            $aTemp->avatar = bp_core_fetch_avatar(array('item_id'=>$oUser->data->ID,'html'=>false));;
-
-			
-
-			$oReturn->friends[] = $aTemp;
-
-        }
-
-        $oReturn->count = count($aFriends);
-
-       
-
-		}else {	  
-
-	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
-
-	   }
-
-	    return $oReturn;
-
-    }
-
-	
+  
 
 public function threads() { 
 
@@ -2604,13 +2782,7 @@ public function threads() {
 
 			  
 
-//d($t->messages);	
 
-//if($msort=='desc') usort($t->messages, 'pim_sort_by_id');
-
-//else uasort($t->messages, 'pim_sort_by_id');
-
-//d($t->messages);			
 
 		//d($t->messages);
 
@@ -2622,13 +2794,71 @@ public function threads() {
 
 				$tmp->thread_id = $t->thread_id;
 
-				//$tmp->unread_count = $t->unread_count;								
+				//$tmp->unread_count = $t->unread_count;
 
-				$tmp->messages =  $t->messages;
+				$messages =  $t->messages;								
 
-				$tmp->recipients = array_values($t->recipients);
+				foreach($messages as $m){
 
-				$tmp->sender_ids = array_values($t->sender_ids);  
+				$thread = $m;
+
+				$thread->time_since = bp_core_time_since ($m->date_sent);
+
+				
+
+				}
+
+				$tmp->message =  $thread;
+
+				
+
+				$recipients_ids = $t->recipients;
+
+			
+
+				foreach($recipients_ids as $r){
+
+					 $recipients['id'] = (int)$r->id;
+
+					 $recipients['user_id'] = (int)$r->user_id;
+
+					  $recipients['thread_id'] = (int)$r->thread_id;
+
+					   $recipients['sender_only'] = (int)$r->sender_only;
+
+					   $recipients['is_deleted'] = (int)$r->is_deleted;
+
+					 $user = get_userdata($r->user_id);
+
+					  $recipients['avatar'] = bp_core_fetch_avatar(array('item_id'=>$r->user_id,'html'=>false));
+
+					  $recipients['display_name'] = $user->display_name;
+
+				}				
+
+				
+
+				$tmp->recipients = $recipients;
+
+				
+
+				$sender_ids = array_values($t->sender_ids);
+
+				
+
+				foreach($sender_ids as $s){
+
+					 $senders['id'] = (int)$s;
+
+					 $user = get_userdata($s);
+
+					  $senders['avatar'] = bp_core_fetch_avatar(array('item_id'=> $s,'html'=>false));
+
+					  $senders['display_name'] = $user->display_name;
+
+				}
+
+				$tmp->sender_ids = $senders; 
 
 								 
 
@@ -2755,6 +2985,8 @@ public function thread() {
 				$aTemp->message_id = bp_get_the_thread_message_id();
 
 				$aTemp->sender_id = (int) messages_get_message_sender( $aTemp->message_id );
+
+				$aTemp->avatar = bp_core_fetch_avatar(array('item_id'=>$aTemp->sender_id,'html'=>false));       
 
 				$aTemp->time_since =  bp_get_the_thread_message_time_since();
 
@@ -3168,6 +3400,8 @@ public function avatar_upload(){
 
 		}
 
+//d($_POST);
+
 //d($_FILES);
 
 		$user_id = wp_validate_auth_cookie(urldecode($_REQUEST['cookie']), 'logged_in');
@@ -3380,10 +3614,2707 @@ public function delete_account(){
 
 	   
 
-	 }
+	 }  
+
 	 
+
+public function search_user() {
+
+   global $json_api, $wpdb;
+
+   
+
+   if (!$_REQUEST['search']) {
+
+	$json_api->error("You must include a 'search' var in your request.");
+
+		}
+
+    
+
+	 $query = "SELECT ID, user_login FROM " . $wpdb->prefix . "users WHERE user_login LIKE '%" . $_REQUEST['search'] . "%'";
+
 	 
-	 public function send_message_seller(){
+
+	 $result = $wpdb->get_results( $query );  
+
+	 $oReturn = new stdClass();
+
+	 foreach ($result as $k) {
+
+			 $aTemp = new stdClass();
+
+   
+
+            $aTemp->user_id = $k->ID;
+
+			$aTemp->username = $k->user_login;   
+
+            $aTemp->avatar = bp_core_fetch_avatar(array('item_id'=>$k->ID,'html'=>false));
+
+			
+
+			$oReturn->users[] = $aTemp;
+
+        }
+
+     $oReturn->count = count($result);
+
+	
+
+    return $oReturn;
+
+  }	
+
+  
+
+public function activities() { 
+
+
+
+  global $json_api;
+
+
+
+if (function_exists('bp_is_active')) {	
+
+
+
+     $oReturn = new stdClass();
+
+	 
+
+	 if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+		
+
+ if ($json_api->query->sort) $sort = $json_api->query->sort;	
+
+ else $sort = 'DESC';//ASC, DESC
+
+ 
+
+  if (!$json_api->query->comments) $comments = 'stream';
+
+else $comments = $json_api->query->comments;//Accepted arguments: false
+
+ 
+
+  if ($json_api->query->scope) {
+
+	   if (!$json_api->query->user_id) $json_api->error("Error. 'scope' can only be used with 'user_id'.");
+
+	  $scope = $json_api->query->scope;
+
+  }
+
+ else $scope = false;
+
+
+
+ if ($json_api->query->limit) $limit = $json_api->query->limit;
+
+else $limit = 10;
+
+
+
+ if ($json_api->query->page) $page = $json_api->query->page;
+
+else $page = 1;
+
+
+
+
+
+$per_page = $limit;
+
+ 
+
+        if (!bp_has_activities())  $json_api->error("No Activities found.");		 
+
+		
+
+
+
+        if ($page) {
+
+
+
+            $aParams ['max'] = true;
+
+            $aParams ['per_page'] = $limit;
+
+			 $aParams ['page'] = $page;
+
+            $iPages = $page;
+
+
+
+        }
+
+
+
+
+
+        $aParams ['display_comments'] = $comments;
+
+        $aParams ['sort'] =  $sort;
+
+		$aParams ['scope'] = $scope;
+
+		
+
+if ($json_api->query->include)	$aParams ['include'] = $json_api->query->include;
+
+if ($json_api->query->search_terms)	$aParams ['search_terms'] = $json_api->query->search_terms;
+
+
+
+    if ($json_api->query->user_id)   $aParams ['filter'] ['user_id'] = (int) $json_api->query->user_id;
+
+   if ($json_api->query->component)  $aParams ['filter'] ['object'] = $json_api->query->component;
+
+	
+
+   if ($json_api->query->type)     $aParams ['filter'] ['action'] = $json_api->query->type;
+
+     if ($json_api->query->primary_id)    $aParams ['filter'] ['primary_id'] = (int) $json_api->query->primary_id;
+
+	  if ($json_api->query->secondary_id)     $aParams ['filter'] ['secondary_id'] = (int) $json_api->query->secondary_id;
+
+		
+
+        $iLimit = $limit;
+
+	
+
+//d($aParams);
+
+
+
+            $aTempActivities = bp_activity_get($aParams);
+
+		
+
+            if (!empty($aTempActivities['activities'])) {
+
+				
+
+            $user_favs = array_values (bp_activity_get_user_favorites( $user_id ) );
+
+			//print_r($user_favs);
+
+			//exit();
+
+                foreach ($aTempActivities['activities'] as $oActivity) {
+
+					
+
+					$aTemp = new stdClass();
+
+					
+
+                   $aTemp->activity_id = $oActivity->id;					
+
+				   
+
+				   $aTemp->component = $oActivity->component;
+
+					
+
+					$aTemp->action = strip_tags($oActivity->action);
+
+					
+
+					$aTemp->content = $oActivity->content;
+
+					
+
+				
+
+                     
+
+                    $aTemp->user[0]->user_id = (int) $oActivity->user_id; 
+
+					  $aTemp->user[0]->username = $oActivity->user_login; 
+
+					 $aTemp->user[0]->avatar = bp_core_fetch_avatar(array('item_id'=>$oActivity->user_id,'html'=>false));              
+
+                    $aTemp->user[0]->display_name = $oActivity->display_name;
+
+
+
+                   $aTemp->type = $oActivity->type;
+
+
+
+                   $aTemp->time = $oActivity->date_recorded;
+
+				   
+
+				    $aTemp->time_since =  bp_core_time_since ( $oActivity->date_recorded ) ;
+
+
+
+                    $aTemp->is_hidden = $oActivity->hide_sitewide === "0" ? false : true;
+
+
+
+                   $aTemp->is_spam = $oActivity->is_spam === "0" ? false : true;
+
+                
+
+				   $aTemp->is_fav = array_search( (int)$aTemp->activity_id, $user_favs); 
+
+				
+
+					foreach($oActivity->children as $comment) {
+
+						 $aComment = new stdClass();
+
+						$aComment->id = (int) $comment->id;
+
+						$aComment->component = $comment->component;
+
+						$aComment->user_id = (int) $comment->user_id;
+
+						$aComment->avatar = bp_core_fetch_avatar(array('item_id'=> $comment->user_id,'html'=>false));
+
+						$aComment->content = strip_tags($comment->content);
+
+						$aComment->action = strip_tags($comment->action);
+
+						
+
+						$aComment->item_id = (int) $comment->item_id;
+
+						$aComment->secondary_item_id = (int) $comment->secondary_item_id;
+
+						$aComment->date_recorded = $comment->date_recorded;
+
+						$aComment->time_since =  bp_core_time_since ($comment->date_recorded);
+
+						$aComment->hide_sitewide = $comment->hide_sitewide;
+
+						$aComment->display_name = $comment->display_name;
+
+						$aComment->depth = $comment->depth;
+
+						$aComment->is_spam = $comment->is_spam;
+
+						$aComment->children = $comment->children;
+
+						$aComment->mptt_left = $comment->mptt_left;
+
+						$aComment->mptt_right = $comment->mptt_right;
+
+		
+
+						$aTemp->comments[] =  $aComment;
+
+					}
+
+					  
+
+					 
+
+					//  $aTemp->old_comments =  $oActivity->children;
+
+	   $oReturn->activities[] = $aTemp;
+
+                }
+
+
+
+                $oReturn->has_more_items = $aTempActivities['has_more_items'];
+
+				$oReturn->page = (int) $page;
+
+				$oReturn->per_page = (int) $limit;
+
+
+
+            } else {
+
+
+
+                return $json_api->error("No Activities found.");	
+
+
+
+            }
+
+			
+
+
+
+           return $oReturn;
+
+ 
+
+}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this endpoint.");
+
+	   }	
+
+
+
+    }
+
+
+
+public function activities_post_update(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+  $user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+	
+
+		if (!$user_id) {
+
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+   if (!$json_api->query->content ) {
+
+  $json_api->error("Please include 'content' var in your request.");
+
+  }else $content = $json_api->query->content;
+
+
+
+  $args = array('user_id'=>$user_id,
+
+                'content'=>$content);
+
+				
+
+ $oReturn->activity_id = bp_activity_post_update( $args );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+   
+
+public function activities_delete_activity(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+  $user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+	
+
+		if (!$user_id) {
+
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+   if (!$json_api->query->activity_id ) {
+
+  $json_api->error("Please include 'activity_id' var in your request.");
+
+  }else $activity_id = $json_api->query->activity_id;
+
+
+
+  $args = array('user_id'=>$user_id,
+
+                'content'=>$content);
+
+				
+
+ $oReturn->deleted = bp_activity_delete_by_activity_id( $activity_id );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+   
+
+public function activities_new_comment(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+  $user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+	
+
+   if (!$user_id) {
+
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+
+		}
+
+		
+
+if (!$json_api->query->activity_id ) {
+
+  $json_api->error("Please include 'activity_id' var in your request.");
+
+  }else $activity_id = (int) $json_api->query->activity_id;
+
+
+
+   if (!$json_api->query->content ) {
+
+  $json_api->error("Please include 'content' var in your request.");
+
+  }else $content = $json_api->query->content;
+
+
+
+  $args = array('user_id'=>$user_id,
+
+                'activity_id'=>$activity_id,
+
+                'content'=>$content);
+
+	
+
+  if ($json_api->query->comment_id ) $args['id'] = (int)$json_api->query->comment_id;
+
+  if ($json_api->query->parent_id ) $args['parent_id'] = (int)$json_api->query->parent_id;
+
+				
+
+ $oReturn->comment_id = bp_activity_new_comment( $args );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+
+
+public function activities_delete_comment(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+  $user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+	
+
+   if (!$user_id) {
+
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+
+		}
+
+		
+
+if (!$json_api->query->activity_id ) {
+
+  $json_api->error("Please include 'activity_id' var in your request.");
+
+  }else $activity_id = (int) $json_api->query->activity_id;
+
+
+
+   if (!$json_api->query->comment_id ) {
+
+  $json_api->error("Please include 'comment_id' var in your request.");
+
+  }else $content = (int)$json_api->query->comment_id;
+
+  				
+
+ $oReturn->delete = bp_activity_delete_comment( $activity_id, $comment_id );
+
+ 
+
+ return $oReturn;    
+
+   }   
+
+   
+
+
+
+public function activities_get_user_favorites(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request. Use the `generate_auth_cookie` method.");
+
+		}else 
+
+
+
+  $user_id = (int)$json_api->query->user_id;
+
+	
+
+  
+
+ $oReturn->favorites = bp_activity_get_user_favorites( $user_id );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+   
+
+public function activities_total_favorites_for_user(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request. Use the `generate_auth_cookie` method.");
+
+		}else 
+
+
+
+  $user_id = (int)$json_api->query->user_id;
+
+	
+
+  
+
+ $oReturn->favorites = bp_activity_total_favorites_for_user( $user_id );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+   
+
+public function activities_add_user_favorite(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+  $user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+	
+
+   if (!$user_id) {
+
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+
+		}
+
+		
+
+if (!$json_api->query->activity_id ) {
+
+  $json_api->error("Please include 'activity_id' var in your request.");
+
+  }else $activity_id = (int) $json_api->query->activity_id;
+
+
+
+ $oReturn->favorite = bp_activity_add_user_favorite( $activity_id, $user_id );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+   
+
+public function activities_remove_user_favorite(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+
+		}
+
+
+
+  $user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+	
+
+   if (!$user_id) {
+
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+
+		}
+
+		
+
+if (!$json_api->query->activity_id ) {
+
+  $json_api->error("Please include 'activity_id' var in your request.");
+
+  }else $activity_id = (int) $json_api->query->activity_id;
+
+
+
+ $oReturn->favorite = bp_activity_remove_user_favorite( $activity_id, $user_id );
+
+ 
+
+ return $oReturn;    
+
+   }    
+
+
+
+public function activities_find_mentions(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->content) {
+
+			$json_api->error("You must include a 'content' var in your request. ");
+
+		}else $content = $json_api->query->content;
+
+	
+
+  
+
+ $oReturn->users = bp_activity_find_mentions( $content );
+
+ 
+
+ return $oReturn;    
+
+   } 
+
+ 
+
+public function activities_get_user_mentionname(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request. ");
+
+		}else $user_id = (int)$json_api->query->user_id;
+
+	
+
+  
+
+ $oReturn->mentionname = bp_activity_get_user_mentionname( $user_id );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+   
+
+public function activities_get_userid_from_mentionname(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->mentionname) {
+
+			$json_api->error("You must include a 'mentionname' var in your request.");
+
+		}else $mentionname = $json_api->query->mentionname;
+
+	
+
+  
+
+ $oReturn->user_id = bp_activity_get_userid_from_mentionname( $mentionname );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+
+
+public function activities_clear_new_mentions(){
+
+   global $json_api;
+
+ $oReturn = new stdClass();
+
+  if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request. ");
+
+		}else $user_id = (int)$json_api->query->user_id;	
+
+  
+
+ $oReturn->clear = bp_activity_clear_new_mentions( $user_id );
+
+ 
+
+ return $oReturn;    
+
+   }
+
+	  
+
+public function friends() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+    if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		}else $user_id = (int) $json_api->query->user_id;
+
+
+
+        $sFriends = bp_get_friend_ids($user_id);
+
+        $aFriends = explode(",", $sFriends);
+
+       
+
+		if ($aFriends[0] == "") $json_api->error("No friend found.");
+
+		
+
+		if ($json_api->query->xprofile){
+
+			$xprofile_fields = explode(",", $json_api->query->xprofile);
+
+		}
+
+ 
+
+		//d($xprofile_fields);
+
+        foreach ($aFriends as $sFriendID) {
+
+			 $aTemp = new stdClass();
+
+            $oUser = get_user_by('id', $sFriendID);
+
+            $aTemp->user_id = $oUser->data->ID;
+
+			$aTemp->username = $oUser->data->user_login;
+
+            $aTemp->display_name = $oUser->data->display_name;
+
+            $aTemp->avatar = bp_core_fetch_avatar(array('item_id'=>$oUser->data->ID,'html'=>false));
+
+			
+
+			
+
+	 if(is_array($xprofile_fields)){
+
+	  
+
+	  foreach($xprofile_fields as $k){
+
+		  
+
+		  $fields_data[$k] = xprofile_get_field_data( $k, $aTemp->user_id );
+
+		  //echo '$k'.$k.'='.$fields_data[$k];
+
+		  }
+
+		  $aTemp->xprofile = $fields_data;
+
+         }
+
+			 
+
+			$oReturn->friends[] = $aTemp;
+
+        }
+
+        $oReturn->count = count($aFriends);
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	    return $oReturn;
+
+    }	
+
+	
+
+public function friends_add_friend() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+    if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+	  if (!$json_api->query->friend_id) {
+
+			$json_api->error("You must include a 'friend_id' var in your request.");
+
+		} else $friend_id = (int) $json_api->query->friend_id;	
+
+	
+
+      if ($json_api->query->force_accept) $force_accept= $json_api->query->force_accept;
+
+		 else $force_accept= false;	
+
+		
+
+    $oReturn->response = friends_add_friend($user_id, $friend_id, $force_accept);        
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+
+
+public function friends_remove_friend() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+    if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+	  if (!$json_api->query->friend_id) {
+
+			$json_api->error("You must include a 'friend_id' var in your request.");
+
+		} else $friend_id = (int) $json_api->query->friend_id;	
+
+	
+
+		
+
+    $oReturn->response = friends_remove_friend($user_id, $friend_id);        
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+	
+
+public function friends_accept_friendship() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+    if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+	  if (!$json_api->query->friendship_id) {
+
+			$json_api->error("You must include a 'friendship_id' var in your request.");
+
+		} else $friendship_id = (int) $json_api->query->friendship_id;	
+
+	
+
+	global $wpdb, $bp;
+
+	
+
+	$oReturn->response = $wpdb->query( $wpdb->prepare( "UPDATE {$bp->friends->table_name} SET is_confirmed = 1, date_created = %s WHERE id = %d AND friend_user_id = %d", bp_core_current_time(), $friendship_id, $user_id ) );
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }		
+
+	
+
+public function friends_reject_friendship() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+    if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+	  if (!$json_api->query->friendship_id) {
+
+			$json_api->error("You must include a 'friendship_id' var in your request.");
+
+		} else $friendship_id = (int) $json_api->query->friendship_id;	
+
+	
+
+	global $wpdb, $bp;
+
+		
+
+    $oReturn->response = $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->friends->table_name} WHERE id = %d AND friend_user_id = %d", $friendship_id, $user_id ) );
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+	
+
+public function friends_withdraw_friendship() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+    if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+	  if (!$json_api->query->friend_id) {
+
+			$json_api->error("You must include a 'friend_id' var in your request.");
+
+		} else $friend_id = (int) $json_api->query->friend_id;		
+
+		
+
+		global $bp, $wpdb;
+
+		
+
+	//	 $bp->loggedin_user->id = $user_id;
+
+	$friendship_id = friends_get_friendship_id( $user_id, $friend_id );
+
+	
+
+	 $friendship    = new BP_Friends_Friendship( $friendship_id, true, false );
+
+	
+
+	 $sql = $wpdb->prepare( "DELETE FROM {$bp->friends->table_name} WHERE id = %d AND initiator_user_id = %d", $friendship_id, $user_id );
+
+
+
+	 if ( empty( $friendship->is_confirmed ) ) {
+
+	 $oReturn->response = $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->friends->table_name} WHERE id = %d AND initiator_user_id = %d", $friendship_id, $user_id ) ); 
+
+	 
+
+	 }else $oReturn->response = 'confirmed already.';
+
+      
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+	
+
+public function friends_check_friendship() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+    if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+
+
+		
+
+	  if (!$json_api->query->friend_id) {
+
+			$json_api->error("You must include a 'friend_id' var in your request.");
+
+		} else $friend_id = (int) $json_api->query->friend_id;		
+
+		
+
+    $oReturn->response = friends_check_friendship($user_id, $friend_id );        
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+
+
+public function friends_friendship_status() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+        if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+	
+
+	  if (!$json_api->query->friend_id) {
+
+			$json_api->error("You must include a 'friend_id' var in your request.");
+
+		} else $friend_id = (int) $json_api->query->friend_id;		
+
+		
+
+    $oReturn->response = friends_check_friendship_status($user_id, $friend_id );        
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+
+
+public function friends_friend_count() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+        if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+			
+
+    $oReturn->response = friends_get_total_friend_count($user_id);        
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+	
+
+public function friends_has_friends() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+        if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+			
+
+    $oReturn->response = friends_check_user_has_friends($user_id);        
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }		
+
+
+
+public function friends_friendship_id() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+        if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request. user_id is initiator of friendship request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+	
+
+	  if (!$json_api->query->friend_id) {
+
+			$json_api->error("You must include a 'friend_id' var in your request.");
+
+		} else $friend_id = (int) $json_api->query->friend_id;		
+
+		
+
+    $oReturn->response = friends_get_friendship_id($user_id, $friend_id );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+
+
+public function friends_friend_ids() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+        if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+	
+
+	  if ($json_api->query->friend_requests_only) $friend_requests_only = $json_api->query->friend_requests_only;
+
+		 else $friend_requests_only = false;
+
+    
+
+	 $assoc_arr = false;		
+
+		
+
+    $oReturn->friends = friends_get_friend_user_ids( $user_id, $friend_requests_only, $assoc_arr );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+	
+
+public function friends_search_friends() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+        if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+		
+
+		if (!$json_api->query->search) {
+
+			$json_api->error("You must include a 'search' var in your request.");
+
+		} else $search = $json_api->query->search; 
+
+	
+
+	  if ($json_api->query->per_page) $per_page =(int) $json_api->query->per_page;
+
+		 else $per_page = 10;
+
+		 
+
+	  if ($json_api->query->page) $page =(int) $json_api->query->page;
+
+		 else $page = null;
+
+    
+
+		
+
+    $oReturn = friends_search_friends( $search, $user_id, $per_page, $page );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+
+
+public function friends_friendship_request_user_ids() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+        if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+		
+
+    $oReturn->users = friends_get_friendship_request_user_ids( $user_id );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+	
+
+public function friends_listing(){ 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+        if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} else $user_id = (int) $json_api->query->user_id; 
+
+	
+
+	  if ($json_api->query->type) $type = $json_api->query->type;
+
+		 else $type = 'active';
+
+    
+
+		if ($json_api->query->search) $filter = $json_api->query->search; 
+
+		else $filter = ''; 
+
+	
+
+	  if ($json_api->query->per_page) $per_page =(int) $json_api->query->per_page;
+
+		 else $per_page = 0;
+
+		 
+
+	  if ($json_api->query->page) $page =(int) $json_api->query->page;
+
+		 else $page = 0;
+
+		 
+
+   $oReturn = BP_Core_User::get_users( $type, $per_page, $page, $user_id, $filter );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+ 
+
+public function friends_get_bulk_last_active() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+       if (!$json_api->query->friend_ids) {
+
+			$json_api->error("You must include a 'friend_ids' var in your request. ids must be comma separated.");
+
+		} 
+
+	
+
+	$friend_ids = explode(',',$json_api->query->friend_ids);
+
+		
+
+    $oReturn->users = friends_get_bulk_last_active( $friend_ids );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+		 				
+
+public function friends_group_invite_list() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+       if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} 
+
+	
+
+	  if (!$json_api->query->group_id) {
+
+			$json_api->error("You must include a 'group_id' var in your request.");
+
+		} 
+
+		
+
+	$oReturn->friends = friends_get_friends_invite_list( $user_id, $group_id );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+
+
+public function friends_count_invitable_friends() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+       if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} 
+
+	
+
+	  if (!$json_api->query->group_id) {
+
+			$json_api->error("You must include a 'group_id' var in your request.");
+
+		} 
+
+		
+
+	$oReturn->friends = friends_count_invitable_friends( $user_id, $group_id );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+
+
+public function friends_friend_count_for_user() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+       if (!$json_api->query->user_id) {
+
+			$json_api->error("You must include a 'user_id' var in your request.");
+
+		} 
+
+	
+
+	$oReturn->friends = friends_get_friend_count_for_user( $user_id ) ;     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+
+
+public function friends_is_friendship_confirmed() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+       if (!$json_api->query->friendship_id) {
+
+			$json_api->error("You must include a 'friendship_id' var in your request.");
+
+		} 
+
+	
+
+	$oReturn->friendship = friends_is_friendship_confirmed( $friendship_id ) ;     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+	
+
+public function friends_update_friend_totals() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+       if (!$json_api->query->friendship_id) {
+
+			$json_api->error("You must include a 'friendship_id' var in your request.");
+
+		} 
+
+	
+
+	$oReturn->friendship = friends_update_friend_totals( $user_id, $friend_id, $status );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+
+
+public function members() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+   
+
+   if ($json_api->query->limit) $limit = (int) $json_api->query->limit;
+
+else $limit = 10;
+
+
+
+ if ($json_api->query->page) $page = (int) $json_api->query->page;
+
+else $page = 1;
+
+
+
+ if ($json_api->query->type) $type = $json_api->query->type;
+
+else $type = 'active';  
+
+
+
+ 
+
+	 // $aParams ['max'] = true;
+
+            $aParams ['per_page'] = $limit;
+
+			 $aParams ['page'] = $page;
+
+			 $aParams ['type'] = $type;
+
+  
+
+			  
+
+		 if ($json_api->query->user_id)	 $aParams ['user_id'] = (int)$json_api->query->user_id;	
+
+		  if ($json_api->query->search_terms)	  $aParams ['search_terms'] = $json_api->query->search_terms;		  
+
+		  		 
+
+		  if ($json_api->query->meta_key)	  $aParams ['meta_key'] = $json_api->query->meta_key;		  
+
+		   if ($json_api->query->meta_value)	{
+
+			   if(!$json_api->query->meta_key) $json_api->error("You must include a 'meta_key' var in your request. or remove 'meta_value' var.");
+
+			    $aParams ['meta_value'] = $json_api->query->meta_value;
+
+				}
+
+		   
+
+		     if ($json_api->query->include)	  $aParams ['include'] = $json_api->query->include;		  
+
+		   if ($json_api->query->exclude)	 $aParams ['exclude'] = $json_api->query->exclude;	
+
+          
+
+	  
+
+	    $sMembers = bp_core_get_users( $aParams );
+
+		
+
+		//d( $sMembers);		
+
+		       
+
+		if ( $sMembers['total'] == 0) $json_api->error("No member found.");
+
+		
+
+		if ($json_api->query->xprofile){
+
+			$xprofile_fields = explode(",", $json_api->query->xprofile);
+
+		}
+
+ 
+
+		//d($xprofile_fields);
+
+        foreach ( $sMembers['users'] as $sMemberID) {
+
+			 $aTemp = new stdClass();
+
+          
+
+            $aTemp->user_id = (int) $sMemberID->ID;
+
+			$aTemp->username = $sMemberID->user_login;
+
+			$aTemp->user_nicename = $sMemberID->user_nicename;
+
+            $aTemp->display_name = $sMemberID->display_name;
+
+			$aTemp->fullname = $sMemberID->fullname;
+
+			  $aTemp->is_friend = $sMemberID->is_friend;
+
+			  $aTemp->last_activity = $sMemberID->last_activity;
+
+			    $aTemp->total_friend_count = (int) $sMemberID->total_friend_count;
+
+	
+
+            $aTemp->avatar = bp_core_fetch_avatar(array('item_id'=>$sMemberID->ID,'html'=>false));
+
+			
+
+			
+
+	 if(is_array($xprofile_fields)){
+
+	  
+
+	  foreach($xprofile_fields as $k){
+
+		  
+
+		  $fields_data[$k] = xprofile_get_field_data( $k, $aTemp->user_id );
+
+		  //echo '$k'.$k.'='.$fields_data[$k];
+
+		  }
+
+		  $aTemp->xprofile = $fields_data;
+
+         }
+
+			 
+
+			$oReturn->members[] = $aTemp;
+
+        }
+
+        $oReturn->total = (int) $sMembers['total'];
+
+		$oReturn->page = (int) $page;
+
+		$oReturn->per_page = (int) $limit;
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	    return $oReturn;
+
+    }	
+
+	
+
+public function notifications() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+      if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+		
+
+		$args = array('user_id'=>$user_id);
+
+	
+
+	 if ($json_api->query->is_new) $args['is_new'] = $json_api->query->is_new;
+
+	 
+
+	  if ($json_api->query->item_id) $args['item_id'] = $json_api->query->item_id;
+
+	  
+
+	   if ($json_api->query->component) $args['component_name'] = $json_api->query->component;
+
+	 
+
+	    if ($json_api->query->action) $args['component_action'] = $json_api->query->action;
+
+		
+
+		if ($json_api->query->search_terms) $args['search_terms'] = $json_api->query->search_terms;
+
+		
+
+		if ($json_api->query->order_by) $args['order_by'] = $json_api->query->order_by;
+
+		else $args['order_by'] = 'date_notified';	
+
+		if ($json_api->query->sort_order) $args['sort_order'] = $json_api->query->sort_order;
+
+		else $args['sort_order'] = 'DESC';
+
+			
+
+		if ($json_api->query->page) $args['page'] = $json_api->query->page;
+
+		
+
+		if ($json_api->query->per_page) $args['per_page'] = $json_api->query->per_page;
+
+	 
+
+	 global $bp;
+
+
+
+	$notifications = BP_Notifications_Notification::get($args);
+
+	//$notifications = bp_notifications_get_notifications_for_user( $user_id, 'object');// $user_id, $format = 'object' ); 
+
+	//return $oReturn->notifications = $notifications;
+
+	    if(is_array($notifications)) {
+
+			
+
+			 foreach ( $notifications as $notification) {
+
+			 $aTemp = new stdClass();
+
+        
+
+            $aTemp->id = (int) $notification->id;
+
+			
+
+		
+
+			$aTemp->user_id = (int) $notification->user_id;
+
+			$aTemp->item_id = (int) $notification->item_id;
+
+			$aTemp->secondary_item_id = (int) $notification->secondary_item_id;
+
+			 $aTemp->component_name = $notification->component_name;
+
+			$aTemp->component_action = $notification->component_action;
+
+			
+
+			if($aTemp->component_name== 'groups'){
+
+				$group = groups_get_group( array( 'group_id' => $aTemp->item_id ) );
+
+			 $aTemp->sender_name = $group->name;
+
+			  $aTemp->sender_avatar = bp_core_fetch_avatar(array('item_id'=>$aTemp->item_id,'object' => 'group','html'=>false));
+
+			}elseif($aTemp->component_name== 'friends') {
+
+				
+
+			 $user = get_userdata( $aTemp->item_id );
+
+			 
+
+			 $aTemp->status = friends_check_friendship_status($aTemp->item_id, $user_id );
+
+			 $aTemp->sender_name = $user->display_name;			 
+
+			  $aTemp->sender_avatar = bp_core_fetch_avatar(array('item_id'=>$aTemp->item_id,'html'=>false));
+
+				}else {
+
+				 $user = get_userdata( $aTemp->secondary_item_id );			
+
+			 $aTemp->sender_name = $user->display_name;
+
+			  $aTemp->sender_avatar = bp_core_fetch_avatar(array('item_id'=>$aTemp->secondary_item_id,'html'=>false));
+
+			}
+
+			 
+
+	           
+
+			  $aTemp->date_notified = $notification->date_notified;
+
+			    $aTemp->time_since = bp_core_time_since($notification->date_notified);
+
+			  $aTemp->is_new = (int)$notification->is_new;
+
+			  
+
+			  $component_name = $aTemp->component_name;
+
+			  $component_action_name = $aTemp->component_action;
+
+			  
+
+			  
+
+			   $content = call_user_func(
+
+                           $bp->{$component_name}->notification_callback,
+
+                           $component_action_name,
+
+                           $aTemp->item_id,
+
+                         $aTemp->secondary_item_id,
+
+                           $action_item_count,
+
+                          'array'
+
+                      );
+
+			  
+
+			   $aTemp->content = $content['text'];
+
+			    $aTemp->href = $content['link'];
+
+			 			 
+
+			$oReturn->notifications[] = $aTemp;
+
+        }
+
+			
+
+			
+
+			}
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+
+
+
+public function notifications_unread_count() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+      if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+	$oReturn->count = bp_notifications_get_unread_notification_count( $user_id );     
+
+       
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+
+
+public function notifications_delete() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+      if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+	  if (!$json_api->query->notification_id) {
+
+			$json_api->error("You must include a 'notification_id' var in your request.");
+
+		}else $notification_id = (int) $json_api->query->notification_id;
+
+
+
+	 if ( ! bp_notifications_check_notification_access( $user_id, $notification_id ) ) {
+
+          $json_api->error("Invalid access. user does not have access to this notification.");
+
+     }
+
+ 
+
+    $oReturn->response = BP_Notifications_Notification::delete( array( 'id' => $notification_id ) );	
+
+	    
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+		
+
+public function notifications_mark_all() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+      if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+   $is_new = 0;
+
+	
+
+ 
+
+    $oReturn->response = BP_Notifications_Notification::mark_all_for_user( $user_id, $is_new )  ;	
+
+	    
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }	
+
+	
+
+public function notifications_mark_all_by_type() { 
+
+		global $json_api;
+
+        
+
+        $oReturn = new stdClass();
+
+
+
+  if (function_exists('bp_is_active')) {	
+
+
+
+      if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+		
+
+	if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+    if (!$json_api->query->component_name) {
+
+			$json_api->error("You must include a 'component_name' var in your request. ");
+
+		}else 	 $component_name= $json_api->query->component_name;
+
+		
+
+	 if (!$json_api->query->component_action) {
+
+			$json_api->error("You must include a 'component_action' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+		else $component_action=$json_api->query->component_action;
+
+	
+
+	$is_new = 0;
+
+		
+
+ 
+
+   // $oReturn->response = bp_notifications_mark_notifications_from_user( $user_id, $component_name, $component_action, $is_new );	
+
+	 $oReturn->response =    BP_Notifications_Notification::update(
+
+           array(
+
+              'is_new' => $is_new
+
+          ),
+
+           array(
+
+              'user_id'          => $user_id,
+
+              'component_name'   => $component_name,
+
+              'component_action' => $component_action
+
+           )
+
+           );
+
+		}else {	  
+
+	  $json_api->error("You must install and activate BuddyPress plugin to use this method.");
+
+	   }
+
+	 return $oReturn;
+
+    }
+	
+	public function get_post_meta() {
+	 
+	  global $json_api;
+	  
+	  if (!$json_api->query->post_id) {
+			$json_api->error("You must include a 'post_id' var in your request.");
+		}else $post_id = (int) $json_api->query->post_id;
+
+			
+     $meta_key = sanitize_text_field($json_api->query->meta_key);	
+  
+		  
+		if($meta_key) $meta[$meta_key] =  get_post_meta( $post_id, $meta_key);
+		else $meta = get_post_meta( $post_id );
+     	
+		$data =  array_map( function( $a ) {
+					return $a[0];
+					}, $meta );
+//d($data);
+	   return array('post_meta'=>$data);
+	    
+	  
+	  } 
+	  
+public function update_post_meta() {
+	 
+	  global $json_api;	
+
+	  if (!$json_api->query->cookie) {
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+		}
+
+		$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+//	echo '$user_id: '.$user_id;	
+	
+		if (!$user_id) {
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+		}
+		
+		
+	$author = get_post_field( 'post_author', $json_api->query->post_id );
+	
+	
+	if ($author!=$user_id ) {
+    $json_api->error("You need to login with same user who created post. Only author of post can update post.");
+      }	
+		
+		
+	if( sizeof($_REQUEST) <=1) $json_api->error("You must include one or more vars in your request to add or update post_meta. e.g. 'name', 'website', 'skills'. You must provide multiple meta_key vars in this format: &name=Ali&website=parorrey.com&skills=php,css,js,web design");
+
+//d($_REQUEST);
+foreach($_REQUEST as $meta_key => $value){
+		
+	if($meta_key=='cookie' || $meta_key=='key' || $meta_key=='secret') continue;
+	
+	
+	if( strpos($value,',') !== false ) {
+		$values = explode(",", $value);
+	   $values = array_map('trim',$values);
+	   }
+	else $values = trim($value);
+	//echo 'field-values: '.$field.'=>'.$value;
+	//d($values);
+    $prev_meta_value = get_post_meta( $post_id, $meta_key);
+   $result[$meta_key]['updated'] =  update_post_meta(  $post_id, $meta_key, $values, $prev_meta_value);
+ 
+}
+
+	 return $result;
+   
+
+  }
+  
+public function delete_post_meta() {
+	 
+	  global $json_api;	
+
+	  if (!$json_api->query->cookie) {
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+		}
+
+		$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+//	echo '$user_id: '.$user_id;	
+	
+		if (!$user_id) {
+			$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+		}
+		
+	if( sizeof($_REQUEST) <=1) $json_api->error("You must include one or more vars in your request to add or update as user_meta. e.g. 'name', 'website', 'skills'. You must provide multiple meta_key vars in this format: &name=Ali&website=parorrey.com&skills=php,css,js,web design");
+
+d($_REQUEST);
+foreach($_REQUEST as $field => $value){
+		
+	if($field=='cookie') continue;
+	
+	$field_label = str_replace('_',' ',$field);
+	
+	if( strpos($value,',') !== false ) {
+		$values = explode(",", $value);
+	   $values = array_map('trim',$values);
+	   }
+	else $values = trim($value);
+	//echo 'field-values: '.$field.'=>'.$value;
+	//d($values);
+
+   $result[$field_label]['updated'] =  update_user_meta(  $user_id, $field, $values);
+ 
+}
+
+	 return $result;
+   
+
+  } 	 		
+	
+	public function send_message_seller(){
 
   		global $json_api;
 		global $wpdb;	
@@ -3495,6 +6426,7 @@ public function delete_account(){
 			}
 		}
 	}
+	
 
   
 
