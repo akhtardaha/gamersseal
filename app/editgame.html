@@ -7,7 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
-    <script src="js/gameDetail.js"></script>
 </head>
 <body>
     <div class="page-wraper">
@@ -22,7 +21,7 @@
            
         </div>
         <div class="content-wraper">
-  		
+  		<form name="editproduct">
         	<div class="gallery">
             <a href="#"><img src="img/game.jpg" alt="Game Image 01" class="popphoto"></a>
             <a href="#"><img src="img/game.jpg" alt="Game Image 02" class="popphoto"></a>
@@ -34,24 +33,25 @@
             <a href="#" class="specification">Game Specifications</a>
             <div class="ui-grid-a descBoxes">
     			<div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">Ninja Game</a></div>
+   				<div class="ui-block-b"><input type="text" name="title" value="Ninja" class="search  not-srch" /></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">XBOX</a></div>
+   				<div class="ui-block-b"><select name="gameType" id="gameType">
+            <option value="1" selected="selected">XBOX</option>
+            <option value="2">PSP</option>
+            <option value="3">PS3</option>
+        </select></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">user@gmail.com</a></div>
+   				<div class="ui-block-b"><input type="text" name="email" value="user@gmail.com" class="search  not-srch" /></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">Ninja Game Just a game of XBox.</a></div>
+   				<div class="ui-block-b"><textarea class="search  not-srch" name="details">This is Ninja Game..</textarea></div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Stock:</a></div>
+   				<div class="ui-block-b"><input type="number"j name="stock" value="10" class="search  not-srch" /></div>
 			</div>
-            <button class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>
             <div>
-    <h4 class="send">Send Message to Saller</h4>
-    <form action="" method="get" name="message">
-    <input type="text" id="title" placeholder="Title" name="title" class="search not-srch" />
-    <input type="hidden" id="seller_id" />
-    <textarea id="message" placeholder="Message" name="message" class="search not-srch" ></textarea>
-    <input type="button" name="submit" onclick="return sendMessagetoSeller();" value="Send" class="search btn not-srch" />
+    <input type="button" class="search btn not-srch" name="update" value="Update"/>
+    <input type="button" class="search btn not-srch" name="delete" value="Delete"/>
+    <a href="postgame.html" class="search  not-srch a-btn">Add New Game</a>
     </form>
-    
         </div><!-- /content -->
  </div>
   </div>
