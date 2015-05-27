@@ -51,18 +51,20 @@ li.your-reply{
 	list-style-type:none;
 	width:100%;
 	margin-bottom:-1px;}
-.home-tabs ul li a{
-	display:block;
-	width:100%;
-	float:left;}
+.home-tabs ul li a {
+  display: block;
+  float: left;
+}
 .home-tabs ul.products-list li a{
 	}
-.product-thumb{
-	width:30%;
-	height:auto;
-	float:left;
-	margin:0 1%;
-	}
+.product-thumb {
+  max-width: 100px;
+  height: auto;
+  float: left;
+  margin: 0 1%;
+  border: 1px solid #eee;
+  margin-right: 8px;
+}
 .product-list-right h5, .product-list-right p{
 	margin:3px 0;}
 img{
@@ -71,6 +73,9 @@ img{
 	display:inline-block;
 	float:left;
 	width:58%;}
+.product-list-right a {
+  width: 100%;
+}
 .products-list li{
 	margin: 15px 0;
   display: block;
@@ -338,3 +343,9 @@ input.search{
 	width:100%;}
 .footer h4{
 	margin:10px 0px;}
+.products-list p
+{
+  font-size: 13px;
+  font-family: Arial;
+  text-transform: lowercase;
+}

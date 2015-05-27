@@ -77,6 +77,7 @@ class JSON_API_Post {
     if (!empty($values['author'])) {
       $author = $json_api->introspector->get_author_by_login($values['author']);
       $wp_values['post_author'] = $author->id;
+	  $wp_values['post_author_email'] = $author->email;
     }
     
     if (isset($values['categories'])) {

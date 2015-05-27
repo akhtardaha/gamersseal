@@ -59,10 +59,18 @@ function getCategoryProducts(term_id)
 				$.each(products, function (i, value) {
 				html += '<li>';
 					html += '<a href="single.html?post_id='+value.ID+'">';
+					if(value.custom_fields.images)
+					{
 						html += '<img src="'+GAME_IMAGES_PATH+value.custom_fields.images[0]+'" class="product-thumb">';
+					}
+					else
+					{
+						html += '<img src="img/gamesdefault.png" class="product-thumb">';
+					}
 						html += '<div class="product-list-right">';
 						html += '<h5>'+value.post_title+'</h5>';
-						html += '<p>'+value.post_content+'</p>';
+						var excerpt = value.post_content;
+						html += '<p>'+excerpt.substr(0, 100)+'</p>';
 						html += '<p>Price: '+value.custom_fields.sales_price[0]+'$</p>';
 						html += '</div>';
 					html += '</a>';

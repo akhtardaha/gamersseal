@@ -34,11 +34,19 @@ function getPostDetail(post_id)
 				console.log(data);
 				var post = data.post;
 				var author = data.post.author;
-				var gallery = data.post.custom_fields.images;
 				var totalPosts = data.count;
-					$.each(gallery, function (i, v) {
+				if(data.post.custom_fields.images)
+				{
+				var gallery = data.post.custom_fields.images;
+				$.each(gallery, function (i, v) {
 				imageGallery += '<a style="width:100%;" href="#img'+i+'" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-link"><img src="'+GAME_IMAGES_PATH+v+'" alt="'+v+'" class="popphoto"></a>';
-					})
+				})
+				}
+				else
+				{
+				imageGallery += '<a style="width:100%;" href="#img0" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-link"><img style="max-width: 100%;max-height: 145px;width: auto;" src="img/gamesdefault.png" class="popphoto"></a>';	
+				}
+				
 				$('.gallery').html(imageGallery);
 				
 				 descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>';
@@ -53,7 +61,7 @@ function getPostDetail(post_id)
    				 
 				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+gameCat+'</a></div>';
                  descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
-   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.name+'</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div>';
                  descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt+'</a></div>';
 				 $('#seller_id').val(author.id);

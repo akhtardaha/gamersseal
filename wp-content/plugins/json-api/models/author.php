@@ -10,6 +10,7 @@ class JSON_API_Author {
   var $nickname;    // String
   var $url;         // String
   var $description; // String
+  var $email; // String
   
   // Note:
   //   JSON_API_Author objects can include additional values by using the
@@ -27,6 +28,7 @@ class JSON_API_Author {
     $this->set_value('last_name', 'last_name');
     $this->set_value('nickname', 'nickname');
     $this->set_value('url', 'user_url');
+	$this->set_value('email', 'user_email');
     $this->set_value('description', 'description');
     $this->set_author_meta();
     //$this->raw = get_userdata($this->id);

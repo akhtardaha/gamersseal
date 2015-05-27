@@ -1202,9 +1202,75 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
     }else {		
 
-	add_post_meta($post->id, "_thumbnail_id", $post->attachments[0]->id);	
-
-		}
+	add_post_meta($post->id, "_thumbnail_id", $post->attachments[0]->id);
+	
+	
+	$sales_price = $json_api->query->sales_price;
+	$stock_qty = $json_api->query->stock_qty;
+	$manage_stock = $json_api->query->manage_stock;
+	$delivery_time = $json_api->query->delivery_time;
+	$shiping_cost = $json_api->query->shiping_cost;
+	$min_order = $json_api->query->min_order;
+	$max_order = $json_api->query->max_order;
+	$age_limit = $json_api->query->age_limit;
+	
+	$wpmp_list_opts = array (
+			  'tax_status' => 'taxable',
+			  'tax_class' => '',
+			  'weight' => '',
+			  'pwidth' => '',
+			  'pheight' => '',
+			  'manage_stock' => $manage_stock,
+			  'delivery_time' => $delivery_time,
+			  'shiping_cost' => $shiping_cost,
+			  'min_order' => $min_order,
+			  'max_order' => $max_order,
+			  'age_limit' => $age_limit,
+			  'stock_qty' => $stock_qty,
+			  'images1' => '',
+			  'images' => 
+			  array (
+				0 => '',
+			  ),
+			  'file1' => '',
+			  'demo_site' => '',
+			  'demo_admin' => '',
+			  'demo_username' => '',
+			  'demo_password' => '',
+			  'base_price' => '',
+			  'sales_price' => $sales_price,
+			  'sales_price_expire' => '',
+			  'variation' => 
+			  array (
+				1 => 
+				array (
+				  'vname' => '',
+				  1 => 
+				  array (
+					'option_name' => '',
+					'option_price' => '',
+				  ),
+				),
+			  ),
+			  'discount' => 
+			  array (
+				'guest' => '',
+				'standard' => '',
+				'preminum' => ''
+			  ),
+		);
+	//$wpmp_list_op = maybe_serialize($wpmp_list_opts);
+	add_post_meta($post->id, "wpmp_list_opts", $wpmp_list_opts);
+	add_post_meta($post->id, "stock_qty", $stock_qty);
+	add_post_meta($post->id, "sales_price", $sales_price);
+	add_post_meta($post->id, "manage_stock", $manage_stock);
+	add_post_meta($post->id, "delivery_time", $delivery_time);
+	add_post_meta($post->id, "shiping_cost", $shiping_cost);
+	add_post_meta($post->id, "min_order", $min_order);
+	add_post_meta($post->id, "max_order", $max_order);
+	add_post_meta($post->id, "age_limit", $age_limit);
+	//set_post_type($post->id,'wpmarketplace');	
+	}
 
 	
 
@@ -1212,13 +1278,9 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
 	
 
-		
+	
 
-    return array(
-
-      'post' => $post
-
-    );
+    return array('post' => $post);
 
   }  
 
@@ -6319,6 +6381,58 @@ foreach($meta_keys as $k){
    
 
   }
+  
+  public function set_product_category(){
+	  	global $json_api;
+		global $wpdb;
+		
+		if (!$json_api->query->post_id || !$json_api->query->terms_id) {
+			$json_api->error("You must include 'post_id' , 'terms_id' var in your request. ");
+		}
+		else {
+			$post_id = $json_api->query->post_id;
+			$terms_id = $json_api->query->terms_id;	
+			
+			$query = "INSERT INTO wp_term_relationships (object_id,term_taxonomy_id) VALUES ($post_id,$terms_id)";
+			$res = $wpdb->query($query);
+			if($res)
+			{
+				$response['success'] = 1;
+				$response['status'] = "Product category Updated Successfully";
+				
+			}
+			else
+			{
+				$response['success'] = 0;
+				$response['status'] = "Product category not Updated";
+			}
+				
+		}  
+		return array($response);	
+  	}
+	
+	  public function set_post_type_wpmarketplace(){
+		  
+	  	global $json_api;
+		global $wpdb;
+		
+		if (!$json_api->query->post_id) {
+			$json_api->error("You must include 'post_id' var in your request. ");
+		}
+		else {
+			$post_id = $json_api->query->post_id;
+			$post_type = 'wpmarketplace';	
+			
+			if ( set_post_type($post_id,$post_type)) {
+			  	$response['success'] = 1;
+				$response['status'] = "Post Type Updated";
+			} else {
+			  	$response['success'] = 0;
+				$response['status'] = "Post Type Not Updated";
+			}	
+		}  
+		return array($response);	
+  	}
 	
 	public function send_message_seller(){
 
