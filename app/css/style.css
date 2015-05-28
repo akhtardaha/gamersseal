@@ -18,6 +18,8 @@ a{
 	text-decoration:none;
 	color:#000;
 	}
+.cart img, .setting img{
+	width:25px;}
 #loading {
   width: 50px;
   margin-left: 44%;
@@ -268,10 +270,10 @@ input.search{
   margin: 0;
   text-align:center;
 }
-.gallery a{
+.gallery a, .gallery img{
  /* width: 33.33333333%;*/
- width:140px;
-  display: inline-block;
+	width:140px;
+  	display: inline-block;
 }
 .ui-icon-cart{
 	background:url(../img/cart.png) no-repeat !important;
