@@ -1204,7 +1204,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
 	add_post_meta($post->id, "_thumbnail_id", $post->attachments[0]->id);
 	
-	
+	$img = array();
 	$sales_price = $json_api->query->sales_price;
 	$stock_qty = $json_api->query->stock_qty;
 	$manage_stock = $json_api->query->manage_stock;
@@ -1213,6 +1213,8 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	$min_order = $json_api->query->min_order;
 	$max_order = $json_api->query->max_order;
 	$age_limit = $json_api->query->age_limit;
+	$images = $json_api->query->images;
+	$img = explode( ',', $images );
 	
 	$wpmp_list_opts = array (
 			  'tax_status' => 'taxable',
@@ -1228,10 +1230,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 			  'age_limit' => $age_limit,
 			  'stock_qty' => $stock_qty,
 			  'images1' => '',
-			  'images' => 
-			  array (
-				0 => '',
-			  ),
+			  'images' => $img,
 			  'file1' => '',
 			  'demo_site' => '',
 			  'demo_admin' => '',
@@ -1268,6 +1267,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	add_post_meta($post->id, "shiping_cost", $shiping_cost);
 	add_post_meta($post->id, "min_order", $min_order);
 	add_post_meta($post->id, "max_order", $max_order);
+	add_post_meta($post->id, "images", $img);
 	add_post_meta($post->id, "age_limit", $age_limit);
 	//set_post_type($post->id,'wpmarketplace');	
 	}

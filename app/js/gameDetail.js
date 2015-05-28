@@ -110,7 +110,7 @@ function sendMessagetoSeller()
 				$('#message').val('');
 				console.log(data.msg.status);
 				navigator.notification.alert(
-                    data.msg.status,  // message
+                    "Message Sent",  // message
                     function(){},         // callback
                     'Sending Message to Seller',            // title
                     'OK'                  // buttonName
@@ -120,7 +120,7 @@ function sendMessagetoSeller()
 			{
 				console.log(data.msg.status);
 				navigator.notification.alert(
-                    data.msg.status,  // message
+                    "Message not Sent",  // message
                     function(){},         // callback
                     'Sending Message to Seller',            // title
                     'OK'                  // buttonName

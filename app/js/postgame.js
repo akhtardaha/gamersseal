@@ -50,6 +50,15 @@ function addPost()
 	var ageLimit = $('#age-limit').val();
 	var manage_stock = 1;
 	
+	if(window.localStorage.getItem("GamesPics"))
+	{
+		var pics = window.localStorage.getItem("GamesPics");
+	}
+	else
+	{
+		var pics = '';
+	}
+	
 	var publish = $('#publish').val();
 	if(publish == 1)
 	{
@@ -111,7 +120,7 @@ function addPost()
 
 	var cooke = window.localStorage.getItem("loginuserCookie");
 	
-	var url = API_URL+'add_post/?key=1234567891011&cookie='+cooke+'&type=wpmarketplace&title='+postTitle+'&content='+postDetail+'&manage_stock='+manage_stock+'&stock_qty='+stock+'&sales_price='+price+'&delivery_time='+deliveryTime+'&shiping_cost='+shipingCost+'&min_order='+minOrder+'&max_order='+maxOrder+'&age_limit='+ageLimit+'&status='+publish+' ';
+	var url = API_URL+'add_post/?key=1234567891011&cookie='+cooke+'&type=wpmarketplace&title='+postTitle+'&content='+postDetail+'&manage_stock='+manage_stock+'&stock_qty='+stock+'&sales_price='+price+'&delivery_time='+deliveryTime+'&shiping_cost='+shipingCost+'&min_order='+minOrder+'&max_order='+maxOrder+'&images='+pics+'&age_limit='+ageLimit+'&status='+publish+' ';
 	console.log(url);
 		var html = '';
 	    $.ajax({
@@ -132,7 +141,7 @@ function addPost()
 				console.log("Product Added Successfully");
 					navigator.notification.alert(
 							"Game Added Successfully",  // message
-							function(){setTimeout(function(){ location.reload(); },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'postgame.html'; },200)},        // callback
 						   'Adding New Game',            // title
 							'OK'                  // buttonName
 				);	

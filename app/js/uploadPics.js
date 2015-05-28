@@ -18,17 +18,18 @@
         }
  
         function uploadPhoto(imageURI) {
-			var cookie = window.localStorage.getItem("loginUserCookie");
+			var cookie = window.localStorage.getItem("loginuserCookie");
             var options = new FileUploadOptions();
-            options.fileKey="avatar";
+            options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
 			options.headers = {
 			  Connection: "close"
 		   };
  
+ 			var name = $('#title').val();
             var params = new Object();
-            params.key = "553789ba61dc1";
+            params.key = convertToSlug(name);
 			params.fName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             params.cookie = cookie;
  
@@ -60,3 +61,13 @@
             console.log("Error found, Error code ="+error.code);
 			//alert("An error has occurred: Code = " = error.code);
         }
+		
+		
+		function convertToSlug(Text)
+		{
+			return Text
+				.toLowerCase()
+				.replace(/ /g,'-')
+				.replace(/[^\w-]+/g,'')
+				;
+		}
