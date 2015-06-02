@@ -106,7 +106,7 @@ function addPost()
 	
 	
 	
-	if(postTitle == '' || postDetail == '' || price == '' | stock == '')
+	if(postTitle == '' || postDetail == '' || price == '' || stock == '')
 	{
 		return false;
 	}

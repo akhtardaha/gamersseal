@@ -108,13 +108,14 @@ img{
 	width:98%;
 	margin:15px 1%;
 	position:relative;}
-.content-wraper{
-	display:block;
-	float:left;
-	width:94%;
-	padding:15px 3%;
-	position:relative;
-	z-index:555;}
+.content-wraper {
+  display: block;
+  float: left;
+  width: 94%;
+  padding: 15px 3%;
+  position: relative;
+  z-index: 555;
+}
 .open .bdr-btm{
 	border-bottom:1px solid #ccc;
 	}
@@ -123,13 +124,14 @@ img{
   border-radius: 15px;
   padding-left: 0;
   }
-select.mobile-dropdown, select{
-	width:100%;
-	float:left;
-	display:block;
-	padding:5px 15px;
-	border-radius:25px;
-	margin:5px 0;}
+select.mobile-dropdown, select {
+  width: 100%;
+  float: left;
+  display: block;
+  padding: 5px 15px;
+  border-radius: 25px;
+  margin: 10px 0;
+}
 .search.not-srch {
   background: none;
   padding-left: 10px;
@@ -151,11 +153,30 @@ select.mobile-dropdown, select{
 	border:1px solid #ccc;
 	padding:5px 15px !important;
 	}
-.descBoxes .ui-block-a, .descBoxes .ui-block-b{
-	width:48%;
+.descBoxes .ui-block-b {
+  width: 62%;
+  float: left;
+  display: block;
+  padding: 0 1%;
+}
+.descBoxes  .ui-block-a a
+{
+    margin: 15px 0px;
+    float: left;
+    width: 100%;
+}
+.descBoxes .ui-block-b a {
+  margin: 15px 0px;
+  float: left;
+  width: 100%;
+}
+.descBoxes  .ui-block-a
+{
+	width:30%;
 	float:left;
 	display:block;
-	padding:0 1%;}
+	padding:0 1%;	
+}
 h4.send{
 	margin:0px 0;}
 .search.btn.not-srch{
@@ -229,7 +250,8 @@ input.search{
 	display:block;
 	width:100%;
 	position:relative;
-	margin-bottom:10px;}
+	margin-bottom:10px;
+	overflow-y:auto;}
 .cart, .setting{
   display: inline-block;
   padding: 0;
@@ -338,11 +360,14 @@ input.search{
 	margin:0px;
 	float:left;
 	width:80%;}
-.footer{
-	text-align:center;
-	float:left;
-	display:block;
-	width:100%;}
+.footer {
+  text-align: center;
+  float: left;
+  display: block;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+}
 .footer h4{
 	margin:10px 0px;}
 .products-list p
@@ -350,4 +375,9 @@ input.search{
   font-size: 13px;
   font-family: Arial;
   text-transform: lowercase;
+}
+
+textarea
+{
+	min-height:70px !important;
 }

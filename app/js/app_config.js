@@ -23,6 +23,16 @@ $( ".setting" ).click(function() {
 });
 })
 
+$(document).ready(function(){
+	var headerheight = 75;
+	var footerheight = 67;
+	var totalScreenHeight = $(window).innerHeight();
+	$('.page-wraper').css('height',totalScreenHeight+'px');
+	var totalContentHeight = totalScreenHeight - parseInt(headerheight) - parseInt(footerheight);
+	$('.main-wraper').css('height',totalContentHeight+'px');
+	//alert(totalScreenHeight);
+})
+
 function goBack() {
     window.history.go(-1)
 }
@@ -111,13 +121,13 @@ function sideBarMenu()
 {
 			var html = '';
 			html += '<ul >';
-           		html += '<li><a href="#">Continue Shopping</a></li>';
+           		html += '<li><a href="index.html">Continue Shopping</a></li>';
                 html += '<li><a href="#">Shopping Cart</a></li>';
                 html += '<li><a href="message-board.html">Message Board</a></li>';
                 html += '<li><a href="#">Order Status (for buyer)</a></li>';
-                html += '<li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>';
-                html += '<li><a href="#">Stock Management (for Buyer)</a></li>';
-                html += '<li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>';
+                html += '<li class="bdr-btm"><a href="#">Order Summary (for Buyer)</a></li>';
+                html += '<li><a href="managegames.html">Stock Management (for Seller)</a></li>';
+                html += '<li class="bdr-btm"><a href="postgame.html">Add New Item (for Seller)</a></li>';
                 html += '<li class="bdr-btm"><a href="#">Settings</a></li>';
                 html += '<li><a href="#">Sales Reports</a></li>';
                 html += '<li class="bdr-btm"><a href="#">Hall of Fame</a></li>';

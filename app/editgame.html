@@ -3,10 +3,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
-<title>Games Gamers Seal</title>
+<title>Login Gamers Seal</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/editgame.js"></script>
+<style>
+.specification {
+  text-align: center;
+  font-size: 17px;
+  width: 100%;
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
+  text-transform: uppercase;
+}
+.gallery #loading {
+  width: 50px;
+  margin-left: 0%;
+  padding: 20px 0px;
+}
+</style>
 </head>
 <body>
     <div class="page-wraper">
@@ -23,37 +44,35 @@
         <div class="content-wraper">
   		<form name="editproduct">
         	<div class="gallery">
-            <a href="#"><img src="img/game.jpg" alt="Game Image 01" class="popphoto"></a>
-            <a href="#"><img src="img/game.jpg" alt="Game Image 02" class="popphoto"></a>
-            <a href="#"><img src="img/game.jpg" alt="Game Image 03" class="popphoto"></a>
-            <a href="#"><img src="img/game.jpg" alt="Game Image 04" class="popphoto"></a>
-            <a href="#"><img src="img/game.jpg" alt="Game Image 05" class="popphoto"></a>
-            
-            </div>
+  				<img id="loading" src="img/loading.gif" alt="Loading" />
+  			</div>
             <a href="#" class="specification">Game Specifications</a>
             <div class="ui-grid-a descBoxes">
     			<div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>
-   				<div class="ui-block-b"><input type="text" name="title" value="Ninja" class="search  not-srch" /></div>
+   				<div class="ui-block-b"><input type="text" name="title" id="gameTitle" value="" class="search  not-srch" /></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>
-   				<div class="ui-block-b"><select name="gameType" id="gameType">
-            <option value="1" selected="selected">XBOX</option>
-            <option value="2">PSP</option>
-            <option value="3">PS3</option>
-        </select></div>
+   				<div class="ui-block-b">
+                	<select name="gameType" id="gameType" multiple="multiple">
+        			</select>
+                </div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>
-   				<div class="ui-block-b"><input type="text" name="email" value="user@gmail.com" class="search  not-srch" /></div>
+   				<div class="ui-block-b"><input type="text" name="email" id="contactEmail" value="" class="search  not-srch" /></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>
-   				<div class="ui-block-b"><textarea class="search  not-srch" name="details">This is Ninja Game..</textarea></div>
+   				<div class="ui-block-b"><textarea class="search  not-srch" name="details" id="details"></textarea></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Stock:</a></div>
-   				<div class="ui-block-b"><input type="number"j name="stock" value="10" class="search  not-srch" /></div>
+   				<div class="ui-block-b"><input type="number" name="stock" id="stock" value="" class="search  not-srch" />
+                <input type="hidden" name="gameID" id="gameID" value="" />
+                <input type="hidden" name="gameSlug" id="gameSlug" value="" />
+                </div>
 			</div>
-            <div>
-    <input type="button" class="search btn not-srch" name="update" value="Update"/>
-    <input type="button" class="search btn not-srch" name="delete" value="Delete"/>
-    <a href="postgame.html" class="search  not-srch a-btn">Add New Game</a>
-    </form>
-        </div><!-- /content -->
- </div>
+            <div class="actionBtn">
+                <input type="button" class="search btn not-srch" name="update" onclick="return updateGame();" value="Update"/>
+                <input type="button" class="search btn not-srch" name="delete" onclick="return showConfirm();" value="Delete"/>
+                <a href="postgame.html" class="search  not-srch a-btn">Add New Game</a>
+    
+        	</div>
+           </form>
+ 		</div>
   </div>
         <div class="footer">
             <h4>Powered by GamersSeal</h4>
