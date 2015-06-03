@@ -1948,7 +1948,7 @@ if (function_exists('bp_is_active')) {
 
 	  elseif ($json_api->query->field=='default') {
 
-			$field_label='First Name, Last Name, Bio';/*you should add your own field labels here for quick viewing*/
+			$field_label='Name,Australian ID,DOB,Address,Suburb,State,Post Code,Home Phone,Mobile Phone,ABN,Driving License,Passport';/*you should add your own field labels here for quick viewing*/
 
 		}	
 
@@ -1957,10 +1957,17 @@ if (function_exists('bp_is_active')) {
   
 
   preg_match('|src="(.+?)"|', get_avatar( $user_id, 512 ), $avatar);
+  $user = get_userdata($json_api->query->user_id);	
 
-  
-
-  $fields_data['avatar'] = $avatar[1];
+				$fields_data['id'] = $user->ID;
+				$fields_data["nicename"] = $user->user_nicename;
+				$fields_data["email"] = $user->user_email;
+				$fields_data["url"] = $user->user_url;
+				$fields_data["displayname"] = $user->display_name;
+				$fields_data["firstname"] = $user->user_firstname;
+				$fields_data["lastname"] = $user->last_name;
+				$fields_data["nickname"] = $user->nickname;
+  				$fields_data['avatar'] = $avatar[1];
 
   
 
@@ -1975,8 +1982,17 @@ if (function_exists('bp_is_active')) {
 	  foreach($fields as $k){
 
 		  
-
-		  $fields_data[$k] = xprofile_get_field_data( $k, $user_id );
+		if($k == 'DOB')
+		 {
+			 $dob = xprofile_get_field_data( $k, $user_id );
+			 $dob = date_format(date_create($dob), 'j F, Y');
+			 $fields_data[$k] = $dob;
+		 }
+		 else
+		 {
+			 $fields_data[$k] = xprofile_get_field_data( $k, $user_id );
+		 }
+		  
 
 		  
 

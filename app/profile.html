@@ -3,9 +3,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
-<title>Profile Gamers Seal</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title>Login Gamers Seal</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />  
+	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/app_config.js"></script>
+    <script src="js/profile.js"></script>
+<style>
+#loading {
+  width: 50px;
+  margin-left: 45%;
+  padding: 20px 0px;
+}
+.gallery {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  min-height: 140px;
+  display: block;
+}
+.descBoxes .ui-block-b {
+  width: 56%;
+  float: left;
+  display: block;
+  padding: 0 1%;
+  min-height: 20px;
+}
+.descBoxes .ui-block-a a {
+  margin: 5px 0px;
+  float: left;
+  width: 100%;
+}
+
+.descBoxes .ui-block-b a {
+  margin: 5px 0px;
+  float: left;
+  width: 100%;
+}
+.item {
+  float: left;
+  width: 98%;
+  margin-left: 2%;
+}
+</style>
 </head>
 <body>
     <div class="page-wraper">
@@ -17,40 +58,15 @@
         </div><!-- /header -->
   <div class="main-wraper">
         <div class="slide-menu close">
-           <ul >
-           		<li><a href="#">Continue Shopping</a></li>
-                <li><a href="#">Shopping Cart</a></li>
-                <li><a href="#">Message Board</a></li>
-                <li><a href="#">Order Status (for buyer)</a></li>
-                <li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>
-                <li><a href="#">Stock Management (for Buyer)</a></li>
-                <li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>
-                <li class="bdr-btm"><a href="#">Settings</a></li>
-                <li><a href="#">Sales Reports</a></li>
-                <li class="bdr-btm"><a href="#">Hall of Fame</a></li>
-				<li class="loginMenu"><a href="login.html">Sign in</a></li>
-                <li class="registerMenu"><a href="register.html">Sign up</a></li>
-                <li class="profileMenu"><a href="profile.html">Profile</a></li>
-				<li><a href="postgame.html">Post a Game</a></li>
-				<li class="gameMenu"><a href="games.html">Buy Games</a></li>
-                <li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>
-			</ul>
         </div>
         <div class="content-wraper">
         	<div class="gallery">
-            <a href="#" ><img src="img/profile.jpg" alt="Game Image 01" class="popphoto"></a>
+            <a href="javascript:void(0)" id="popphoto"></a>
             
             </div>
             <a href="#" data-role="button" data-icon="star" class="specification ui-icon-user">Personal Profile</a>
             <div class="ui-grid-a descBoxes">
-    			<div class="ui-block-a"><a class="ui-shadow ui-btn">Name:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">Jon Mical:</a></div>
-                <div class="ui-block-a"><a class="ui-shadow ui-btn">Age:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">22</a></div>
-                <div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">user@gmail.com</a></div>
-                <div class="ui-block-a"><a class="ui-shadow ui-btn">City:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">Demo.</a></div>
+    			<img id="loading" src="img/loading.gif" alt="Loading" />
 			</div>
                     </div></div><!-- /content -->
  
