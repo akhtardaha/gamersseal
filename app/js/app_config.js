@@ -150,7 +150,7 @@ function sideBarMenu()
 			html += '</ul>';
 			$('.slide-menu').html(html);
 }
-
+/*
 $(function() {
     $( "#from , #to" ).datepicker();
-  });
+  });*/
