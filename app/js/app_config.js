@@ -13,12 +13,15 @@ $( ".setting" ).click(function() {
      $( ".slide-menu" ).animate({left: "2000px"}, 500);
 	 $( ".slide-menu" ).removeClass('open');
      $( ".slide-menu" ).addClass('close');
+	 $('.main-wraper').css('opacity','1');
+	 
     }
     else
     {
      $( ".slide-menu" ).animate({left: "0px"}, 500);
 	 $( ".slide-menu" ).removeClass('close');
      $( ".slide-menu" ).addClass('open');
+	 $('.main-wraper').css('opacity','0.3');
     }
 });
 })
@@ -142,7 +145,7 @@ function sideBarMenu()
 				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();">Sign out</a></li>';
 				}
 				html += '<li><a href="postgame.html">Post a Game</a></li>';
-				html += '<li class="gameMenu"><a href="games.html">Buy Games</a></li>';
+				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
                 
 			html += '</ul>';
 			$('.slide-menu').html(html);

@@ -12,32 +12,14 @@
 <body>
     <div class="page-wraper">
 	 <div class="header">
-     	<div class="cart"><a href="cart.html"><img src="img/cart.png" alt="Cart"/></a></div>
+     	<div class="cart"><a href="javascript:void(0);" onclick="return goBack();"><img src="img/back.png" alt="Back"/></a></div>
         <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
         <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
         
         </div><!-- /header -->
+        <div class="slide-menu close"></div>
   <div class="main-wraper">
-        <div class="slide-menu close">
-           <ul >
-           		<li><a href="#">Continue Shopping</a></li>
-                <li><a href="#">Shopping Cart</a></li>
-                <li><a href="#">Message Board</a></li>
-                <li><a href="#">Order Status (for buyer)</a></li>
-                <li class="bdr-btm"><a href="#">Order Summary (for Seller)</a></li>
-                <li><a href="#">Stock Management (for Buyer)</a></li>
-                <li class="bdr-btm"><a href="#">Add New Item (for Seller)</a></li>
-                <li class="bdr-btm"><a href="#">Settings</a></li>
-                <li><a href="#">Sales Reports</a></li>
-                <li class="bdr-btm"><a href="#">Hall of Fame</a></li>
-				<li class="loginMenu"><a href="login.html">Sign in</a></li>
-                <li class="registerMenu"><a href="register.html">Sign up</a></li>
-                <li class="profileMenu"><a href="profile.html">Profile</a></li>
-				<li><a href="postgame.html">Post a Game</a></li>
-				<li class="gameMenu"><a href="games.html">Buy Games</a></li>
-                <li class="logoutMenu" style="display:none;"><a href="#" onclick="return signOutUser();">Sign out</a></li>
-			</ul>
-        </div>
+        
         <div class="content-wraper">
         <div class="fieldError" style="display:none;"></div>
         <form action="" name="login" class="register" onsubmit="return false;">
