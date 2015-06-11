@@ -8,7 +8,67 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
-    
+    <script src="js/addtocart.js"></script>
+    <script src="js/cart.js"></script>
+<style>
+.content-wraper {
+  display: block;
+  float: left;
+  width: 93%;
+  padding: 15px 3%;
+  position: relative;
+  z-index: 555;
+  padding-top: 0px;
+}
+.specification {
+  text-align: center;
+  font-size: 20px;
+  width: 94%;
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
+  margin-left: 3%;
+  margin-bottom: 0px;
+}
+.product-list-right h5, .product-list-right p {
+  margin: 3px 0;
+  font-size: 15px;
+}
+.product-list-right h5 {
+  text-transform: capitalize;
+}
+.product-list-right {
+  display: inline-block;
+  float: left;
+  width: 56%;
+  margin-left: 2%;
+}
+.products-list p {
+  font-size: 13px;
+  font-family: Arial;
+  text-transform: inherit !important;
+}
+.product-thumb {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+  max-width: 100px;
+  max-height: 70px;
+  border: none !important;
+  margin: auto !important;
+  float: none !important;
+}
+.Pimg {
+  float: left;
+  margin: 5px 10px 0 15px;
+  border: 1px solid #eeeeee;
+  text-align: center;
+  width: 30%;
+}
+</style> 
 </head>
 <body>
     <div class="page-wraper">
@@ -19,72 +79,15 @@
         
         </div>
         <div class="slide-menu close"></div>
- <div class="main-wraper">
         
+ <div class="main-wraper">
+        <a href="#" class="specification">Shopping Cart</a>
         <div class="ui-content content-wraper">
         	<ul class="tabContent products-list">
-            <li>
-                <a href="single.html">
-                    <img src="img/game.jpg" class="product-thumb">
-                    <div class="product-list-right">
-                    <h5>Ninja Game</h5>
-                    <p>A Ninja Game item details.</p>
-                    <p>Price: 199$</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="single.html">
-                    <img src="img/game.jpg" class="product-thumb">
-                    <div class="product-list-right">
-                    <h5>Ninja Game</h5>
-                    <p>A Ninja Game item details.</p>
-                    <p>Price: 199$</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="single.html">
-                    <img src="img/game.jpg" class="product-thumb">
-                    <div class="product-list-right">
-                    <h5>Ninja Game</h5>
-                    <p>A Ninja Game item details.</p>
-                    <p>Price: 199$</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="single.html">
-                    <img src="img/game.jpg" class="product-thumb">
-                    <div class="product-list-right">
-                    <h5>Ninja Game</h5>
-                    <p>A Ninja Game item details.</p>
-                    <p>Price: 199$</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="single.html">
-                    <img src="img/game.jpg" class="product-thumb">
-                    <div class="product-list-right">
-                    <h5>Ninja Game</h5>
-                    <p>A Ninja Game item details.</p>
-                    <p>Price: 199$</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="single.html">
-                    <img src="img/game.jpg" class="product-thumb">
-                    <div class="product-list-right">
-                    <h5>Ninja Game</h5>
-                    <p>A Ninja Game item details.</p>
-                    <p>Price: 199$</p>
-                    </div>
-                </a>
-            </li>
-        </ul>
-                
+            	<img id="loading" src="img/loading.gif" alt="Loading" />	
+        	</ul>
+           <a href="checkout.html" class="specification">Checkout</a> 
+           <a href="index.html" class="specification">Continue Shopping</a>    
         	
      	</div><!-- /content -->
  </div>

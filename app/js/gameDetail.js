@@ -66,7 +66,19 @@ function getPostDetail(post_id)
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt+'</a></div>';
 				 $('#seller_id').val(author.id);
 				 console.log(descBoxes);
+				 
+				 var pid = post.id;
+				 var pname = post.title;
+				 var price = post.custom_fields.sales_price[0];
+					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
+				 
 				 $('.descBoxes').html(descBoxes);
+				 if(window.localStorage.getItem("loginuserCookie"))
+					{
+						checkProductsFromCart(pid);	
+					}
+				 
+				 
 			}
 			else
 			{

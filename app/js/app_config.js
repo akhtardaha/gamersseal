@@ -3,6 +3,7 @@
 var API_URL ='http://gamersseal.com/development/api/userplus/';
 var API_URL_DEFAULT ='http://gamersseal.com/development/api/';
 var GAME_IMAGES_PATH = 'http://gamersseal.com/development/wp-content/uploads/wpmp-previews/';
+var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 
 
 
@@ -125,7 +126,7 @@ function sideBarMenu()
 			var html = '';
 			html += '<ul >';
            		html += '<li><a href="index.html">Continue Shopping</a></li>';
-                html += '<li><a href="#">Shopping Cart</a></li>';
+                html += '<li><a href="cart.html">Shopping Cart</a></li>';
                 html += '<li><a href="message-board.html">Message Board</a></li>';
                 html += '<li><a href="#">Order Status (for buyer)</a></li>';
                 html += '<li class="bdr-btm"><a href="#">Order Summary (for Buyer)</a></li>';
