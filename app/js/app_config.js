@@ -11,11 +11,10 @@ $(document).ready(function(){
 sideBarMenu();
 $( ".setting" ).click(function() {  
     if ( $(".slide-menu").hasClass( "open" ) ) {
-     $( ".slide-menu" ).animate({left: "2000px"}, 500);
+     $( ".slide-menu" ).animate({left: "2000px"}, 1000);
 	 $( ".slide-menu" ).removeClass('open');
      $( ".slide-menu" ).addClass('close');
-	 $('.main-wraper').css('opacity','1');
-	 
+	 $('.main-wraper').css('opacity','1');	 
     }
     else
     {

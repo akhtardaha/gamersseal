@@ -201,7 +201,8 @@ h4.send{
 .search.btn.not-srch{
 	width:auto;
 	padding:5px 15px;
-	height:auto;}
+	height:auto;
+	cursor:pointer;}
 input.search {
   background: url(../img/search.png) no-repeat;
   background-size: 25px 25px;

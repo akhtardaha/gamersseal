@@ -35,7 +35,7 @@ function getProductsFromCart()
 									html += '<p>Price: '+value.price+'$</p>';
 									html += '</div>';
 								html += '</a>';
-								html +='<button id="removeProduct" class="btn-remove" onclick="return deleteProductfromCart('+value.pid+');">Remove</button>';
+								html +='<button id="removeProduct" class="btn-remove search not-srch btn" onclick="return deleteProductfromCart('+value.pid+');">Remove</button>';
 							html += '</li>';
 							getPostPic(value.pid);
 						})
