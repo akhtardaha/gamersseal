@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/checkout.js"></script>
 </head>
 <body>
     <div class="page-wraper">
@@ -21,16 +22,9 @@
  <div class="main-wraper">
         
         <div class="content-wraper">
-         <div class="ui-grid-a descBoxes">
-    			<div class="ui-block-a"><a class="ui-shadow ui-btn">Total:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">99999 $</a></div>
-                <div class="ui-block-a"><a class="ui-shadow ui-btn">Shipping Charges:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">50 $</a></div>
-                <div class="ui-block-a"><a class="ui-shadow ui-btn">GST:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">10%</a></div>
-                <div class="ui-block-a"><a class="ui-shadow ui-btn">Total Bill:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">25255 $</a></div>
-                </div>
+         <div class="calculation">
+         	<img id="loading" src="img/loading.gif" alt="Loading" />	
+         </div>
         <form action="" name="checkout" class="addgame">
         <input type="text" name="name" placeholder="Name" class="search not-srch"/>
         <input type="email" name="email" placeholder="E-mail" class="search not-srch"/>
