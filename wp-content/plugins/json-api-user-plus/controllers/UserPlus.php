@@ -1213,6 +1213,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	$min_order = $json_api->query->min_order;
 	$max_order = $json_api->query->max_order;
 	$age_limit = $json_api->query->age_limit;
+	$visible = $json_api->query->visible;
 	$images = $json_api->query->images;
 	$img = explode( ',', $images );
 	
@@ -1269,6 +1270,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	add_post_meta($post->id, "max_order", $max_order);
 	add_post_meta($post->id, "images", $img);
 	add_post_meta($post->id, "age_limit", $age_limit);
+	add_post_meta($post->id, "visible", $visible);
 	//set_post_type($post->id,'wpmarketplace');	
 	}
 
@@ -6646,6 +6648,35 @@ foreach($meta_keys as $k){
 				return array('msg'=>"There is some Error while fetching products.");
 			}
 		}
+	}
+	
+	
+	public function fetch_app_settings()
+	{
+		global $json_api;
+		global $wpdb;
+		
+		$query = "SELECT * FROM app_configuration";
+			$res = $wpdb->query($query);
+			$app_configurations = $wpdb->get_results($query);
+			$data = array();
+			if($app_configurations)
+			{
+				/*foreach($app_configurations as $app_configuration)
+				{
+					//$app_configuration->sender_name = get_the_author_meta( 'display_name', $message->sender_id);
+					//$app_configuration->date_sent = mysql2date('l, jS F, Y', $message->date);
+					//$app_configuration->avatar = get_avatar( $message->sender_id, 150 );
+					$data[] = $app_configuration;
+				}*/
+				$response['app_configuration'] = $app_configurations;
+				
+			}
+			else
+			{
+				$response['app_configuration'] = "There is some Error while Fetching Settings.";
+			}
+			return $response;
 	}
 	
 

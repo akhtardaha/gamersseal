@@ -25,20 +25,26 @@ function getProductsFromCart()
                     if(result.rows.length>0)
                     {
                         var games = result.rows;
-						 $.each(games, function(key,value){
-							console.log(value);
-							html += '<li>';
-								html += '<a href="single.html?post_id='+value.pid+'">';
-									html += '<div class="Pimg"><img id="img'+value.pid+'" src="img/loadingSmall.gif" class="product-thumb"></div>';
+						var total_games = result.rows.length;
+						console.log(total_games);
+							for(var i=0; i<total_games; i++)
+							{
+								//console.log(result.rows.item(i).prodid);
+								var pid = result.rows.item(i).pid;
+								var pname = result.rows.item(i).pname;
+								var price = result.rows.item(i).price;
+								html += '<li>';
+								html += '<a href="single.html?post_id='+pid+'">';
+									html += '<div class="Pimg"><img id="img'+pid+'" src="img/loadingSmall.gif" class="product-thumb"></div>';
 									html += '<div class="product-list-right">';
-									html += '<h5>'+value.pname+'</h5>';
-									html += '<p>Price: '+value.price+'$</p>';
+									html += '<h5>'+pname+'</h5>';
+									html += '<p>Price: '+price+'$</p>';
 									html += '</div>';
 								html += '</a>';
-								html +='<button id="removeProduct" class="btn-remove search not-srch btn" onclick="return deleteProductfromCart('+value.pid+');">Remove</button>';
+								html +='<button id="removeProduct" class="btn-remove search not-srch btn" onclick="return deleteProductfromCart('+pid+');">Remove</button>';
 							html += '</li>';
-							getPostPic(value.pid);
-						})
+							getPostPic(pid);
+							}
 						$('ul.products-list').html(html);
 						getCartTotal();
                     }
@@ -54,7 +60,7 @@ function getProductsFromCart()
 
         },
         function(err){
-            console.log('Error: '+err.message);
+            console.log('Error: '+err);
              console.log('Error: There is some error while getting products please try again.');
         },
         function(){
@@ -79,11 +85,15 @@ function getCartTotal()
                     {
                         var games = result.rows;
 						var totalCart = 0;
-						 $.each(games, function(key,value){
-							var pPrice = value.price;
-							totalCart = parseFloat(totalCart)+parseFloat(pPrice); 
-						})
-						var gstPercenet = 9;
+						var total_games = result.rows.length;
+						
+						
+						for(var i=0; i<total_games; i++)
+							{
+								var pPrice = result.rows.item(i).price;
+								totalCart = parseFloat(totalCart)+parseFloat(pPrice); 
+							}
+						var gstPercenet = window.localStorage.getItem("gst");
 						var gst = Math.round(totalCart/100 * gstPercenet);
 						var shippingCost = 20;
 						var OrderTotal = parseFloat(totalCart) + parseFloat(gst) + parseFloat(shippingCost);
@@ -103,7 +113,7 @@ function getCartTotal()
 
         },
         function(err){
-            console.log('Error: '+err.message);
+            console.log('Error: '+err);
              console.log('Error: There is some error while getting Total Cart please try again.');
         },
         function(){

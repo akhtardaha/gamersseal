@@ -66,6 +66,7 @@ function getPostDetail(post_id)
 				 $('#gameID').val(post.id);
 				 $('#stock').val(post.custom_fields.stock_qty[0]);
 				 $('#gameSlug').val(post.slug);
+				 $('#publish').val(post.custom_fields.visible[0]);
 				 
 				 //$('.descBoxes').html(descBoxes);
 			}
@@ -85,7 +86,7 @@ function updateGame()
 		var type = 'wpmarketplace';
 		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
-		
+		var publish = $('#publish').val();
 		var postTitle = $('#gameTitle').val();
 		var gameType = $('#gameType').val();
 		$('#contactEmail').val();
@@ -153,7 +154,7 @@ function updateGame()
 					console.log(data);
 					if(data.status == 'ok')
 					{
-					set_custom_options(gameID,stock);
+					set_custom_options(gameID,stock,publish);
 					set_product_category(gameID,gameType);
 					console.log("Product Updated Successfully");
 					navigator.notification.alert(
@@ -202,11 +203,11 @@ function set_product_category(post_id,terms)
     });
 }
 
-function set_custom_options(post_id,stock)
+function set_custom_options(post_id,stock,publish)
 {
 		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
-		var url = API_URL+'update_post_meta/?key=1234567891011&cookie='+cooke+'&post_id='+post_id+'&stock_qty='+stock+'';
+		var url = API_URL+'update_post_meta/?key=1234567891011&cookie='+cooke+'&post_id='+post_id+'&stock_qty='+stock+'&visible='+publish+'';
 		$.ajax({
          url:url,
         type: "POST",

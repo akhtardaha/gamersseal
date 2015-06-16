@@ -3,11 +3,14 @@
 var API_URL ='http://gamersseal.com/development/api/userplus/';
 var API_URL_DEFAULT ='http://gamersseal.com/development/api/';
 var GAME_IMAGES_PATH = 'http://gamersseal.com/development/wp-content/uploads/wpmp-previews/';
+var LOGO_PATH = 'http://gamersseal.com/development/uploads/appicon/';
+
 var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 
 
 
 $(document).ready(function(){
+app_settings();
 sideBarMenu();
 $( ".setting" ).click(function() {  
     if ( $(".slide-menu").hasClass( "open" ) ) {
@@ -28,7 +31,7 @@ $( ".setting" ).click(function() {
 
 $(document).ready(function(){
 	var headerheight = 75;
-	var footerheight = 67;
+	var footerheight = 65;
 	var totalScreenHeight = $(window).innerHeight();
 	$('.page-wraper').css('height',totalScreenHeight+'px');
 	var totalContentHeight = totalScreenHeight - parseInt(headerheight) - parseInt(footerheight);
@@ -149,6 +152,95 @@ function sideBarMenu()
                 
 			html += '</ul>';
 			$('.slide-menu').html(html);
+}
+
+var app_icon = window.localStorage.getItem("app_icon");
+if(!(app_icon))
+{
+	getAppSettings();
+}
+function getAppSettings()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'fetch_app_settings/?key=1234567891011';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			if(data.status == 'ok')
+			{
+				var app_background_color = data.app_configuration[0].app_background_color;
+				//app_background_color = app_background_color.replace(/\#\#/g, '');
+				//app_background_color = app_background_color;
+				
+				window.localStorage.setItem("app_background_color",app_background_color);
+
+				window.localStorage.setItem("app_icon",data.app_configuration[0].app_icon);
+				window.localStorage.setItem("gst",data.app_configuration[0].gst);
+				
+				window.localStorage.setItem("guest_daily_purchase",data.app_configuration[0].guest_daily_purchase);
+				window.localStorage.setItem("guest_daily_transaction",data.app_configuration[0].guest_daily_transaction);
+				window.localStorage.setItem("guest_seal_charges",data.app_configuration[0].guest_seal_charges);
+				
+				window.localStorage.setItem("item_desc_limit",data.app_configuration[0].item_desc_limit);
+				
+				window.localStorage.setItem("premium_daily_purchase",data.app_configuration[0].premium_daily_purchase);
+				window.localStorage.setItem("premium_daily_transaction",data.app_configuration[0].premium_daily_transaction);
+				window.localStorage.setItem("premium_item_day",data.app_configuration[0].premium_item_day);
+				window.localStorage.setItem("premium_seal_charges",data.app_configuration[0].premium_seal_charges);
+				
+				window.localStorage.setItem("standard_daily_purchase",data.app_configuration[0].standard_daily_purchase);
+				window.localStorage.setItem("standard_daily_transaction",data.app_configuration[0].standard_daily_transaction);
+				window.localStorage.setItem("standard_item_day",data.app_configuration[0].standard_item_day);
+				window.localStorage.setItem("standard_seal_charges",data.app_configuration[0].standard_seal_charges);
+				
+				window.localStorage.setItem("terms_and_conditions",data.app_configuration[0].terms_and_conditions);
+				
+				app_settings();
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
+function app_settings()
+{
+				var app_background_color = window.localStorage.getItem("app_background_color");
+				console.log(app_background_color);
+				var app_icon = window.localStorage.getItem("app_icon");
+				var gst = window.localStorage.getItem("gst");
+				
+				var guest_daily_purchase = window.localStorage.getItem("guest_daily_purchase");
+				var guest_daily_transaction = window.localStorage.getItem("guest_daily_transaction");
+				var guest_seal_charges = window.localStorage.getItem("guest_seal_charges");
+				
+				var item_desc_limit = window.localStorage.getItem("item_desc_limit");
+				
+				var premium_daily_purchase = window.localStorage.getItem("premium_daily_purchase");
+				var premium_daily_transaction = window.localStorage.getItem("premium_daily_transaction");
+				var premium_item_day = window.localStorage.getItem("premium_item_day");
+				var premium_seal_charges = window.localStorage.getItem("premium_seal_charges");
+				
+				var standard_daily_purchase = window.localStorage.getItem("standard_daily_purchase");
+				var standard_daily_transaction = window.localStorage.getItem("standard_daily_transaction");
+				var standard_item_day = window.localStorage.getItem("standard_item_day");
+				var standard_seal_charges = window.localStorage.getItem("standard_seal_charges");
+				
+				var terms_and_conditions = window.localStorage.getItem("terms_and_conditions");
+	
+	$('.header h4').html('<a href="index.html"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a>');
+	$('.main-wraper').css('background-color',app_background_color);
 }
 /*
 $(function() {

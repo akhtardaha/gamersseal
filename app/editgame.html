@@ -50,7 +50,7 @@
    				<div class="ui-block-b"><input type="text" name="title" id="gameTitle" value="" class="search  not-srch" /></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>
    				<div class="ui-block-b">
-                	<select name="gameType" id="gameType" multiple="multiple">
+                	<select name="gameType" style="height:95px;" id="gameType" multiple="multiple">
         			</select>
                 </div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>
@@ -61,6 +61,13 @@
    				<div class="ui-block-b"><input type="number" name="stock" id="stock" value="" class="search  not-srch" />
                 <input type="hidden" name="gameID" id="gameID" value="" />
                 <input type="hidden" name="gameSlug" id="gameSlug" value="" />
+                </div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Visible:</a></div>
+   				<div class="ui-block-b"><select id="publish" name="visible">
+                    <option selected="selected">visible</option>
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                 </select>
                 </div>
 			</div>
             <div class="actionBtn">

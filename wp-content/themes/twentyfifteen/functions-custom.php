@@ -269,6 +269,7 @@ $(document).ready(function(){
 		},
 		onChange: function (hsb, hex, rgb) {
 		$('#appbgclr').css('backgroundColor', '#' + hex);
+		$('#appbgclr').val('#'+hex);
 		}
 	})
 	.bind('keyup', function(){
@@ -287,7 +288,7 @@ function submitConfiguration()
 	var standarditemday = $('#standarditemday').val();
 	var premiumitemday = $('#premiumitemday').val();
 	var appbgclr = $('#appbgclr').val();
-	appbgclr = '#'+appbgclr;
+	appbgclr = appbgclr;
 	var appicon = $('#appicon').val();
 	var terms = $('#terms').val();
 	var siteUrl = $('#siteUrl').val();

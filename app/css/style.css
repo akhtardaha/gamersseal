@@ -416,3 +416,7 @@ textarea
 {
 	min-height:70px !important;
 }
+.header h4 {
+  min-height: 72px;
+  display: block;
+}

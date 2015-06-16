@@ -25,11 +25,15 @@ function getCartTotal()
                     {
                         var games = result.rows;
 						var totalCart = 0;
-						 $.each(games, function(key,value){
-							var pPrice = value.price;
-							totalCart = parseFloat(totalCart)+parseFloat(pPrice); 
-						})
-						var gstPercenet = 9;
+						var total_games = result.rows.length;
+						
+						
+						for(var i=0; i<total_games; i++)
+							{
+								var pPrice = result.rows.item(i).price;
+								totalCart = parseFloat(totalCart)+parseFloat(pPrice); 
+							}
+						var gstPercenet = window.localStorage.getItem("gst");
 						var gst = Math.round(totalCart/100 * gstPercenet);
 						var shippingCost = 20;
 						var OrderTotal = parseFloat(totalCart) + parseFloat(gst) + parseFloat(shippingCost);
@@ -49,7 +53,7 @@ function getCartTotal()
 
         },
         function(err){
-            console.log('Error: '+err.message);
+            console.log('Error: '+err);
              console.log('Error: There is some error while getting Total Cart please try again.');
         },
         function(){
