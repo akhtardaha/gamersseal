@@ -9,7 +9,7 @@ function getPostDetail(post_id)
 	{
 		$('.tabContent').html('');
 		tabContentstartLoading();
-		var user_id = window.localStorage.getItem("loginUserID");	
+		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
 		console.log(cooke);
 		var url = API_URL_DEFAULT+'get_post/?id='+post_id+'&post_type=wpmarketplace';
@@ -70,8 +70,11 @@ function getPostDetail(post_id)
 				 var pid = post.id;
 				 var pname = post.title;
 				 var price = post.custom_fields.sales_price[0];
+				 console.log(author.id+" "+user_id);
+				 if(author.id != user_id)
+				 {
 					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
-				 
+				 }
 				 $('.descBoxes').html(descBoxes);
 				 if(window.localStorage.getItem("loginuserCookie"))
 					{
