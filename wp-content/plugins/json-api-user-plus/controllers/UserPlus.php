@@ -6679,6 +6679,60 @@ foreach($meta_keys as $k){
 			return $response;
 	}
 	
+	public function order_items()
+	{
+		global $json_api;
+		global $wpdb;
+		$order = $json_api->query->orderData;
+		
+		$order = stripslashes($order);
+		$orderData = json_decode($order, true);
+		$cartitems = array();
+		$items = array();
+		
+		foreach($orderData as $orderD)
+		{
+			$cartitems[$orderD['product_id']] = array(
+				"quantity" 	=> 1,
+				"variation" => '',
+				"price" => $orderD['product_price'],
+            	"ID" => $orderD['product_id'],
+            	"post_title" => $orderD['product_name'],
+            	"prices" => 0,
+            	"variations" => array(),
+				"discount_amount" => 0,
+            	"error" => "No Valid Coupon Found"
+			);
+			$items[] = $orderD['product_id'];
+		}
+		$cartData =  serialize($cartitems);
+		$itemsData =  serialize($items);
+		
+		die();
+		
+		$query = "SELECT * FROM app_configuration";
+			$res = $wpdb->query($query);
+			$app_configurations = $wpdb->get_results($query);
+			$data = array();
+			if($app_configurations)
+			{
+				/*foreach($app_configurations as $app_configuration)
+				{
+					//$app_configuration->sender_name = get_the_author_meta( 'display_name', $message->sender_id);
+					//$app_configuration->date_sent = mysql2date('l, jS F, Y', $message->date);
+					//$app_configuration->avatar = get_avatar( $message->sender_id, 150 );
+					$data[] = $app_configuration;
+				}*/
+				$response['app_configuration'] = $app_configurations;
+				
+			}
+			else
+			{
+				$response['app_configuration'] = "There is some Error while Fetching Settings.";
+			}
+			return $response;
+	}
+	
 
   
 

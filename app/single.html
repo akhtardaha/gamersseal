@@ -10,16 +10,32 @@
     <script src="js/app_config.js"></script>
     <script src="js/gameDetail.js"></script>
     <script src="js/addtocart.js"></script>
-    
-    
-    <script type="text/javascript" src="js/jssor.js"></script>
-    <script type="text/javascript" src="js/jssor.slider.js"></script>
+     <link rel="stylesheet" href="css/swiper.min.css">
+    <script src="js/swiper.min.js"></script>
+    <script>
+	$(document).ready(function(){
+		var swiper = new Swiper('.swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true
+		});
+	});
+    </script>
 <style>
 .gallery #loading {
   width: 50px;
   margin-left: 0%;
   padding: 20px 0px;
 }
+.swiper-container {
+  width: 100%;
+}
+    .swiper-slide {
+        background-position: center;
+        background-size: cover;
+        width: 300px;
+        height: 300px;
+
+    }
 </style>
 </head>
 <body>
@@ -33,48 +49,15 @@
         <div class="slide-menu close"></div>
   <div class="main-wraper">
         <div class="content-wraper">
-  		<div class="gs-product-slider">
-        	<div id="slider1_container" style="position: relative; margin: 0 auto;
-        top: 0px; left: 0px; width:auto; height: 500px; overflow: hidden;">
-        <!-- Loading Screen -->
-        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
-            <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block;
-                top: 0px; left: 0px; width: 100%; height: 100%;">
-            </div>
-            <div style="position: absolute; display: block; background: url(../img/loading.gif) no-repeat center center;
-                top: 0px; left: 0px; width: 100%; height: 100%;">
-            </div>
-        </div>
-        <!-- Slides Container -->
-        <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1300px;
-            height: 500px; overflow: hidden;">
-            <div>
-                <img u="image" src="img/battlefield-4-69992.jpg" />
-            </div>
-            <div>
-                <img u="image" src="img/battlefield-4-69992.jpg" /> 
-            </div>
-            <div>
-                <img u="image" src="img/battlefield-4-69992.jpg" />
-            </div>
-        </div>
-        <!-- bullet navigator container -->
-        <div u="navigator" class="jssorb21" style="bottom: 26px; right: 6px;">
-            <!-- bullet navigator item prototype -->
-            <div u="prototype"></div>
-        </div>
-        <!-- Arrow Left -->
-        <span u="arrowleft" class="jssora21l" style="top: 123px; left: 8px;">
-        </span>
-        <!-- Arrow Right -->
-        <span u="arrowright" class="jssora21r" style="top: 123px; right: 8px;">
-        </span>
-        <!--#endregion Arrow Navigator Skin End --> 
-    </div>
-        </div>
-        	<div class="gallery">
+  			    <div class="swiper-container">
+                    <div class="swiper-wrapper gallery">
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+        	<!--<div class="gallery">
   				<img id="loading" src="img/loading.gif" alt="Loading" />
-  			</div>
+  			</div>-->
 
             
             <a href="#" class="specification">Game Specifications</a>

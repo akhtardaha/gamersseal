@@ -155,6 +155,7 @@ select.mobile-dropdown, select {
   width: 96%;
   margin: 10px 0;
   border-radius: 15px;
+  border: 1px solid #ccc;
 }
 .specification{
 	text-align:center;
@@ -198,11 +199,13 @@ select.mobile-dropdown, select {
 }
 h4.send{
 	margin:0px 0;}
-.search.btn.not-srch{
-	width:auto;
-	padding:5px 15px;
-	height:auto;
-	cursor:pointer;}
+.search.btn.not-srch {
+  width: auto;
+  padding: 5px 15px;
+  height: auto;
+  cursor: pointer;
+  background-color: #fff !important;
+}
 input.search {
   background: url(../img/search.png) no-repeat;
   background-size: 25px 25px;
@@ -412,9 +415,9 @@ input.search {
   text-transform: lowercase;
 }
 
-textarea
-{
-	min-height:70px !important;
+textarea {
+  min-height: 80px !important;
+  resize: none;
 }
 .header h4 {
   min-height: 72px;

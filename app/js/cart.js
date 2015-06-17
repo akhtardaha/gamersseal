@@ -103,6 +103,8 @@ function getCartTotal()
 						
 						html += '<div class="CartTotal">Order Total = '+OrderTotal.toFixed(2)+'$</div>';
 						
+
+						
 						$('.calculation').html(html);
                 	}
 				}

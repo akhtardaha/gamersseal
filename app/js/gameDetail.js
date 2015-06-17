@@ -39,16 +39,21 @@ function getPostDetail(post_id)
 				{
 				var gallery = data.post.custom_fields.images;
 				$.each(gallery, function (i, v) {
-				imageGallery += '<a style="width:100%;" href="#img'+i+'" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-link"><img src="'+GAME_IMAGES_PATH+v+'" alt="'+v+'" class="popphoto"></a>';
+				imageGallery += '<div class="swiper-slide" style="background-image:url('+GAME_IMAGES_PATH+v+')"></div>';
+				
 				})
 				}
 				else
 				{
-				imageGallery += '<a style="width:100%;" href="#img0" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-link"><img style="max-width: 100%;max-height: 145px;width: auto;" src="img/gamesdefault.png" class="popphoto"></a>';	
+				imageGallery += '<div class="swiper-slide" style="background-image:url(img/gamesdefault.png)"></div>';
+				
 				}
 				
 				$('.gallery').html(imageGallery);
-				
+				var swiper = new Swiper('.swiper-container', {
+					pagination: '.swiper-pagination',
+					paginationClickable: true
+				});
 				 descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.title+'</a></div>';
                  descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>';
