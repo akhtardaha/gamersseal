@@ -82,9 +82,40 @@ function placeOrder()
 	{
 		
 		var user_id = window.localStorage.getItem("loginuserID");
-		
 		console.log(cartProducts);
-		var url = API_URL+'order_items/?key=1234567891011&orderData='+JSON.stringify(cartProducts);
+		var shippingAddress = {};
+		
+		var gstpercent = $('#gstpercent').val();
+		var gst = $('#gst').val();
+		var cartTotal = $('#cartTotal').val();
+		var shippingCost = $('#shippingCost').val();
+		var orderTotal = $('#orderTotal').val();
+		
+		var shipfname = $('#shipfname').val();
+		var shiplname = $('#shiplname').val();
+		var shipcompany = $('#shipcompany').val();
+		var shipaddress = $('#shipaddress').val();
+		var shipcity = $('#shipcity').val();
+		var shipzip = $('#shipzip').val();
+		var shipcountry = $('#shipcountry').val();
+		var shipstate = $('#shipstate').val();
+		var shipemail = $('#shipemail').val();
+		var shipphone = $('#shipphone').val();
+		
+		
+		shippingAddress.first_name = shipfname;
+		shippingAddress.last_name = shiplname;
+		shippingAddress.company = shipcompany;
+		shippingAddress.address_1 = shipaddress;
+		shippingAddress.city = shipcity;
+		shippingAddress.postcode = shipzip;
+		shippingAddress.country = shipcountry;
+		shippingAddress.state = shipstate;
+		shippingAddress.email = shipemail;
+		shippingAddress.phone = shipphone;
+		
+		
+		var url = API_URL+'order_items/?key=1234567891011&user_id='+user_id+'&orderData='+JSON.stringify(cartProducts)+'&shippingData='+JSON.stringify(shippingAddress)+'&gstpercent='+gstpercent+'&gst='+gst+'&cartTotal='+cartTotal+'&shippingCost='+shippingCost+'&orderTotal='+orderTotal+'';
 		console.log(url);
 		var html = '';
 		var imageGallery = '';

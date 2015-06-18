@@ -1,24 +1,10 @@
 <?php
-
-
-
 /*
-
   Controller name: UserPlus
-
   Controller description: User Registration, User Authentication, User Info, User Meta, FB Login, Avatar Update, BuddyPress xProfile Fields methods
-
-  Controller Author: Ali Qureshi
-
-  Controller Author Twitter: @parorrey
-
-  Controller Author Website: parorrey.com
-
-  
-
-  updated: 2015-05-08
-
+  Controller Author: Umar Ashad
 */
+
 
 class JSON_API_UserPlus_Controller {
 
@@ -6683,12 +6669,29 @@ foreach($meta_keys as $k){
 	{
 		global $json_api;
 		global $wpdb;
+		
+		$shippingInformation = array();
+		$user_id = $json_api->query->user_id;
 		$order = $json_api->query->orderData;
+		$shipping = $json_api->query->shippingData;
+		$gstpercent = $json_api->query->gstpercent;
+		$gst = $json_api->query->gst;
+		$cartTotal = $json_api->query->cartTotal;
+		$shippingCost = $json_api->query->shippingCost;
+		$orderTotal = $json_api->query->orderTotal;
 		
 		$order = stripslashes($order);
+		$shipping = stripslashes($shipping);
+		
 		$orderData = json_decode($order, true);
+		$shippingData = json_decode($shipping, true);
+		
+		$date = strtotime("now");
+		$order_id = $this->generateRandomString();
+		
 		$cartitems = array();
 		$items = array();
+		$batchItems = '';
 		
 		foreach($orderData as $orderD)
 		{
@@ -6704,36 +6707,56 @@ foreach($meta_keys as $k){
             	"error" => "No Valid Coupon Found"
 			);
 			$items[] = $orderD['product_id'];
+			$batchItems .= "('".$order_id."','".$orderD['product_id']."','1','".$orderD['product_price']."','0','0'),";
 		}
 		$cartData =  serialize($cartitems);
 		$itemsData =  serialize($items);
 		
-		die();
+		$shippingInformation['billing'] = $shippingData;
+		$shippingInformation['shippingin'] = $shippingData;
 		
-		$query = "SELECT * FROM app_configuration";
+		$billing_shipping_data =  serialize($shippingInformation);
+		
+		
+		//echo '<pre>';
+		//print_r($orderData);
+		$batchItems = rtrim($batchItems,',');
+		//echo $batchItems;
+		//die();
+		
+		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','')";
 			$res = $wpdb->query($query);
-			$app_configurations = $wpdb->get_results($query);
-			$data = array();
-			if($app_configurations)
+			if($res)
 			{
-				/*foreach($app_configurations as $app_configuration)
-				{
-					//$app_configuration->sender_name = get_the_author_meta( 'display_name', $message->sender_id);
-					//$app_configuration->date_sent = mysql2date('l, jS F, Y', $message->date);
-					//$app_configuration->avatar = get_avatar( $message->sender_id, 150 );
-					$data[] = $app_configuration;
-				}*/
-				$response['app_configuration'] = $app_configurations;
+				$q2 = "INSERT INTO wp_mp_order_items (oid,pid,quantity,price,status,site_commission) VALUES ".$batchItems;
+				$res2 = $wpdb->query($q2);
 				
+				if($res2)
+				{
+					$response['order_status'] = "Order Successfully Placed.";
+				}
+				else
+				{
+					$response['order_status'] = "There is some Error while Placing Order.";
+				}
 			}
-			else
-			{
-				$response['app_configuration'] = "There is some Error while Fetching Settings.";
-			}
+			
 			return $response;
 	}
 	
-
+	
+	
+	function generateRandomString($length = 8) {
+		
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+	$firstFiveNum = rand(10000,99999);
+    return $firstFiveNum.$randomString;
+	}
   
 
  }//end class
