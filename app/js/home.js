@@ -22,6 +22,20 @@ $(document).ready(function(){
 		var tab = $(this).attr( "href" );
 		$( tab ).css('display','block');
    });
+   
+   $('#searchTerms').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+		console.log("ENTER PRESSED");
+		var searchTerms = $('#searchTerms').val();
+		if(searchTerms)
+		{
+			window.location = 'search.html?searchTerms='+encodeURI(searchTerms);
+		}
+	}
+	});
+
+
    getProductCategories();
    	getProductsList();
 	getPosts();
@@ -235,3 +249,5 @@ function getCategoryProducts(term_id)
     });
 		
 }
+
+
