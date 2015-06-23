@@ -328,7 +328,7 @@ if( !isset($_REQUEST['user_pass']) ) {
 
 
 
-$allowed_params = array('user_login', 'user_email', 'user_pass', 'display_name', 'user_nicename', 'user_url', 'nickname', 'first_name',
+$allowed_params = array('user_login', 'user_email', 'user_pass', 'role', 'display_name', 'user_nicename', 'user_url', 'nickname', 'first_name',
 
                          'last_name', 'description', 'rich_editing', 'user_registered', 'jabber', 'aim', 'yim',
 
@@ -344,15 +344,17 @@ foreach($_REQUEST as $field => $value){
 
 		
 
-	if( in_array($field, $allowed_params) ) $user[$field] = trim(sanitize_text_field($value));
-
+	if( in_array($field, $allowed_params) ) 
+	{
+		$user[$field] = trim(sanitize_text_field($value));
+	}
 	
 
     }
 
 
 
-if(!$_REQUEST['skip_role']) $user['role'] = get_option('default_role');
+//if(!$_REQUEST['skip_role']) $user['role'] = get_option('default_role');
 
 
 
@@ -6756,6 +6758,34 @@ foreach($meta_keys as $k){
     }
 	$firstFiveNum = rand(10000,99999);
     return $firstFiveNum.$randomString;
+	}
+	
+	
+	function get_sorted_posts()
+	{
+		global $json_api;
+		global $wpdb;
+		
+		$args = array(
+		'posts_per_page'   => 5,
+		'offset'           => 0,
+		'category'         => '',
+		'category_name'    => '',
+		'orderby'          => 'meta_value',
+		'order'            => 'DESC',
+		'include'          => '',
+		'exclude'          => '',
+		'meta_key'         => 'sales_price',
+		'meta_value'       => '',
+		'post_type'        => 'wpmarketplace',
+		'post_mime_type'   => '',
+		'post_parent'      => '',
+		'post_status'      => 'publish',
+		'suppress_filters' => true 
+	 );
+	 
+	$posts_array = get_posts($args);
+	return $posts_array;
 	}
   
 

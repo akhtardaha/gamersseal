@@ -23,13 +23,15 @@
         <div class="main-wraper">
         
         <div class="content-wraper">
-        
+        <a class="specification">Sign In</a>
         <form action="profile.html" name="login" method="post">
         	<input type="text" id="username" name="userName" placeholder="User Name" class="search not-srch"/>
         	<input type="password" id="password" name="password" placeholder="Password" class="search not-srch"/>
-        <input type="button" name="SignIn" value="Sign In" onclick="return signInUser();" class="search btn not-srch" />
+            <a id="signupBtn" href="register.html" class="search btn not-srch" >Sign Up</a>
+        	<input type="button" name="SignIn" value="Sign In" onclick="return signInUser();" class="search btn not-srch" />
+            <a id="signupBtn" href="index.html" class="search btn not-srch" >Home</a>
         </form>
-        <p class="ui-clear"><a href="#" >Forgot your password</a></p>
+        <p class="ui-clear"><a href="forgot_password.html" >Forgot your password</a></p>
         <p class="ui-clear"><a href="gust.html" >Login as Guest</a></p>
         </div>
         </div><!-- /content -->

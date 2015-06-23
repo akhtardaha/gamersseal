@@ -79,12 +79,15 @@ function registerUser(){
 			check = $("#terms").is(":checked");
 				if(check)
 				{
-					if(role != 'Guest' || role != 'Standard' || role != 'Preminum')
+					if(role != 'guest' && role != 'standard' && role != 'preminum')
 					{
 						role = '';
 					}
+					var url = API_URL+'register/?key=1234567891011&username='+username+'&email='+email+'&display_name='+username+'&first_name='+fname+'&last_name='+lname+'&role='+role;
+					console.log(url);
+					//return false;
 					$.ajax({
-						url:API_URL+'register/?key=1234567891011&username='+username+'&email='+email+'&display_name='+username+'&first_name='+fname+'&last_name='+lname+'&role='+role,
+						url:url,
 						type: "POST",
 						contentType: "application/json",
 						dataType: 'jsonp',

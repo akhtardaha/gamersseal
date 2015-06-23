@@ -131,9 +131,9 @@ function sendMessagetoSeller()
 				console.log(data.msg.status);
 				navigator.notification.alert(
                     "Message Sent",  // message
-                    function(){},         // callback
+                    function(){},    // callback
                     'Sending Message to Seller',            // title
-                    'OK'                  // buttonName
+                    'OK'             // buttonName
                 );
 			}
 			else

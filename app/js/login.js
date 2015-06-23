@@ -23,13 +23,16 @@ function signInUser()
 			if(data.status == 'ok')
 			{
 			console.log('Welecome '+data.user.nickname);
-			
+			var role = data.user.capabilities;
+			role = Object.keys(role);
+			var user_role = role[0]; 
 			window.localStorage.setItem("loginuserCookie",data.cookie);
 			window.localStorage.setItem("loginuserCookieName",data.cookie_name);
 			window.localStorage.setItem("loginuserPic",data.user.avatar);
 			window.localStorage.setItem("loginuserDisplayname",data.user.displayname);
 			window.localStorage.setItem("loginuserEmail",data.user.email);
 			window.localStorage.setItem("loginuserID",data.user.id);
+			window.localStorage.setItem("loginuserRole",user_role);
 			window.localStorage.setItem("loginuserNicename",data.user.nicename);
 			window.localStorage.setItem("loginuserNickname",data.user.nickname);
 			window.localStorage.setItem("loginuserUsername",data.user.username);
