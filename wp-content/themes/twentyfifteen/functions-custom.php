@@ -38,6 +38,8 @@ function app_configuration_options()
 	$app_background_color = $option['app_background_color'];
 	$app_icon = $option['app_icon'];
 	$terms_and_conditions = $option['terms_and_conditions'];
+	$halloffame = $option['hall_of_fame'];
+	
 	
 	$guest_daily_purchase =  $option['guest_daily_purchase'];
 	$standard_daily_purchase =  $option['standard_daily_purchase'];
@@ -134,6 +136,12 @@ function app_configuration_options()
                             <input type="text" id="premiumTransactionDay" name="premiumTransactionDay" value="<?php echo $premium_daily_transaction; ?>" />
                          </p>
               		</fieldset>
+                </div>
+            </div>
+            <div class="confSections">
+            	<div class="confSection" style="width:33%; float:left;">
+            	<p><strong>Hall of Fame:</strong><br />
+                <textarea id="halloffame" style="width: 95%; height: 200px;" name="halloffame"><?php echo $halloffame; ?></textarea></p>
                 </div>
             </div>
             <div class="confSections">
@@ -301,8 +309,11 @@ function submitConfiguration()
 	var standardTransactionDay = $('#standardTransactionDay').val();
 	var premiumTransactionDay = $('#premiumTransactionDay').val();
 	
+	var halloffame = $('#halloffame').val();
 	
-	var data = { gst: gst, desclimit: desclimit,guestcharges: guestcharges ,standardcharges: standardcharges ,premiumcharges: premiumcharges ,standarditemday: standarditemday ,premiumitemday: premiumitemday,appbgclr:appbgclr,appicon:appicon, terms:terms, confID:confID,guestBuyAmountDay:guestBuyAmountDay,standardBuyAmountDay:standardBuyAmountDay,premiumBuyAmountDay:premiumBuyAmountDay,guestTransactionDay:guestTransactionDay,standardTransactionDay:standardTransactionDay,premiumTransactionDay:premiumTransactionDay};
+	
+	
+	var data = { gst: gst, desclimit: desclimit,guestcharges: guestcharges ,standardcharges: standardcharges ,premiumcharges: premiumcharges ,standarditemday: standarditemday ,premiumitemday: premiumitemday,appbgclr:appbgclr,appicon:appicon, terms:terms, confID:confID,guestBuyAmountDay:guestBuyAmountDay,standardBuyAmountDay:standardBuyAmountDay,premiumBuyAmountDay:premiumBuyAmountDay,guestTransactionDay:guestTransactionDay,standardTransactionDay:standardTransactionDay,premiumTransactionDay:premiumTransactionDay,halloffame:halloffame};
 	var url = siteUrl+'/update_app_configuration.php';
 	$.ajax({
 	  type: "POST",

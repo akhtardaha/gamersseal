@@ -9,6 +9,43 @@
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
     <script src="js/register.js"></script>
+<style>
+select.mobile-dropdown, select {
+  width: 100%;
+  /* float: left; */
+  display: block;
+  padding: 5px 10px;
+  border-radius: 16px;
+  margin: 0px 0;
+  height: 30px;
+  border: 1px solid #ccc;
+  background: none;
+  margin: 10px 0px;
+}
+.specification {
+  text-align: center;
+  font-size: 17px;
+  width: 100%;
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
+}
+.search.not-srch {
+  background: none;
+  padding-left: 10px;
+  width: 97%;
+  margin: 10px 0;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+.register {
+  float:left;
+  width: 100%;
+}
+</style>
 </head>
 <body>
     <div class="page-wraper">
@@ -21,7 +58,9 @@
         <div class="slide-menu close"></div>
   <div class="main-wraper">
         <div class="content-wraper "><!-- /header -->
+        
         <div class="registerBox">
+        	<a class="specification">Sign Up with Gamersseal</a>
             <div class="fieldError" style="display:none;"></div>
             <form action="" name="login" class="register" onsubmit="return false;">
             <input type="text" id="fname" name="fname" class="search not-srch" placeholder="First Name"/>
@@ -49,10 +88,12 @@
             </div>
             <!--<input type="password" id="pass" name="password" class="search not-srch" placeholder="Password"/>
             <input type="password" id="pass-c" name="password-c" class="search not-srch" placeholder="Confirm Password"/>-->
-            <div class="lastRow"><input type="checkbox" name="terms" id="terms"  /><label>agree with <a href="terms.html" title="terms and conditions">terms and conditions</a></label></div>
-            <a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c search btn not-srch a-btn" onclick="return registerUser();">Register</a>
+            
+            <a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c search btn not-srch a-btn" onclick="return continueRegister();">Continue</a>
            
             </form>
+        </div>
+        <div class="agreeTerms" style="display:none;">
         </div>
         </div></div><!-- /content -->
  

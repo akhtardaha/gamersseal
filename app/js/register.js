@@ -1,7 +1,14 @@
 // JavaScript Document
+var terms_and_conditions = '<a class="specification">Terms and Conditions</a>';
+terms_and_conditions += window.localStorage.getItem("terms_and_conditions");
+terms_and_conditions += '<div style="margin-top: 15px;" class="lastRow"><input type="checkbox" style="float:left;margin-top: 5px; margin-right:10px;" name="terms" id="terms"  /><label style="position: relative;left: 0px;">agree with terms and conditions</label></div>';
+ terms_and_conditions += '<a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c search btn not-srch a-btn" onclick="return registerUser();">Register</a>';
+$(document).ready(function(){
+	$('.agreeTerms').html(terms_and_conditions);
+})
 
-function registerUser(){
-		var fname = $('#fname').val();
+function continueRegister(){
+var fname = $('#fname').val();
 		var lname = $('#lname').val();
 		var username = $('#username').val();
 		var email = $('#email').val();
@@ -22,7 +29,7 @@ function registerUser(){
 		
 		if(fname == '')
 		{
-			$('#fname').css('border','1px solid red');
+			$('#fname').css('border','1px solid goldenrod');
 		}
 		else
 		{
@@ -30,7 +37,7 @@ function registerUser(){
 		}
 		if(lname == '')
 		{
-			$('#lname').css('border','1px solid red');
+			$('#lname').css('border','1px solid goldenrod');
 		}
 		else
 		{
@@ -38,7 +45,7 @@ function registerUser(){
 		}
 		if(username == '')
 		{
-			$('#username').css('border','1px solid red');
+			$('#username').css('border','1px solid goldenrod');
 		}
 		else
 		{
@@ -46,7 +53,7 @@ function registerUser(){
 		}
 		if(email == '')
 		{
-			$('#email').css('border','1px solid red');
+			$('#email').css('border','1px solid goldenrod');
 		}
 		else
 		{
@@ -54,7 +61,7 @@ function registerUser(){
 		}
 		if(australianId == '')
 		{
-			$('#australianId').css('border','1px solid red');
+			$('#australianId').css('border','1px solid goldenrod');
 		}
 		else
 		{
@@ -62,11 +69,11 @@ function registerUser(){
 		}
 		if(role == '')
 		{
-			$('.usertypeSelect .ui-btn').css('border','1px solid red');
+			$('.usertypeSelect select').css('border','1px solid goldenrod');
 		}
 		else
 		{
-			$('.usertypeSelect .ui-btn').css('border','1px solid #aaa');
+			$('.usertypeSelect select').css('border','1px solid #aaa');
 		}
 		
 		if( username !='' && email != '' && fname != '' && lname != '' && australianId != '' && role != '')
@@ -75,8 +82,52 @@ function registerUser(){
 		{
 			if(window.localStorage.getItem("emailExists") != 1 && window.localStorage.getItem("usernameExists") != 1)
 			{
-			$('#email').removeClass('error');
-			check = $("#terms").is(":checked");
+				$('.fieldError').hide();
+				$('.registerBox').hide();
+				$('.agreeTerms').show();
+				$('.header .cart a').attr('onclick','backRegForm()');
+			}
+		}
+		else
+		{
+			$('#email').addClass('error');
+		}
+	}
+	else
+	{
+		console.log('Please Fill Required Fields!');
+		$('.fieldError').html('Please Fill Required Fields!');
+		$('.fieldError').fadeIn();		
+	}
+		//console.log(birthday);	
+}
+
+function backRegForm()
+{
+	$('.agreeTerms').hide();
+	$('.registerBox').show();
+	$('.header .cart a').attr('onclick','return goBack()');	
+}
+function registerUser(){
+		var fname = $('#fname').val();
+		var lname = $('#lname').val();
+		var username = $('#username').val();
+		var email = $('#email').val();
+		
+		var dob = $('#dob').val();
+		var address = $('#address').val();
+		var Suburb = $('#Suburb').val();
+		var state = $('#state').val();
+		var postcode = $('#postcode').val();
+		var hphone = $('#hphone').val();
+		var mphone = $('#mphone').val();
+		var abn = $('#abn').val();
+		var dlicense = $('#dlicense').val();
+		var passport = $('#passport').val();
+		var australianId = $('#australianId').val();
+		
+			var role = $('#userType').val();
+			var check = $("#terms").is(":checked");
 				if(check)
 				{
 					if(role != 'guest' && role != 'standard' && role != 'preminum')
@@ -122,20 +173,6 @@ function registerUser(){
 						'OK'                  // buttonName
 					);	
 				}
-			}
-		}
-		else
-		{
-			$('#email').addClass('error');
-		}
-	}
-	else
-	{
-		console.log('Please Fill Required Fields!');
-		$('.fieldError').html('Please Fill Required Fields!');
-		$('.fieldError').fadeIn();		
-	}
-		//console.log(birthday);
 }
 
 function extraProfileUpdate(cookie,fullname,australianId,dob,address,Suburb,state,postcode,hphone,mphone,abn,dlicense,passport)

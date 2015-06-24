@@ -12,6 +12,8 @@
 	$appbgclr = $_POST['appbgclr'];
 	$appicon = $_POST['appicon'];
 	$terms = $_POST['terms'];
+	$halloffame = $_POST['halloffame'];
+	
 	
 	$guestBuyAmountDay = $_POST['guestBuyAmountDay'];
 	$standardBuyAmountDay = $_POST['standardBuyAmountDay'];
@@ -25,7 +27,7 @@
 	{
 		$querystr .= "app_icon = '".$appicon."',"; 
 	}
-	$querystr .= "terms_and_conditions = '".$terms."' WHERE id = '".$confID."' ";
+	$querystr .= "terms_and_conditions = '".$terms."', hall_of_fame='".$halloffame."' WHERE id = '".$confID."' ";
 	$res = mysql_query($querystr);
 	if($res){
 	echo "App Configuration Successfully Stored";
