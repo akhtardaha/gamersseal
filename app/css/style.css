@@ -39,6 +39,8 @@ a {
   top: 25px;
   left: 5px;
 }
+h4.send{
+	float:left;}
 .header .setting
 {
   top: 30px;
@@ -49,6 +51,8 @@ a {
   margin-top: 8px;
   margin-left: 5px;
 }
+#publish{
+	margin-top:10px;}
 .setting img{
 	width:25px;}
 #loading {
@@ -63,7 +67,7 @@ a {
 	float:right;}
 li.your-reply{
 	margin-left:35px;}
-.message-board.products-list li:last-child{
+.message-board.products-list li:last-child, .products-list li:last-child{
 	border-bottom:none !important;}
 .message-board.products-list li{
 	margin:5px 2%;
@@ -84,9 +88,10 @@ li.your-reply{
 	list-style-type:none;
 	width:100%;
 	margin-bottom:-1px;}
-.home-tabs ul li a {
+.home-tabs ul li>div {
   display: block;
   float: left;
+  cursor:pointer;
 }
 .home-tabs ul.products-list li a{
 	}
