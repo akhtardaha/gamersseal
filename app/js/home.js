@@ -14,11 +14,12 @@ $(document).ready(function(){
 		$('.gameMenu').addClass('ui-corner-bottom');
 		
 	}
-  $( ".home-tabs ul li a" ).click(function() {
+  $( ".home-tabs ul li>div" ).click(function() {
     	$( ".home-tabs > div" ).css('display','none');
 		 $( '.home-tabs ul li').removeClass('tab-open');
 		 $( this ).parent('li').addClass('tab-open');
-		var tab = $(this).attr( "href" );
+		//var tab = $(this).attr( "href" );
+		var tab = $(this).attr( "data-tab" );
 		$( tab ).css('display','block');
    });
    
