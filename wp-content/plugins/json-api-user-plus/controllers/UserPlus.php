@@ -108,6 +108,40 @@ public function email_exists(){
 
   }
 
+public function update_user() {
+	 
+	  global $json_api;
+	  
+	   if (!$json_api->query->cookie) {
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` method.");
+		}
+
+		$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+	if (!$user_id) 	$json_api->error("Invalid cookie. Use the `generate_auth_cookie` method.");
+		
+
+   $userdata = array('ID' => $user_id);
+  
+ if($json_api->query->user_nicename) $userdata['user_nicename'] = $json_api->query->user_nicename;
+  if($json_api->query->user_url) $userdata['user_url'] = $json_api->query->user_url;
+   if($json_api->query->user_email) {
+	  $email =  $json_api->query->user_email;
+	   if ( !is_email( $email ) ) 	 $json_api->error("E-mail address is invalid.");
+         elseif (email_exists($email)) $json_api->error("E-mail address is already in use.");
+		 else $userdata['user_email'] =  $email;		
+   }
+    if($json_api->query->user_pass) $userdata['user_pass'] = $json_api->query->user_pass;
+	 if($json_api->query->display_name) $userdata['display_name'] = $json_api->query->display_name;
+	  if($json_api->query->nickname) $userdata['nickname'] = $json_api->query->nickname;
+    if($json_api->query->last_name) $userdata['last_name'] = $json_api->query->last_name;
+	
+   
+  $data['updated'] = wp_update_user( $userdata ); 
+	   
+	   return $data;	    
+	  
+	  }	  
   
 
 public function username_exists(){
@@ -6787,6 +6821,67 @@ foreach($meta_keys as $k){
 	$posts_array = get_posts($args);
 	return $posts_array;
 	}
+	
+		
+	public function get_user_favorite_game_type(){
+
+  		global $json_api;
+		global $wpdb;	
+		$user_id = $json_api->query->user_id;
+			
+			$query = "SELECT * FROM favorite_game_type WHERE user_id = '".$user_id."' ";
+			$categories = $wpdb->get_results($query);
+			if($categories)
+			{
+				return array('count'=>1,'game_types'=>$categories);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching user favorite game types.");
+			}
+  	}
+	
+	public function add_user_favorite_game_type(){
+
+  		global $json_api;
+		global $wpdb;	
+		$user_id = $json_api->query->user_id;
+		$game_type_id = $json_api->query->game_type;
+		$game_type_name = $json_api->query->game_type_name;
+			
+			$query = "INSERT INTO favorite_game_type (user_id,game_type_id,game_type_name) VALUES ('".$user_id."','".$game_type_id."','".$game_type_name."')";
+			$res = $wpdb->query($query);
+			if($res)
+			{
+				return array('msg'=>"Game type added to favourite list successfully.");
+				
+			}
+			else
+			{
+				return array('msg'=>"There is some Error while adding Game type to favourite list.");
+			}
+  	}
+	
+	public function remove_user_favorite_game_type(){
+
+  		global $json_api;
+		global $wpdb;	
+		$user_id = $json_api->query->user_id;
+		$game_type_id = $json_api->query->game_type;
+			
+			$query = "Delete FROM favorite_game_type WHERE user_id = '".$user_id."' AND game_type_id = '".$game_type_id."'";
+			$res = $wpdb->query($query);
+			if($res)
+			{
+				return array('msg'=>"Game type removed from favourite list successfully.");
+				
+			}
+			else
+			{
+				return array('msg'=>"There is some Error while removing Game type from favourite list.");
+			}
+  	}
   
 
  }//end class

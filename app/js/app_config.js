@@ -243,6 +243,15 @@ function app_settings()
 	$('.header h4').html('<a href="index.html"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a>');
 	$('.main-wraper').css('background-color',app_background_color);
 }
+
+function startButtonLoading(id)
+{
+	$('#'+id).addClass('buttonLoading');
+}
+function endButtonLoading(id)
+{
+	$('#'+id).removeClass('buttonLoading');
+}
 /*
 $(function() {
     $( "#from , #to" ).datepicker();

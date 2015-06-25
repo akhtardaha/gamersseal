@@ -176,16 +176,18 @@ select.mobile-dropdown, select {
   border-radius: 15px;
   border: 1px solid #ccc;
 }
-.specification{
-	text-align:center;
-	font-size:20px;
-	width:100%;
-	display:block;
-	float:left;
-	border:1px solid #ccc;
-	border-radius:25px;
-	margin: 10px 0;
-  	padding: 5px 0;}
+.specification {
+  text-align: center;
+  font-size: 16px;
+  width: 100%;
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
+  background-color: #fff;
+}
 .a-btn, .a-btn.submitBtn{
 	border:1px solid #ccc;
 	padding:5px 15px !important;
@@ -334,7 +336,7 @@ input.search {
 	margin:5px 0;
 	}
 .filterCat{
-	margin-bottom:25px;}
+	margin-top:25px;}
 .portfolio-item .ui-btn-icon-notext, .ui-li>.ui-btn-inner{
 	padding:0px !important;}
 .fileImg{
@@ -505,4 +507,21 @@ textarea {
   padding: 10px 3%;
   line-height: 20px;
   font-family: Arial;
+}
+
+.buttonLoading {
+  background: url(../img/loadingSmall.gif) no-repeat 95% center !important;
+  padding-right: 50px !important;
+}
+
+.last
+{
+	border-bottom:none !important; 
+}
+
+.delFavourite {
+  position: absolute;
+  right: 5px;
+  top: 8px;
+  width: 22px;
 }
