@@ -6743,7 +6743,7 @@ foreach($meta_keys as $k){
             	"error" => "No Valid Coupon Found"
 			);
 			$items[] = $orderD['product_id'];
-			$batchItems .= "('".$order_id."','".$orderD['product_id']."','1','".$orderD['product_price']."','0','0'),";
+			$batchItems .= "('".$order_id."','".$orderD['seller_id']."','".$orderD['product_id']."','1','".$orderD['product_price']."','0','0'),";
 		}
 		$cartData =  serialize($cartitems);
 		$itemsData =  serialize($items);
@@ -6764,7 +6764,7 @@ foreach($meta_keys as $k){
 			$res = $wpdb->query($query);
 			if($res)
 			{
-				$q2 = "INSERT INTO wp_mp_order_items (oid,pid,quantity,price,status,site_commission) VALUES ".$batchItems;
+				$q2 = "INSERT INTO wp_mp_order_items (oid,seller_id,pid,quantity,price,status,site_commission) VALUES ".$batchItems;
 				$res2 = $wpdb->query($q2);
 				
 				if($res2)
@@ -6882,6 +6882,68 @@ foreach($meta_keys as $k){
 				return array('msg'=>"There is some Error while removing Game type from favourite list.");
 			}
   	}
+	
+	public function get_user_sales(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$filterSales = array();
+		
+		$user_id = $json_api->query->user_id;
+		
+		$start_date = $json_api->query->start_date;
+		$end_date = $json_api->query->end_date;
+		
+		$DateBegin = date('Y-m-d', strtotime($start_date));
+    	$DateEnd = date('Y-m-d', strtotime($end_date));
+		
+		
+		if($start_date && $end_date)
+		{
+			$query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+			$sales = $wpdb->get_results($query);
+			if($sales)
+			{
+				foreach($sales as $sale){
+					//echo $sale->date;
+					$orderDate = date('Y-m-d', $sale->date);
+					if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
+					{
+						$sale->date = date('d M, Y', $sale->date);
+						$filterSales[] = $sale;	
+					}
+				}
+				return array('count'=>1,'sales'=>$filterSales);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+			}
+		}
+		else
+		{
+			$query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+			$sales = $wpdb->get_results($query);
+			if($sales)
+			{
+				foreach($sales as $sale){
+						$sale->date = date('d M, Y', $sale->date);
+						$filterSales[] = $sale;	
+				}
+				
+				return array('count'=>1,'sales'=>$filterSales);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+			}
+		}
+  	}
+	
+	
   
 
  }//end class

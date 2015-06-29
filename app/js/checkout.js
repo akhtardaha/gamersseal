@@ -40,6 +40,7 @@ function getCartTotal()
 								cartProduct.product_id = result.rows.item(i).pid;
 								cartProduct.product_name = result.rows.item(i).pname;
 								cartProduct.product_price = result.rows.item(i).price;
+								cartProduct.seller_id = result.rows.item(i).seller;
 								cartProduct.product_qty = 1;
 								cartProducts[i] = cartProduct;
 							}

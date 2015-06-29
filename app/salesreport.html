@@ -8,6 +8,32 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/sales.js"></script>
+<style>
+.Pimg {
+  float: left;
+  margin: 5px 10px 0 15px;
+  /* border: 1px solid #eeeeee; */
+  text-align: center;
+  width: 30%;
+  min-height: 50px;
+}
+.Pimg img {
+width:100%;
+}
+.products-list li {
+  margin: 15px 0;
+  display: block;
+  float: left;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+.products-list p {
+  font-size: 13px;
+  font-family: Arial;
+  text-transform: INHERIT;
+}
+</style>
 </head>
 <body>
     <div class="page-wraper">
@@ -27,7 +53,13 @@
             <div class="ui-grid-a descBoxes">
             <input type="date" name="from" placeholder="From" id="from" class="search not-srch" />
             <input type="date" name="to" placeholder="To" id="to" class="search not-srch" />
-    			<div class="ui-block-a"><a class="ui-shadow ui-btn">Code:</a></div>
+            <input type="button" id="userSalesbtn" onclick="return getUserSales();" name="userSalesbtn" value="Get Sales" class="search btn not-srch" />
+            
+            <ul class="tabContent products-list">
+            <img id="loading" src="img/loading.gif" alt="Loading" />
+        	</ul>
+            <div class="totalSales"></div>
+    			<!--<div class="ui-block-a"><a class="ui-shadow ui-btn">Code:</a></div>
    				<div class="ui-block-b"><a class="ui-shadow ui-btn">XXX</a></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Iteam name:</a></div>
    				<div class="ui-block-b"><a class="ui-shadow ui-btn">XBox</a></div>
@@ -36,7 +68,7 @@
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Price:</a></div>
    				<div class="ui-block-b"><a class="ui-shadow ui-btn">758</a></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Sale Date and Time:</a></div>
-   				<div class="ui-block-b"><a class="ui-shadow ui-btn">05:00 2 April 2015</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">05:00 2 April 2015</a></div>-->
 			</div>      
             <div>
         </div><!-- /content -->

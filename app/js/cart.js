@@ -33,6 +33,7 @@ function getProductsFromCart()
 								var pid = result.rows.item(i).pid;
 								var pname = result.rows.item(i).pname;
 								var price = result.rows.item(i).price;
+								var seller_id = result.rows.item(i).seller;
 								html += '<li>';
 								html += '<a href="single.html?post_id='+pid+'">';
 									html += '<div class="Pimg"><img id="img'+pid+'" src="img/loadingSmall.gif" class="product-thumb"></div>';
@@ -50,7 +51,8 @@ function getProductsFromCart()
                     }
                     else
                     {
-                        $('ul.products-list').html("<li>Shoping Cart Empty</li>");
+                        $('ul.products-list').html("<li class='notice'>Shoping Cart Empty</li>");
+						$('.checkoutBtn').hide();
                     }
                 }
                 ,function(err){

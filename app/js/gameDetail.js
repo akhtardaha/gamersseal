@@ -72,13 +72,14 @@ function getPostDetail(post_id)
 				 $('#seller_id').val(author.id);
 				 console.log(descBoxes);
 				 
+				 var seller_id = author.id;
 				 var pid = post.id;
 				 var pname = post.title;
 				 var price = post.custom_fields.sales_price[0];
 				 console.log(author.id+" "+user_id);
 				 if(author.id != user_id)
 				 {
-					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
+					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\',\''+seller_id+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
 				 }
 				 $('.descBoxes').html(descBoxes);
 				 if(window.localStorage.getItem("loginuserCookie"))
