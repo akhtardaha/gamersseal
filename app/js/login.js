@@ -5,7 +5,7 @@ if(window.localStorage.getItem("loginuserCookie"))
 }
 function signInUser()
 {
-	
+	//$.validate();
 	var username = $('#username').val();
 	var password = $('#password').val();
 	
@@ -65,6 +65,9 @@ function signInUser()
 	else if(username != '' && password == '')
 	{
 		console.log('Please Enter Password');
+		$('#password').css('border-color','#F00');
+		$('#username').css('border-color','#ccc');
+		$('#form-err').text('Please Enter Password!');
 		navigator.notification.alert(
 						'Please Enter your Password',  // message
 						function(){},        // callback
@@ -75,6 +78,9 @@ function signInUser()
 	else if(username == '' && password != '')
 	{
 		console.log('Please Enter Username!');
+		$('#username').css('border-color','#F00');
+		$('#password').css('border-color','#ccc');
+		$('#form-err').text('Please Enter Username!');
 		navigator.notification.alert(
 						'Please Enter your Username!',  // message
 						function(){},        // callback
@@ -85,6 +91,9 @@ function signInUser()
 	else
 	{
 		console.log('Please Enter your Login detail!');
+		$('#password').css('border-color','#F00');
+		$('#username').css('border-color','#F00');
+		$('#form-err').text('Please Enter your Login detail!');
 		navigator.notification.alert(
 						'Please Enter your Login detail!',  // message
 						function(){},        // callback
