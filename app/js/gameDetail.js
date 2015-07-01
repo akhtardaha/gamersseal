@@ -111,6 +111,26 @@ function sendMessagetoSeller()
 		var seller_id = $('#seller_id').val();
 		var title = $('#title').val();
 		var message = $('#message').val();
+	if(title == ''){
+		$('#title').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#title').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(message == ''){
+		$('#message').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#message').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(message == '' || title == ''){
+		return false;}
 		var url = API_URL+'send_message_seller/?key=1234567891011&user_id='+user_id+'&seller_id='+seller_id+'&title='+title+'&message='+message;
 		console.log(url);
 		var html = '';
@@ -155,7 +175,6 @@ function sendMessagetoSeller()
 
         }
     });
-		
 }
 
 

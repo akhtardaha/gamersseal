@@ -65,6 +65,7 @@ function addPost()
 	if(postTitle == '')
 	{
 		$('#title').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
 	}
 	else
 	{
@@ -73,6 +74,7 @@ function addPost()
 	if(postDetail == '')
 	{
 		$('#content').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
 	}
 	else
 	{
@@ -81,6 +83,7 @@ function addPost()
 	if(price == '')
 	{
 		$('#price').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
 	}
 	else
 	{
@@ -89,6 +92,7 @@ function addPost()
 	if(stock == '')
 	{
 		$('#stock').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
 	}
 	else
 	{
@@ -100,10 +104,12 @@ function addPost()
 	
 	if(postTitle == '' || postDetail == '' || price == '' || stock == '')
 	{
+		$('#form-err').text('Please Fill Required Fields!');
 		return false;
 	}
 	else
 	{
+		$('#form-err').text('');
 		$('#postTitle').css('border','1px solid #cccccc');
 		$('#postDetail').css('border','1px solid #cccccc');
 		$('#price').css('border','1px solid #cccccc');

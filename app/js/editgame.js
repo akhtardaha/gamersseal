@@ -132,6 +132,7 @@ function updateGame()
 	
 		if(postTitle == '' || gameType == '' || details == '' || stock == '')
 		{
+			$('#form-err').text('Please Fill Required Fields!');
 			return false;
 		}
 		else

@@ -96,8 +96,9 @@ var fname = $('#fname').val();
 	else
 	{
 		console.log('Please Fill Required Fields!');
-		$('.fieldError').html('Please Fill Required Fields!');
-		$('.fieldError').fadeIn();		
+		//$('.fieldError').html('Please Fill Required Fields!');
+		$('#form-err').text('Please Fill Required Fields!');
+		//$('.fieldError').fadeIn();		
 	}
 		//console.log(birthday);	
 }

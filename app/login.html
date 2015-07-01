@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/jquery.form-validator.min.js"></script>
     <script src="js/login.js"></script>
     <script src="js/home.js"></script>
 </head>
@@ -25,8 +26,9 @@
         <div class="content-wraper">
         <a class="specification">Sign In</a>
         <form action="profile.html" name="login" method="post">
-        	<input type="text" id="username" name="userName" placeholder="User Name" class="search not-srch"/>
+        	<input type="text" id="username" name="userName" placeholder="User Name" class="search not-srch" />
         	<input type="password" id="password" name="password" placeholder="Password" class="search not-srch"/>
+            <label id="form-err"></label>
             <a id="signupBtn" href="register.html" class="search btn not-srch" >Sign Up</a>
         	<input type="button" name="SignIn" value="Sign In" onclick="return signInUser();" class="search btn not-srch" />
             <a id="signupBtn" href="index.html" class="search btn not-srch" >Home</a>
