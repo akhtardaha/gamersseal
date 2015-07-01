@@ -34,12 +34,22 @@ function getProductsFromCart()
 								var pname = result.rows.item(i).pname;
 								var price = result.rows.item(i).price;
 								var seller_id = result.rows.item(i).seller;
+								var pShippingcost = result.rows.item(i).shippingcost;
+								if(pShippingcost == 0)
+								{
+									pShippingcost = 'free';
+								}
+								else
+								{
+									pShippingcost = pShippingcost+'$';
+								}
 								html += '<li>';
 								html += '<a href="single.html?post_id='+pid+'">';
 									html += '<div class="Pimg"><img id="img'+pid+'" src="img/loadingSmall.gif" class="product-thumb"></div>';
 									html += '<div class="product-list-right">';
 									html += '<h5>'+pname+'</h5>';
 									html += '<p>Price: '+price+'$</p>';
+									html += '<p>Item Shipping Cost: '+pShippingcost+'</p>';
 									html += '</div>';
 								html += '</a>';
 								html +='<button id="removeProduct" class="btn-remove search not-srch btn" onclick="return deleteProductfromCart('+pid+');">Remove</button>';
@@ -87,22 +97,27 @@ function getCartTotal()
                     {
                         var games = result.rows;
 						var totalCart = 0;
+						var totalShippingCost = 0;
 						var total_games = result.rows.length;
 						
 						
 						for(var i=0; i<total_games; i++)
 							{
 								var pPrice = result.rows.item(i).price;
+								var pShippingcost = result.rows.item(i).shippingcost;
+								totalShippingCost = parseFloat(totalShippingCost)+parseFloat(pShippingcost); 
 								totalCart = parseFloat(totalCart)+parseFloat(pPrice); 
+								
 							}
 						var gstPercenet = window.localStorage.getItem("gst");
 						var gst = Math.round(totalCart/100 * gstPercenet);
-						var shippingCost = 20;
-						var OrderTotal = parseFloat(totalCart) + parseFloat(gst) + parseFloat(shippingCost);
+						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost);
 						html += '<div class="CartTotal">Cart Total = '+totalCart.toFixed(2)+'$</div>';
-						html += '<div class="CartGst">GST '+gstPercenet+'% = '+gst.toFixed(2)+'$</div>';
-						html += '<div class="CartShippingcost">Shipping Cost = '+shippingCost.toFixed(2)+'$</div>';
-						
+						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
+						if(totalShippingCost != 0)
+						{
+						html += '<div class="CartShippingcost">Shipping Cost = '+totalShippingCost.toFixed(2)+'$</div>';
+						}
 						html += '<div class="CartTotal">Order Total = '+OrderTotal.toFixed(2)+'$</div>';
 						
 

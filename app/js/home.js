@@ -250,4 +250,79 @@ function getCategoryProducts(term_id)
 		
 }
 
+function sortGames()
+{
+		$('#tabs-1').html('<img id="loading" src="img/loading.gif" alt="Loading" />');
+		$('#tabs-2').html('<img id="loading" src="img/loading.gif" alt="Loading" />');
+		var sorting = $('#price_filter').val();
+		console.log(sorting);
+		var filter = 'product_price';
+		
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		
+		var url = API_URL+'get_sorted_games/?key=1234567891011&sorting='+sorting+'&filter='+filter+' ';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			if(data.status == 'ok')
+			{
+				//html += '<ul data-role="listview" data-inset="true" data-filter="true" data-split-icon="gear" data-split-theme="c">'; 
+				var posts = data.posts;
+				var totalPosts = posts.length;
+				var counter = 1;
+				if(totalPosts == 0)
+				{
+					html += '<p>There is no Game available Yet</p>';	
+				}
+				else
+				{
+					html += '<ul  class="products-list">';
+					$.each(posts, function (i, value) {
+						if(counter == totalPosts){ var last = 'last'} else {var last ='';}
+						html += '<li class="'+last+'"><a href="single.html?post_id='+value.ID+'">';
+						if(value.images)
+						{
+						html += '<img src="'+GAME_IMAGES_PATH+value.images[0]+'" alt="ninja" class="product-thumb"/>';
+						}
+						else
+						{
+						html += '<img src="img/gamesdefault.png" alt="ninja" class="product-thumb"/>';	
+						}
+						html += '<div class="product-list-right">';
+						html += '<h5>'+value.post_title+'</h5>';
+						var excerpt = value.post_content;
+						html += '<p>'+excerpt.substr(0, 100)+'</p>';
+						//console.log(value.custom_fields.images[0]);
+						html += '<span class="price">Price: '+value.sales_price+'</span>';
+						html += '</div></a></li>';
+						counter++;
+					})
+					html += '</ul>';
+				}
+			}
+			else
+			{
+				console.log(data.status);
+				html += '<p>'+data.error+'</p>';
+				
+			}
+			$('#tabs-1').html(html);
+			$('#tabs-2').html(html);
+			
+		},
+        error:function(){
+
+        }
+    });
+	
+}
+
 

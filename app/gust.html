@@ -8,6 +8,7 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/guest.js"></script>
 </head>
 <body>
     <div class="page-wraper">
@@ -24,12 +25,12 @@
         <div class="fieldError" style="display:none;"></div>
         <form action="" name="login" class="register" onsubmit="return false;">
         <input type="text" id="fname" name="fname" class="search not-srch" placeholder="First Name"/>
+        <input type="text" id="lname" name="lname" class="search not-srch" placeholder="Last Name"/>
         <input type="email" id="email" name="email" class="search not-srch" onblur="return checkEmailExist();" placeholder="E-mail" />
+        <input type="text" id="username" name="username" class="search not-srch" onblur="return checkUsernameExist();" placeholder="User Name" />
         <input type="text" id="location" name="location" class="search not-srch" placeholder="Location"/>
-        <input type="text" id="username" name="username" class="search not-srch"  placeholder="User Name" />
-        <input type="text" id="password" name="password" class="search not-srch"  placeholder="Password" />
        
-        <div class="lastRow"><input type="checkbox" name="terms" id="terms"  /><label>agree with <a href="terms.html" title="terms and conditions">terms and conditions</a></label></div>
+        <div class="lastRow"><input type="checkbox" name="terms" id="terms"  /><label>agree with <a id="termsLink" onclick="termsandconditionsPopUp();" href="javascript:void(0)" title="terms and conditions">terms and conditions</a></label></div>
         <label id="form-err"></label>
         <a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c search btn not-srch a-btn" onclick="return registerUser();">Login</a>
        

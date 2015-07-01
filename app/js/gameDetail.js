@@ -68,7 +68,7 @@ function getPostDetail(post_id)
                  descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div>';
                  descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>';
-   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt+'</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt.substr(0, 250)+'</a></div>';
 				 $('#seller_id').val(author.id);
 				 console.log(descBoxes);
 				 
@@ -76,10 +76,18 @@ function getPostDetail(post_id)
 				 var pid = post.id;
 				 var pname = post.title;
 				 var price = post.custom_fields.sales_price[0];
+				 if(post.custom_fields.shiping_cost)
+				 {
+					 var shippingcost = post.custom_fields.shiping_cost[0];
+				 }
+				 else
+				 {
+					 var shippingcost = 0;
+				 }
 				 console.log(author.id+" "+user_id);
 				 if(author.id != user_id)
 				 {
-					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\',\''+seller_id+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
+					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\',\''+seller_id+'\',\''+shippingcost+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
 				 }
 				 $('.descBoxes').html(descBoxes);
 				 if(window.localStorage.getItem("loginuserCookie"))

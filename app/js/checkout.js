@@ -27,37 +27,45 @@ function getCartTotal()
                     {
                         var games = result.rows;
 						var totalCart = 0;
+						var totalShippingCost = 0;
 						var total_games = result.rows.length;
 						
 						html += '<table>';
-						html += '<thead><tr><th>Game ID</th><th>Game</th><th>Quantity</th><th>Price</th></tr></thead>';
+						html += '<thead><tr><th>Game ID</th><th>Game</th><th>Shipping Cost</th><th>Price</th></tr></thead>';
 						for(var i=0; i<total_games; i++)
 							{
 								var cartProduct = {};
 								var pPrice = result.rows.item(i).price;
 								totalCart = parseFloat(totalCart)+parseFloat(pPrice);
-								html += '<tr><td>'+result.rows.item(i).pid+'</td><td>'+result.rows.item(i).pname+'</td><td>1</td><td>'+result.rows.item(i).price+'</td></tr>';
+								html += '<tr><td>'+result.rows.item(i).pid+'</td><td>'+result.rows.item(i).pname+'</td><td>'+result.rows.item(i).shippingcost+'</td><td>'+result.rows.item(i).price+'</td></tr>';
 								cartProduct.product_id = result.rows.item(i).pid;
 								cartProduct.product_name = result.rows.item(i).pname;
 								cartProduct.product_price = result.rows.item(i).price;
 								cartProduct.seller_id = result.rows.item(i).seller;
+								cartProduct.shippingcost = result.rows.item(i).shippingcost
 								cartProduct.product_qty = 1;
 								cartProducts[i] = cartProduct;
+								
+								var pShippingcost = result.rows.item(i).shippingcost;
+								totalShippingCost = parseFloat(totalShippingCost)+parseFloat(pShippingcost); 
+
 							}
 						html += '</table>';
 						var gstPercenet = window.localStorage.getItem("gst");
 						var gst = Math.round(totalCart/100 * gstPercenet);
-						var shippingCost = 20;
-						var OrderTotal = parseFloat(totalCart) + parseFloat(gst) + parseFloat(shippingCost);
+						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost);
 						html += '<div class="CartTotal">Cart Total = '+totalCart.toFixed(2)+'$</div>';
-						html += '<div class="CartGst">GST '+gstPercenet+'% = '+gst.toFixed(2)+'$</div>';
-						html += '<div class="CartShippingcost">Shipping Cost = '+shippingCost.toFixed(2)+'$</div>';
+						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
+						if(totalShippingCost != 0)
+						{
+						html += '<div class="CartShippingcost">Shipping Cost = '+totalShippingCost.toFixed(2)+'$</div>';
+						}
 						
 						html += '<div class="CartTotal">Order Total = '+OrderTotal.toFixed(2)+'$</div>';
 						$('#gstpercent').val(gstPercenet);
 						$('#gst').val(gst.toFixed(2));
 						$('#cartTotal').val(totalCart.toFixed(2));
-						$('#shippingCost').val(shippingCost.toFixed(2));
+						$('#shippingCost').val(totalShippingCost.toFixed(2));
 						$('#orderTotal').val(OrderTotal.toFixed(2));
 						$('.calculation').html(html);
                 	}

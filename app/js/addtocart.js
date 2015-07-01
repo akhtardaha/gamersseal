@@ -1,5 +1,5 @@
 // JavaScript Document
-function addToCart(pid,pname,price,seller_id){
+function addToCart(pid,pname,price,seller_id,shippingcost){
 	if(!(window.localStorage.getItem("loginuserCookie")))
 	{
 		console.log("Please Login before Add to Cart!");
@@ -12,20 +12,20 @@ function addToCart(pid,pname,price,seller_id){
 	}
 	else
 	{
-		localCart(pid,pname,price,seller_id);
+		localCart(pid,pname,price,seller_id,shippingcost);
 	}
 }
 
 
-function localCart(pid,pname,price,seller_id)
+function localCart(pid,pname,price,seller_id,shippingcost)
 {
 	                db.transaction(
                     function(tx)
                     {
                         
                         //tx.executeSql('DROP TABLE IF EXISTS localcart');
-                        tx.executeSql('CREATE TABLE IF NOT EXISTS localcart (pid TEXT,pname TEXT,price TEXT,seller TEXT)');
-                        tx.executeSql('INSERT INTO localcart (pid, pname, price, seller) VALUES ("'+pid+'", "'+pname+'", "'+price+'", "'+seller_id+'")');
+                        tx.executeSql('CREATE TABLE IF NOT EXISTS localcart (pid TEXT,pname TEXT,price TEXT,seller TEXT,shippingcost TEXT)');
+                        tx.executeSql('INSERT INTO localcart (pid, pname, price, seller, shippingcost) VALUES ("'+pid+'", "'+pname+'", "'+price+'", "'+seller_id+'", "'+shippingcost+'")');
 
                     },
                     function(err){

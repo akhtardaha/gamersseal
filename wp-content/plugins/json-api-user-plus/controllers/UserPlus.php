@@ -1281,6 +1281,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 				'preminum' => ''
 			  ),
 		);
+	$this->insert_custom_fields_for_filter($post->id,$sales_price,$age_limit);
 	//$wpmp_list_op = maybe_serialize($wpmp_list_opts);
 	add_post_meta($post->id, "wpmp_list_opts", $wpmp_list_opts);
 	add_post_meta($post->id, "stock_qty", $stock_qty);
@@ -6941,6 +6942,47 @@ foreach($meta_keys as $k){
 				return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
 			}
 		}
+  	}
+	
+	public function insert_custom_fields_for_filter($post_id,$price,$age_limit){
+
+  			global $json_api;
+			global $wpdb;	
+			$query = "INSERT INTO wp_custom_fields (post_id,age_limit,product_price) VALUES ('".$post_id."','".$age_limit."','".$price."')";
+			$res = $wpdb->query($query);
+  	}
+	
+	public function get_sorted_games(){
+
+  			global $json_api;
+			global $wpdb;
+			$posts_data = array();
+			
+			$filter = $json_api->query->filter;
+		    $sort = $json_api->query->sorting;
+			
+			$query = "SELECT * FROM wp_custom_fields order by $filter $sort";
+			$result = $wpdb->get_results($query);
+			if($result)
+			{
+				$sorted_ids = array();
+				foreach($result as $res)
+				{
+					$sorted_ids[] = $res->post_id;
+				}
+				foreach($sorted_ids as $sorted_id)
+				{
+					$post = get_post($sorted_id);
+					$sales_price = get_post_meta( $sorted_id, 'sales_price' );
+					$images = get_post_meta( $sorted_id, 'images' );
+					$post->sales_price = $sales_price[0];
+					$post->images = $images[0];
+					$posts_data[] = $post;
+					//$posts_data[] = $meta;
+				}
+				 //echo '<pre>';
+				return array('posts'=>$posts_data);
+			}
   	}
 	
 	
