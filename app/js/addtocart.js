@@ -12,7 +12,66 @@ function addToCart(pid,pname,price,seller_id,shippingcost){
 	}
 	else
 	{
-		localCart(pid,pname,price,seller_id,shippingcost);
+		
+		db.transaction(
+        function(tx)
+        {
+            tx.executeSql('SELECT * FROM localcart', [],
+                function(tx,result)
+                {
+                    //alert(result.rows.length);
+					console.log(result.rows);
+                    if(result.rows.length > 0)
+                    {
+						var cart_seller_id = 0;
+						var games = result.rows;
+						var total_games = result.rows.length;
+						console.log(total_games);
+							for(var i=0; i<total_games; i++)
+							{
+								cart_seller_id = result.rows.item(i).seller;
+							}
+                     		if(cart_seller_id != seller_id)
+							{
+								console.log('You Can not Add to Cart Games from Different Sellers! Please complete Order first for thoes Games you already added to Cart');
+									navigator.notification.alert(
+									'You Can not Add to Cart Games from Different Sellers! Please complete Order first for thoes Games you already added to Cart',  // message
+									function(){
+										setTimeout(function() {
+											location.reload();
+										}, 200);
+									},        // callback
+									'Add to Cart',            // title
+									'OK'                  // buttonName
+								);	
+							}
+							else
+							{
+								console.log('No Different Seller Found!');
+								localCart(pid,pname,price,seller_id,shippingcost);
+							}
+                    }
+                    else
+                    {
+						console.log('No Item in Cart so dnt check for Seller ID');
+                     	localCart(pid,pname,price,seller_id,shippingcost);
+                    }
+                }
+                ,function(err){
+                    console.log('There is some error while getting products from Cart for Seller Check');
+
+                });
+
+        },
+        function(err){
+            console.log('Error: '+err.message);
+             console.log('There is some error while getting products from Cart for Seller Check.');
+        },
+        function(){
+            console.log('Success: Products Seller Checked successfully');
+        }
+        );
+		
 	}
 }
 

@@ -536,3 +536,39 @@ textarea {
 	float:left;
 	width:100%;
 	}
+	
+.home-tabs .price,.home-tabs .seller_name {
+  width: 100%;
+  float: left;
+  display: block;
+}
+
+.uploadImages {
+  float: left;
+  width: 98%;
+  padding: 10px 1%;
+}
+
+.uploadedImages
+{
+	float:left;
+	width:100%;
+}
+.uploadedImages ul
+{
+	float:left;
+	width:100%;
+	margin:0px;
+	padding:0px;
+}
+.uploadedImages ul li
+{
+	float:left;
+	margin-right:5px;
+	list-style-type:none;
+}
+
+.uploadedImages ul li img {
+  max-height: 90px;
+  max-width: 90px;
+}

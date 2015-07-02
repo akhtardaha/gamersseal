@@ -28,6 +28,7 @@ function getCartTotal()
                         var games = result.rows;
 						var totalCart = 0;
 						var totalShippingCost = 0;
+						var pSeller_id = '';
 						var total_games = result.rows.length;
 						
 						html += '<table>';
@@ -47,6 +48,7 @@ function getCartTotal()
 								cartProducts[i] = cartProduct;
 								
 								var pShippingcost = result.rows.item(i).shippingcost;
+								pSeller_id = result.rows.item(i).seller;
 								totalShippingCost = parseFloat(totalShippingCost)+parseFloat(pShippingcost); 
 
 							}
@@ -67,6 +69,7 @@ function getCartTotal()
 						$('#cartTotal').val(totalCart.toFixed(2));
 						$('#shippingCost').val(totalShippingCost.toFixed(2));
 						$('#orderTotal').val(OrderTotal.toFixed(2));
+						$('#sellerID').val(pSeller_id);
 						$('.calculation').html(html);
                 	}
 				}
@@ -99,6 +102,7 @@ function placeOrder()
 		var cartTotal = $('#cartTotal').val();
 		var shippingCost = $('#shippingCost').val();
 		var orderTotal = $('#orderTotal').val();
+		var sellerID = $('#sellerID').val();
 		
 		var shipfname = $('#shipfname').val();
 		var shiplname = $('#shiplname').val();
@@ -124,7 +128,7 @@ function placeOrder()
 		shippingAddress.phone = shipphone;
 		
 		
-		var url = API_URL+'order_items/?key=1234567891011&user_id='+user_id+'&orderData='+JSON.stringify(cartProducts)+'&shippingData='+JSON.stringify(shippingAddress)+'&gstpercent='+gstpercent+'&gst='+gst+'&cartTotal='+cartTotal+'&shippingCost='+shippingCost+'&orderTotal='+orderTotal+'';
+		var url = API_URL+'order_items/?key=1234567891011&user_id='+user_id+'&orderData='+JSON.stringify(cartProducts)+'&shippingData='+JSON.stringify(shippingAddress)+'&gstpercent='+gstpercent+'&gst='+gst+'&cartTotal='+cartTotal+'&shippingCost='+shippingCost+'&orderTotal='+orderTotal+'&sellerID='+sellerID+'';
 		console.log(url);
 		var html = '';
 		var imageGallery = '';

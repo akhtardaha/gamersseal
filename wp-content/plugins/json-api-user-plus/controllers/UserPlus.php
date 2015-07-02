@@ -6716,6 +6716,7 @@ foreach($meta_keys as $k){
 		$cartTotal = $json_api->query->cartTotal;
 		$shippingCost = $json_api->query->shippingCost;
 		$orderTotal = $json_api->query->orderTotal;
+		$sellerID = $json_api->query->sellerID;
 		
 		$order = stripslashes($order);
 		$shipping = stripslashes($shipping);
@@ -6761,7 +6762,7 @@ foreach($meta_keys as $k){
 		//echo $batchItems;
 		//die();
 		
-		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','')";
+		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,seller_id,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','".$sellerID."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','')";
 			$res = $wpdb->query($query);
 			if($res)
 			{
@@ -6973,14 +6974,15 @@ foreach($meta_keys as $k){
 				foreach($sorted_ids as $sorted_id)
 				{
 					$post = get_post($sorted_id);
-					$sales_price = get_post_meta( $sorted_id, 'sales_price' );
+					$sales_price = get_post_meta($sorted_id, 'sales_price');
+					$post->display_name = get_the_author_meta('display_name', $post->post_author);
 					$images = get_post_meta( $sorted_id, 'images' );
 					$post->sales_price = $sales_price[0];
 					$post->images = $images[0];
 					$posts_data[] = $post;
 					//$posts_data[] = $meta;
 				}
-				 //echo '<pre>';
+				
 				return array('posts'=>$posts_data);
 			}
   	}

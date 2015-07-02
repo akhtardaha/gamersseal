@@ -89,6 +89,10 @@ function getPostDetail(post_id)
 				 {
 					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\',\''+seller_id+'\',\''+shippingcost+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
 				 }
+				 else
+				 {
+					 descBoxes += '<a style="float:left;" href="editgame.html?post_id='+pid+'" id="updateProd" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Update Game</button>';
+				 }
 				 $('.descBoxes').html(descBoxes);
 				 if(window.localStorage.getItem("loginuserCookie"))
 					{
