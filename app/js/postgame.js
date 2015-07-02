@@ -1,6 +1,14 @@
 // JavaScript Document
 $(document).ready(function(){
-	getProductCategories();
+	if(window.localStorage.getItem("loginuserCookie"))
+	{
+		getProductCategories();		
+	}
+	else
+	{
+		setTimeout(function(){window.location = 'login.html';},200);
+		
+	}
 })
 
 function getProductCategories()

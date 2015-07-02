@@ -6987,6 +6987,59 @@ foreach($meta_keys as $k){
 			}
   	}
 	
+	public function get_user_items_today(){
+
+  			global $json_api;
+			global $wpdb;
+			
+			$user_id = $json_api->query->user_id;
+			$today = date('Y-m-d');
+			$start_today = $today." 00:00:00";
+			$end_today = $today." 23:59:59";
+			
+			$query = "SELECT * FROM wp_posts where post_author=$user_id AND post_date BETWEEN '".$start_today."' AND '".$end_today."'";
+			$result = $wpdb->get_results($query);
+			if($result)
+			{
+				$count = count($result);
+				
+			}
+			else
+			{
+				$count = 0;
+			}
+			return array('count'=>$count);
+  	}
+	
+	
+	public function get_user_purchase_today(){
+
+  			global $json_api;
+			global $wpdb;
+			
+			$user_id = $json_api->query->user_id;
+			$today = date('Y-m-d');
+			$start_today = $today." 00:00:00";
+			$end_today = $today." 23:59:59";
+			
+			$query = "SELECT * FROM wp_mp_orders where uid=$user_id AND date BETWEEN '".strtotime($start_today)."' AND '".strtotime($end_today)."'";
+			$result = $wpdb->get_results($query);
+			if($result)
+			{
+				$totalPurchase = 0;
+				foreach($result as $res)
+				{
+					$res->cart_total;
+					$totalPurchase = $totalPurchase + $res->cart_total;
+				}
+			}
+			else
+			{
+				$totalPurchase = 0;
+			}
+			return array('purchase'=>$totalPurchase);
+  	}
+	
 	
   
 

@@ -16,6 +16,7 @@ function addToCart(pid,pname,price,seller_id,shippingcost){
 		db.transaction(
         function(tx)
         {
+			tx.executeSql('CREATE TABLE IF NOT EXISTS localcart (pid TEXT,pname TEXT,price TEXT,seller TEXT,shippingcost TEXT)');
             tx.executeSql('SELECT * FROM localcart', [],
                 function(tx,result)
                 {
@@ -83,7 +84,7 @@ function localCart(pid,pname,price,seller_id,shippingcost)
                     {
                         
                         //tx.executeSql('DROP TABLE IF EXISTS localcart');
-                        tx.executeSql('CREATE TABLE IF NOT EXISTS localcart (pid TEXT,pname TEXT,price TEXT,seller TEXT,shippingcost TEXT)');
+                        //tx.executeSql('CREATE TABLE IF NOT EXISTS localcart (pid TEXT,pname TEXT,price TEXT,seller TEXT,shippingcost TEXT)');
                         tx.executeSql('INSERT INTO localcart (pid, pname, price, seller, shippingcost) VALUES ("'+pid+'", "'+pname+'", "'+price+'", "'+seller_id+'", "'+shippingcost+'")');
 
                     },

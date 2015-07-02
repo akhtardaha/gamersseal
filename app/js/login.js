@@ -25,7 +25,8 @@ function signInUser()
 			console.log('Welecome '+data.user.nickname);
 			var role = data.user.capabilities;
 			role = Object.keys(role);
-			var user_role = role[0]; 
+			var user_role = role[0];
+			//console.log(user_role); 
 			window.localStorage.setItem("loginuserCookie",data.cookie);
 			window.localStorage.setItem("loginuserCookieName",data.cookie_name);
 			window.localStorage.setItem("loginuserPic",data.user.avatar);
@@ -36,7 +37,7 @@ function signInUser()
 			window.localStorage.setItem("loginuserNicename",data.user.nicename);
 			window.localStorage.setItem("loginuserNickname",data.user.nickname);
 			window.localStorage.setItem("loginuserUsername",data.user.username);
-			
+			//console.log(window.localStorage.getItem("loginuserRole"));
 			
 			navigator.notification.alert(
 						'Welecome '+data.user.nickname,  // message

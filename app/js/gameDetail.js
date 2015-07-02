@@ -68,7 +68,15 @@ function getPostDetail(post_id)
                  descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div>';
                  descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>';
-   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt.substr(0, 250)+'</a></div>';
+				 var descLimit = window.localStorage.getItem("item_desc_limit");
+				 if(descLimit)
+				 {
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt.substr(0, descLimit)+'</a></div>';
+				 }
+				 else
+				 {
+				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt.substr(0, 250)+'</a></div>';
+				 }
 				 $('#seller_id').val(author.id);
 				 console.log(descBoxes);
 				 

@@ -252,6 +252,136 @@ function endButtonLoading(id)
 {
 	$('#'+id).removeClass('buttonLoading');
 }
+
+function getUserItemsPerDay()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'get_user_items_today/?key=1234567891011&user_id='+user_id+' ';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			var itemStatus = data.count;
+			var user_role = window.localStorage.getItem("loginuserRole");
+			var premium_item_day = window.localStorage.getItem("premium_item_day");
+			var standard_item_day = window.localStorage.getItem("standard_item_day");
+			
+			console.log(itemStatus+" "+user_role+" "+premium_item_day+" "+standard_item_day);
+			if(data.status == 'ok')
+			{
+				if(user_role == 'preminum')
+				{
+					if(itemStatus >= premium_item_day)	
+					{
+						console.log("You can not Add items more then "+premium_item_day+" per day!");
+					}
+					else
+					{
+						console.log("continue");
+					}
+				}
+				if(user_role == 'standard')
+				{
+					if(itemStatus >= standard_item_day)	
+					{
+						console.log("You can not Add items more then "+standard_item_day+" per day!");
+					}
+					else
+					{
+						console.log("continue");
+					}
+				}
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+function getUserPurchasePerDay()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'get_user_purchase_today/?key=1234567891011&user_id='+user_id+' ';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			var purchaseStatus = data.purchase;
+			var user_role = window.localStorage.getItem("loginuserRole");
+			var guest_daily_purchase = window.localStorage.getItem("guest_daily_purchase");
+			var premium_daily_purchase = window.localStorage.getItem("premium_daily_purchase");
+			var standard_daily_purchase = window.localStorage.getItem("standard_daily_purchase");
+			
+			console.log(purchaseStatus+" "+user_role+" "+guest_daily_purchase+" "+standard_daily_purchase+" "+premium_daily_purchase);
+			if(data.status == 'ok')
+			{
+				if(user_role == 'preminum')
+				{
+					if(premium_daily_purchase == 'unlimited')
+					{
+						console.log("Continue Buying");
+					}
+					else
+					{
+						if(purchaseStatus >= premium_daily_purchase)
+						{
+							console.log("You can not Buy Games more then "+premium_daily_purchase+" per day!");
+						}
+						else
+						{
+							console.log("Continue Buying");
+						}
+					}
+					
+				}
+				if(user_role == 'standard')
+				{
+					if(purchaseStatus >= standard_daily_purchase)	
+					{
+						console.log("You can not Buy Games more then "+standard_daily_purchase+" per day!");
+					}
+					else
+					{
+						console.log("Continue Buying");
+					}
+				}
+				if(user_role == 'guest')
+				{
+					if(purchaseStatus >= guest_daily_purchase)	
+					{
+						console.log("You can not Buy Games more then "+guest_daily_purchase+" per day!");
+					}
+					else
+					{
+						console.log("Continue Buying");
+					}
+				}
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+getUserPurchasePerDay();
 /*
 $(function() {
     $( "#from , #to" ).datepicker();
