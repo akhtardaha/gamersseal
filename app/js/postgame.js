@@ -2,7 +2,10 @@
 $(document).ready(function(){
 	if(window.localStorage.getItem("loginuserCookie"))
 	{
-		getProductCategories();		
+		getProductCategories();	
+		window.localStorage.setItem("GamesPics",'');
+		getUserTransactionsPerDay();
+		getUserPurchasePerDay();	
 	}
 	else
 	{

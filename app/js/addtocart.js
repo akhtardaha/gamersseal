@@ -20,7 +20,7 @@ function addToCart(pid,pname,price,seller_id,shippingcost){
             tx.executeSql('SELECT * FROM localcart', [],
                 function(tx,result)
                 {
-                    //alert(result.rows.length);
+                    console.log(result.rows.length);
 					console.log(result.rows);
                     if(result.rows.length > 0)
                     {
@@ -144,6 +144,24 @@ function deleteProductfromCart(pid)
                         'Delete From Cart',            // title
                         'OK'                  // buttonName
                         );
+                    }
+                    );
+}
+
+function deleteProductsCart()
+{
+	                db.transaction(
+                    function(tx)
+                    {
+                        tx.executeSql('DELETE FROM localcart" ');
+
+                    },
+                    function(err){
+
+                        console.log('There is some error while Deleting Game From Cart.');
+                    },
+                    function(){                       
+                        console.log('Success: Product Deleted from Cart');
                     }
                     );
 }

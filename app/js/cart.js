@@ -18,6 +18,7 @@ function getProductsFromCart()
     db.transaction(
         function(tx)
         {
+			tx.executeSql('CREATE TABLE IF NOT EXISTS localcart (pid TEXT,pname TEXT,price TEXT,seller TEXT,shippingcost TEXT)');
             tx.executeSql('SELECT * FROM localcart', [],
                 function(tx,result)
                 {
@@ -89,6 +90,7 @@ function getCartTotal()
     db.transaction(
         function(tx)
         {
+			tx.executeSql('CREATE TABLE IF NOT EXISTS localcart (pid TEXT,pname TEXT,price TEXT,seller TEXT,shippingcost TEXT)');
             tx.executeSql('SELECT * FROM localcart', [],
                 function(tx,result)
                 {

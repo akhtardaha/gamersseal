@@ -6711,7 +6711,7 @@ foreach($meta_keys as $k){
 		$user_id = $json_api->query->user_id;
 		$order = $json_api->query->orderData;
 		$shipping = $json_api->query->shippingData;
-		$gstpercent = $json_api->query->gstpercent;
+		$gstpercent = $json_api->query->gstpercentage;
 		$gst = $json_api->query->gst;
 		$cartTotal = $json_api->query->cartTotal;
 		$shippingCost = $json_api->query->shippingCost;
@@ -6763,6 +6763,7 @@ foreach($meta_keys as $k){
 		//die();
 		
 		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,seller_id,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','".$sellerID."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','')";
+			//die();
 			$res = $wpdb->query($query);
 			if($res)
 			{
@@ -7026,6 +7027,7 @@ foreach($meta_keys as $k){
 			$result = $wpdb->get_results($query);
 			if($result)
 			{
+				//print_r($result);
 				$totalPurchase = 0;
 				foreach($result as $res)
 				{
@@ -7038,6 +7040,44 @@ foreach($meta_keys as $k){
 				$totalPurchase = 0;
 			}
 			return array('purchase'=>$totalPurchase);
+  	}
+	
+	public function get_user_transactions_today(){
+
+  			global $json_api;
+			global $wpdb;
+			
+			$user_id = $json_api->query->user_id;
+			$today = date('Y-m-d');
+			$start_today = $today." 00:00:00";
+			$end_today = $today." 23:59:59";
+			
+			$sellingQuery = "SELECT * FROM wp_posts where post_author=$user_id AND post_date BETWEEN '".$start_today."' AND '".$end_today."'";
+			$sellingResult = $wpdb->get_results($sellingQuery);
+			if($sellingResult)
+			{
+				$sellingCount = count($sellingResult);
+				
+			}
+			else
+			{
+				$sellingCount = 0;
+			}
+			
+			$buyingQuery = "SELECT * FROM wp_mp_orders where uid=$user_id AND date BETWEEN '".strtotime($start_today)."' AND '".strtotime($end_today)."'";
+			$buyingResult = $wpdb->get_results($buyingQuery);
+			if($buyingResult)
+			{
+				$buyingCount = count($buyingResult);
+				
+			}
+			else
+			{
+				$buyingCount = 0;
+			}
+			
+			$totalTransactions = $sellingCount + $buyingCount;
+			return array('buying'=>$buyingCount,'selling' =>$sellingCount, 'total' => $totalTransactions);
   	}
 	
 	

@@ -4,7 +4,9 @@
 $(document).ready(function(){
 	if(window.localStorage.getItem("loginuserCookie"))
 	{
-		getCartTotal();			
+		getCartTotal();
+		getUserTransactionsPerDay();
+		getUserPurchasePerDay();		
 	}
 	else
 	{
@@ -90,6 +92,105 @@ function getCartTotal()
 }
 
 
+
+function CheckUserPurchaseAmountPerDay()
+	{
+		startButtonLoading('Orderbtn');
+		var cartTotal = $('#cartTotal').val();
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'get_user_purchase_today/?key=1234567891011&user_id='+user_id+' ';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			var purchaseStatus = data.purchase;
+			var user_role = window.localStorage.getItem("loginuserRole");
+			var guest_daily_purchase = window.localStorage.getItem("guest_daily_purchase");
+			var premium_daily_purchase = window.localStorage.getItem("premium_daily_purchase");
+			var standard_daily_purchase = window.localStorage.getItem("standard_daily_purchase");
+			
+			purchaseStatus = parseInt(cartTotal) + parseInt(purchaseStatus);
+			console.log(purchaseStatus+" "+user_role+" "+guest_daily_purchase+" "+standard_daily_purchase+" "+premium_daily_purchase);
+			if(data.status == 'ok')
+			{
+				if(user_role == 'preminum')
+				{
+					if(premium_daily_purchase == 'unlimited')
+					{
+						placeOrder();
+					}
+					else
+					{
+						if(purchaseStatus >= premium_daily_purchase)
+						{
+							console.log("You can not Buy Games more then "+premium_daily_purchase+" amount per day!");
+							navigator.notification.alert(
+							"You can not Buy Games more then "+premium_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
+							
+						}
+						else
+						{
+							placeOrder();
+						}
+					}
+					
+				}
+				if(user_role == 'standard')
+				{
+					if(purchaseStatus >= standard_daily_purchase)	
+					{
+						console.log("You can not Buy Games more then "+standard_daily_purchase+" amount per day!");
+						navigator.notification.alert(
+							"You can not Buy Games more then "+standard_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						placeOrder();
+					}
+				}
+				if(user_role == 'guest')
+				{
+					if(purchaseStatus >= guest_daily_purchase)	
+					{
+						console.log("You can not Buy Games more then "+guest_daily_purchase+" amount per day!");
+						navigator.notification.alert(
+							"You can not Buy Games more then "+guest_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						placeOrder();
+					}
+				}
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
+
 function placeOrder()
 	{
 		
@@ -115,6 +216,8 @@ function placeOrder()
 		var shipemail = $('#shipemail').val();
 		var shipphone = $('#shipphone').val();
 		
+		shipaddress = shipaddress.replace("#", " no "); 
+		
 		
 		shippingAddress.first_name = shipfname;
 		shippingAddress.last_name = shiplname;
@@ -128,7 +231,9 @@ function placeOrder()
 		shippingAddress.phone = shipphone;
 		
 		
-		var url = API_URL+'order_items/?key=1234567891011&user_id='+user_id+'&orderData='+JSON.stringify(cartProducts)+'&shippingData='+JSON.stringify(shippingAddress)+'&gstpercent='+gstpercent+'&gst='+gst+'&cartTotal='+cartTotal+'&shippingCost='+shippingCost+'&orderTotal='+orderTotal+'&sellerID='+sellerID+'';
+		
+		
+		var url = API_URL+'order_items/?key=1234567891011&user_id='+user_id+'&orderData='+JSON.stringify(cartProducts)+'&shippingData='+JSON.stringify(shippingAddress)+'&gstpercentage='+gstpercent+'&gst='+gst+'&cartTotal='+cartTotal+'&shippingCost='+shippingCost+'&orderTotal='+orderTotal+'&sellerID='+sellerID+'';
 		console.log(url);
 		var html = '';
 		var imageGallery = '';
@@ -140,10 +245,19 @@ function placeOrder()
 		dataType: 'jsonp',
         success:function(data)
         {
+			endButtonLoading('Orderbtn');
 			stopLoading();
 			console.log(data);
 			if(data.status == 'ok')
 			{
+				deleteProductsCart();
+				navigator.notification.alert(
+							"Thankyou, your order is Confirmed!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Order Complete',            // title
+							'OK'                  // buttonName
+				);	
+				
 			}
 			else
 			{
@@ -154,4 +268,22 @@ function placeOrder()
         }
     });
 		
+}
+
+function deleteProductsCart()
+{
+	                db.transaction(
+                    function(tx)
+                    {
+                        tx.executeSql('DELETE * FROM localcart');
+
+                    },
+                    function(err){
+
+                        console.log('There is some error while Deleting Game From Cart.');
+                    },
+                    function(){                       
+                        console.log('Success: Products Deleted from Cart');
+                    }
+                    );
 }

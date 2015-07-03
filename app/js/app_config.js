@@ -281,6 +281,12 @@ function getUserItemsPerDay()
 					if(itemStatus >= premium_item_day)	
 					{
 						console.log("You can not Add items more then "+premium_item_day+" per day!");
+						navigator.notification.alert(
+							"You can not Add items more then "+premium_item_day+" per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Upload Limit',            // title
+							'OK'                  // buttonName
+						);	
 					}
 					else
 					{
@@ -292,6 +298,12 @@ function getUserItemsPerDay()
 					if(itemStatus >= standard_item_day)	
 					{
 						console.log("You can not Add items more then "+standard_item_day+" per day!");
+						navigator.notification.alert(
+							"You can not Add items more then "+standard_item_day+" per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Upload Limit',            // title
+							'OK'                  // buttonName
+						);	
 					}
 					else
 					{
@@ -341,7 +353,14 @@ function getUserPurchasePerDay()
 					{
 						if(purchaseStatus >= premium_daily_purchase)
 						{
-							console.log("You can not Buy Games more then "+premium_daily_purchase+" per day!");
+							console.log("You can not Buy Games more then "+premium_daily_purchase+" amount per day!");
+							navigator.notification.alert(
+							"You can not Buy Games more then "+premium_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
+							
 						}
 						else
 						{
@@ -354,7 +373,13 @@ function getUserPurchasePerDay()
 				{
 					if(purchaseStatus >= standard_daily_purchase)	
 					{
-						console.log("You can not Buy Games more then "+standard_daily_purchase+" per day!");
+						console.log("You can not Buy Games more then "+standard_daily_purchase+" amount per day!");
+						navigator.notification.alert(
+							"You can not Buy Games more then "+standard_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
 					}
 					else
 					{
@@ -365,7 +390,13 @@ function getUserPurchasePerDay()
 				{
 					if(purchaseStatus >= guest_daily_purchase)	
 					{
-						console.log("You can not Buy Games more then "+guest_daily_purchase+" per day!");
+						console.log("You can not Buy Games more then "+guest_daily_purchase+" amount per day!");
+						navigator.notification.alert(
+							"You can not Buy Games more then "+guest_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
 					}
 					else
 					{
@@ -381,7 +412,110 @@ function getUserPurchasePerDay()
     });
 		
 }
-getUserPurchasePerDay();
+
+function getUserTransactionsPerDay()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'get_user_transactions_today/?key=1234567891011&user_id='+user_id+' ';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			var transactionsStatus = data.total;
+			var user_role = window.localStorage.getItem("loginuserRole");
+			var guest_daily_transaction = window.localStorage.getItem("guest_daily_transaction");
+			var premium_daily_transaction = window.localStorage.getItem("premium_daily_transaction");
+			var standard_daily_transaction = window.localStorage.getItem("standard_daily_transaction");
+			
+			console.log(transactionsStatus+" "+user_role+" "+guest_daily_transaction+" "+standard_daily_transaction+" "+premium_daily_transaction);
+			if(data.status == 'ok')
+			{
+				if(user_role == 'preminum')
+				{
+					if(premium_daily_transaction == 'unlimited')
+					{
+						console.log("Continue Transactions");
+					}
+					else
+					{
+						if(transactionsStatus >= premium_daily_transaction)
+						{
+							console.log("You can not do more then "+premium_daily_transaction+" Transactions per day!");
+							navigator.notification.alert(
+							"You can not do more then "+premium_daily_transaction+" Transactions per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Transactions',            // title
+							'OK'                  // buttonName
+						);	
+						}
+						else
+						{
+							console.log("Continue Transactions");
+						}
+					}
+					
+				}
+				if(user_role == 'standard')
+				{
+					if(transactionsStatus >= standard_daily_transaction)	
+					{
+						console.log("You can not do more then "+standard_daily_transaction+" Transactions per day!");
+						navigator.notification.alert(
+							"You can not do more then "+standard_daily_transaction+" Transactions per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Transactions',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						console.log("Continue Transactions");
+					}
+				}
+				if(user_role == 'guest')
+				{
+					if(transactionsStatus >= guest_daily_transaction)	
+					{
+						console.log("You can not do more then "+guest_daily_transaction+" Transactions per day!");
+						navigator.notification.alert(
+							"You can not do more then "+guest_daily_transaction+" Transactions per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Transactions',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						console.log("Continue Transactions");
+					}
+				}
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
+$(document).ready(function(){
+    $('input, textarea, select').on('focus', function (e) {
+        $('.footer').css('position', 'relative');
+    });
+    $('input, textarea, select').on('blur', function (e) {
+        $('.footer').css('position', 'fixed');
+    });
+});
+
+
 /*
 $(function() {
     $( "#from , #to" ).datepicker();
