@@ -572,3 +572,16 @@ textarea {
   max-height: 90px;
   max-width: 90px;
 }
+.CartTotalBox{
+	float:right;
+	display:block;
+	width:95%;
+	max-width:275px;}
+.CartTotalBox span{
+	float:left;
+	display:inline-block;
+	width:38%;}
+.CartTotalBox>div{
+	margin:10px 0;}
+.CartTotalBox div.CartTotal{
+	font-weight:bolder;}
