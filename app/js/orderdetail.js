@@ -38,14 +38,14 @@ function getBuyerOrder(order_id)
 				
 				html += '<li>';
                 //html += '<a href="shippingstatusedit.html?order_id='+value.order_id+'">';
-                    html += '<div style="width:100%;float:left;">';
-                    html += '<h4>Order # '+value.order_id+'</h4>';
-                    html += '<p>Order date: '+value.date+'</p>';
-                    html += '<p>Expected Date of Delivery: '+value.delievery_time+'</p>';
-                    html += '<p>Totla Bill: '+value.total+'$</p>';
-                    html += '<p>Address: '+value.billing_shipping_data.billing.address_1+' '+value.billing_shipping_data.billing.city+' '+value.billing_shipping_data.billing.country+'</p>';
-                    html += '<p>Mobile #: '+value.billing_shipping_data.billing.phone+'</p>';
-					html += '<p>Shipping Status: '+value.shipping_status+'</p>';
+                    html += '<div style="width:100%;float:left;" class="confirm-odr">';
+                    html += '<h4><span class="col-odr">Order #</span><span class="odr-val">'+value.order_id+'</span></h4>';
+                    html += '<p><span class="col-odr">Order date:</span><span class="odr-val">'+value.date+'</span></p>';
+                    html += '<p><span class="col-odr">Expected Date of Delivery:</span><span class="odr-val">'+value.delievery_time+'</span></p>';
+                    html += '<p><span class="col-odr">Totla Bill:</span><span class="odr-val">'+value.total+'$</span></p>';
+                    html += '<p><span class="col-odr">Address:</span><span class="odr-val">'+value.billing_shipping_data.billing.address_1+' '+value.billing_shipping_data.billing.city+' '+value.billing_shipping_data.billing.country+'</span></p>';
+                    html += '<p><span class="col-odr">Mobile #:</span><span class="odr-val">'+value.billing_shipping_data.billing.phone+'</span></p>';
+					html += '<p><span class="col-odr">Shipping Status:</span><span class="odr-val">'+value.shipping_status+'</span></p>';
 					html += '<h4>Order item(s)</h4>';
 					var counter = 1;
 					var cart_data = value.cart_data;

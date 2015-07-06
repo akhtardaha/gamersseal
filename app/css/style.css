@@ -606,3 +606,14 @@ form[name="message"] input[name="submit"]{
 	display:block;
 	float:left;
 	width:100%;}
+.odr-val{
+	display:inline-block;
+	float:left;
+	width:50%}
+.confirm-odr span.col-odr{
+	width:50%;}
+.confirm-odr p {
+  float: left;
+  display: block;
+  width: 100%;
+}
