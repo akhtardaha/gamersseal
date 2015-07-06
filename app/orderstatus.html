@@ -4,10 +4,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
 <title>Login Gamers Seal</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />  
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/orderstatus.js"></script>
+<style>
+#loading {
+  width: 50px;
+  margin-left: 40%;
+  padding: 20px 0px;
+}
+.product-list-right {
+  display: inline-block;
+  float: left;
+  width: 100%;
+}
+.products-list p {
+  font-size: 13px;
+  font-family: Arial;
+  text-transform: INHERIT;
+}
+</style>
 </head>
 <body>
     <div class="page-wraper">
@@ -23,43 +41,8 @@
         <div class="ui-content content-wraper">
         	<a href="#" class="specification">Order Status</a>
         	<ul class="tabContent products-list order-list">
-            <li>
-                <a href="orderconfirm.html">
-                    <div class="product-list-right">
-                    <h5>Order #111</h5>
-                    <p>Status:Pending</p>
-                    <p>Toatl Bill: 199$</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="orderconfirm.html">
-                    <div class="product-list-right">
-                    <h5>Order #1432</h5>
-                    <p>Status:Pending</p>
-                    <p>Toatl Bill: 199$</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="orderconfirm.html">
-                    <div class="product-list-right">
-                    <h5>Order #134</h5>
-                    <p>Status:Confirm</p>
-                    <p>Toatl Bill: 199$</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="orderconfirm.html">
-                    <div class="product-list-right">
-                    <h5>Order #122</h5>
-                    <p>Status:Pending</p>
-                    <p>Toatl Bill: 199$</p>
-                    </div>
-                </a>
-            </li>
-        </ul>  
+            	<img id="loading" src="img/loading.gif" alt="Loading" />
+       	 	</ul>  
      	</div><!-- /content -->
  </div>
         <div class="footer">

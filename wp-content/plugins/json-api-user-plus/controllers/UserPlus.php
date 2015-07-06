@@ -7080,6 +7080,207 @@ foreach($meta_keys as $k){
 			return array('buying'=>$buyingCount,'selling' =>$sellingCount, 'total' => $totalTransactions);
   	}
 	
+	public function get_seller_orders(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$ordersData = array();
+		
+		$user_id = $json_api->query->user_id;
+		
+			$query = "SELECT * FROM wp_mp_orders where seller_id = '".$user_id."' order by date DESC";
+			$orders = $wpdb->get_results($query);
+			if($orders)
+			{
+				foreach($orders as $order){
+					//echo $sale->date;
+						$order->date = date('d M, Y', $order->date);
+						$order->billing_shipping_data = unserialize($order->billing_shipping_data);
+						$order->cart_data = unserialize($order->cart_data);
+						$order->items = unserialize($order->items);
+						
+						foreach($order->items as $itm)
+						{
+							$ids .= "'".$itm."'".",";
+						}
+						$ids = rtrim($ids,',');
+						
+						$q = "SELECT MAX(meta_value) as max FROM wp_postmeta where post_id IN ($ids) AND meta_key = 'delivery_time'";
+						$delievery_time = $wpdb->get_results($q);
+						$del_time = $delievery_time[0]->max;
+						
+						$order->delievery_time = date('d M, Y', strtotime($order->date . ' +'.$del_time.' day'));
+						//die();
+												
+						$ordersData[] = $order;	
+				}
+				return array('count'=>1,'orders'=>$ordersData);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Orders.");
+			}
+  	}
+	
+	public function get_Order_by_orderid(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$ordersData = array();
+		
+		$user_id = $json_api->query->user_id;
+		$order_id = $json_api->query->order_id;
+		
+			$query = "SELECT * FROM wp_mp_orders where seller_id = '".$user_id."' AND order_id = '".$order_id."' ";
+			$orders = $wpdb->get_results($query);
+			if($orders)
+			{
+				foreach($orders as $order){
+					//echo $sale->date;
+						$order->date = date('d M, Y', $order->date);
+						$order->billing_shipping_data = unserialize($order->billing_shipping_data);
+						$order->cart_data = unserialize($order->cart_data);
+						$order->items = unserialize($order->items);
+						
+						foreach($order->items as $itm)
+						{
+							$ids .= "'".$itm."'".",";
+						}
+						$ids = rtrim($ids,',');
+						
+						$q = "SELECT MAX(meta_value) as max FROM wp_postmeta where post_id IN ($ids) AND meta_key = 'delivery_time'";
+						$delievery_time = $wpdb->get_results($q);
+						$del_time = $delievery_time[0]->max;
+						
+						$order->delievery_time = date('d M, Y', strtotime($order->date . ' +'.$del_time.' day'));
+						//die();
+												
+						$ordersData[] = $order;	
+				}
+				return array('count'=>1,'order'=>$ordersData);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Order.");
+			}
+  	}
+	
+	public function update_order_shipping_status(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$shipping_status = $json_api->query->shipping_status;
+		$order_id = $json_api->query->order_id;
+		$user_id = $json_api->query->user_id;
+		
+				$query = "UPDATE wp_mp_orders SET shipping_status = '".$shipping_status."' where seller_id = '".$user_id."' AND order_id = '".$order_id."' ";
+				$res2 = $wpdb->query($query);
+				if($res2)
+				{
+					$response = "Order Shipping Status Changed to '".$shipping_status."'.";
+				}
+				else
+				{
+					$response = "Order Shipping Status already set to '".$shipping_status."'.";
+				}
+				return array('shipping_status'=>$response);
+  	}
+	
+		public function get_buyer_orders(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$ordersData = array();
+		
+		$user_id = $json_api->query->user_id;
+		
+			$query = "SELECT * FROM wp_mp_orders where uid = '".$user_id."' order by date DESC";
+			$orders = $wpdb->get_results($query);
+			if($orders)
+			{
+				foreach($orders as $order){
+					//echo $sale->date;
+						$order->date = date('d M, Y', $order->date);
+						$order->billing_shipping_data = unserialize($order->billing_shipping_data);
+						$order->cart_data = unserialize($order->cart_data);
+						$order->items = unserialize($order->items);
+						
+						foreach($order->items as $itm)
+						{
+							$ids .= "'".$itm."'".",";
+						}
+						$ids = rtrim($ids,',');
+						
+						$q = "SELECT MAX(meta_value) as max FROM wp_postmeta where post_id IN ($ids) AND meta_key = 'delivery_time'";
+						$delievery_time = $wpdb->get_results($q);
+						$del_time = $delievery_time[0]->max;
+						
+						$order->delievery_time = date('d M, Y', strtotime($order->date . ' +'.$del_time.' day'));
+						//die();
+												
+						$ordersData[] = $order;	
+				}
+				return array('count'=>1,'orders'=>$ordersData);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Orders.");
+			}
+  	}
+	
+	
+		public function get_buyer_order_by_orderid(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$ordersData = array();
+		
+		$user_id = $json_api->query->user_id;
+		$order_id = $json_api->query->order_id;
+		
+			$query = "SELECT * FROM wp_mp_orders where uid = '".$user_id."' AND order_id = '".$order_id."' ";
+			$orders = $wpdb->get_results($query);
+			if($orders)
+			{
+				foreach($orders as $order){
+					//echo $sale->date;
+						$order->date = date('d M, Y', $order->date);
+						$order->billing_shipping_data = unserialize($order->billing_shipping_data);
+						$order->cart_data = unserialize($order->cart_data);
+						$order->items = unserialize($order->items);
+						
+						foreach($order->items as $itm)
+						{
+							$ids .= "'".$itm."'".",";
+						}
+						$ids = rtrim($ids,',');
+						
+						$q = "SELECT MAX(meta_value) as max FROM wp_postmeta where post_id IN ($ids) AND meta_key = 'delivery_time'";
+						$delievery_time = $wpdb->get_results($q);
+						$del_time = $delievery_time[0]->max;
+						
+						$order->delievery_time = date('d M, Y', strtotime($order->date . ' +'.$del_time.' day'));
+						//die();
+												
+						$ordersData[] = $order;	
+				}
+				return array('count'=>1,'order'=>$ordersData);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Order.");
+			}
+  	}
+	
 	
   
 

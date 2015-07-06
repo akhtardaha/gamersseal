@@ -131,7 +131,7 @@ function sideBarMenu()
                 html += '<li><a href="cart.html">Shopping Cart</a></li>';
                 html += '<li><a href="message-board.html">Message Board</a></li>';
                 html += '<li><a href="orderstatus.html">Order Status (for buyer)</a></li>';
-                html += '<li class="bdr-btm"><a href="shippingstatus.html">Order Summary (for Buyer)</a></li>';
+                html += '<li class="bdr-btm"><a href="shippingstatus.html">Shipping Status (for Seller)</a></li>';
                 html += '<li><a href="managegames.html">Stock Management (for Seller)</a></li>';
                 html += '<li class="bdr-btm"><a href="postgame.html">Add New Item (for Seller)</a></li>';
                 html += '<li class="bdr-btm"><a href="setting.html">Settings</a></li>';

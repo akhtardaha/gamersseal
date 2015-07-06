@@ -3,10 +3,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
-<title>Games Gamers Seal</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title>Login Gamers Seal</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />  
+	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/shippingstatusUpdate.js"></script>
+<style>
+#loading {
+  width: 50px;
+  margin-left: 40%;
+  padding: 20px 0px;
+}
+.product-list-right {
+  display: inline-block;
+  float: left;
+  width: 100%;
+}
+.products-list p {
+  font-size: 13px;
+  font-family: Arial;
+  text-transform: INHERIT;
+}
+</style>
 </head>
 <body>
     <div class="page-wraper">
@@ -21,36 +40,26 @@
         <div class="content-wraper">     	
   <a href="#" class="specification">Shipping Status</a>      
             <ul class="tabContent products-list message-board">
-            <li>
-                <a href="">
-                    <div class="product-list-right">
-                    <h5>Order # 111</h5>
-                    <p>Order date: 14/5/2015</p>
-                    <p>Expected Date of Delivery:18/5/2015</p>
-                    <p>Totla Bill:200 $</p>
-                    <p>Address: main walton Austrlia</p>
-                    <p>Mobile #: +95320 4545454</p>
-<p>Shipping Status: Shipped</p>
-                    </div>
-                </a>
-            </li>
-        </ul>
+            	<img id="loading" src="img/loading.gif" alt="Loading" />
+            </ul>
             <div>
             <form action="" method="get" name="shipping">
-      <select name="filterCat mobile-dropdown" >
-            <option selected="selected">Change Shipping Status</option>
-            <option value="1">Pending</option>
-            <option value="2">Shipped</option>
-            <option value="3">Cancelled</option>
-            </select>
-            <p>Captcha Need</p>
-    <input type="button" name="submit" value="Submit" class="search btn not-srch" />
+      			<select name="filterCat mobile-dropdown" id="shippingStatusDrop">
+                    <option selected="selected">Change Shipping Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Canceled">Canceled</option>
+                 </select>
+                 
+    <input type="button" name="submit" id="changeShipping" onclick="return updateOrderShippingStatus();" value="Submit" class="search btn not-srch" />
     </form>
     <h4 class="send">Send Message to Customer</h4>
     <form action="" method="get" name="message">
     <input type="text" id="title" placeholder="Title" name="title" class="search not-srch" />
+    <input type="hidden" id="buyer_id" value="" />
     <textarea id="message" placeholder="Message" name="message" class="search not-srch" ></textarea>
-    <input type="button" name="submit" value="Send" class="search btn not-srch" />
+    <input type="button" name="submit" value="Send" class="search btn not-srch" onclick="return sendMessagetoCustomer();" />
     </form>
         </div><!-- /content -->
  </div>
