@@ -1,8 +1,16 @@
 // JavaScript Document
-
 $(document).ready(function(){
-	getSellerOrders();
+	if(window.localStorage.getItem("loginuserCookie"))
+	{
+	getSellerOrders();	
+	}
+	else
+	{
+		setTimeout(function(){window.location = 'login.html';},200);
+		
+	}
 })
+
 
 function getSellerOrders()
 	{

@@ -1,9 +1,17 @@
 // JavaScript Document
-
 $(document).ready(function(){
+	if(window.localStorage.getItem("loginuserCookie"))
+	{
 	var order_id = getQueryVariable('order_id');
 	//getSellerOrders();
 	getSellerOrder(order_id);
+
+	}
+	else
+	{
+		setTimeout(function(){window.location = 'login.html';},200);
+		
+	}
 })
 
 function getSellerOrder(order_id)
