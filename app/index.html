@@ -42,8 +42,8 @@
         </form>
         <div class="home-tabs" id="home-tabs">
           <ul>
-            <li class="tab-open"><a href="#tabs-1">Recent Viewed</a></li>
-            <li><a href="#tabs-2">Newest Items</a></li>
+            <li class="tab-open"><div data-tab='#tabs-1'>Recent Viewed</div></li>
+            <li><div data-tab='#tabs-2'>Newest Items</div></li>
           </ul>
           <div id="tabs-1" style="display:block;">
             <img id="loading" src="img/loading.gif" alt="Loading" />
@@ -53,10 +53,10 @@
           </div>
         </div>
         <form name="sort-by-price" id="price-sort">
-        	<select name="product" id="product-filter" class="mobile-dropdown">
+        	<select name="product" id="price_filter" class="mobile-dropdown" onchange="return sortGames();">
             	<option>Sort By Price + Postage</option>
-                <option value="1">Hight to low</option>
-                <option value="2">Low to heigh</option>
+                <option value="DESC">Hight to low</option>
+                <option value="ASC">Low to heigh</option>
             </select>
         </form>
         </div>

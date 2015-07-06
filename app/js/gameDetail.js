@@ -54,9 +54,9 @@ function getPostDetail(post_id)
 					pagination: '.swiper-pagination',
 					paginationClickable: true
 				});
-				 descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>';
-   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.title+'</a></div>';
-                 descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>';
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.title+'</a></div></div>';
+                 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>';
 				 
 				 var gameCategory = [];
 				 $.each(post.taxonomy_ptype, function (ind, val) {
@@ -64,21 +64,42 @@ function getPostDetail(post_id)
 				 })
 				 var gameCat = gameCategory.join(', ');
    				 
-				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+gameCat+'</a></div>';
-                 descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
-   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div>';
-                 descBoxes += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>';
-   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt+'</a></div>';
+				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+gameCat+'</a></div></div>';
+                 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div></div>';
+                 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>';
+				 var descLimit = window.localStorage.getItem("item_desc_limit");
+				 if(descLimit)
+				 {
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt.substr(0, descLimit)+'</a></div></div>';
+				 }
+				 else
+				 {
+				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.excerpt.substr(0, 250)+'</a></div></div>';
+				 }
 				 $('#seller_id').val(author.id);
 				 console.log(descBoxes);
 				 
+				 var seller_id = author.id;
 				 var pid = post.id;
 				 var pname = post.title;
 				 var price = post.custom_fields.sales_price[0];
+				 if(post.custom_fields.shiping_cost)
+				 {
+					 var shippingcost = post.custom_fields.shiping_cost[0];
+				 }
+				 else
+				 {
+					 var shippingcost = 0;
+				 }
 				 console.log(author.id+" "+user_id);
 				 if(author.id != user_id)
 				 {
-					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
+					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\',\''+seller_id+'\',\''+shippingcost+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
+				 }
+				 else
+				 {
+					 descBoxes += '<a style="float:left;" href="editgame.html?post_id='+pid+'" id="updateProd" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Update Game</button>';
 				 }
 				 $('.descBoxes').html(descBoxes);
 				 if(window.localStorage.getItem("loginuserCookie"))
@@ -110,6 +131,26 @@ function sendMessagetoSeller()
 		var seller_id = $('#seller_id').val();
 		var title = $('#title').val();
 		var message = $('#message').val();
+	if(title == ''){
+		$('#title').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#title').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(message == ''){
+		$('#message').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#message').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(message == '' || title == ''){
+		return false;}
 		var url = API_URL+'send_message_seller/?key=1234567891011&user_id='+user_id+'&seller_id='+seller_id+'&title='+title+'&message='+message;
 		console.log(url);
 		var html = '';
@@ -154,7 +195,6 @@ function sendMessagetoSeller()
 
         }
     });
-		
 }
 
 

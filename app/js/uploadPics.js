@@ -7,6 +7,7 @@
  
         function getImage() {
             // Retrieve image file location from specified source
+			startButtonLoading('uploadImg');
             navigator.camera.getPicture(uploadPhoto, function(message) {
 				console.log('get picture failed');
 				},{
@@ -47,8 +48,11 @@
  
         function win(r) {
             //console.log("Code = " + r.responseCode);
+			endButtonLoading('uploadImg');
             console.log("Response = " + r.response);
 			var PicName = r.response;
+			var imageThumb = '<li><img src="'+GAME_IMAGES_PATH+PicName+'" alt="'+PicName+'"/></li>'
+			$('.uploadedImages ul').append(imageThumb);
 			var oldPics = window.localStorage.getItem("GamesPics");
 			PicName = PicName+","+oldPics;
 			window.localStorage.setItem("GamesPics",PicName);

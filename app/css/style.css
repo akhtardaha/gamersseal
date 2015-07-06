@@ -39,6 +39,8 @@ a {
   top: 25px;
   left: 5px;
 }
+h4.send{
+	float:left;}
 .header .setting
 {
   top: 30px;
@@ -49,6 +51,8 @@ a {
   margin-top: 8px;
   margin-left: 5px;
 }
+#publish{
+	margin-top:10px;}
 .setting img{
 	width:25px;}
 #loading {
@@ -63,7 +67,7 @@ a {
 	float:right;}
 li.your-reply{
 	margin-left:35px;}
-.message-board.products-list li:last-child{
+.message-board.products-list li:last-child, .products-list li:last-child{
 	border-bottom:none !important;}
 .message-board.products-list li{
 	margin:5px 2%;
@@ -84,9 +88,10 @@ li.your-reply{
 	list-style-type:none;
 	width:100%;
 	margin-bottom:-1px;}
-.home-tabs ul li a {
+.home-tabs ul li>div {
   display: block;
   float: left;
+  cursor:pointer;
 }
 .home-tabs ul.products-list li a{
 	}
@@ -524,4 +529,91 @@ textarea {
   right: 5px;
   top: 8px;
   width: 22px;
+}
+#form-err{
+	display:block;
+	color:#F00;
+	float:left;
+	width:100%;
+	}
+	
+.home-tabs .price,.home-tabs .seller_name {
+  width: 100%;
+  float: left;
+  display: block;
+}
+
+.uploadImages {
+  float: left;
+  width: 98%;
+  padding: 10px 1%;
+}
+
+.uploadedImages
+{
+	float:left;
+	width:100%;
+}
+.uploadedImages ul
+{
+	float:left;
+	width:100%;
+	margin:0px;
+	padding:0px;
+}
+.uploadedImages ul li
+{
+	float:left;
+	margin-right:5px;
+	list-style-type:none;
+}
+
+.uploadedImages ul li img {
+  max-height: 90px;
+  max-width: 90px;
+}
+.CartTotalBox{
+	float:right;
+	display:block;
+	width:95%;
+	max-width:275px;}
+.CartTotalBox span{
+	float:left;
+	display:inline-block;
+	width:38%;}
+.CartTotalBox>div{
+	margin:10px 0;}
+.CartTotalBox div.CartTotal{
+	font-weight:bolder;}
+span.col-odr{
+	max-width:175px;
+	width:100%;
+	display:inline-block;
+	float:left;}
+.product-list-right p{
+	margin:5px 0;
+	float:left;
+	width:100%;}
+.product-list-right{
+	margin:10px 0;}
+form[name="message"]{
+	float:left;
+	width:100%;
+	float:left;}
+form[name="message"] input[name="submit"]{
+	float:left;}
+.descBoxes .row-single{
+	display:block;
+	float:left;
+	width:100%;}
+.odr-val{
+	display:inline-block;
+	float:left;
+	width:50%}
+.confirm-odr span.col-odr{
+	width:50%;}
+.confirm-odr p {
+  float: left;
+  display: block;
+  width: 100%;
 }

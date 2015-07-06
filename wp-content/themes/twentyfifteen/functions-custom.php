@@ -399,4 +399,114 @@ $(document).ready(function(){
 </script>
 <?php }
 
+//// added meta box by fiaz 10-06-2015
+
+add_action('add_meta_boxes', 'add_custom_meta_boxes');
+
+function add_custom_meta_boxes() {
+    add_meta_box('age-limit-id', 'Age Limit', 'display_age_limit_meta_box', 'wpmarketplace', 'normal', 'high');
+    add_meta_box('visibility-id', 'Visibility', 'display_visibility_meta_box', 'wpmarketplace', 'normal', 'high');
+
+    //die();
+}
+
+function display_age_limit_meta_box($post) {
+    $age = get_post_meta($post->ID, 'age_limit', true);
+
+    $selected = isset($values['age_limit']) ? esc_attr($values['age_limit'][0]) : '';
+    $check = isset($values['age_limit']) ? esc_attr($values['age_limit'][0]) : '';
+    ?>
+    <p>
+        <label for="age_limit">Age Limit</label>
+        <select name="age_limit" id="age_limit">
+            <option value="18" <?php if ($age == '18')
+        echo'selected="selected"'; ?>>18+</option>
+            <option value="15" <?php if ($age == '15')
+                    echo'selected="selected"'; ?>>15+</option>
+        </select>
+    </p>
+    <?php
+}
+
+function display_visibility_meta_box($post) {
+    $visi = get_post_meta($post->ID, 'visibility', true);
+    ?>
+    <p>
+        <label for="visibility">Visibility</label>
+        <select name="visibility" id="visibility">
+            <option value="1" <?php if ($visi == '1')
+        echo'selected="selected"'; ?>>Show</option>
+            <option value="0" <?php if ($visi == '0')
+                    echo'selected="selected"'; ?>>Hide</option>
+        </select>
+    </p>
+    <?php
+}
+
+// Sanitize user input.
+// add custom fields in seprate table  
+
+
+function save_custom_fields($post) {
+   
+    if (isset($_POST['age_limit'])) {
+        $age = get_post_meta($post, 'age_limit', true);
+        $price = get_post_meta($post, 'sales_price', true);
+       
+        $recent_author = get_user_by('ID', $recent["post_author"]);
+
+        $ageval = sanitize_html_class($_POST['age_limit']);
+        $visi = sanitize_html_class($_POST['visibility']);
+
+        update_post_meta($post, 'age_limit', $ageval);
+        update_post_meta($post, 'visibility', $visi);
+        // Update the meta field in the database.
+        global $wpdb;
+
+        // go and put $marker on the markers table
+        $wpdb->query("INSERT INTO wp_custom_fields (post_id,age_limit,product_price)VALUES('$post','$ageval','$price')");
+        
+    }
+}
+
+function update_custom_fields($post) {
+    if (isset($_POST['age_limit'])) {
+        $ageval = sanitize_html_class($_POST['age_limit']);
+
+        $price = get_post_meta($post, 'sales_price', true);
+        $visi = sanitize_html_class($_POST['visibility']);
+
+
+        update_post_meta($post, 'visibility', $visi);
+// Update the meta field in the database.
+        update_post_meta($post, 'age_limit', $ageval);
+        global $wpdb;
+        //// go and put $marker on the markers table
+        $wpdb->query("UPDATE wp_custom_fields SET age_limit='$ageval', product_price='$price' WHERE post_id=$post");
+        
+    }
+}
+
+add_action('save_post', 'save_custom_fields');
+add_action('edit_post', 'update_custom_fields');
+
+function after_update($post) {
+    global $post;
+    $name = get_author_name($post->post_author);
+    $custom_term = get_the_terms($post->ID, 'ptype');
+   
+    global $wpdb;
+    foreach ($custom_term as $term) {
+        echo $term->name;
+        //// go and put $marker on the markers table
+        $wpdb->query("UPDATE wp_custom_fields SET game_type='$term->name' WHERE post_id=$post->ID");
+       
+    }
+
+    
+// Get user display name  
+}
+
+//add_action('post_updated', 'after_update');
+
 

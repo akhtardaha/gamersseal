@@ -131,7 +131,7 @@ function sideBarMenu()
                 html += '<li><a href="cart.html">Shopping Cart</a></li>';
                 html += '<li><a href="message-board.html">Message Board</a></li>';
                 html += '<li><a href="orderstatus.html">Order Status (for buyer)</a></li>';
-                html += '<li class="bdr-btm"><a href="shippingstatus.html">Order Summary (for Buyer)</a></li>';
+                html += '<li class="bdr-btm"><a href="shippingstatus.html">Shipping Status (for Seller)</a></li>';
                 html += '<li><a href="managegames.html">Stock Management (for Seller)</a></li>';
                 html += '<li class="bdr-btm"><a href="postgame.html">Add New Item (for Seller)</a></li>';
                 html += '<li class="bdr-btm"><a href="setting.html">Settings</a></li>';
@@ -252,6 +252,277 @@ function endButtonLoading(id)
 {
 	$('#'+id).removeClass('buttonLoading');
 }
+
+function getUserItemsPerDay()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'get_user_items_today/?key=1234567891011&user_id='+user_id+' ';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			var itemStatus = data.count;
+			var user_role = window.localStorage.getItem("loginuserRole");
+			var premium_item_day = window.localStorage.getItem("premium_item_day");
+			var standard_item_day = window.localStorage.getItem("standard_item_day");
+			
+			console.log(itemStatus+" "+user_role+" "+premium_item_day+" "+standard_item_day);
+			if(data.status == 'ok')
+			{
+				if(user_role == 'preminum')
+				{
+					if(itemStatus >= premium_item_day)	
+					{
+						console.log("You can not Add items more then "+premium_item_day+" per day!");
+						navigator.notification.alert(
+							"You can not Add items more then "+premium_item_day+" per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Upload Limit',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						console.log("continue");
+					}
+				}
+				if(user_role == 'standard')
+				{
+					if(itemStatus >= standard_item_day)	
+					{
+						console.log("You can not Add items more then "+standard_item_day+" per day!");
+						navigator.notification.alert(
+							"You can not Add items more then "+standard_item_day+" per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Upload Limit',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						console.log("continue");
+					}
+				}
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+function getUserPurchasePerDay()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'get_user_purchase_today/?key=1234567891011&user_id='+user_id+' ';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			var purchaseStatus = data.purchase;
+			var user_role = window.localStorage.getItem("loginuserRole");
+			var guest_daily_purchase = window.localStorage.getItem("guest_daily_purchase");
+			var premium_daily_purchase = window.localStorage.getItem("premium_daily_purchase");
+			var standard_daily_purchase = window.localStorage.getItem("standard_daily_purchase");
+			
+			console.log(purchaseStatus+" "+user_role+" "+guest_daily_purchase+" "+standard_daily_purchase+" "+premium_daily_purchase);
+			if(data.status == 'ok')
+			{
+				if(user_role == 'preminum')
+				{
+					if(premium_daily_purchase == 'unlimited')
+					{
+						console.log("Continue Buying");
+					}
+					else
+					{
+						if(purchaseStatus >= premium_daily_purchase)
+						{
+							console.log("You can not Buy Games more then "+premium_daily_purchase+" amount per day!");
+							navigator.notification.alert(
+							"You can not Buy Games more then "+premium_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
+							
+						}
+						else
+						{
+							console.log("Continue Buying");
+						}
+					}
+					
+				}
+				if(user_role == 'standard')
+				{
+					if(purchaseStatus >= standard_daily_purchase)	
+					{
+						console.log("You can not Buy Games more then "+standard_daily_purchase+" amount per day!");
+						navigator.notification.alert(
+							"You can not Buy Games more then "+standard_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						console.log("Continue Buying");
+					}
+				}
+				if(user_role == 'guest')
+				{
+					if(purchaseStatus >= guest_daily_purchase)	
+					{
+						console.log("You can not Buy Games more then "+guest_daily_purchase+" amount per day!");
+						navigator.notification.alert(
+							"You can not Buy Games more then "+guest_daily_purchase+" amount per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Purchase',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						console.log("Continue Buying");
+					}
+				}
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
+function getUserTransactionsPerDay()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'get_user_transactions_today/?key=1234567891011&user_id='+user_id+' ';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			var transactionsStatus = data.total;
+			var user_role = window.localStorage.getItem("loginuserRole");
+			var guest_daily_transaction = window.localStorage.getItem("guest_daily_transaction");
+			var premium_daily_transaction = window.localStorage.getItem("premium_daily_transaction");
+			var standard_daily_transaction = window.localStorage.getItem("standard_daily_transaction");
+			
+			console.log(transactionsStatus+" "+user_role+" "+guest_daily_transaction+" "+standard_daily_transaction+" "+premium_daily_transaction);
+			if(data.status == 'ok')
+			{
+				if(user_role == 'preminum')
+				{
+					if(premium_daily_transaction == 'unlimited')
+					{
+						console.log("Continue Transactions");
+					}
+					else
+					{
+						if(transactionsStatus >= premium_daily_transaction)
+						{
+							console.log("You can not do more then "+premium_daily_transaction+" Transactions per day!");
+							navigator.notification.alert(
+							"You can not do more then "+premium_daily_transaction+" Transactions per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Transactions',            // title
+							'OK'                  // buttonName
+						);	
+						}
+						else
+						{
+							console.log("Continue Transactions");
+						}
+					}
+					
+				}
+				if(user_role == 'standard')
+				{
+					if(transactionsStatus >= standard_daily_transaction)	
+					{
+						console.log("You can not do more then "+standard_daily_transaction+" Transactions per day!");
+						navigator.notification.alert(
+							"You can not do more then "+standard_daily_transaction+" Transactions per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Transactions',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						console.log("Continue Transactions");
+					}
+				}
+				if(user_role == 'guest')
+				{
+					if(transactionsStatus >= guest_daily_transaction)	
+					{
+						console.log("You can not do more then "+guest_daily_transaction+" Transactions per day!");
+						navigator.notification.alert(
+							"You can not do more then "+guest_daily_transaction+" Transactions per day!",  // message
+							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+						   'Daily Transactions',            // title
+							'OK'                  // buttonName
+						);	
+					}
+					else
+					{
+						console.log("Continue Transactions");
+					}
+				}
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
+$(document).ready(function(){
+    $('input, textarea, select').on('focus', function (e) {
+        $('.footer').css('position', 'relative');
+    });
+    $('input, textarea, select').on('blur', function (e) {
+        $('.footer').css('position', 'fixed');
+    });
+});
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+
 /*
 $(function() {
     $( "#from , #to" ).datepicker();

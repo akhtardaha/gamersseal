@@ -35,6 +35,8 @@ function retrieve_password()
 			else
 			{
 				console.log(data.error);
+				$('#user_login').css('border-color','#F00');
+				$('#form-err').text('Please enter correct Username!');
 				navigator.notification.alert(
                     "Please enter correct Username!",   // message
                     function(){},         // callback

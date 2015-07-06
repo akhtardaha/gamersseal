@@ -5,7 +5,7 @@ if(window.localStorage.getItem("loginuserCookie"))
 }
 function signInUser()
 {
-	
+	//$.validate();
 	var username = $('#username').val();
 	var password = $('#password').val();
 	
@@ -25,7 +25,8 @@ function signInUser()
 			console.log('Welecome '+data.user.nickname);
 			var role = data.user.capabilities;
 			role = Object.keys(role);
-			var user_role = role[0]; 
+			var user_role = role[0];
+			//console.log(user_role); 
 			window.localStorage.setItem("loginuserCookie",data.cookie);
 			window.localStorage.setItem("loginuserCookieName",data.cookie_name);
 			window.localStorage.setItem("loginuserPic",data.user.avatar);
@@ -36,7 +37,7 @@ function signInUser()
 			window.localStorage.setItem("loginuserNicename",data.user.nicename);
 			window.localStorage.setItem("loginuserNickname",data.user.nickname);
 			window.localStorage.setItem("loginuserUsername",data.user.username);
-			
+			//console.log(window.localStorage.getItem("loginuserRole"));
 			
 			navigator.notification.alert(
 						'Welecome '+data.user.nickname,  // message
@@ -65,6 +66,9 @@ function signInUser()
 	else if(username != '' && password == '')
 	{
 		console.log('Please Enter Password');
+		$('#password').css('border-color','#F00');
+		$('#username').css('border-color','#ccc');
+		$('#form-err').text('Please Enter Password!');
 		navigator.notification.alert(
 						'Please Enter your Password',  // message
 						function(){},        // callback
@@ -75,6 +79,9 @@ function signInUser()
 	else if(username == '' && password != '')
 	{
 		console.log('Please Enter Username!');
+		$('#username').css('border-color','#F00');
+		$('#password').css('border-color','#ccc');
+		$('#form-err').text('Please Enter Username!');
 		navigator.notification.alert(
 						'Please Enter your Username!',  // message
 						function(){},        // callback
@@ -85,6 +92,9 @@ function signInUser()
 	else
 	{
 		console.log('Please Enter your Login detail!');
+		$('#password').css('border-color','#F00');
+		$('#username').css('border-color','#F00');
+		$('#form-err').text('Please Enter your Login detail!');
 		navigator.notification.alert(
 						'Please Enter your Login detail!',  // message
 						function(){},        // callback

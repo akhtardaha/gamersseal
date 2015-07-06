@@ -83,6 +83,8 @@ function replyUserMessage()
 		var message = $('#replyMessage').val();
 		if(message == '')
 		{
+			$('#replyMessage').css('border-color','#F00');
+			$('#form-err').text('Please Fill Required Fields!');
 			return false;
 		}
 		var url = API_URL+'send_message_seller/?key=1234567891011&user_id='+user_id+'&seller_id='+senderID+'&title='+subject+'&message='+message;

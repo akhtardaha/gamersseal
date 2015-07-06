@@ -1281,6 +1281,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 				'preminum' => ''
 			  ),
 		);
+	$this->insert_custom_fields_for_filter($post->id,$sales_price,$age_limit);
 	//$wpmp_list_op = maybe_serialize($wpmp_list_opts);
 	add_post_meta($post->id, "wpmp_list_opts", $wpmp_list_opts);
 	add_post_meta($post->id, "stock_qty", $stock_qty);
@@ -6710,11 +6711,12 @@ foreach($meta_keys as $k){
 		$user_id = $json_api->query->user_id;
 		$order = $json_api->query->orderData;
 		$shipping = $json_api->query->shippingData;
-		$gstpercent = $json_api->query->gstpercent;
+		$gstpercent = $json_api->query->gstpercentage;
 		$gst = $json_api->query->gst;
 		$cartTotal = $json_api->query->cartTotal;
 		$shippingCost = $json_api->query->shippingCost;
 		$orderTotal = $json_api->query->orderTotal;
+		$sellerID = $json_api->query->sellerID;
 		
 		$order = stripslashes($order);
 		$shipping = stripslashes($shipping);
@@ -6743,7 +6745,7 @@ foreach($meta_keys as $k){
             	"error" => "No Valid Coupon Found"
 			);
 			$items[] = $orderD['product_id'];
-			$batchItems .= "('".$order_id."','".$orderD['product_id']."','1','".$orderD['product_price']."','0','0'),";
+			$batchItems .= "('".$order_id."','".$orderD['seller_id']."','".$orderD['product_id']."','1','".$orderD['product_price']."','0','0'),";
 		}
 		$cartData =  serialize($cartitems);
 		$itemsData =  serialize($items);
@@ -6760,11 +6762,12 @@ foreach($meta_keys as $k){
 		//echo $batchItems;
 		//die();
 		
-		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','')";
+		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,seller_id,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','".$sellerID."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','')";
+			//die();
 			$res = $wpdb->query($query);
 			if($res)
 			{
-				$q2 = "INSERT INTO wp_mp_order_items (oid,pid,quantity,price,status,site_commission) VALUES ".$batchItems;
+				$q2 = "INSERT INTO wp_mp_order_items (oid,seller_id,pid,quantity,price,status,site_commission) VALUES ".$batchItems;
 				$res2 = $wpdb->query($q2);
 				
 				if($res2)
@@ -6882,6 +6885,403 @@ foreach($meta_keys as $k){
 				return array('msg'=>"There is some Error while removing Game type from favourite list.");
 			}
   	}
+	
+	public function get_user_sales(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$filterSales = array();
+		
+		$user_id = $json_api->query->user_id;
+		
+		$start_date = $json_api->query->start_date;
+		$end_date = $json_api->query->end_date;
+		
+		$DateBegin = date('Y-m-d', strtotime($start_date));
+    	$DateEnd = date('Y-m-d', strtotime($end_date));
+		
+		
+		if($start_date && $end_date)
+		{
+			$query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+			$sales = $wpdb->get_results($query);
+			if($sales)
+			{
+				foreach($sales as $sale){
+					//echo $sale->date;
+					$orderDate = date('Y-m-d', $sale->date);
+					if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
+					{
+						$sale->date = date('d M, Y', $sale->date);
+						$filterSales[] = $sale;	
+					}
+				}
+				return array('count'=>1,'sales'=>$filterSales);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+			}
+		}
+		else
+		{
+			$query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+			$sales = $wpdb->get_results($query);
+			if($sales)
+			{
+				foreach($sales as $sale){
+						$sale->date = date('d M, Y', $sale->date);
+						$filterSales[] = $sale;	
+				}
+				
+				return array('count'=>1,'sales'=>$filterSales);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+			}
+		}
+  	}
+	
+	public function insert_custom_fields_for_filter($post_id,$price,$age_limit){
+
+  			global $json_api;
+			global $wpdb;	
+			$query = "INSERT INTO wp_custom_fields (post_id,age_limit,product_price) VALUES ('".$post_id."','".$age_limit."','".$price."')";
+			$res = $wpdb->query($query);
+  	}
+	
+	public function get_sorted_games(){
+
+  			global $json_api;
+			global $wpdb;
+			$posts_data = array();
+			
+			$filter = $json_api->query->filter;
+		    $sort = $json_api->query->sorting;
+			
+			$query = "SELECT * FROM wp_custom_fields order by $filter $sort";
+			$result = $wpdb->get_results($query);
+			if($result)
+			{
+				$sorted_ids = array();
+				foreach($result as $res)
+				{
+					$sorted_ids[] = $res->post_id;
+				}
+				foreach($sorted_ids as $sorted_id)
+				{
+					$post = get_post($sorted_id);
+					$sales_price = get_post_meta($sorted_id, 'sales_price');
+					$post->display_name = get_the_author_meta('display_name', $post->post_author);
+					$images = get_post_meta( $sorted_id, 'images' );
+					$post->sales_price = $sales_price[0];
+					$post->images = $images[0];
+					$posts_data[] = $post;
+					//$posts_data[] = $meta;
+				}
+				
+				return array('posts'=>$posts_data);
+			}
+  	}
+	
+	public function get_user_items_today(){
+
+  			global $json_api;
+			global $wpdb;
+			
+			$user_id = $json_api->query->user_id;
+			$today = date('Y-m-d');
+			$start_today = $today." 00:00:00";
+			$end_today = $today." 23:59:59";
+			
+			$query = "SELECT * FROM wp_posts where post_author=$user_id AND post_date BETWEEN '".$start_today."' AND '".$end_today."'";
+			$result = $wpdb->get_results($query);
+			if($result)
+			{
+				$count = count($result);
+				
+			}
+			else
+			{
+				$count = 0;
+			}
+			return array('count'=>$count);
+  	}
+	
+	
+	public function get_user_purchase_today(){
+
+  			global $json_api;
+			global $wpdb;
+			
+			$user_id = $json_api->query->user_id;
+			$today = date('Y-m-d');
+			$start_today = $today." 00:00:00";
+			$end_today = $today." 23:59:59";
+			
+			$query = "SELECT * FROM wp_mp_orders where uid=$user_id AND date BETWEEN '".strtotime($start_today)."' AND '".strtotime($end_today)."'";
+			$result = $wpdb->get_results($query);
+			if($result)
+			{
+				//print_r($result);
+				$totalPurchase = 0;
+				foreach($result as $res)
+				{
+					$res->cart_total;
+					$totalPurchase = $totalPurchase + $res->cart_total;
+				}
+			}
+			else
+			{
+				$totalPurchase = 0;
+			}
+			return array('purchase'=>$totalPurchase);
+  	}
+	
+	public function get_user_transactions_today(){
+
+  			global $json_api;
+			global $wpdb;
+			
+			$user_id = $json_api->query->user_id;
+			$today = date('Y-m-d');
+			$start_today = $today." 00:00:00";
+			$end_today = $today." 23:59:59";
+			
+			$sellingQuery = "SELECT * FROM wp_posts where post_author=$user_id AND post_date BETWEEN '".$start_today."' AND '".$end_today."'";
+			$sellingResult = $wpdb->get_results($sellingQuery);
+			if($sellingResult)
+			{
+				$sellingCount = count($sellingResult);
+				
+			}
+			else
+			{
+				$sellingCount = 0;
+			}
+			
+			$buyingQuery = "SELECT * FROM wp_mp_orders where uid=$user_id AND date BETWEEN '".strtotime($start_today)."' AND '".strtotime($end_today)."'";
+			$buyingResult = $wpdb->get_results($buyingQuery);
+			if($buyingResult)
+			{
+				$buyingCount = count($buyingResult);
+				
+			}
+			else
+			{
+				$buyingCount = 0;
+			}
+			
+			$totalTransactions = $sellingCount + $buyingCount;
+			return array('buying'=>$buyingCount,'selling' =>$sellingCount, 'total' => $totalTransactions);
+  	}
+	
+	public function get_seller_orders(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$ordersData = array();
+		
+		$user_id = $json_api->query->user_id;
+		
+			$query = "SELECT * FROM wp_mp_orders where seller_id = '".$user_id."' order by date DESC";
+			$orders = $wpdb->get_results($query);
+			if($orders)
+			{
+				foreach($orders as $order){
+					//echo $sale->date;
+						$order->date = date('d M, Y', $order->date);
+						$order->billing_shipping_data = unserialize($order->billing_shipping_data);
+						$order->cart_data = unserialize($order->cart_data);
+						$order->items = unserialize($order->items);
+						
+						foreach($order->items as $itm)
+						{
+							$ids .= "'".$itm."'".",";
+						}
+						$ids = rtrim($ids,',');
+						
+						$q = "SELECT MAX(meta_value) as max FROM wp_postmeta where post_id IN ($ids) AND meta_key = 'delivery_time'";
+						$delievery_time = $wpdb->get_results($q);
+						$del_time = $delievery_time[0]->max;
+						
+						$order->delievery_time = date('d M, Y', strtotime($order->date . ' +'.$del_time.' day'));
+						//die();
+												
+						$ordersData[] = $order;	
+				}
+				return array('count'=>1,'orders'=>$ordersData);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Orders.");
+			}
+  	}
+	
+	public function get_Order_by_orderid(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$ordersData = array();
+		
+		$user_id = $json_api->query->user_id;
+		$order_id = $json_api->query->order_id;
+		
+			$query = "SELECT * FROM wp_mp_orders where seller_id = '".$user_id."' AND order_id = '".$order_id."' ";
+			$orders = $wpdb->get_results($query);
+			if($orders)
+			{
+				foreach($orders as $order){
+					//echo $sale->date;
+						$order->date = date('d M, Y', $order->date);
+						$order->billing_shipping_data = unserialize($order->billing_shipping_data);
+						$order->cart_data = unserialize($order->cart_data);
+						$order->items = unserialize($order->items);
+						
+						foreach($order->items as $itm)
+						{
+							$ids .= "'".$itm."'".",";
+						}
+						$ids = rtrim($ids,',');
+						
+						$q = "SELECT MAX(meta_value) as max FROM wp_postmeta where post_id IN ($ids) AND meta_key = 'delivery_time'";
+						$delievery_time = $wpdb->get_results($q);
+						$del_time = $delievery_time[0]->max;
+						
+						$order->delievery_time = date('d M, Y', strtotime($order->date . ' +'.$del_time.' day'));
+						//die();
+												
+						$ordersData[] = $order;	
+				}
+				return array('count'=>1,'order'=>$ordersData);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Order.");
+			}
+  	}
+	
+	public function update_order_shipping_status(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$shipping_status = $json_api->query->shipping_status;
+		$order_id = $json_api->query->order_id;
+		$user_id = $json_api->query->user_id;
+		
+				$query = "UPDATE wp_mp_orders SET shipping_status = '".$shipping_status."' where seller_id = '".$user_id."' AND order_id = '".$order_id."' ";
+				$res2 = $wpdb->query($query);
+				if($res2)
+				{
+					$response = "Order Shipping Status Changed to '".$shipping_status."'.";
+				}
+				else
+				{
+					$response = "Order Shipping Status already set to '".$shipping_status."'.";
+				}
+				return array('shipping_status'=>$response);
+  	}
+	
+		public function get_buyer_orders(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$ordersData = array();
+		
+		$user_id = $json_api->query->user_id;
+		
+			$query = "SELECT * FROM wp_mp_orders where uid = '".$user_id."' order by date DESC";
+			$orders = $wpdb->get_results($query);
+			if($orders)
+			{
+				foreach($orders as $order){
+					//echo $sale->date;
+						$order->date = date('d M, Y', $order->date);
+						$order->billing_shipping_data = unserialize($order->billing_shipping_data);
+						$order->cart_data = unserialize($order->cart_data);
+						$order->items = unserialize($order->items);
+						
+						foreach($order->items as $itm)
+						{
+							$ids .= "'".$itm."'".",";
+						}
+						$ids = rtrim($ids,',');
+						
+						$q = "SELECT MAX(meta_value) as max FROM wp_postmeta where post_id IN ($ids) AND meta_key = 'delivery_time'";
+						$delievery_time = $wpdb->get_results($q);
+						$del_time = $delievery_time[0]->max;
+						
+						$order->delievery_time = date('d M, Y', strtotime($order->date . ' +'.$del_time.' day'));
+						//die();
+												
+						$ordersData[] = $order;	
+				}
+				return array('count'=>1,'orders'=>$ordersData);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Orders.");
+			}
+  	}
+	
+	
+		public function get_buyer_order_by_orderid(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$ordersData = array();
+		
+		$user_id = $json_api->query->user_id;
+		$order_id = $json_api->query->order_id;
+		
+			$query = "SELECT * FROM wp_mp_orders where uid = '".$user_id."' AND order_id = '".$order_id."' ";
+			$orders = $wpdb->get_results($query);
+			if($orders)
+			{
+				foreach($orders as $order){
+					//echo $sale->date;
+						$order->date = date('d M, Y', $order->date);
+						$order->billing_shipping_data = unserialize($order->billing_shipping_data);
+						$order->cart_data = unserialize($order->cart_data);
+						$order->items = unserialize($order->items);
+						
+						foreach($order->items as $itm)
+						{
+							$ids .= "'".$itm."'".",";
+						}
+						$ids = rtrim($ids,',');
+						
+						$q = "SELECT MAX(meta_value) as max FROM wp_postmeta where post_id IN ($ids) AND meta_key = 'delivery_time'";
+						$delievery_time = $wpdb->get_results($q);
+						$del_time = $delievery_time[0]->max;
+						
+						$order->delievery_time = date('d M, Y', strtotime($order->date . ' +'.$del_time.' day'));
+						//die();
+												
+						$ordersData[] = $order;	
+				}
+				return array('count'=>1,'order'=>$ordersData);
+				
+			}
+			else
+			{
+				return array('count'=>0,'msg'=>"There is some Error while fetching User Order.");
+			}
+  	}
+	
+	
   
 
  }//end class

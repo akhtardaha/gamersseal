@@ -50,7 +50,7 @@
    				<div class="ui-block-b"><input type="text" name="title" id="gameTitle" value="" class="search  not-srch" /></div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>
    				<div class="ui-block-b">
-                	<select name="gameType" style="height:95px;" id="gameType" multiple="multiple">
+                	<select name="gameType" style="height:30px;" id="gameType" multiple="multiple">
         			</select>
                 </div>
                 <div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>
@@ -70,6 +70,7 @@
                  </select>
                 </div>
 			</div>
+            <label id="form-err"></label>
             <div class="actionBtn">
                 <input type="button" class="search btn not-srch" name="update" onclick="return updateGame();" value="Update"/>
                 <input type="button" class="search btn not-srch" name="delete" onclick="return showConfirm();" value="Delete"/>
