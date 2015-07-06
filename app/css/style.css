@@ -585,3 +585,24 @@ textarea {
 	margin:10px 0;}
 .CartTotalBox div.CartTotal{
 	font-weight:bolder;}
+span.col-odr{
+	max-width:175px;
+	width:100%;
+	display:inline-block;
+	float:left;}
+.product-list-right p{
+	margin:5px 0;
+	float:left;
+	width:100%;}
+.product-list-right{
+	margin:10px 0;}
+form[name="message"]{
+	float:left;
+	width:100%;
+	float:left;}
+form[name="message"] input[name="submit"]{
+	float:left;}
+.descBoxes .row-single{
+	display:block;
+	float:left;
+	width:100%;}

@@ -114,6 +114,7 @@ function getCartTotal()
 						var gstPercenet = window.localStorage.getItem("gst");
 						var gst = Math.round(totalCart/100 * gstPercenet);
 						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost);
+						html += '<div class="CartTotalBox">';
 						html += '<div class="CartTotal">Cart Total = '+totalCart.toFixed(2)+'$</div>';
 						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
 						if(totalShippingCost != 0)
@@ -121,7 +122,7 @@ function getCartTotal()
 						html += '<div class="CartShippingcost">Shipping Cost = '+totalShippingCost.toFixed(2)+'$</div>';
 						}
 						html += '<div class="CartTotal">Order Total = '+OrderTotal.toFixed(2)+'$</div>';
-						
+						html +='</div>';
 
 						
 						$('.calculation').html(html);
