@@ -150,7 +150,7 @@ function getUserFavouriteGamesType()
 				else
 				{
 					html += '<li>';
-                	html += '<p class="notice">Favourite list empty.</p>';
+                	html += '<p class="notice">Favourites List Empty.</p>';
             		html += '</li>';	
 				}
 			}
