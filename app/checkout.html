@@ -9,7 +9,11 @@
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
     <script src="js/checkout.js"></script>
+<!--    <script src="js/cdv-plugin-paypal-mobile-sdk.js"></script>-->
     <script src="js/paypal-mobile-js-helper.js"></script>
+
+
+
     <script src="js/payment.js"></script>
 <style>
 .specification {
@@ -54,7 +58,7 @@ table thead {
          <div class="calculation">
          	<img id="loading" src="img/loading.gif" alt="Loading" />	
          </div>
-        <form method="POST" action="" id="payment_form" name="checkout">
+        <form method="POST" id="payment_form" name="checkout">
         
         	<input type="hidden" name="gstpercent" id="gstpercent" value=""/>
             <input type="hidden" name="gst" id="gst" value=""/>
@@ -89,11 +93,9 @@ table thead {
             <input class="search not-srch" placeholder="Card Start Year" type="text" name="EWAY_CARDSTARTYEAR" id="EWAY_CARDSTARTYEAR" />
             <input class="search not-srch" placeholder="Card Issue Number" type="text" name="EWAY_CARDISSUENUMBER" id="EWAY_CARDISSUENUMBER" />
             <input class="search not-srch" placeholder="Card CVN" type="text" name="EWAY_CARDCVN" id="EWAY_CARDCVN" />
-            <button id="buyNowBtn"> Buy Now !</button>
-  			<button id="buyInFutureBtn"> Pay in Future !</button>
-  			<button id="profileSharingBtn"> Profile Sharing !</button>
           <input type="button" onclick="return CheckUserPurchaseAmountPerDay();" name="checkout" id="Orderbtn" value="Place Order" class="search not-srch btn"  />
         </form>
+        <button id="buyNowBtn"> Buy Now !</button>
         </div></div><!-- /content -->
  
         <div class="footer">
