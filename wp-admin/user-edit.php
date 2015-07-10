@@ -407,7 +407,13 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 	<?php endif; ?>
 	</td>
 </tr>
-
+<?php if($profileuser->ausid_img_path){ ?>
+<tr class="user-email-wrap">
+	<th><label for="ausid"><?php _e('Australian ID'); ?> </label></th>
+        <td><img  style="max-width: 400px; max-height:350px" src="<?php echo get_site_url();?>/uploads/australianids/<?php echo $profileuser->ausid_img_path; ?>" />
+	</td>
+</tr>
+<?php } ?>
 <tr class="user-url-wrap">
 	<th><label for="url"><?php _e('Website') ?></label></th>
 	<td><input type="url" name="url" id="url" value="<?php echo esc_attr( $profileuser->user_url ) ?>" class="regular-text code" /></td>
