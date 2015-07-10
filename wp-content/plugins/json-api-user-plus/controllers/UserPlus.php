@@ -6765,6 +6765,7 @@ foreach($meta_keys as $k){
 		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,seller_id,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','".$sellerID."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','')";
 			//die();
 			$res = $wpdb->query($query);
+			$OrderID = $order_id;
 			if($res)
 			{
 				$q2 = "INSERT INTO wp_mp_order_items (oid,seller_id,pid,quantity,price,status,site_commission) VALUES ".$batchItems;
@@ -6772,10 +6773,12 @@ foreach($meta_keys as $k){
 				
 				if($res2)
 				{
+					$response['OrderID'] = $OrderID;
 					$response['order_status'] = "Order Successfully Placed.";
 				}
 				else
 				{
+					$response['OrderID'] = 0;
 					$response['order_status'] = "There is some Error while Placing Order.";
 				}
 			}
@@ -7279,6 +7282,30 @@ foreach($meta_keys as $k){
 			{
 				return array('count'=>0,'msg'=>"There is some Error while fetching User Order.");
 			}
+  	}
+	
+	public function update_order_payment(){
+
+  		global $json_api;
+		global $wpdb;	
+		$user_id = $json_api->query->user_id;
+		$order_id = $json_api->query->order_id;
+		$payment_reference = $json_api->query->payment_reference;
+			
+			$payment_method = 'PayPal';
+		$query = "UPDATE wp_mp_orders SET payment_method = '".$payment_method."', payment_reference = '".$payment_reference."' WHERE uid= '".$user_id."' AND order_id = '".$order_id."'";
+			$res = $wpdb->query($query);
+			if($res)
+			{
+				$response = "Payment Successfully Updated";
+				
+			}
+			else
+			{
+				$response = "Payment Not Updated";
+			}
+			
+			return $response;
   	}
 	
 	

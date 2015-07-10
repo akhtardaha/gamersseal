@@ -218,9 +218,97 @@ function placeOrder()
 		var shipemail = $('#shipemail').val();
 		var shipphone = $('#shipphone').val();
 		
+		
+		if(shipfname == '')
+		{
+			$('#shipfname').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shipfname').css('border','1px solid #cccccc');
+		}
+		
+		if(shiplname == '')
+		{
+			$('#shiplname').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shiplname').css('border','1px solid #cccccc');
+		}
+		
+		if(shipaddress == '')
+		{
+			$('#shipaddress').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shipaddress').css('border','1px solid #cccccc');
+		}
+		
+		if(shipcity == '')
+		{
+			$('#shipcity').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shipcity').css('border','1px solid #cccccc');
+		}
+		
+		if(shipzip == '')
+		{
+			$('#shipzip').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shipzip').css('border','1px solid #cccccc');
+		}
+		
+		if(shipcountry == '')
+		{
+			$('#shipcountry').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shipcountry').css('border','1px solid #cccccc');
+		}
+		
+		if(shipstate == '')
+		{
+			$('#shipstate').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shipstate').css('border','1px solid #cccccc');
+		}
+		if(shipemail == '')
+		{
+			$('#shipemail').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shipemail').css('border','1px solid #cccccc');
+		}
+		if(shipphone == '')
+		{
+			$('#shipphone').css('border','1px solid #ef4c4d');
+		}
+		else
+		{
+			$('#shipphone').css('border','1px solid #cccccc');
+		}
+		
+		
+		
+		
+		
+		
+		
+		if(shipfname != '' && shiplname != '' && shipaddress != '' && shipcity != '' && shipzip != '' && shipemail != '' && shipphone != '')
+		{
+		if(validateEmail(shipemail))
+		{
 		shipaddress = shipaddress.replace("#", " no "); 
-		
-		
 		shippingAddress.first_name = shipfname;
 		shippingAddress.last_name = shiplname;
 		shippingAddress.company = shipcompany;
@@ -252,11 +340,17 @@ function placeOrder()
 			console.log(data);
 			if(data.status == 'ok')
 			{
-				deleteProductsCart();
+				//deleteProductsCart();
+				console.log(data);
+				var orderID = data.OrderID;
+				window.localStorage.setItem("OrderID",orderID);
+				window.localStorage.setItem("OrderTotal",orderTotal);
+				console.log(window.localStorage.getItem("OrderID"));
+				console.log("Thankyou for your Order, Please make Payment to Complete this Order!");
 				navigator.notification.alert(
-							"Thankyou, your order is Confirmed!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
-						   'Order Complete',            // title
+							"Thankyou for your Order, Please make Payment to Complete this Order!",  // message
+							function(){setTimeout(function(){ window.location = 'payment.html?order_id='+orderID; },200)},        // callback
+						   'Checkout',            // title
 							'OK'                  // buttonName
 				);	
 				
@@ -269,7 +363,28 @@ function placeOrder()
 
         }
     });
-		
+		}
+		else
+			{
+				endButtonLoading('Orderbtn');
+						console.log("Please enter valid Email Address");
+						$('#shipemail').css('border','1px solid #ef4c4d');
+						navigator.notification.alert(
+						"Please enter valid Email Address",  // message
+						function(){
+								setTimeout(function() {}, 200);
+						},         // callback
+						'Checkout', // title
+						'Ok'      // buttonName
+						);	
+						return false;
+			}
+			
+	}
+	else
+	{
+		endButtonLoading('Orderbtn');
+	}		
 }
 
 function deleteProductsCart()

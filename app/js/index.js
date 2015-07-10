@@ -42,7 +42,7 @@ var pay = {
        var receivedElement = parentElement.querySelector('.received');
 
        listeningElement.setAttribute('style', 'display:none;');
-       receivedElement.setAttribute('style', 'display:none;');
+       receivedElement.setAttribute('style', 'display:block;');
 
        console.log('Received Event: ' + id);
 
@@ -60,46 +60,8 @@ var pay = {
    onSuccesfulPayment : function(payment) {
 	  var ref = payment.response.id;
 	 //alert("payment success: " + payment);
-	 
-	 	var user_id = window.localStorage.getItem("loginuserID");
-		var OrderID = window.localStorage.getItem("OrderID");
-		var url = API_URL+'update_order_payment/?key=1234567891011&user_id='+user_id+'&order_id='+OrderID+'&payment_reference='+ref;
-	    $.ajax({
-         url:url,
-        type: "POST",
-		contentType: "application/json",
-		dataType: 'jsonp',
-		beforeSend: function (xhr){ 
-        xhr.setRequestHeader('Authorization', make_base_auth('bonjour', 'aj00pw')); 
-    	},
-        success:function(data)
-        {
-			console.log(data);
-			$('#deviceready').hide();
-			$('.tabContent').hide();
-			$('.specification').html('Order Completed');
-			$('.paymentSuccess').html('<p>Thank You, your payment was successful and you Payment Ref# '+ref+'. we received your Order and we are working on it.</p><a href="index.html" style="margin-top: 10px;float: left;" class="search not-srch btn">Continue</a>');
-			$('.paymentSuccess').show();
-			 
-			if(data.status == 'ok')
-			{
-				console.log("Thankyou, Your payment is Successfull!");
-				navigator.notification.alert(
-							"Thankyou for your Payment, Your Order is Completed now, we are working on it!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
-						   'Order Complete',            // title
-							'OK'                  // buttonName
-				);	
-			}
-			
-		},
-        error:function(){}
-    });
-	 
-	 
-	setTimeout(function(){ console.log("payment success: " + payment); },500); 
-	 //updateOrder(ref);
-     
+	 updateOrder(ref);
+     console.log("payment success: " + payment);
    },
    onAuthorizationCallback : function(authorization) {
 	  alert("authorization: " + JSON.stringify(authorization, null, 4));  
@@ -111,7 +73,7 @@ var pay = {
 	 var OrderID = window.localStorage.getItem("OrderID");
 	 var OrderTotal = window.localStorage.getItem("OrderTotal");
 	 OrderTotal = parseFloat(OrderTotal);
-	 var OrderTxt = "Gamersseal Order "+OrderID;
+	 var OrderTxt = 'Gamersseal Order '+OrderID;
      var paymentDetails = new PayPalPaymentDetails(OrderTotal, "0.00", "0.00");
      var payment = new PayPalPayment(OrderTotal, "USD", OrderTxt, "Sale", paymentDetails);
      return payment;

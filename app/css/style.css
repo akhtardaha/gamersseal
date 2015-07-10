@@ -617,3 +617,23 @@ form[name="message"] input[name="submit"]{
   display: block;
   width: 100%;
 }
+
+#deviceready {
+  position: relative;
+  float: left;
+  width: 92%;
+  margin: 0px 4% 5px 4%;
+}
+.paymentSuccess {
+  background-color: wheat;
+  padding: 10px 4%;
+  float: left;
+  width: 92%;
+  font-family: Arial;
+  font-size: 13px;
+  border-radius: 7px;
+}
+/*#buyNowBtn {
+  position: absolute;
+  top: -90px;
+}*/
