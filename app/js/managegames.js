@@ -32,7 +32,7 @@ function getUserProducts()
 				var counter = 1;
 				if(totalPosts == 0)
 				{
-					html += '<p style="padding:10px;text-transform: inherit;">You did not posted any Game for Sale.</p>';	
+					html += '<p style="padding:10px;text-transform: inherit;">NO Stock Posted For Sale.</p>';
 				}
 				else
 				{

@@ -95,7 +95,7 @@ function getPostDetail(post_id)
 				 console.log(author.id+" "+user_id);
 				 if(author.id != user_id)
 				 {
-					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\',\''+seller_id+'\',\''+shippingcost+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to cart</button>';
+					 descBoxes += '<button onclick="addToCart(\''+pid+'\',\''+pname+'\',\''+price+'\',\''+seller_id+'\',\''+shippingcost+'\')" id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to Cart</button>';
 				 }
 				 else
 				 {

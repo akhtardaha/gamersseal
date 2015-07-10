@@ -34,7 +34,7 @@
         <input type="text" id="title" name="title" placeholder="Title" class="search not-srch"/>
         <input type="text" id="price" name="price" placeholder="Price" class="search not-srch"/>
         <input type="email" id="email" name="email" placeholder="Contact Person's E-mail" class="search not-srch" />
-        <input type="number" id="delivery-time" name="delivery-time" placeholder="Delivery Time in Days" class="search not-srch" onkeypress="return isNumberKey(event);"/>
+        <input type="number" id="delivery-time" name="delivery-time" placeholder="Estimated Delivery Time" class="search not-srch" onkeypress="return isNumberKey(event);"/>
         <input type="text" id="stock" name="stock" placeholder="Stock" class="search not-srch"/>
         <input type="text" id="shiping-cost" name="shiping-cost" placeholder="Shipping Cost" class="search not-srch"/>
         <input type="text" id="min-order" name="min-order" placeholder="Minimum Order" class="search not-srch"/>
@@ -54,9 +54,9 @@
             <option value="20">20+</option>
         </select>
         <select id="publish" name="visible">
-        	<option selected="selected">visible</option>
-            <option value="1">YES</option>
-            <option value="0">NO</option>
+        	<option selected="selected">Display Options (only 2 options please)</option>
+            <option value="1">Live</option>
+            <option value="0">Hidden</option>
         </select>
         <label id="form-err"></label>
         <input type="button" onclick="return addPost();" name="SignIn" value="Add" class="search btn not-srch" />
@@ -64,7 +64,7 @@
         </div></div><!-- /content -->
  
         <div class="footer">
-            <h4>Powered by GamersSeal</h4>
+            <h4><a href="mailto:haseeb.baber@gmail.com" >Powered by AHB</a></h4>
         </div><!-- /footer -->
  
     </div><!-- /page -->

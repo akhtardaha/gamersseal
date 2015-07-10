@@ -2,7 +2,7 @@
 $(document).ready(function(){
    var searchTerms = getQueryVariable('searchTerms');
    searchTerms = decodeURI(searchTerms);
-   $('a.specification').html('Search resluts for ('+searchTerms+')');
+   $('a.specification').html('Search Results For ('+searchTerms+')');
    getSearchResult(searchTerms);
 })
 
