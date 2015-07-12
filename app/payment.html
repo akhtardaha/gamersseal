@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+<title>Cart Gamers Seal</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/app_config.js"></script>
+    <script src="js/paymentDetail.js"></script>
+	<script type="text/javascript" charset="utf-8" src="cdv-plugin-paypal-mobile-sdk.js"></script>
+    <script src="js/paypal-mobile-js-helper.js"></script>
+    <script src="js/payment.js"></script>
+    
+    
+<style>
+.specification {
+  text-align: center;
+  font-size: 18px;
+  width: 100%;
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
+  background-color: #fff;
+}
+.confirm-odr span.col-odr {
+  width: 38%;
+}
+.confirm-odr p {
+  float: left;
+  display: block;
+  width: 100%;
+  text-transform: inherit;
+}
+.product-list-right .price
+{
+	float:left;
+	width:100%;
+}
+table {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  margin: 10px 0px;
+  float: left;
+}
+table thead {
+  width: 100%;
+  background:#ccc;
+}
+.tabContent {
+  float: left;
+  width: 96%;
+  padding: 2% !important;
+}
+.odr-val {
+  display: inline-block;
+  float: left;
+  width: 60%;
+}
+</style>
+</head>
+<body>
+    <div class="page-wraper">
+	  <div class="header">
+     	<div class="cart"><a href="javascript:void(0);" onclick="return goBack();"><img src="img/back.png" alt="Back"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
+        </div>
+        <div class="slide-menu close"></div>
+ <div class="main-wraper">
+        
+        <div class="content-wraper">
+        <a href="#" class="specification">Make Payment for Order </a>
+        <div class="paymentSuccess" style="display:none;">
+        <p>Thank You, your payment was successful and you Payment Ref# 12342121312312. we received your Order and we are working on it.</p>
+        <a href="index.html" style="margin-top: 10px;float: left;" class="search not-srch btn">Continue</a>
+        </div>
+        <ul class="tabContent products-list">
+            	<img id="loading" src="img/loading.gif" alt="Loading" />
+        </ul>
+        <form method="POST" id="payment_form" name="payment">
+        	<input type="hidden" name="gstpercent" id="gstpercent" value=""/>
+            <input type="hidden" name="gst" id="gst" value=""/>
+            <input type="hidden" name="cartTotal" id="cartTotal" value=""/>
+            <input type="hidden" name="shippingCost" id="shippingCost" value="" />
+            <input type="hidden" name="orderTotal" id="orderTotal" value="" />
+            <input type="hidden" name="sellerID" id="sellerID" value="" />
+        </form>
+        
+        </div>
+        <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+                <button id="buyNowBtn" class="search not-srch btn"> Click to Pay</button>
+
+       </div>
+       
+        </div><!-- /content -->
+ 
+        <div class="footer">
+            <h4>Powered by GamersSeal</h4>
+        </div><!-- /footer -->
+ 
+    </div><!-- /page -->
+</body>
+</html>
