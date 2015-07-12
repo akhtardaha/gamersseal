@@ -240,7 +240,7 @@ function app_settings()
 				
 				var terms_and_conditions = window.localStorage.getItem("terms_and_conditions");
 	
-	$('.header h4').html('<a href="index.html"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a>');
+	$('.header h4').html('<a href="index.html"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header">GAMERS SEAL</span><span class="heaer-tag-line">By Gamers 4 Gamers</span></div>');
 	$('.main-wraper').css('background-color',app_background_color);
 }
 
