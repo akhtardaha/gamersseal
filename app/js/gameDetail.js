@@ -64,8 +64,18 @@ function getPostDetail(post_id)
 				 })
 				 var gameCat = gameCategory.join(', ');
    				 
+				 var seller_id = author.id;
+				 var pid = post.id;
+				 var pname = post.title;
+				 var price = post.custom_fields.sales_price[0];
+				 var delievery_time = post.custom_fields.delivery_time[0];
+				 
 				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+gameCat+'</a></div></div>';
-                 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
+                 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Price:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+price+'$</a></div></div>';
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Estimated Delivery time:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+delievery_time+' Days</a></div></div>';
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div></div>';
                  descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>';
 				 var descLimit = window.localStorage.getItem("item_desc_limit");
@@ -80,10 +90,7 @@ function getPostDetail(post_id)
 				 $('#seller_id').val(author.id);
 				 console.log(descBoxes);
 				 
-				 var seller_id = author.id;
-				 var pid = post.id;
-				 var pname = post.title;
-				 var price = post.custom_fields.sales_price[0];
+				
 				 if(post.custom_fields.shiping_cost)
 				 {
 					 var shippingcost = post.custom_fields.shiping_cost[0];

@@ -61,7 +61,7 @@ function getUserSales(noloading)
 				}
 				
 				//html += '<div class="Pimg"><img id="img'+pid+'" src="img/loadingSmall.gif" class="product-thumb"></div>';
-				total_sales = '<a href="#" class="specification">Total Sales = '+total_sales+' $</a>';
+				total_sales = '<a href="#" class="specification">Total Sales = '+total_sales.toFixed(2)+' $</a>';
 				$('.totalSales').html(total_sales);
 				$('.products-list').html(html);
 			}

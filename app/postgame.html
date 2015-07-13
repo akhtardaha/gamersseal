@@ -25,20 +25,21 @@
         
         <div class="content-wraper">
         <form action="" name="addgame" class="addgame">
+        
+        <input type="text" id="title" name="title" placeholder="Title" class="search not-srch"/>
+        <input type="number" id="price" name="price" placeholder="Price" class="search not-srch" onkeypress="return isNumberKey(event);"/>
+        <input type="email" id="email" name="email" placeholder="Contact Person's E-mail e.g johnsmith@hotmail.com" class="search not-srch" />
+        <input type="number" id="delivery-time" name="delivery-time" placeholder="Estimated Delivery Time" class="search not-srch" onkeypress="return isNumberKey(event);"/>
+        <input type="text" id="stock" name="stock" placeholder="Stock" class="search not-srch"/>
+        <input type="text" id="shiping-cost" name="shiping-cost" placeholder="Shipping Cost" class="search not-srch"/>
+        <input type="text" id="min-order" name="min-order" placeholder="Minimum Order" class="search not-srch"/>
+        <input type="text" id="max-order" name="max-order" placeholder="Maximum Order" class="search not-srch"/>
         <select name="gameType" id="gameType">
         	<option selected="selected">Select Game Type</option>
             <option value="1">XBOX</option>
             <option value="2">PSP</option>
             <option value="3">PS3</option>
         </select>
-        <input type="text" id="title" name="title" placeholder="Title" class="search not-srch"/>
-        <input type="text" id="price" name="price" placeholder="Price" class="search not-srch"/>
-        <input type="email" id="email" name="email" placeholder="Contact Person's E-mail" class="search not-srch" />
-        <input type="number" id="delivery-time" name="delivery-time" placeholder="Estimated Delivery Time" class="search not-srch" onkeypress="return isNumberKey(event);"/>
-        <input type="text" id="stock" name="stock" placeholder="Stock" class="search not-srch"/>
-        <input type="text" id="shiping-cost" name="shiping-cost" placeholder="Shipping Cost" class="search not-srch"/>
-        <input type="text" id="min-order" name="min-order" placeholder="Minimum Order" class="search not-srch"/>
-        <input type="text" id="max-order" name="max-order" placeholder="Maximum Order" class="search not-srch"/>
         <textarea style="min-height: 70px;" id="content" placeholder="Details" name="details" class="search not-srch"></textarea>
         <div class="uploadImages">
        		<input type="button" id="uploadImg" class="search btn not-srch" name="image" value="Add Image" onclick="return getImage();" />

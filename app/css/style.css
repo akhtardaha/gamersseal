@@ -41,6 +41,11 @@ a {
 }
 h4.send{
 	float:left;}
+.home .header .setting
+{
+  top: 22px !important;
+  right: 5px;	
+}
 .header .setting
 {
   top: 30px;
@@ -436,6 +441,7 @@ input.search {
   width: 100%;
   position: fixed;
   bottom: 0px;
+  background: #fff;
 }
 .footer h4{
 	margin:10px 0px;}
@@ -624,9 +630,11 @@ form[name="message"] input[name="submit"]{
 	max-width:100%;}
 .header.home-header .setting{
 	top:auto;}
-.header.home-header .setting img{
-	width:100px;
-	height:75px;}
+.header.home-header .setting img {
+  width: 80px !important;
+  /* height: 75px; */
+  max-width: 50px !important;
+}
 .header.home-header .top-header{
 	display:block;
 	float:left;
@@ -649,8 +657,7 @@ form[name="message"] input[name="submit"]{
 .header.home-header .setting{
 	width:auto !important;}
 .header.home-header .setting img, .home-header h4 a img{
-	width:auto;
-	height:80px;}
+	width:auto;}
 .header-mid{
 	display:none;}
 .home .header-mid{

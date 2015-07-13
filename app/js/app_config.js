@@ -140,16 +140,22 @@ function sideBarMenu()
 {
 			var html = '';
 			html += '<ul >';
-           		html += '<li><a href="index.html">Continue Shopping</a></li>';
-                html += '<li><a href="cart.html">Shopping Cart</a></li>';
-                html += '<li><a href="message-board.html">Message Board</a></li>';
-                html += '<li><a href="orderstatus.html">Order Status (for buyer)</a></li>';
+				if(!(window.localStorage.getItem("loginuserCookie")))
+				{
+				
+				}
+				else
+				{
+				html += '<li><a href="cart.html">Shopping Cart</a></li>';
+				html += '<li><a href="message-board.html">Message Board</a></li>';
+				html += '<li><a href="orderstatus.html">Order Status (for buyer)</a></li>';
                 html += '<li class="bdr-btm"><a href="shippingstatus.html">Shipping Status (for Seller)</a></li>';
                 html += '<li><a href="managegames.html">Stock Management (for Seller)</a></li>';
                 html += '<li class="bdr-btm"><a href="postgame.html">Add New Item (for Seller)</a></li>';
                 html += '<li class="bdr-btm"><a href="setting.html">Settings</a></li>';
                 html += '<li><a href="salesreport.html">Sales Reports</a></li>';
-                html += '<li class="bdr-btm"><a href="halloffames.html">Hall of Fame</a></li>';
+				}
+                
 				if(!(window.localStorage.getItem("loginuserCookie")))
 				{
 				html += '<li class="loginMenu"><a href="login.html">Sign in</a></li>';
@@ -159,9 +165,10 @@ function sideBarMenu()
 				{
 				html += '<li class="profileMenu"><a href="profile.html">Profile</a></li>';	
 				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();">Sign out</a></li>';
-				}
 				html += '<li><a href="postgame.html">Post a Game</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
+				}
+				html += '<li class="bdr-btm"><a href="halloffames.html">Hall of Fame</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">GoTo Home</a></li>';
                 
 			html += '</ul>';

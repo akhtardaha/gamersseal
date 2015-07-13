@@ -105,6 +105,7 @@ function getPosts()
 			}
 			$('#tabs-1').html(html);
 			$('#tabs-2').html(html);
+			$('#tabs-3').html(html);
 			
 			
 		},
@@ -318,6 +319,7 @@ function sortGames()
 			}
 			$('#tabs-1').html(html);
 			$('#tabs-2').html(html);
+			$('#tabs-3').html(html);
 			
 		},
         error:function(){
