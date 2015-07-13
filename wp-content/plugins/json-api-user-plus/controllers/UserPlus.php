@@ -203,8 +203,7 @@ public function register(){
 
 
 	global $json_api;	  
-
-
+	global $wpdb;
 
    if (!$json_api->query->username) {
 
@@ -393,8 +392,14 @@ foreach($_REQUEST as $field => $value){
 
 
 $user_id = wp_insert_user( $user );
-
-
+	
+	if ($json_api->query->australian_id_image) {
+			$aus_id_img = $json_api->query->australian_id_image;
+			$queryUpdate = "UPDATE wp_users SET ausid_img_path = '".$aus_id_img."' WHERE ID= ".$user_id." ";
+	        $wpdb->query($queryUpdate);
+			
+		}
+	
 
 /*Send e-mail to admin and new user - 
 
@@ -7293,7 +7298,7 @@ foreach($meta_keys as $k){
 		$payment_reference = $json_api->query->payment_reference;
 			
 			$payment_method = 'PayPal';
-		$query = "UPDATE wp_mp_orders SET payment_method = '".$payment_method."', payment_reference = '".$payment_reference."' WHERE uid= '".$user_id."' AND order_id = '".$order_id."'";
+		$query = "UPDATE wp_mp_orders SET payment_method = '".$payment_method."',payment_status = 'Completed', payment_reference = '".$payment_reference."' WHERE uid= '".$user_id."' AND order_id = '".$order_id."'";
 			$res = $wpdb->query($query);
 			if($res)
 			{

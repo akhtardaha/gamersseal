@@ -1,7 +1,7 @@
 // JavaScript Document
 var terms_and_conditions = '<a class="specification">Terms and Conditions</a>';
 terms_and_conditions += window.localStorage.getItem("terms_and_conditions");
-terms_and_conditions += '<div style="margin-top: 15px;" class="lastRow"><input type="checkbox" style="float:left;margin-top: 5px; margin-right:10px;" name="terms" id="terms"  /><label style="position: relative;left: 0px;">agree with terms and conditions</label></div>';
+terms_and_conditions += '<div style="margin-top: 15px;" class="lastRow"><input type="checkbox" style="float:left;margin-top: 5px; margin-right:10px;" name="terms" id="terms"  /><label style="position: relative;left: 0px;">Agree to Terms and Conditions</label></div>';
  terms_and_conditions += '<a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c search btn not-srch a-btn" onclick="return registerUser();">Register</a>';
 $(document).ready(function(){
 	$('.agreeTerms').html(terms_and_conditions);
@@ -76,6 +76,20 @@ var fname = $('#fname').val();
 			$('.usertypeSelect select').css('border','1px solid #aaa');
 		}
 		
+		var australianIdImage = window.localStorage.getItem("AustralianID");
+		
+		if(australianIdImage == '' || australianIdImage == null || australianIdImage == 'undefined')
+		{
+			console.log('Please upload Australian ID Image');
+					navigator.notification.alert(
+						'Please upload Australian ID Image',  // message
+						function(){},        // callback
+					   'Australian ID Required',            // title
+						'OK'                  // buttonName
+			);
+			return false;	
+		}
+		
 		if( username !='' && email != '' && fname != '' && lname != '' && australianId != '' && role != '')
 		{
 		if(validateEmail(email))
@@ -126,7 +140,7 @@ function registerUser(){
 		var dlicense = $('#dlicense').val();
 		var passport = $('#passport').val();
 		var australianId = $('#australianId').val();
-		
+		var australianIdImage = window.localStorage.getItem("AustralianID");
 			var role = $('#userType').val();
 			var check = $("#terms").is(":checked");
 				if(check)
@@ -135,7 +149,7 @@ function registerUser(){
 					{
 						role = '';
 					}
-					var url = API_URL+'register/?key=1234567891011&username='+username+'&email='+email+'&display_name='+username+'&first_name='+fname+'&last_name='+lname+'&role='+role;
+					var url = API_URL+'register/?key=1234567891011&username='+username+'&email='+email+'&display_name='+username+'&first_name='+fname+'&last_name='+lname+'&role='+role+'&australian_id_image='+australianIdImage+' ';
 					console.log(url);
 					//return false;
 					$.ajax({
@@ -179,7 +193,7 @@ function registerUser(){
 function extraProfileUpdate(cookie,fullname,australianId,dob,address,Suburb,state,postcode,hphone,mphone,abn,dlicense,passport)
 {
 	    $.ajax({
-        url:API_URL+'xprofile_update/?key=1234567891011&cookie='+cookie+'&Name='+fullname+'&Australian ID='+australianId+'&DOB='+dob+'&Address='+address+'&Suburb='+Suburb+'&State='+state+'&Post Code='+postcode+'&Home Phone='+hphone+'&Mobile Phone='+mphone+'&ABN='+abn+'&Driving License='+dlicense+'&Passport='+passport+' ',
+        url:API_URL+'xprofile_update/?key=1234567891011&cookie='+cookie+'&Name='+fullname+'&Australian ID Expiry Date='+australianId+'&DOB='+dob+'&Address='+address+'&Suburb='+Suburb+'&State='+state+'&Post Code='+postcode+'&Home Phone='+hphone+'&Mobile Phone='+mphone+'&ABN='+abn+'&Driving License='+dlicense+'&Passport='+passport+' ',
         type: "POST",
 		contentType: "application/json",
 		dataType: 'jsonp',
@@ -189,8 +203,8 @@ function extraProfileUpdate(cookie,fullname,australianId,dob,address,Suburb,stat
 			if(data.status == 'ok')
 			{
 				navigator.notification.alert(
-						'Thankyou for your Registration. Please check your registration Email and Sigin to Continue',  // message
-						function(){setTimeout(function(){ window.location = 'login.html'; }, 200);},        // callback
+						'Thankyou for your Registration. Please check your registration Email for Password, you will be notified when your account will be activate by Admin',  // message
+						function(){setTimeout(function(){ window.location = 'index.html'; }, 200);},        // callback
 					   'Registration Completed',            // title
 						'OK'                  // buttonName
 					);

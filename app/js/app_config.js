@@ -4,12 +4,16 @@ var API_URL ='http://gamersseal.com/development/api/userplus/';
 var API_URL_DEFAULT ='http://gamersseal.com/development/api/';
 var GAME_IMAGES_PATH = 'http://gamersseal.com/development/wp-content/uploads/wpmp-previews/';
 var LOGO_PATH = 'http://gamersseal.com/development/uploads/appicon/';
+var UPLOAD_GAME_PICS_URL = 'http://gamersseal.com/development/upload.php';
+var UPLOAD_AUSTRALIAN_ID_PIC = 'http://gamersseal.com/development/upload_id.php';
+var AUSTRALIAN_IDS_PATH = 'http://gamersseal.com/development/uploads/australianids/';
 
 var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 
 
 
 $(document).ready(function(){
+$('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 app_settings();
 sideBarMenu();
 $( ".setting" ).click(function() {  

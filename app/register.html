@@ -9,6 +9,7 @@
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
     <script src="js/register.js"></script>
+    <script src="js/uploadAustralianID.js"></script>
 <style>
 select.mobile-dropdown, select {
   width: 100%;
@@ -67,21 +68,43 @@ select.mobile-dropdown, select {
             <input type="text" id="lname" name="lname" class="search not-srch" placeholder="Last Name"/>
             <input type="text" id="username" name="username" class="search not-srch" onblur="return checkUsernameExist();" placeholder="User Name" />
             <input type="email" id="email" name="email" class="search not-srch" onblur="return checkEmailExist();" placeholder="E-mail" />
-            <input type="date" id="dob" name="dob" class="search not-srch" placeholder="DOB"/>
+            <div class="width:100%;">
+            	<label style="font-size: 14px;font-family: Arial;margin-right: 5px;float: left;line-height: 50px;">Date of Birth</label>
+                <input style="width:50%;" type="date" id="dob" name="dob" class="search not-srch" placeholder="DOB"/>
+            </div>
+            
             <input type="text" id="address" name="address" class="search not-srch" placeholder="Address"/>
             <input type="text" id="Suburb" name="Suburb" class="search not-srch" placeholder="Suburb"/>
-            <input type="text" id="state" name="state" class="search not-srch" placeholder="State"/>
+            <select id="state" name="state" class="search not-srch">
+            	<option value="">Choose State</option>
+                <option value="Western Australia (WA)">Western Australia (WA)</option>
+                <option value="New South Wales (NSW)">New South Wales (NSW)</option>
+                <option value="Queensland (QLD)">Queensland (QLD)</option>
+                <option value="South Australia (SA)">South Australia (SA)</option>
+                <option value="Tasmania (TAS)">Tasmania (TAS)</option>
+                <option value="Victoria (VIC)">Victoria (VIC)</option>
+            </select>
             <input type="text" id="postcode" name="postcode" class="search not-srch" placeholder="Post Code"/>
             <input type="text" id="hphone" name="hphone" class="search not-srch" placeholder="Home Phone"/>
             <input type="text" id="mphone" name="mphone" class="search not-srch" placeholder="Mobile Phone"/>
             <input type="text" id="abn" name="abn" class="search not-srch" placeholder="ABN#"/>
-            <input type="text" id="dlicense" name="mphone" class="search not-srch" placeholder="Driving License"/>
+            <input type="text" id="dlicense" name="mphone" class="search not-srch" placeholder="Driving License/ Proof of Age Card"/>
             <input type="text" id="passport" name="passport" class="search not-srch" placeholder="Passport#"/>
-            <input type="text" id="australianId" class="search not-srch" name="australianId" placeholder="Australian ID"/>
+            <div class="uploadImages">
+       		<input type="button" id="uploadImg" class="search btn not-srch" name="image" value="Upload Australian ID" onclick="return getImage();" />
+            	<div class="uploadedImages">
+            		<ul>
+                	</ul>
+            	</div>
+        	</div>
+            <div class="width:100%;">
+            	<label style="font-size: 14px;font-family: Arial;margin-right: 5px;float: left;line-height: 50px;">Australian ID Expiry Date</label>
+            	<input style="width:32%;" type="date" id="australianId" class="search not-srch" name="australianId" placeholder="Australian ID Expiry Date"/>
+            </div>
+            
             <div class="usertypeSelect">
             <select name="userType" id="userType">
                 <option value="" selected="selected">Select User Type</option>
-                <option value="guest">Guest</option>
                 <option value="standard">Standard</option>
                 <option value="preminum">Preminum</option>
             </select>

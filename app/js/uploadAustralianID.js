@@ -28,7 +28,7 @@
 			  Connection: "close"
 		   };
  
- 			var name = $('#title').val();
+ 			var name = $('#username').val();
             var params = new Object();
             params.key = convertToSlug(name);
 			params.fName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -40,7 +40,7 @@
             var ft = new FileTransfer();
 			
 			//var url = http://bonjour.projekte-web.com/wp-content/themes/kleo/avatar_upload.php;
-			var url = UPLOAD_GAME_PICS_URL;
+			var url = UPLOAD_AUSTRALIAN_ID_PIC;
 			console.log(url);
 			//upload_avatar(imageURI);
             ft.upload(imageURI, url, win, fail, options, true);
@@ -49,14 +49,15 @@
         function win(r) {
             //console.log("Code = " + r.responseCode);
 			endButtonLoading('uploadImg');
+			
             console.log("Response = " + r.response);
 			var PicName = r.response;
-			var imageThumb = '<li><img src="'+GAME_IMAGES_PATH+PicName+'" alt="'+PicName+'"/></li>'
-			$('.uploadedImages ul').append(imageThumb);
-			var oldPics = window.localStorage.getItem("GamesPics");
-			PicName = PicName+","+oldPics;
-			window.localStorage.setItem("GamesPics",PicName);
-            console.log(window.localStorage.getItem("GamesPics"));
+			var imageThumb = '<li><img src="'+AUSTRALIAN_IDS_PATH+PicName+'" alt="'+PicName+'"/></li>'
+			$('.uploadedImages ul').html(imageThumb);
+			//var oldPics = window.localStorage.getItem("GamesPics");
+			//PicName = PicName+","+oldPics;
+			window.localStorage.setItem("AustralianID",PicName);
+            console.log(window.localStorage.getItem("AustralianID"));
             //console.log(r);
 			//getUserInfo();
         }
