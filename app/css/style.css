@@ -685,6 +685,12 @@ form[name="message"] input[name="submit"]{
   font-size: 13px;
   border-radius: 7px;
 }
+#age-limit{
+	float:left;
+	margin-top:20px;}
+img.age-img{
+	margin:5px;
+	border-radius:6px;}
 /*#buyNowBtn {
   position: absolute;
   top: -90px;

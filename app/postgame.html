@@ -48,19 +48,27 @@
                 </ul>
             </div>
         </div>
-        <select id="age-limit" name="age-limit">
+        <p>Age Restriction:</p>
+        <input type="radio" id="age-limit" name="age-limit" value="15"><img class="age-img" src="img/icon_ctc.png" alt="CTC" /><br>
+        <input type="radio" id="age-limit" name="age-limit" value="g"><img class="age-img" src="img/icon_g.png" alt="G" /><br>
+        <input type="radio" id="age-limit" name="age-limit" value="15"><img class="age-img" src="img/icon_pg.png" alt="PG" /><br>
+        <input type="radio" id="age-limit" name="age-limit" value="15"><img class="age-img" src="img/icon_m.png" alt="M" /><br>
+        <input type="radio" id="age-limit" name="age-limit" value="15"><img class="age-img" src="img/icon_ma.png" alt="MA" /><br>
+        <input type="radio" id="age-limit" name="age-limit" value="18"><img class="age-img" src="img/icon_r.png" alt="R" /><br>
+		<input type="radio" id="age-limit" name="age-limit" value="18"><img class="age-img" src="img/icon_x.png" alt="X" />
+       <!-- <select id="age-limit" name="age-limit">
         	<option selected="selected">Age Restriction</option>
             <option value="15">15+</option>
             <option value="18">18+</option>
             <option value="20">20+</option>
-        </select>
+        </select>-->
         <select id="publish" name="visible">
         	<option selected="selected">Display Options (only 2 options please)</option>
             <option value="1">Live</option>
             <option value="0">Hidden</option>
         </select>
         <label id="form-err"></label>
-        <input type="button" onclick="return addPost();" name="SignIn" value="Add" class="search btn not-srch" />
+        <input type="button" onclick="return addPost();" name="SignIn" value="Add" class="search btn not-srch" style="float:left;" />
         </form>
         </div></div><!-- /content -->
  
