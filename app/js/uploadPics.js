@@ -53,8 +53,16 @@
 			var PicName = r.response;
 			var imageThumb = '<li><img src="'+GAME_IMAGES_PATH+PicName+'" alt="'+PicName+'"/></li>'
 			$('.uploadedImages ul').append(imageThumb);
+			
 			var oldPics = window.localStorage.getItem("GamesPics");
-			PicName = PicName+","+oldPics;
+			if(oldPics)
+			{
+				PicName = PicName+","+oldPics;
+			}
+			else
+			{
+				PicName = PicName;	
+			}
 			window.localStorage.setItem("GamesPics",PicName);
             console.log(window.localStorage.getItem("GamesPics"));
             //console.log(r);

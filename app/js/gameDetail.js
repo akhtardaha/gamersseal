@@ -3,6 +3,17 @@ $(document).ready(function(){
 	//getPosts('wpmarketplace');
 	var post_id = getQueryVariable('post_id');
 	getPostDetail(post_id);
+	var NewViewed = post_id;
+	var oldViewed = window.localStorage.getItem("RecentViewed");
+	if(oldViewed)
+	{
+		NewViewed = NewViewed+","+oldViewed;
+	}
+	else
+	{
+		NewViewed = NewViewed;
+	}
+	window.localStorage.setItem("RecentViewed",NewViewed);
 })
 
 function getPostDetail(post_id)

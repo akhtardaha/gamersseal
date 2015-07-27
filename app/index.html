@@ -9,9 +9,6 @@
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
     <script src="js/home.js"></script>
-    <!--<script type="text/javascript" charset="utf-8" src="cdv-plugin-paypal-mobile-sdk.js"></script>
-    <script src="js/paypal-mobile-js-helper.js"></script>
-     <script src="js/index.js"></script>-->
 <style>
 #loading {
   width: 50px;
@@ -20,6 +17,13 @@
 }
 .product-list-right {
     margin: 0px 0;
+}
+p {
+    text-decoration: none;
+    float: left;
+    color: #000;
+    font-size: 12px;
+    font-family: arial;
 }
 </style>
 </head>
@@ -36,12 +40,6 @@
         <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
         
         </div><!-- /header -->
-	 <!--<div class="header">
-     	<div class="cart"></div>
-        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
-        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
-        
-        </div>--><!-- /header -->
         <div class="slide-menu close"></div>
  <div class="main-wraper">
         <div class="content-wraper">
@@ -73,13 +71,7 @@
             <img id="loading" src="img/loading.gif" alt="Loading" />
           </div>
         </div>
-        <form name="sort-by-price" id="price-sort">
-        	<select name="product" id="price_filter" class="mobile-dropdown" onchange="return sortGames();">
-            	<option>Sort By…</option>
-                <option value="DESC">Highest to Lowest </option>
-                <option value="ASC">Lowest to Highest </option>
-            </select>
-        </form>
+        
         </div>
  </div><!-- /content -->
  

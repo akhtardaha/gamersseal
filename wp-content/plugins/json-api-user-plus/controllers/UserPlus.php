@@ -6970,8 +6970,18 @@ foreach($meta_keys as $k){
 			
 			$filter = $json_api->query->filter;
 		    $sort = $json_api->query->sorting;
+			$recent_ids = $json_api->query->ids;
+			if($recent_ids)
+			{
+				/*$recently_ids = explode(',', $recent_ids);
+				$recently_ids = array_unique($recently_ids);*/
 			
-			$query = "SELECT * FROM wp_custom_fields order by $filter $sort";
+				$query = "SELECT * FROM wp_custom_fields where post_id IN ($recent_ids) order by $filter $sort";
+			}
+			else
+			{
+				$query = "SELECT * FROM wp_custom_fields order by $filter $sort";
+			}
 			$result = $wpdb->get_results($query);
 			if($result)
 			{
@@ -6997,6 +7007,35 @@ foreach($meta_keys as $k){
 				return array('posts'=>$posts_data);
 			}
   	}
+	
+	
+	public function get_recently_viewed_games(){
+
+  			global $json_api;
+			global $wpdb;
+			$posts_data = array();
+			
+			$recent_ids = $json_api->query->ids;
+		    //$sort = $json_api->query->sorting;
+			
+				$sorted_ids = explode(',', $recent_ids);
+				$sorted_ids = array_unique($sorted_ids);
+				foreach($sorted_ids as $sorted_id)
+				{
+					$post = get_post($sorted_id);
+					$sales_price = get_post_meta($sorted_id, 'sales_price');
+					$delivery_time = get_post_meta($sorted_id, 'delivery_time');
+					$post->display_name = get_the_author_meta('display_name', $post->post_author);
+					$images = get_post_meta( $sorted_id, 'images' );
+					$post->sales_price = $sales_price[0];
+					$post->images = $images[0];
+					$post->delivery_time = $delivery_time[0];
+					$posts_data[] = $post;
+					//$posts_data[] = $meta;
+				}
+				
+				return array('posts'=>$posts_data);
+	}
 	
 	public function get_user_items_today(){
 
