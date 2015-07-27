@@ -6984,10 +6984,12 @@ foreach($meta_keys as $k){
 				{
 					$post = get_post($sorted_id);
 					$sales_price = get_post_meta($sorted_id, 'sales_price');
+					$delivery_time = get_post_meta($sorted_id, 'delivery_time');
 					$post->display_name = get_the_author_meta('display_name', $post->post_author);
 					$images = get_post_meta( $sorted_id, 'images' );
 					$post->sales_price = $sales_price[0];
 					$post->images = $images[0];
+					$post->delivery_time = $delivery_time[0];
 					$posts_data[] = $post;
 					//$posts_data[] = $meta;
 				}

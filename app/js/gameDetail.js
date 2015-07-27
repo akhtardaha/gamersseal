@@ -35,7 +35,7 @@ function getPostDetail(post_id)
 				var post = data.post;
 				var author = data.post.author;
 				var totalPosts = data.count;
-				if(data.post.custom_fields.images)
+				/*if(data.post.custom_fields.images)
 				{
 				var gallery = data.post.custom_fields.images;
 				$.each(gallery, function (i, v) {
@@ -49,11 +49,64 @@ function getPostDetail(post_id)
 				
 				}
 				
-				$('.gallery').html(imageGallery);
-				var swiper = new Swiper('.swiper-container', {
+				$('.gallery').html(imageGallery);*/
+				
+				
+		   var slider_images = '';
+		   var main_images = ''; 
+		   var totalimages = 0;
+		   var blank = '_blank';
+		   	if(typeof(data.post.custom_fields.images) == 'object')
+		   	{
+			  for(count=0; count <data.post.custom_fields.images.length;  count++)
+		   {
+				totalimages++;
+				  var imgPath  = GAME_IMAGES_PATH;
+				  var pimgname = data.post.custom_fields.images[count]; 
+				  var pimg     =  imgPath+pimgname;
+				  console.log(pimg);
+				      //P_ABILD
+						 //slider_images += '<li><img onclick="updateImage(this)" src="'+pimg+'" style="max-height:50px; max-width: 50px;"  /></li>';
+						 main_images += '<div class="swiper-slide"><a style="width:100%;height:90%;float:left;display:block;" href="javascript:void(0)" onclick="window.open(\''+pimg+'\',\''+blank+'\');"><img id="main-image" src="'+pimg+'" align="center" valign="center" style="max-width: 260px; max-height: 120px;" /></div></div>';
+				   //alert(html2);
+				   
+		   }
+		   
+		   html += '<div  class="imgDetailCont">';
+							 var html2 = main_images;
+							 //html3 = '<div class="imagedetail-thumb" style="padding: 25px; float: left;"><ul>'+slider_images+'</ul></div>';
+				   html += '</div>';
+				   //$('#pdbLnk').attr('href','products.html?groupid='+pgroupid);
+				  
+				  $('.gallery').append(html2);
+			}
+			else
+			{
+				 main_images += '<div class="swiper-slide"><img id="main-image" src="img/gamesdefault.png" align="center" valign="center" style="margin-top: 0px !important;max-width: 260px; max-height: 120px;" /></div></div>';
+			   $('.gallery').append(main_images);
+		   
+			}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				var swiper = new Swiper('.swiper-container',{
+						pagination: '.pagination',
+						loop:true,
+						paginationClickable: true
+					  }) 
+				/*var swiper = new Swiper('.swiper-container', {
 					pagination: '.swiper-pagination',
 					paginationClickable: true
-				});
+				});*/
 				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Title:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+post.title+'</a></div></div>';
                  descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Category:</a></div>';
@@ -72,8 +125,8 @@ function getPostDetail(post_id)
 				 
 				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+gameCat+'</a></div></div>';
                  descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Price:</a></div>';
-   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+price+'$</a></div></div>';
-				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Estimated Delivery time:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">$'+price+'</a></div></div>';
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Estimated Delivery Time:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+delievery_time+' Days</a></div></div>';
 				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div></div>';

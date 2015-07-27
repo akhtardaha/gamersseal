@@ -46,7 +46,7 @@ function getUserSales(noloading)
 							html += '<p>Order ID :'+value.oid+'</p>';
 							html += '<p id="buyer'+i+value.pid+'"></p>';
 							html += '<p>Order Date :'+value.date+'</p>';
-							html += '<p>Price :'+value.price+'$</p>';
+							html += '<p>Price : $'+value.price+'</p>';
 							html += '<p>Quantity :'+value.quantity+'</p>';
 							html += '</div>';
 						html += '</a>';
@@ -61,7 +61,7 @@ function getUserSales(noloading)
 				}
 				
 				//html += '<div class="Pimg"><img id="img'+pid+'" src="img/loadingSmall.gif" class="product-thumb"></div>';
-				total_sales = '<a href="#" class="specification">Total Sales = '+total_sales.toFixed(2)+' $</a>';
+				total_sales = '<a href="#" class="specification">Total Sales = $'+total_sales.toFixed(2)+' </a>';
 				$('.totalSales').html(total_sales);
 				$('.products-list').html(html);
 			}

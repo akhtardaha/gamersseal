@@ -49,7 +49,7 @@ function getSearchResult(searchTerm)
 						html += '<h5>'+value.title+'</h5>';
 						var excerpt = value.content;
 						html += '<p>'+excerpt.substr(0, 100)+'</p>';
-						html += '<p>Price: '+value.custom_fields.sales_price[0]+'$</p>';
+						html += '<p>Price: $'+value.custom_fields.sales_price[0]+'</p>';
 						html += '</div>';
 					html += '</a>';
 				html += '</li>';

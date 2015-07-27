@@ -89,7 +89,11 @@ function getPosts()
 						var excerpt = value.excerpt;
 						html += '<p>'+excerpt.substr(0, 100)+'</p>';
 						//console.log(value.custom_fields.images[0]);
-						html += '<span class="price">Price: '+value.custom_fields.sales_price[0]+'</span>';
+						html += '<span class="price">Price: $'+value.custom_fields.sales_price[0]+'</span>';
+						if(value.custom_fields.delivery_time)
+						{
+						html += '<span class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</span>';
+						}
 						html += '<span class="seller_name">Seller : '+value.author.name+'</span>';
 						html += '</div></a></li>';
 						counter++;
@@ -303,7 +307,11 @@ function sortGames()
 						var excerpt = value.post_content;
 						html += '<p>'+excerpt.substr(0, 100)+'</p>';
 						//console.log(value.custom_fields.images[0]);
-						html += '<span class="price">Price: '+value.sales_price+'</span>';
+						html += '<span class="price">Price: $'+value.sales_price+'</span>';
+						if(value.delivery_time)
+						{
+						html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
+						}
 						html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
 						html += '</div></a></li>';
 						counter++;
