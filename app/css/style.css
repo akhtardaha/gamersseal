@@ -690,6 +690,8 @@ img.age-img{
 	}
 .header .cart{
 	display:none;}
+.slide-menu.open{
+	width:100%;}
 /*#buyNowBtn {
   position: absolute;
   top: -90px;
