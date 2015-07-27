@@ -43,7 +43,7 @@ function getSellerOrder(order_id)
                     html += '<h5>Order # '+value.order_id+'</h5>';
                     html += '<p>Order date: '+value.date+'</p>';
                     html += '<p>Expected Date of Delivery: '+value.delievery_time+'</p>';
-                    html += '<p>Totla Bill: '+value.total+'$</p>';
+                    html += '<p>Totla Bill: $'+value.total+'</p>';
                     html += '<p>Address: '+value.billing_shipping_data.billing.address_1+' '+value.billing_shipping_data.billing.city+' '+value.billing_shipping_data.billing.country+'</p>';
                     html += '<p>Mobile #: '+value.billing_shipping_data.billing.phone+'</p>';
 					html += '<p>Shipping Status: '+value.shipping_status+'</p>';

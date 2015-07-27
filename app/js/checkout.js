@@ -59,14 +59,14 @@ function getCartTotal()
 						var gst = Math.round(totalCart/100 * gstPercenet);
 						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost);
 						html +='<div class="CartTotalBox">';
-						html += '<div class="CartTotal"><span>Cart Total </span> '+totalCart.toFixed(2)+'$</div>';
+						html += '<div class="CartTotal"><span>Cart Total </span> $'+totalCart.toFixed(2)+'</div>';
 						html += '<div class="CartGst"><span>GST </span>'+gstPercenet+'% included in price</div>';
 						if(totalShippingCost != 0)
 						{
-						html += '<div class="CartShippingcost"><span>Shipping Cost </span> '+totalShippingCost.toFixed(2)+'$</div>';
+						html += '<div class="CartShippingcost"><span>Shipping Cost </span> $'+totalShippingCost.toFixed(2)+'</div>';
 						}
 						
-						html += '<div class="CartTotal"><span>Order Total </span> '+OrderTotal.toFixed(2)+'$</div>';
+						html += '<div class="CartTotal"><span>Order Total </span> $'+OrderTotal.toFixed(2)+'</div>';
 						html += '</div>';
 						$('#gstpercent').val(gstPercenet);
 						$('#gst').val(gst.toFixed(2));

@@ -52,7 +52,7 @@ function getUserProducts()
 						var excerpt = value.excerpt;
 						html += '<p>'+excerpt.substr(0, 100)+'</p>';
 						//console.log(value.custom_fields.images[0]);
-						html += '<span class="price">Price: '+value.custom_fields.sales_price[0]+'</span>';
+						html += '<span class="price">Price: $'+value.custom_fields.sales_price[0]+'</span>';
 						html += '</div></a></li>';
 						counter++;
 					})

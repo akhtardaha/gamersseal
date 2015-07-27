@@ -41,7 +41,7 @@ function getSellerOrders()
                     html += '<h5><span class="col-odr">Order #</span>'+value.order_id+'</h5>';
                     html += '<p><span class="col-odr">Order Date:</span>'+value.date+'</p>';
                     html += '<p><span class="col-odr">Expected Date Of Delivery:</span>'+value.delievery_time+'</p>';
-                    html += '<p><span class="col-odr">Total Bill:</span>'+value.total+'$</p>';
+                    html += '<p><span class="col-odr">Total Bill:</span>$'+value.total+'</p>';
                     html += '<p><span class="col-odr">Address:</span>'+value.billing_shipping_data.billing.address_1+' '+value.billing_shipping_data.billing.city+' '+value.billing_shipping_data.billing.country+'</p>';
                     html += '<p><span class="col-odr">Mobile #:</span>'+value.billing_shipping_data.billing.phone+'</p>';
 					html += '<p><span class="col-odr">Shipping Status:</span>'+value.shipping_status+'</p>';

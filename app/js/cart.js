@@ -42,14 +42,14 @@ function getProductsFromCart()
 								}
 								else
 								{
-									pShippingcost = pShippingcost+'$';
+									pShippingcost = '$'+pShippingcost;
 								}
 								html += '<li>';
 								html += '<a href="single.html?post_id='+pid+'">';
 									html += '<div class="Pimg"><img id="img'+pid+'" src="img/loadingSmall.gif" class="product-thumb"></div>';
 									html += '<div class="product-list-right">';
 									html += '<h5>'+pname+'</h5>';
-									html += '<p>Price: '+price+'$</p>';
+									html += '<p>Price: $'+price+'</p>';
 									html += '<p>Item Shipping Cost: '+pShippingcost+'</p>';
 									html += '</div>';
 								html += '</a>';
@@ -115,13 +115,13 @@ function getCartTotal()
 						var gst = Math.round(totalCart/100 * gstPercenet);
 						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost);
 						html += '<div class="CartTotalBox">';
-						html += '<div class="CartTotal">Cart Total = '+totalCart.toFixed(2)+'$</div>';
+						html += '<div class="CartTotal">Cart Total = $'+totalCart.toFixed(2)+'</div>';
 						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
 						if(totalShippingCost != 0)
 						{
-						html += '<div class="CartShippingcost">Shipping Cost = '+totalShippingCost.toFixed(2)+'$</div>';
+						html += '<div class="CartShippingcost">Shipping Cost = $'+totalShippingCost.toFixed(2)+'</div>';
 						}
-						html += '<div class="CartTotal">Order Total = '+OrderTotal.toFixed(2)+'$</div>';
+						html += '<div class="CartTotal">Order Total = $'+OrderTotal.toFixed(2)+'</div>';
 						html +='</div>';
 
 						

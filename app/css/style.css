@@ -41,14 +41,10 @@ a {
 }
 h4.send{
 	float:left;}
-.home .header .setting
-{
-  top: 22px !important;
-  right: 5px;	
-}
+
 .header .setting
 {
-  top: 30px;
+  top: 22px;
   right: 5px;	
 }
 .cart img {
@@ -442,6 +438,7 @@ input.search {
   position: fixed;
   bottom: 0px;
   background: #fff;
+  z-index:999;
 }
 .footer h4{
 	margin:10px 0px;}
@@ -622,20 +619,18 @@ form[name="message"] input[name="submit"]{
   display: block;
   width: 100%;
 }
-.header.home-header .ui-title-center.home-header{
+.header .ui-title-center{
 	text-align:left;}
 .home-header .cart img{
 	margin:0px;
 	width:auto;
 	max-width:100%;}
-.header.home-header .setting{
-	top:auto;}
-.header.home-header .setting img {
+.header .setting img {
   width: 80px !important;
   /* height: 75px; */
   max-width: 50px !important;
 }
-.header.home-header .top-header{
+.header .top-header{
 	display:block;
 	float:left;
 	width:100%;
@@ -646,7 +641,7 @@ form[name="message"] input[name="submit"]{
   text-align: center;
   width: 100%;
   top: 30px;}
-.header.home-header .heaer-tag-line{
+.header .heaer-tag-line{
 	display:block;
 	float:left;
 	text-align:center;
@@ -654,16 +649,14 @@ form[name="message"] input[name="submit"]{
 	font-size:12px;
 	margin-top:15px;
 	}
-.header.home-header .setting{
+.header .setting{
 	width:auto !important;}
-.header.home-header .setting img, .home-header h4 a img{
+.header .setting img, .header h4 a img{
 	width:auto;}
-.header-mid{
-	display:none;}
 .home .header-mid{
 	display:block;}
 @media all and (max-width:420px){
-.header.home-header .setting img, .home-header h4 a img{
+.header .setting img, .header h4 a img{
 	width:80px;}	
 .home-tabs ul li>div{
 	font-size:12px;}
@@ -691,6 +684,12 @@ form[name="message"] input[name="submit"]{
 img.age-img{
 	margin:5px;
 	border-radius:6px;}
+.tab-open{
+	background-color:#FFF;
+	font-weight:600;
+	}
+.header .cart{
+	display:none;}
 /*#buyNowBtn {
   position: absolute;
   top: -90px;

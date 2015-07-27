@@ -71,7 +71,7 @@ function getCategoryProducts(term_id)
 						html += '<h5>'+value.post_title+'</h5>';
 						var excerpt = value.post_content;
 						html += '<p>'+excerpt.substr(0, 100)+'</p>';
-						html += '<p>Price: '+value.custom_fields.sales_price[0]+'$</p>';
+						html += '<p>Price: $'+value.custom_fields.sales_price[0]+'</p>';
 						html += '</div>';
 					html += '</a>';
 				html += '</li>';
