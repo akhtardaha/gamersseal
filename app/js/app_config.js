@@ -14,6 +14,7 @@ var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 
 $(document).ready(function(){
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
+$('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
 app_settings();
 sideBarMenu();
 $( ".setting" ).click(function() {  
@@ -224,6 +225,9 @@ function getAppSettings()
 				
 				window.localStorage.setItem("terms_and_conditions",data.app_configuration[0].terms_and_conditions);
 				
+				window.localStorage.setItem("app_name",data.app_configuration[0].app_name);
+				window.localStorage.setItem("app_tagLine",data.app_configuration[0].app_tagLine);
+				
 				app_settings();
 			}
 			
@@ -237,6 +241,8 @@ function getAppSettings()
 
 function app_settings()
 {
+				var app_name = '';
+				var app_tagLine = '';
 				var app_background_color = window.localStorage.getItem("app_background_color");
 				console.log(app_background_color);
 				var app_icon = window.localStorage.getItem("app_icon");
@@ -259,8 +265,11 @@ function app_settings()
 				var standard_seal_charges = window.localStorage.getItem("standard_seal_charges");
 				
 				var terms_and_conditions = window.localStorage.getItem("terms_and_conditions");
+				
+				var app_name = window.localStorage.getItem("app_name");
+				var app_tagLine = window.localStorage.getItem("app_tagLine");
 	
-	$('.header h4').html('<a href="index.html"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header">GAMERS SEAL</span><span class="heaer-tag-line">By Gamers 4 Gamers</span></div>');
+	$('.header h4').html('<a href="index.html"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header">'+app_name+'</span><span class="heaer-tag-line">'+app_tagLine+'</span></div>');
 	$('.main-wraper').css('background-color',app_background_color);
 }
 

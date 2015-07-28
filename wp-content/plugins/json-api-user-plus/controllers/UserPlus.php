@@ -6684,21 +6684,21 @@ foreach($meta_keys as $k){
 		global $json_api;
 		global $wpdb;
 		
-		$query = "SELECT * FROM app_configuration";
+			$query2 = "SELECT * FROM wp_options where option_name IN ('blogname','blogdescription') order by option_id ASC";
+			$res2 = $wpdb->query($query2);
+			$app_info = $wpdb->get_results($query2);
+			$app_heading = $app_info[0]->option_value;
+			$app_tagLine= $app_info[1]->option_value;
+			$query = "SELECT * FROM app_configuration";
 			$res = $wpdb->query($query);
 			$app_configurations = $wpdb->get_results($query);
 			$data = array();
 			if($app_configurations)
 			{
-				/*foreach($app_configurations as $app_configuration)
-				{
-					//$app_configuration->sender_name = get_the_author_meta( 'display_name', $message->sender_id);
-					//$app_configuration->date_sent = mysql2date('l, jS F, Y', $message->date);
-					//$app_configuration->avatar = get_avatar( $message->sender_id, 150 );
-					$data[] = $app_configuration;
-				}*/
+				$app_configurations[0]->app_name = $app_heading;
+				$app_configurations[0]->app_tagLine = $app_tagLine;
+				//print_r($app_configurations);
 				$response['app_configuration'] = $app_configurations;
-				
 			}
 			else
 			{
@@ -6967,21 +6967,38 @@ foreach($meta_keys as $k){
   			global $json_api;
 			global $wpdb;
 			$posts_data = array();
+			//$popular_ids = array();
 			
 			$filter = $json_api->query->filter;
 		    $sort = $json_api->query->sorting;
 			$recent_ids = $json_api->query->ids;
+			$type = $json_api->query->type;
+			
+			if($type)
+			{
+			$queryPopular = "SELECT DISTINCT(productid) FROM wp_mp_feature_products";
+			$resultPopular = $wpdb->get_results($queryPopular);
+				foreach($resultPopular as $resultPop)
+				{
+					$popular_ids .= $resultPop->productid.",";
+				}
+				$popular_ids = rtrim($popular_ids,',');
+			}
+			
+			
 			if($recent_ids)
 			{
-				/*$recently_ids = explode(',', $recent_ids);
-				$recently_ids = array_unique($recently_ids);*/
-			
 				$query = "SELECT * FROM wp_custom_fields where post_id IN ($recent_ids) order by $filter $sort";
+			}
+			elseif($type)
+			{
+				$query = "SELECT * FROM wp_custom_fields where post_id IN ($popular_ids) order by $filter $sort";
 			}
 			else
 			{
 				$query = "SELECT * FROM wp_custom_fields order by $filter $sort";
 			}
+			
 			$result = $wpdb->get_results($query);
 			if($result)
 			{
@@ -6989,6 +7006,39 @@ foreach($meta_keys as $k){
 				foreach($result as $res)
 				{
 					$sorted_ids[] = $res->post_id;
+				}
+				foreach($sorted_ids as $sorted_id)
+				{
+					$post = get_post($sorted_id);
+					$sales_price = get_post_meta($sorted_id, 'sales_price');
+					$delivery_time = get_post_meta($sorted_id, 'delivery_time');
+					$post->display_name = get_the_author_meta('display_name', $post->post_author);
+					$images = get_post_meta( $sorted_id, 'images' );
+					$post->sales_price = $sales_price[0];
+					$post->images = $images[0];
+					$post->delivery_time = $delivery_time[0];
+					$posts_data[] = $post;
+					//$posts_data[] = $meta;
+				}
+				
+				return array('posts'=>$posts_data);
+			}
+  	}
+	
+	public function get_popular_games(){
+
+  			global $json_api;
+			global $wpdb;
+			$posts_data = array();
+			
+			$query = "SELECT DISTINCT(productid) FROM wp_mp_feature_products";
+			$result = $wpdb->get_results($query);
+			if($result)
+			{
+				$sorted_ids = array();
+				foreach($result as $res)
+				{
+					$sorted_ids[] = $res->productid;
 				}
 				foreach($sorted_ids as $sorted_id)
 				{
