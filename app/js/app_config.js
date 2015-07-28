@@ -10,13 +10,12 @@ var AUSTRALIAN_IDS_PATH = 'http://gamersseal.com/development/uploads/australiani
 
 var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 
-
-
 $(document).ready(function(){
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
 app_settings();
 sideBarMenu();
+
 $( ".setting" ).click(function() {  
     if ( $(".slide-menu").hasClass( "open" ) ) {
      $( ".slide-menu" ).animate({left: "2000px"}, 1000);

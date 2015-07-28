@@ -651,6 +651,8 @@ form[name="message"] input[name="submit"]{
 	}
 .header .setting{
 	width:auto !important;}
+.header h4 a img{
+	max-height:90px;}
 .header .setting img, .header h4 a img{
 	width:auto;}
 .home .header-mid{
@@ -692,7 +694,9 @@ img.age-img{
 	display:none;}
 .slide-menu.open{
 	width:100%;}
-/*#buyNowBtn {
-  position: absolute;
-  top: -90px;
-}*/
+.full-profile{
+	display:none;
+	float:left;
+	width:100%;}
+.show-full-profile{
+	cursor:pointer;}
