@@ -42,6 +42,10 @@ function getUserInfo()
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">'+i+':</a></div>';
    					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+value+'</a></div>';
 					html += '</div>';
+					
+					var avatar = profile.avatar;
+					window.localStorage.setItem("loginuserPic",avatar);
+					$('#popphoto').html('<img src="'+avatar+'" alt="Game Image 01" class="popphoto" >');
 					}
 				})
 				html += '</div>';
