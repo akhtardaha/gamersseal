@@ -69,7 +69,9 @@ function getPostDetail(post_id)
 		   var blank = '_blank';
 		   	if(typeof(data.post.custom_fields.images) == 'object')
 		   	{
-			  for(count=0; count <data.post.custom_fields.images.length;  count++)
+				main_images = '';
+				//console.log(data.post.custom_fields.images.length);
+			  for(count=0; count < data.post.custom_fields.images.length;  count++)
 		   {
 				totalimages++;
 				  var imgPath  = GAME_IMAGES_PATH;
@@ -78,7 +80,7 @@ function getPostDetail(post_id)
 				  console.log(pimg);
 				      //P_ABILD
 						 //slider_images += '<li><img onclick="updateImage(this)" src="'+pimg+'" style="max-height:50px; max-width: 50px;"  /></li>';
-						 main_images += '<div class="swiper-slide"><a style="width:100%;height:90%;float:left;display:block;" href="javascript:void(0)" onclick="window.open(\''+pimg+'\',\''+blank+'\');"><img id="main-image" src="'+pimg+'" align="center" valign="center" style="max-width: 260px; max-height: 120px;" /></div></div>';
+						 main_images += '<div class="swiper-slide"><a style="width:100%;height:90%;float:left;display:block;" href="javascript:void(0)" onclick="window.open(\''+pimg+'\',\''+blank+'\');"><img id="main-image" src="'+pimg+'" align="center" valign="center" style="max-width: 300px; max-height: 200px;" /></div></div>';
 				   //alert(html2);
 				   
 		   }
@@ -89,29 +91,17 @@ function getPostDetail(post_id)
 				   html += '</div>';
 				   //$('#pdbLnk').attr('href','products.html?groupid='+pgroupid);
 				  
-				  $('.gallery').append(html2);
+				  $('.gallery').html(html2);
 			}
 			else
 			{
 				 main_images += '<div class="swiper-slide"><img id="main-image" src="img/gamesdefault.png" align="center" valign="center" style="margin-top: 0px !important;max-width: 260px; max-height: 120px;" /></div></div>';
-			   $('.gallery').append(main_images);
+			   $('.gallery').html(main_images);
 		   
 			}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				var swiper = new Swiper('.swiper-container',{
 						pagination: '.pagination',
-						loop:true,
+						loop:false,
 						paginationClickable: true
 					  }) 
 				/*var swiper = new Swiper('.swiper-container', {

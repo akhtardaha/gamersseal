@@ -10,7 +10,7 @@ function getPostDetail(post_id)
 	{
 		$('.tabContent').html('');
 		tabContentstartLoading();
-		var user_id = window.localStorage.getItem("loginUserID");	
+		var user_id = window.localStorage.getItem("loginuserID");	
 		var cooke = window.localStorage.getItem("loginuserCookie");
 		console.log(cooke);
 		var url = API_URL_DEFAULT+'get_post/?id='+post_id+'&post_type=wpmarketplace';
@@ -36,25 +36,47 @@ function getPostDetail(post_id)
 				var post = data.post;
 				var author = data.post.author;
 				var totalPosts = data.count;
-				if(data.post.custom_fields.images)
-				{
-				var gallery = data.post.custom_fields.images;
-				$.each(gallery, function (i, v) {
-				//imageGallery += '<a style="width:101%;" href="#img'+i+'" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-link"><img src="'+GAME_IMAGES_PATH+v+'" alt="'+v+'" class="popphoto"></a>';
-				imageGallery += '<div class="swiper-slide" style="background-image:url('+GAME_IMAGES_PATH+v+')"></div>';
-				})
-				}
-				else
-				{
-				//imageGallery += '<a style="width:100%;" href="#img0" data-rel="popup" data-position-to="window" data-transition="fade" class="ui-link"><img style="max-width: 100%;max-height: 145px;width: auto;" src="img/gamesdefault.png" class="popphoto"></a>';	
-				imageGallery += '<div class="swiper-slide" style="background-image:url(img/gamesdefault.png)"></div>';
-				}
-				
-				$('.gallery').html(imageGallery);
-				 var swiper = new Swiper('.swiper-container', {
-					pagination: '.swiper-pagination',
-					paginationClickable: true
-				});
+				var slider_images = '';
+		   var main_images = ''; 
+		   var totalimages = 0;
+		   var blank = '_blank';
+		   	if(typeof(data.post.custom_fields.images) == 'object')
+		   	{
+				main_images = '';
+				//console.log(data.post.custom_fields.images.length);
+			  for(count=0; count < data.post.custom_fields.images.length;  count++)
+		   {
+				totalimages++;
+				  var imgPath  = GAME_IMAGES_PATH;
+				  var pimgname = data.post.custom_fields.images[count]; 
+				  var pimg     =  imgPath+pimgname;
+				  console.log(pimg);
+				      //P_ABILD
+						 //slider_images += '<li><img onclick="updateImage(this)" src="'+pimg+'" style="max-height:50px; max-width: 50px;"  /></li>';
+						 main_images += '<div class="swiper-slide"><a style="width:100%;height:90%;float:left;display:block;" href="javascript:void(0)" onclick="window.open(\''+pimg+'\',\''+blank+'\');"><img id="main-image" src="'+pimg+'" align="center" valign="center" style="max-width: 300px; max-height: 200px;" /></div></div>';
+				   //alert(html2);
+				   
+		   }
+		   
+		   html += '<div  class="imgDetailCont">';
+							 var html2 = main_images;
+							 //html3 = '<div class="imagedetail-thumb" style="padding: 25px; float: left;"><ul>'+slider_images+'</ul></div>';
+				   html += '</div>';
+				   //$('#pdbLnk').attr('href','products.html?groupid='+pgroupid);
+				  
+				  $('.gallery').html(html2);
+			}
+			else
+			{
+				 main_images += '<div class="swiper-slide"><img id="main-image" src="img/gamesdefault.png" align="center" valign="center" style="margin-top: 0px !important;max-width: 260px; max-height: 120px;" /></div></div>';
+			   $('.swiper-container').html(main_images);
+		   
+			}
+				var swiper = new Swiper('.swiper-container',{
+						pagination: '.pagination',
+						loop:false,
+						paginationClickable: true
+					  }) 
 				
 				 var gameCategory = [];
 				 $.each(post.taxonomy_ptype, function (ind, val) {

@@ -90,9 +90,10 @@ li.your-reply{
 	width:100%;
 	margin-bottom:-1px;}
 .home-tabs ul li>div {
-  display: block;
-  float: left;
-  cursor:pointer;
+    display: block;
+    float: left;
+    cursor: pointer;
+    font-family: arial;
 }
 .home-tabs ul.products-list li a{
 	}
@@ -183,16 +184,17 @@ select.mobile-dropdown, select {
   border: 1px solid #ccc;
 }
 .specification {
-  text-align: center;
-  font-size: 16px;
-  width: 100%;
-  display: block;
-  float: left;
-  border: 1px solid #ccc;
-  border-radius: 25px;
-  margin: 10px 0;
-  padding: 5px 0;
-  background-color: #fff;
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+    display: block;
+    float: left;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin: 10px 0;
+    padding: 5px 0;
+    background-color: #fff;
+    font-family: arial;
 }
 .a-btn, .a-btn.submitBtn{
 	border:1px solid #ccc;
@@ -357,7 +359,7 @@ input.search {
 }
 .gallery a, .gallery img{
  /* width: 33.33333333%;*/
-	width:140px;
+	/*width:140px;*/
   	display: inline-block;
 }
 .ui-icon-cart{
@@ -366,7 +368,7 @@ input.search {
 	}
 .gallery a img {
   margin: 5px;
-  width: 95%;
+  /*width: 95%;*/
 }
 	
 .submitBtn {

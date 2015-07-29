@@ -13,10 +13,7 @@
 <script src="js/swiper.min.js"></script>
     <script>
 	$(document).ready(function(){
-		var swiper = new Swiper('.swiper-container', {
-			pagination: '.swiper-pagination',
-			paginationClickable: true
-		});
+
 	});
     </script>
 <style>
@@ -33,11 +30,11 @@
   text-transform: uppercase;
 }
 .gallery #loading {
-  width: 50px;
-  margin-left: 45%;
-  padding: 20px 0px;
+    width: 50px;
+    margin-left: 44%;
+    padding: 20px 0px;
+    height: 50px !important;
 }
-
 .swiper-container {
   width: 100%;
 }
@@ -45,8 +42,41 @@
   background-position: center;
   background-size: cover;
   width: 100%;
-  height: 300px;
+  height: 200px;
 }
+					.swiper-slide {
+					width: 100%;
+					height: 100%;
+					text-align: center;
+					}
+					.content-slide {
+					  color: #fff;
+					}
+					.title {
+					  font-size: 25px;
+					  margin-bottom: 10px;
+					}
+					.pagination {
+					position: absolute;
+					left: 0;
+					text-align: center;
+					bottom: -15px;
+					width: 100%;
+					/* display: none; */
+					}
+				.swiper-pagination-switch {
+				  display: inline-block;
+				  width: 10px;
+				  height: 10px;
+				  border-radius: 10px;
+				  background: #fff;
+				  box-shadow: 0px 1px 2px #526e34 inset;
+				  margin: 0 3px;
+				  cursor: pointer;
+				}
+				.swiper-active-switch {
+				  background: #73b231;
+				}
 </style>
 </head>
 <body>
