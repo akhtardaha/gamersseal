@@ -6,39 +6,36 @@
     outline: none !important;
 }
 
-/*::-webkit-input-placeholder {
-color:#666;
-}
-
-:-moz-placeholder {
-color:#666; 
-}
-
-::-moz-placeholder {
-color:#666; 
-}
-
-:-ms-input-placeholder {  
-color:#666; 
-}*/
 body{
 	margin:0;
 	padding:0;
 	overflow-x:hidden;
 	}
+	
+.headerLogo img {
+    width: 80px;
+    position: absolute;
+    left: 0px;
+    top: 20px;
+	z-index:9999999999999999;
+}
+
 p, h1, h2, h3, h4, h5{
 	margin:5px 0;
 	padding:0;}
+	
 a {
   text-decoration: none;
   color: #000;
   font-family: arial;
   font-size: 14px;
 }
+
 .header .cart {
   top: 25px;
   left: 5px;
 }
+
 h4.send{
 	float:left;}
 
@@ -47,15 +44,19 @@ h4.send{
   top: 22px;
   right: 5px;	
 }
+
 .cart img {
   width: 20px;
   margin-top: 8px;
   margin-left: 5px;
 }
+
 #publish{
 	margin-top:10px;}
+	
 .setting img{
 	width:25px;}
+	
 #loading {
   width: 50px;
   margin-left: 44%;

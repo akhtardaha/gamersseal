@@ -268,7 +268,7 @@ function app_settings()
 				var app_name = window.localStorage.getItem("app_name");
 				var app_tagLine = window.localStorage.getItem("app_tagLine");
 	
-	$('.header h4').html('<a href="index.html"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header">'+app_name+'</span><span class="heaer-tag-line">'+app_tagLine+'</span></div>');
+	$('.header h4').html('<a href="index.html" class="headerLogo"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header">'+app_name+'</span><span class="heaer-tag-line">'+app_tagLine+'</span></div>');
 	$('.main-wraper').css('background-color',app_background_color);
 }
 
