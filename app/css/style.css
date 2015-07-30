@@ -184,6 +184,7 @@ select.mobile-dropdown, select {
   margin: 10px 0;
   border-radius: 15px;
   border: 1px solid #ccc;
+  white-space:nowrap;
 }
 .specification {
     text-align: center;
@@ -207,6 +208,7 @@ select.mobile-dropdown, select {
   float: left;
   display: block;
   padding: 0 1%;
+  word-wrap:break-word;
 }
 .descBoxes  .ui-block-a a
 {
@@ -592,7 +594,7 @@ textarea {
 .CartTotalBox div.CartTotal{
 	font-weight:bolder;}
 span.col-odr{
-	max-width:175px;
+	max-width:165px;
 	width:100%;
 	display:inline-block;
 	float:left;}
@@ -667,7 +669,7 @@ form[name="message"] input[name="submit"]{
 .home-tabs ul li>div{
 	font-size:12px;}
 .home-tabs >ul> li{
-	padding:7px 3px;}
+	padding:7px 1px;}
 }
 #deviceready {
   position: relative;
