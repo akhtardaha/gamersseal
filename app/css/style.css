@@ -14,9 +14,10 @@ body{
 	
 .headerLogo img {
     width: 80px;
-    position: absolute;
+    /*position: absolute;*/
+	position:relative;
     left: 0px;
-    top: 20px;
+    top: 0px;
 	z-index:9999999999999999;
 }
 
