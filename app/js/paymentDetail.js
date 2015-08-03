@@ -30,7 +30,7 @@ function getBuyerOrder(order_id)
                 //html += '<a href="shippingstatusedit.html?order_id='+value.order_id+'">';
                     html += '<div style="width:100%;float:left;" class="confirm-odr">';
                     html += '<h4><span class="col-odr">Order #</span><span class="odr-val">'+value.order_id+'</span></h4>';
-                    html += '<p><span class="col-odr">Order date:</span><span class="odr-val">'+value.date+'</span></p>';
+                    html += '<p><span class="col-odr">Order Date:</span><span class="odr-val">'+value.date+'</span></p>';
                     html += '<p><span class="col-odr">Delivery Date:</span><span class="odr-val">'+value.delievery_time+'</span></p>';
                     html += '<p><span class="col-odr">Totla Bill:</span><span class="odr-val">'+value.total+'$</span></p>';
                     html += '<p><span class="col-odr">Address:</span><span class="odr-val">'+value.billing_shipping_data.billing.address_1+' '+value.billing_shipping_data.billing.city+' '+value.billing_shipping_data.billing.country+'</span></p>';

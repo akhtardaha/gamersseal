@@ -40,7 +40,7 @@ function getBuyerOrders()
                 html += '<a href="orderconfirm.html?order_id='+value.order_id+'">';
                     html += '<div class="product-list-right">';
                     html += '<h5><span class="col-odr">Order #</span>'+value.order_id+'</h5>';
-                    html += '<p><span class="col-odr">Order date:</span>'+value.date+'</p>';
+                    html += '<p><span class="col-odr">Order Date:</span>'+value.date+'</p>';
                     html += '<p><span class="col-odr">Expected Date of Delivery:</span>'+value.delievery_time+'</p>';
                     html += '<p><span class="col-odr">Totla Bill:</span>$'+value.total+'</p>';
 					html += '<p><span class="col-odr">Shipping Status:</span>'+value.shipping_status+'</p>';

@@ -41,7 +41,7 @@ function getSellerOrder(order_id)
                 //html += '<a href="shippingstatusedit.html?order_id='+value.order_id+'">';
                     html += '<div class="product-list-right">';
                     html += '<h5>Order # '+value.order_id+'</h5>';
-                    html += '<p>Order date: '+value.date+'</p>';
+                    html += '<p>Order Date: '+value.date+'</p>';
                     html += '<p>Expected Date of Delivery: '+value.delievery_time+'</p>';
                     html += '<p>Totla Bill: $'+value.total+'</p>';
                     html += '<p>Address: '+value.billing_shipping_data.billing.address_1+' '+value.billing_shipping_data.billing.city+' '+value.billing_shipping_data.billing.country+'</p>';

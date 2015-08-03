@@ -22,7 +22,7 @@ function signInUser()
 			console.log(data);
 			if(data.status == 'ok')
 			{
-			console.log('Welecome '+data.user.nickname);
+			console.log('Welcome '+data.user.nickname+'!');
 			var role = data.user.capabilities;
 			role = Object.keys(role);
 			var user_role = role[0];
@@ -40,9 +40,9 @@ function signInUser()
 			//console.log(window.localStorage.getItem("loginuserRole"));
 			
 			navigator.notification.alert(
-						'Welecome '+data.user.nickname,  // message
+						'Welcome '+data.user.nickname+'!',  // message
 						function(){setTimeout(function(){ window.location = 'index.html'; }, 500);},       // callback
-					   'Login Successfull',            // title
+					   'Login Successful!',            // title
 						'OK'                  // buttonName
 			);
 			}

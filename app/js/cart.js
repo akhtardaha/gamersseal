@@ -62,7 +62,7 @@ function getProductsFromCart()
                     }
                     else
                     {
-                        $('ul.products-list').html("<li class='notice'>Shoping Cart Empty</li>");
+                        $('ul.products-list').html("<li class='notice'>No Items to Display here</li>");
 						$('.checkoutBtn').hide();
                     }
                 }
@@ -115,7 +115,7 @@ function getCartTotal()
 						var gst = Math.round(totalCart/100 * gstPercenet);
 						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost);
 						html += '<div class="CartTotalBox">';
-						html += '<div class="CartTotal">Cart Total = $'+totalCart.toFixed(2)+'</div>';
+						html += '<div class="CartTotal">Total Itemized Bill = $'+totalCart.toFixed(2)+'</div>';
 						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
 						if(totalShippingCost != 0)
 						{
