@@ -112,11 +112,17 @@ function getCartTotal()
 								
 							}
 						var gstPercenet = window.localStorage.getItem("gst");
+						var gamerseal_charges = window.localStorage.getItem("gamerseal_charges");
 						var gst = Math.round(totalCart/100 * gstPercenet);
-						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost);
+						gamerseal_charges_amount = Math.round(totalCart/100 * gamerseal_charges);
+						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost) + parseFloat(gamerseal_charges_amount);
 						html += '<div class="CartTotalBox">';
 						html += '<div class="CartTotal">Total Itemized Bill = $'+totalCart.toFixed(2)+'</div>';
 						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
+						
+						
+						html += '<div class="CartGst">Gamer Seal Charges '+gamerseal_charges+'% = $'+gamerseal_charges_amount.toFixed(2)+'</div>';
+						
 						if(totalShippingCost != 0)
 						{
 						html += '<div class="CartShippingcost">Shipping Cost = $'+totalShippingCost.toFixed(2)+'</div>';

@@ -328,7 +328,7 @@ function getProductsList()
 				var posts = data.posts;
 				var author = data.author;
 				var totalPosts = data.count;
-					html += '<option value="">Category</option>';
+					html += '<option value="">All Games</option>';
 					$.each(posts, function (i, value) {
 	
 						html += '<option value="'+value.id+'">'+value.title+'</option>';

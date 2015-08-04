@@ -5,9 +5,9 @@
  		// Do cool things here...
         }
  
-        function getImage() {
+        function getImage(btnID) {
             // Retrieve image file location from specified source
-			startButtonLoading('uploadImg');
+			startButtonLoading('uploadImg'+btnID);
             navigator.camera.getPicture(uploadPhoto, function(message) {
 				console.log('get picture failed');
 				},{
@@ -48,7 +48,8 @@
  
         function win(r) {
             //console.log("Code = " + r.responseCode);
-			endButtonLoading('uploadImg');
+			//endButtonLoading('uploadImg');
+			endClassButtonLoading('uploadImg');
             console.log("Response = " + r.response);
 			var PicName = r.response;
 			var imageThumb = '<li><img src="'+GAME_IMAGES_PATH+PicName+'" alt="'+PicName+'"/></li>'
@@ -65,6 +66,10 @@
 			}
 			window.localStorage.setItem("GamesPics",PicName);
             console.log(window.localStorage.getItem("GamesPics"));
+			
+			var imageCount = window.localStorage.getItem("imageCount");
+			imageCount = parseInt(imageCount) + 1;
+			window.localStorage.setItem("imageCount",imageCount);
             //console.log(r);
 			//getUserInfo();
         }

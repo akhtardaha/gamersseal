@@ -73,6 +73,21 @@ function getBuyerOrder(order_id)
 						counter ++;
 					})
                     html += '</div>';
+					html += '<h4>Payment Detail</h4>';
+					html += '<div class="confirm-odr">';
+					if(value.payment_status != 'Pending')
+					{
+					html += '<p><span class="col-odr">Payment Status:</span><span class="odr-val">'+value.payment_status+'</span></p>';	
+					html += '<p><span class="col-odr">Payment Method:</span><span class="odr-val">'+value.payment_method+'</span></p>';	
+					html += '<p><span class="col-odr">Payment Reference:</span><span class="odr-val">'+value.payment_reference+'</span></p>';
+					html += '<p><span class="col-odr">Payment Amount:</span><span class="odr-val">$'+value.total+'</span></p>';		
+					}
+					else
+					{
+					html += '<p><span class="col-odr">Payment Status:</span><span class="odr-val">'+value.payment_status+'</span></p>';	
+					}
+					html += '</div>';
+					
                 //html += '</a>';
             	html += '</li>';
 				//$('#buyer_id').val(value.uid);

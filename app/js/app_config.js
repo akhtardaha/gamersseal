@@ -13,6 +13,7 @@ var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 $(document).ready(function(){
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
+getAppStatics();
 app_settings();
 sideBarMenu();
 
@@ -140,34 +141,33 @@ function sideBarMenu()
 {
 			var html = '';
 			html += '<ul >';
+				if(window.localStorage.getItem("loginuserABN") != '' && window.localStorage.getItem("loginuserCookie") != '')
+				{
+				    html += '<li class="bdr-btm"><a href="shippingstatus.html">Shipping Status</a></li>';
+					html += '<li><a href="managegames.html">Stock Management</a></li>';
+					html += '<li class="bdr-btm"><a href="postgame.html">Add New Item</a></li>';
+					html += '<li><a href="salesreport.html">Sales Reports</a></li>';
+					html += '<li><a href="postgame.html">Post a Game</a></li>';
+				}
+				
 				if(!(window.localStorage.getItem("loginuserCookie")))
 				{
-				
+				html += '<li><a href="cart.html">Shopping Cart</a></li>';
+				html += '<li class="loginMenu"><a href="login.html">Sign in</a></li>';
+                html += '<li class="registerMenu"><a href="register.html">Sign up</a></li>';
+				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
 				}
 				else
 				{
 				html += '<li><a href="cart.html">Shopping Cart</a></li>';
 				html += '<li><a href="message-board.html">Message Board</a></li>';
-				html += '<li><a href="orderstatus.html">Order Status (for buyer)</a></li>';
-                html += '<li class="bdr-btm"><a href="shippingstatus.html">Shipping Status (for Seller)</a></li>';
-                html += '<li><a href="managegames.html">Stock Management (for Seller)</a></li>';
-                html += '<li class="bdr-btm"><a href="postgame.html">Add New Item (for Seller)</a></li>';
+				html += '<li><a href="orderstatus.html">Order Status</a></li>';
                 html += '<li class="bdr-btm"><a href="setting.html">Settings</a></li>';
-                html += '<li><a href="salesreport.html">Sales Reports</a></li>';
-				}
-                
-				if(!(window.localStorage.getItem("loginuserCookie")))
-				{
-				html += '<li class="loginMenu"><a href="login.html">Sign in</a></li>';
-                html += '<li class="registerMenu"><a href="register.html">Sign up</a></li>';
-				}
-				else
-				{
 				html += '<li class="profileMenu"><a href="profile.html">Profile</a></li>';	
 				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();">Sign out</a></li>';
-				html += '<li><a href="postgame.html">Post a Game</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
 				}
+				
 				html += '<li class="bdr-btm"><a href="halloffames.html">Hall of Fame</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">GoTo Home</a></li>';
                 
@@ -238,6 +238,87 @@ function getAppSettings()
 		
 }
 
+function getAppStatics()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'fetch_app_settings/?key=1234567891011';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			if(data.status == 'ok')
+			{
+				window.localStorage.setItem("gst",data.app_configuration[0].gst);
+				
+				window.localStorage.setItem("guest_daily_purchase",data.app_configuration[0].guest_daily_purchase);
+				window.localStorage.setItem("guest_daily_transaction",data.app_configuration[0].guest_daily_transaction);
+				window.localStorage.setItem("guest_seal_charges",data.app_configuration[0].guest_seal_charges);
+				
+				window.localStorage.setItem("item_desc_limit",data.app_configuration[0].item_desc_limit);
+				
+				window.localStorage.setItem("premium_daily_purchase",data.app_configuration[0].premium_daily_purchase);
+				window.localStorage.setItem("premium_daily_transaction",data.app_configuration[0].premium_daily_transaction);
+				window.localStorage.setItem("premium_item_day",data.app_configuration[0].premium_item_day);
+				window.localStorage.setItem("premium_seal_charges",data.app_configuration[0].premium_seal_charges);
+				
+				window.localStorage.setItem("standard_daily_purchase",data.app_configuration[0].standard_daily_purchase);
+				window.localStorage.setItem("standard_daily_transaction",data.app_configuration[0].standard_daily_transaction);
+				window.localStorage.setItem("standard_item_day",data.app_configuration[0].standard_item_day);
+				window.localStorage.setItem("standard_seal_charges",data.app_configuration[0].standard_seal_charges);
+				
+				window.localStorage.setItem("terms_and_conditions",data.app_configuration[0].terms_and_conditions);
+				
+				window.localStorage.setItem("app_name",data.app_configuration[0].app_name);
+				window.localStorage.setItem("app_tagLine",data.app_configuration[0].app_tagLine);
+				
+				
+				var user_role = window.localStorage.getItem("loginuserRole");
+				var standard_seal_charges = window.localStorage.getItem("standard_seal_charges");
+				var premium_seal_charges = window.localStorage.getItem("premium_seal_charges");
+				var guest_seal_charges = window.localStorage.getItem("guest_seal_charges");
+				
+				if(user_role == 'preminum')
+				{
+				window.localStorage.setItem("gamerseal_charges",premium_seal_charges);
+				}
+				if(user_role == 'standard')
+				{
+				window.localStorage.setItem("gamerseal_charges",standard_seal_charges);	
+				}
+				if(user_role == 'guest')
+				{
+				window.localStorage.setItem("gamerseal_charges",guest_seal_charges);	
+				}
+				
+				
+				
+				var app_background_color = window.localStorage.getItem("app_background_color");
+				var app_icon = window.localStorage.getItem("app_icon");
+				
+				var app_name = window.localStorage.getItem("app_name");
+				var app_tagLine = window.localStorage.getItem("app_tagLine");
+				
+				$('.header h4').html('<a href="index.html" class="headerLogo"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header">'+app_name+'</span><span class="heaer-tag-line">'+app_tagLine+'</span></div>');
+	$('.main-wraper').css('background-color',app_background_color);
+				
+				//app_settings();
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
 function app_settings()
 {
 				var app_name = '';
@@ -279,6 +360,10 @@ function startButtonLoading(id)
 function endButtonLoading(id)
 {
 	$('#'+id).removeClass('buttonLoading');
+}
+function endClassButtonLoading(id)
+{
+	$('.'+id).removeClass('buttonLoading');
 }
 
 function getUserItemsPerDay()

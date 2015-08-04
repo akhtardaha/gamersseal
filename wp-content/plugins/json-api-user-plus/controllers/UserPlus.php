@@ -411,7 +411,10 @@ if( isset($_REQUEST['user_pass']) && $_REQUEST['notify']=='no') {
 
 	$notify = false;	
 
-  }else $notify = true;
+  }
+  else 
+  
+  $notify = true;
 
 
 
@@ -934,6 +937,13 @@ public function generate_auth_cookie() {
 
 
 		preg_match('|src="(.+?)"|', get_avatar( $user->ID, 512 ), $avatar);	
+		
+		$args = array(
+			'field'   => 'ABN',
+			'user_id' => $user->ID
+		);
+
+		$abn = bp_get_profile_field_data( $args );
 
 		
 
@@ -969,7 +979,9 @@ public function generate_auth_cookie() {
 
 				"capabilities" => $user->wp_capabilities,
 
-				"avatar" => $avatar[1]
+				"avatar" => $avatar[1],
+				
+				"abn" => $abn
 
 
 
@@ -6723,6 +6735,9 @@ foreach($meta_keys as $k){
 		$orderTotal = $json_api->query->orderTotal;
 		$sellerID = $json_api->query->sellerID;
 		
+		$gamerseal_charges = $json_api->query->gamerseal_charges;
+		$gamerseal_charges_amount = $json_api->query->gamerseal_charges_amount;
+		
 		$order = stripslashes($order);
 		$shipping = stripslashes($shipping);
 		
@@ -6767,7 +6782,7 @@ foreach($meta_keys as $k){
 		//echo $batchItems;
 		//die();
 		
-		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,seller_id,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','".$sellerID."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','')";
+		$query = "INSERT INTO wp_mp_orders (order_id,title,date,items,cart_data,total,order_status,payment_status,uid,seller_id,order_notes,payment_method,shipping_method,shipping_cost,billing_shipping_data,cart_discount,cart_total,gst_percent,gst,gamersseal_charges,gamerseal_charges_amount) VALUES ('".$order_id."','Order From Gamersseal APP','".$date."','".$itemsData."','".$cartData."','".$orderTotal."','Processing','Processing','".$user_id."','".$sellerID."','','eWay','','".$shippingCost."','".$billing_shipping_data."','','".$cartTotal."','".$gstpercent."','".$gst."','".$gamerseal_charges."','".$gamerseal_charges_amount."')";
 			//die();
 			$res = $wpdb->query($query);
 			$OrderID = $order_id;

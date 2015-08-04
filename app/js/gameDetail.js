@@ -122,8 +122,14 @@ function getPostDetail(post_id)
 				 var pid = post.id;
 				 var pname = post.title;
 				 var price = post.custom_fields.sales_price[0];
+				 if(post.custom_fields.delivery_time)
+				 {
 				 var delievery_time = post.custom_fields.delivery_time[0];
-				 
+				 }
+				 else
+				 {
+					var delievery_time = 2; 
+				 }
 				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+gameCat+'</a></div></div>';
                  descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Price:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">$'+price+'</a></div></div>';

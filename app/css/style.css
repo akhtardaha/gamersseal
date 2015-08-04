@@ -585,10 +585,11 @@ textarea {
 	display:block;
 	width:95%;
 	max-width:275px;}
-.CartTotalBox span{
-	float:left;
-	display:inline-block;
-	width:38%;}
+.CartTotalBox span {
+    float: left;
+    display: inline-block;
+    width: 50%;
+}
 .CartTotalBox>div{
 	margin:10px 0;}
 .CartTotalBox div.CartTotal{
@@ -614,10 +615,12 @@ form[name="message"] input[name="submit"]{
 	display:block;
 	float:left;
 	width:100%;}
-.odr-val{
-	display:inline-block;
-	float:left;
-	width:50%}
+.odr-val {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    word-wrap: break-word;
+}
 .confirm-odr span.col-odr{
 	width:50%;}
 .confirm-odr p {

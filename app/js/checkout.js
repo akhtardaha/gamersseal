@@ -56,11 +56,16 @@ function getCartTotal()
 							}
 						html += '</table>';
 						var gstPercenet = window.localStorage.getItem("gst");
+						var gamerseal_charges = window.localStorage.getItem("gamerseal_charges");
 						var gst = Math.round(totalCart/100 * gstPercenet);
-						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost);
+						gamerseal_charges_amount = Math.round(totalCart/100 * gamerseal_charges);
+						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost) + parseFloat(gamerseal_charges_amount);
 						html +='<div class="CartTotalBox">';
 						html += '<div class="CartTotal"><span>Total Itemized Bill </span> $'+totalCart.toFixed(2)+'</div>';
-						html += '<div class="CartGst"><span>GST </span>'+gstPercenet+'% included in price</div>';
+						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
+						
+						html += '<div class="CartGst">Gamer Seal Charges '+gamerseal_charges+'% = $'+gamerseal_charges_amount.toFixed(2)+'</div>';
+						
 						if(totalShippingCost != 0)
 						{
 						html += '<div class="CartShippingcost"><span>Shipping Cost </span> $'+totalShippingCost.toFixed(2)+'</div>';
@@ -68,6 +73,10 @@ function getCartTotal()
 						
 						html += '<div class="CartTotal"><span>Order Total </span> $'+OrderTotal.toFixed(2)+'</div>';
 						html += '</div>';
+						
+						$('#gamerseal_charges').val(gamerseal_charges);
+						$('#gamerseal_charges_amount').val(gamerseal_charges_amount);
+						$('#gstpercent').val(gstPercenet);
 						$('#gstpercent').val(gstPercenet);
 						$('#gst').val(gst.toFixed(2));
 						$('#cartTotal').val(totalCart.toFixed(2));
@@ -218,6 +227,9 @@ function placeOrder()
 		var shipemail = $('#shipemail').val();
 		var shipphone = $('#shipphone').val();
 		
+		var gamerseal_charges = $('#gamerseal_charges').val();
+		var gamerseal_charges_amount = $('#gamerseal_charges_amount').val();
+		
 		
 		if(shipfname == '')
 		{
@@ -323,7 +335,7 @@ function placeOrder()
 		
 		
 		
-		var url = API_URL+'order_items/?key=1234567891011&user_id='+user_id+'&orderData='+JSON.stringify(cartProducts)+'&shippingData='+JSON.stringify(shippingAddress)+'&gstpercentage='+gstpercent+'&gst='+gst+'&cartTotal='+cartTotal+'&shippingCost='+shippingCost+'&orderTotal='+orderTotal+'&sellerID='+sellerID+'';
+		var url = API_URL+'order_items/?key=1234567891011&user_id='+user_id+'&orderData='+JSON.stringify(cartProducts)+'&shippingData='+JSON.stringify(shippingAddress)+'&gstpercentage='+gstpercent+'&gst='+gst+'&cartTotal='+cartTotal+'&shippingCost='+shippingCost+'&gamerseal_charges_amount='+gamerseal_charges_amount+'&gamerseal_charges='+gamerseal_charges+'&orderTotal='+orderTotal+'&sellerID='+sellerID+'';
 		console.log(url);
 		var html = '';
 		var imageGallery = '';

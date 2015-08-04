@@ -4,6 +4,7 @@ $(document).ready(function(){
 	{
 		getProductCategories();	
 		window.localStorage.setItem("GamesPics",'');
+		window.localStorage.setItem("imageCount",0);
 		getUserTransactionsPerDay();
 		getUserPurchasePerDay();	
 	}
@@ -112,11 +113,21 @@ function addPost()
 	
 	
 	
-	
+	var imgCount = window.localStorage.getItem("imageCount");
 	if(postTitle == '' || postDetail == '' || price == '' || stock == '')
 	{
 		$('#form-err').text('Please Fill Required Fields!');
 		return false;
+	}
+	else if(imgCount < 3)
+	{
+		console.log("Please upload minimum 3 Images of Game");
+		navigator.notification.alert(
+							"Please upload minimum 3 Images of Game",  // message
+							function(){},        // callback
+						   'Upload Images',            // title
+							'OK'                  // buttonName
+		);	
 	}
 	else
 	{

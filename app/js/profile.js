@@ -25,7 +25,10 @@ function getUserInfo()
 			if(data.status == 'ok')
 			{
 				var profile = data;
-					
+					html += '<div class="item">';
+					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Username:</a></div>';
+   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.displayname+'</a></div>';
+					html += '</div>';
 					html += '<div class="item">';
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
    					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.email+'</a></div>';

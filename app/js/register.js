@@ -25,7 +25,8 @@ var fname = $('#fname').val();
 		var passport = $('#passport').val();
 		var australianId = $('#australianId').val();
 		
-		var role = $('#userType').val();
+		//var role = $('#userType').val();
+		var role = '';
 		
 		if(fname == '')
 		{
@@ -67,14 +68,15 @@ var fname = $('#fname').val();
 		{
 			$('#australianId').css('border','1px solid #aaa');
 		}
-		if(role == '')
-		{
-			$('.usertypeSelect select').css('border','1px solid goldenrod');
-		}
-		else
-		{
-			$('.usertypeSelect select').css('border','1px solid #aaa');
-		}
+		
+		//if(role == '')
+		//{
+			//$('.usertypeSelect select').css('border','1px solid goldenrod');
+		//}
+		//else
+		//{
+			//$('.usertypeSelect select').css('border','1px solid #aaa');
+		//}
 		
 		var australianIdImage = window.localStorage.getItem("AustralianID");
 		
@@ -141,7 +143,7 @@ function registerUser(){
 		var passport = $('#passport').val();
 		var australianId = $('#australianId').val();
 		var australianIdImage = window.localStorage.getItem("AustralianID");
-			var role = $('#userType').val();
+			var role = '';
 			var check = $("#terms").is(":checked");
 				if(check)
 				{
