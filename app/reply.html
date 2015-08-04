@@ -76,6 +76,10 @@ textarea  {
         	</ul>
             <form name="sendmessage">
             <textarea name="message" id="replyMessage"  class="search not-srch" placeholder="Reply"></textarea>
+            <div class="captcha">
+    			<span id="number1">4</span>+<span id="number2">5</span> = <input type="text" id="captchaInput" />
+       			 <input type="hidden" value="" id="captcha-val" />
+    		</div>
             <label id="form-err"></label>
             <input type="button" name="reply" value="Reply" onclick="return replyUserMessage();" class="search btn not-srch a-btn" />
             </form>

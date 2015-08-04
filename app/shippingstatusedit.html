@@ -59,6 +59,11 @@
     <input type="text" id="title" placeholder="Title" name="title" class="search not-srch" />
     <input type="hidden" id="buyer_id" value="" />
     <textarea id="message" placeholder="Message" name="message" class="search not-srch" ></textarea>
+    <div class="captcha">
+    	<span id="number1">4</span>+<span id="number2">5</span> = <input type="text" id="captchaInput" />
+        <input type="hidden" value="" id="captcha-val" />
+    </div>
+    <label id="form-err"></label>
     <input type="button" name="submit" value="Send" class="search btn not-srch" onclick="return sendMessagetoCustomer();" />
     </form>
         </div><!-- /content -->

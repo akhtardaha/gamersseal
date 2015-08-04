@@ -702,10 +702,14 @@ img.age-img{
 .header .cart{
 	display:none;}
 .slide-menu.open{
-	width:100%;}
+	width:100%;
+	margin-top:5px;}
 .full-profile{
 	display:none;
 	float:left;
 	width:100%;}
 .show-full-profile{
 	cursor:pointer;}
+#captchaInput{
+	border-radius:5px;
+	border-width:1px;}

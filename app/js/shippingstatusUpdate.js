@@ -77,6 +77,8 @@ function sendMessagetoCustomer()
 		var buyer_id = $('#buyer_id').val();
 		var title = $('#title').val();
 		var message = $('#message').val();
+		var captcha = $('#captchaInput').val();
+		var captchaVal = $('#captcha-val').val();
 	if(title == ''){
 		$('#title').css('border','1px solid #ef4c4d');
 		$('#form-err').text('Please Fill Required Fields!');
@@ -95,10 +97,28 @@ function sendMessagetoCustomer()
 		$('#message').css('border','1px solid #cccccc');
 		$('#form-err').text('');
 	}
-	
+	if(captcha == ''){
+		$('#captchaInput').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#captchaInput').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(captcha !== captchaVal){
+		$('#captchaInput').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#captchaInput').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
 	title = title.replace("#", " no "); 
 	message = message.replace("#", " no ");
-	if(message == '' || title == ''){
+	if(message == '' || title == '' || captcha == '' || captcha !== captchaVal){
+		$('#form-err').text('Please Fill Required Fields!');
 		return false;}
 		var url = API_URL+'send_message_seller/?key=1234567891011&user_id='+user_id+'&seller_id='+buyer_id+'&title='+title+'&message='+message;
 		console.log(url);

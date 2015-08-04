@@ -11,6 +11,11 @@ var AUSTRALIAN_IDS_PATH = 'http://gamersseal.com/development/uploads/australiani
 var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 
 $(document).ready(function(){
+		var oneNumber = Math.floor((Math.random() * 3) + 1);
+		var anoterNumber = Math.floor((Math.random() * 7) + 1);
+		$('#number1').text(oneNumber);
+		$('#number2').text(anoterNumber);
+		$('#captcha-val').val(oneNumber+anoterNumber);
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
 getAppStatics();

@@ -198,6 +198,8 @@ function sendMessagetoSeller()
 		var seller_id = $('#seller_id').val();
 		var title = $('#title').val();
 		var message = $('#message').val();
+		var captcha = $('#captchaInput').val();
+		var captchaVal = $('#captcha-val').val();
 	if(title == ''){
 		$('#title').css('border','1px solid #ef4c4d');
 		$('#form-err').text('Please Fill Required Fields!');
@@ -216,7 +218,26 @@ function sendMessagetoSeller()
 		$('#message').css('border','1px solid #cccccc');
 		$('#form-err').text('');
 	}
-	if(message == '' || title == ''){
+	if(captcha == ''){
+		$('#captchaInput').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#captchaInput').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(captcha !== captchaVal){
+		$('#captchaInput').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#captchaInput').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(message == '' || title == '' || captcha == '' || captcha !== captchaVal){
+		$('#form-err').text('Please Fill Required Fields!');
 		return false;}
 		var url = API_URL+'send_message_seller/?key=1234567891011&user_id='+user_id+'&seller_id='+seller_id+'&title='+title+'&message='+message;
 		console.log(url);

@@ -12,10 +12,6 @@
     <script src="js/addtocart.js"></script>
      <link rel="stylesheet" href="css/swiper.min.css">
     <script src="js/swiper.min.js"></script>
-    <script>
-	$(document).ready(function(){
-	});
-    </script>
 <style>
 .gallery #loading {
     width: 50px;
@@ -107,6 +103,10 @@
     <input type="text" id="title" placeholder="Title" name="title" class="search not-srch" />
     <input type="hidden" id="seller_id" />
     <textarea id="message" placeholder="Message" name="message" class="search not-srch" ></textarea>
+    <div class="captcha">
+    	<span id="number1">4</span>+<span id="number2">5</span> = <input type="text" id="captchaInput" />
+        <input type="hidden" value="" id="captcha-val" />
+    </div>
     <label id="form-err"></label>
     <input type="button" name="submit" onclick="return sendMessagetoSeller();" value="Send" class="search btn not-srch" />
     </form>
