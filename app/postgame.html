@@ -53,13 +53,15 @@
             </div>
         </div>
         <p>Age Restriction:</p>
-        <input type="radio" id="age-limit" name="age-limit" value="15"><img class="age-img" src="img/icon_ctc.png" alt="CTC" /><br>
-        <input type="radio" id="age-limit" name="age-limit" value="g"><img class="age-img" src="img/icon_g.png" alt="G" /><br>
-        <input type="radio" id="age-limit" name="age-limit" value="15"><img class="age-img" src="img/icon_pg.png" alt="PG" /><br>
-        <input type="radio" id="age-limit" name="age-limit" value="15"><img class="age-img" src="img/icon_m.png" alt="M" /><br>
-        <input type="radio" id="age-limit" name="age-limit" value="15"><img class="age-img" src="img/icon_ma.png" alt="MA" /><br>
-        <input type="radio" id="age-limit" name="age-limit" value="18"><img class="age-img" src="img/icon_r.png" alt="R" /><br>
-		<input type="radio" id="age-limit" name="age-limit" value="18"><img class="age-img" src="img/icon_x.png" alt="X" />
+        <div id="age-filter">
+        <input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="CTC"><img class="age-img" src="img/icon_ctc.png" alt="CTC" /><br>
+        <input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="G"><img class="age-img" src="img/icon_g.png" alt="G" /><br>
+        <input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="PG"><img class="age-img" src="img/icon_pg.png" alt="PG" /><br>
+        <input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="M"><img class="age-img" src="img/icon_m.png" alt="M" /><br>
+        <input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="MA"><img class="age-img" src="img/icon_ma.png" alt="MA" /><br>
+        <input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="R"><img class="age-img" src="img/icon_r.png" alt="R" /><br>
+		<input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="X"><img class="age-img" src="img/icon_x.png" alt="X" />
+       	</div>
        <!-- <select id="age-limit" name="age-limit">
         	<option selected="selected">Age Restriction</option>
             <option value="15">15+</option>
@@ -72,7 +74,7 @@
             <option value="0">Hidden</option>
         </select>
         <label id="form-err"></label>
-        <input type="button" onclick="return addPost();" name="SignIn" value="Add" class="search btn not-srch" style="float:left;" />
+        <input type="button" id="SignIn" onclick="return addPost();" name="SignIn" value="Add" class="search btn not-srch" style="float:left;" />
         </form>
         </div></div><!-- /content -->
  

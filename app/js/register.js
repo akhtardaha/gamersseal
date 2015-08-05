@@ -25,6 +25,9 @@ var fname = $('#fname').val();
 		var passport = $('#passport').val();
 		var australianId = $('#australianId').val();
 		
+		var password = $('#password').val();
+		var cpassword = $('#cpassword').val();
+		
 		//var role = $('#userType').val();
 		var role = '';
 		
@@ -60,6 +63,26 @@ var fname = $('#fname').val();
 		{
 			$('#email').css('border','1px solid #aaa');
 		}
+		
+		if(password == '')
+		{
+			$('#password').css('border','1px solid goldenrod');
+		}
+		else
+		{
+			$('#password').css('border','1px solid #aaa');
+		}
+		
+		if(cpassword == '')
+		{
+			$('#cpassword').css('border','1px solid goldenrod');
+		}
+		else
+		{
+			$('#cpassword').css('border','1px solid #aaa');
+		}
+		
+		
 		if(australianId == '')
 		{
 			$('#australianId').css('border','1px solid goldenrod');
@@ -68,6 +91,21 @@ var fname = $('#fname').val();
 		{
 			$('#australianId').css('border','1px solid #aaa');
 		}
+		
+		if(password != cpassword)
+		{
+			$('.fieldError').addClass('PasswordError');
+			$('.fieldError').html('Password not matched! Please enter same password in both password fields');
+			$('.fieldError').fadeIn();
+			$('#password').css('border','1px solid goldenrod');
+			$('#cpassword').css('border','1px solid goldenrod');
+		}
+		else
+		{
+			$('.PasswordError').fadeOut();
+		}
+		
+			
 		
 		//if(role == '')
 		//{
@@ -92,7 +130,7 @@ var fname = $('#fname').val();
 			return false;	
 		}
 		
-		if( username !='' && email != '' && fname != '' && lname != '' && australianId != '' && role != '')
+		if( username !='' && email != '' && fname != '' && lname != '' && australianId != '' && cpassword != '' && password == cpassword)
 		{
 		if(validateEmail(email))
 		{
@@ -130,7 +168,7 @@ function registerUser(){
 		var lname = $('#lname').val();
 		var username = $('#username').val();
 		var email = $('#email').val();
-		
+		var password = $('#cpassword').val();
 		var dob = $('#dob').val();
 		var address = $('#address').val();
 		var Suburb = $('#Suburb').val();
@@ -151,7 +189,7 @@ function registerUser(){
 					{
 						role = '';
 					}
-					var url = API_URL+'register/?key=1234567891011&username='+username+'&email='+email+'&display_name='+username+'&first_name='+fname+'&last_name='+lname+'&role='+role+'&australian_id_image='+australianIdImage+' ';
+					var url = API_URL+'register/?key=1234567891011&username='+username+'&email='+email+'&user_pass='+password+'&display_name='+username+'&first_name='+fname+'&last_name='+lname+'&role='+role+'&australian_id_image='+australianIdImage+' ';
 					console.log(url);
 					//return false;
 					$.ajax({

@@ -5,12 +5,12 @@
     -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; 
     outline: none !important;
 }
-
-body{
-	margin:0;
-	padding:0;
-	overflow-x:hidden;
-	}
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: arial;
+}
 	
 .headerLogo img {
     width: 80px;

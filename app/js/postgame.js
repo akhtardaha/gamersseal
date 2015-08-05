@@ -50,6 +50,7 @@ function getProductCategories()
 
 function addPost()
 {
+	startButtonLoading('SignIn');
 	var gameType = $('#gameType').val();
 	var postTitle = $('#title').val();
 	var postDetail = $('#content').val();
@@ -59,7 +60,9 @@ function addPost()
 	var shipingCost = $('#shiping-cost').val();
 	var minOrder = $('#min-order').val();
 	var maxOrder = $('#max-order').val();
-	var ageLimit = $('#age-limit').val();
+	var ageLimit = $('input[name="age-limit"]:checked').val();
+	console.log(ageLimit);
+	//var ageLimit = $('#age-limit').val();
 	var manage_stock = 1;
 	
 	if(window.localStorage.getItem("GamesPics"))
@@ -78,6 +81,7 @@ function addPost()
 	{
 		$('#title').css('border','1px solid #ef4c4d');
 		$('#form-err').text('Please Fill Required Fields!');
+		endButtonLoading('SignIn');
 	}
 	else
 	{
@@ -87,6 +91,7 @@ function addPost()
 	{
 		$('#content').css('border','1px solid #ef4c4d');
 		$('#form-err').text('Please Fill Required Fields!');
+		endButtonLoading('SignIn');
 	}
 	else
 	{
@@ -96,6 +101,7 @@ function addPost()
 	{
 		$('#price').css('border','1px solid #ef4c4d');
 		$('#form-err').text('Please Fill Required Fields!');
+		endButtonLoading('SignIn');
 	}
 	else
 	{
@@ -105,6 +111,7 @@ function addPost()
 	{
 		$('#stock').css('border','1px solid #ef4c4d');
 		$('#form-err').text('Please Fill Required Fields!');
+		endButtonLoading('SignIn');
 	}
 	else
 	{
@@ -117,6 +124,7 @@ function addPost()
 	if(postTitle == '' || postDetail == '' || price == '' || stock == '')
 	{
 		$('#form-err').text('Please Fill Required Fields!');
+		endButtonLoading('SignIn');
 		return false;
 	}
 	else if(imgCount < 3)
@@ -127,7 +135,9 @@ function addPost()
 							function(){},        // callback
 						   'Upload Images',            // title
 							'OK'                  // buttonName
-		);	
+		);
+		endButtonLoading('SignIn');
+		return false;
 	}
 	else
 	{
