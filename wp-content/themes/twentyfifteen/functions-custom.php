@@ -487,6 +487,39 @@ function update_custom_fields($post) {
     }
 }
 
+add_action('user_register','newuser_deactive');
+
+function newuser_deactive($user_id){
+  global $wpdb;
+
+        // go and put $marker on the markers table
+        $wpdb->query("INSERT INTO wp_usermeta(user_id,meta_key,meta_value)VALUES('$user_id','is_active','n'),('$user_id','block_msg_permenant','New User Deactive')");
+}
+
+function wps_wp_admin_area_notice() { 
+    global $wpdb;
+   $querystr = "
+    SELECT count(user_id) as users 
+    FROM $wpdb->usermeta
+    WHERE meta_value like '%New User Deactive%'
+   ";
+
+ $newuser = $wpdb->get_results($querystr);
+ $uc;
+ foreach($newuser as $u){
+   $uc=$u->users;  
+ }
+ 
+ if($uc > 0){
+    $base= get_bloginfo('url').'wp-admin/admin.php?page=permanent_blocked_user_list';
+ 
+   echo ' <div class="error"><p> You have '.$uc.' new Users, Please Activate them ! <a href "'.$base.'" >Activate User</a></p>
+          </div>';
+   
+          }
+}
+add_action('admin_notices', 'wps_wp_admin_area_notice');
+
 add_action('save_post', 'save_custom_fields');
 add_action('edit_post', 'update_custom_fields');
 
