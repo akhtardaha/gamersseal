@@ -923,8 +923,16 @@ public function generate_auth_cookie() {
 
 
     	}
-
-
+		
+		if ($user->roles) {
+			if ($user->roles[0] != 'preminum' && $user->roles[0] != 'standard' && $user->roles[0] != 'guest') {
+    		$json_api->error("Your account has not been activated yet! please try later");
+    		}
+    	}
+		
+		//echo '<pre>';
+//		print_r($user->roles[0]);
+//		die();
 
 
 
