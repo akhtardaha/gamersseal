@@ -187,7 +187,7 @@ function registerUser(){
 				{
 					if(role != 'guest' && role != 'standard' && role != 'preminum')
 					{
-						role = '';
+						role = 'subscriber';
 					}
 					var url = API_URL+'register/?key=1234567891011&username='+username+'&email='+email+'&user_pass='+password+'&display_name='+username+'&first_name='+fname+'&last_name='+lname+'&role='+role+'&australian_id_image='+australianIdImage+' ';
 					console.log(url);

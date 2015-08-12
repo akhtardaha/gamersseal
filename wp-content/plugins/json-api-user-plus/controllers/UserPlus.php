@@ -400,7 +400,7 @@ $user_id = wp_insert_user( $user );
 			
 		}
 	
-
+$wpdb->query("INSERT INTO wp_usermeta(user_id,meta_key,meta_value)VALUES('$user_id','is_active','n'),('$user_id','block_msg_permenant','New User Deactive')");
 /*Send e-mail to admin and new user - 
 
 You could create your own e-mail instead of using this function*/
@@ -929,6 +929,10 @@ public function generate_auth_cookie() {
     		$json_api->error("Your account has not been activated yet! please try later");
     		}
     	}
+		else
+		{
+			$json_api->error("Your account has not been activated yet! please try later");
+		}
 		
 		//echo '<pre>';
 //		print_r($user->roles[0]);
