@@ -66,12 +66,12 @@ function signInUser()
 	}
 	else if(username != '' && password == '')
 	{
-		console.log('Please Enter Password');
+		console.log('Invalid User name or password');
 		$('#password').css('border-color','#F00');
 		$('#username').css('border-color','#ccc');
-		$('#form-err').text('Please Enter Password!');
+		$('#form-err').text('Invalid User name or password');
 		navigator.notification.alert(
-						'Please Enter your Password',  // message
+						'Invalid User name or password',  // message
 						function(){},        // callback
 					   'Login Password',            // title
 						'OK'                  // buttonName
@@ -79,12 +79,12 @@ function signInUser()
 	}
 	else if(username == '' && password != '')
 	{
-		console.log('Please Enter Username!');
+		console.log('Invalid User name or password');
 		$('#username').css('border-color','#F00');
 		$('#password').css('border-color','#ccc');
-		$('#form-err').text('Please Enter Username!');
+		$('#form-err').text('Invalid User name or password');
 		navigator.notification.alert(
-						'Please Enter your Username!',  // message
+						'Invalid User name or password',  // message
 						function(){},        // callback
 					  	'Login Username',            // title
 						'OK'                  // buttonName
@@ -92,12 +92,12 @@ function signInUser()
 	}
 	else
 	{
-		console.log('Please Enter your Login detail!');
+		console.log('Invalid User name or password');
 		$('#password').css('border-color','#F00');
 		$('#username').css('border-color','#F00');
-		$('#form-err').text('Please Enter your Login detail!');
+		$('#form-err').text('Invalid User name or password');
 		navigator.notification.alert(
-						'Please Enter your Login detail!',  // message
+						'Invalid User name or password',  // message
 						function(){},        // callback
 					   'Login Detail',            // title
 						'OK'                  // buttonName

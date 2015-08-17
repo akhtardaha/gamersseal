@@ -243,7 +243,7 @@ function extraProfileUpdate(cookie,fullname,australianId,dob,address,Suburb,stat
 			if(data.status == 'ok')
 			{
 				navigator.notification.alert(
-						'Thankyou for your Registration. Please check your registration Email for Password, you will be notified when your account will be activate by Admin',  // message
+						'Thanks for the registration, please check your email. You will notify when your account will be activated by admin',  // message
 						function(){setTimeout(function(){ window.location = 'index.html'; }, 200);},        // callback
 					   'Registration Completed',            // title
 						'OK'                  // buttonName
