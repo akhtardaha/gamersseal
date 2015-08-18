@@ -7,8 +7,20 @@ var LOGO_PATH = 'http://gamersseal.com/development/uploads/appicon/';
 var UPLOAD_GAME_PICS_URL = 'http://gamersseal.com/development/upload.php';
 var UPLOAD_AUSTRALIAN_ID_PIC = 'http://gamersseal.com/development/upload_id.php';
 var AUSTRALIAN_IDS_PATH = 'http://gamersseal.com/development/uploads/australianids/';
-
 var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+	
+    function onDeviceReady() {
+        checkConnection();
+    }
+
+
+
+
 
 $(document).ready(function(){
 		var oneNumber = Math.floor((Math.random() * 3) + 1);
@@ -642,8 +654,8 @@ function isNumberKey(evt){
 
 function checkConnection() {
     var networkState = navigator.connection.type;
-
-    var states = {};
+	console.log(networkState);
+    /*var states = {};
     states[Connection.UNKNOWN]  = 'Unknown connection';
     states[Connection.ETHERNET] = 'Ethernet connection';
     states[Connection.WIFI]     = 'WiFi connection';
@@ -651,15 +663,17 @@ function checkConnection() {
     states[Connection.CELL_3G]  = 'Cell 3G connection';
     states[Connection.CELL_4G]  = 'Cell 4G connection';
     states[Connection.CELL]     = 'Cell generic connection';
-    states[Connection.NONE]     = 'No network connection';
+    states[Connection.NONE]     = 'No network connection';*/
+	
+	//alert('Connection type: ' + networkState);
 
-    if(states[networkState] == 'No network connection')
+    if(networkState == 'none')
 	{
 		window.location = 'nointernet.html';
 	}
 }
 
-checkConnection();
+
 
 document.addEventListener("pause", pauseApp, false);
 
