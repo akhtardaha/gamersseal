@@ -640,6 +640,48 @@ function isNumberKey(evt){
     return true;
 }
 
+function checkConnection() {
+    var networkState = navigator.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+
+    if(states[networkState] == 'No network connection')
+	{
+		window.location = 'nointernet.html';
+	}
+}
+
+checkConnection();
+
+document.addEventListener("pause", pauseApp, false);
+
+function pauseApp()
+{
+	var currentURI = window.location;
+	window.localStorage.setItem("lastState",currentURI);
+}
+
+document.addEventListener("resume", resumeApp, false);
+
+function resumeApp()
+{
+	
+	var currentURI = window.localStorage.getItem("lastState");
+	if(currentURI)
+	{
+		window.location = currentURI;	
+	}
+}
+
+
 
 /*
 $(function() {
