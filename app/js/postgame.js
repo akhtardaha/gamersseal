@@ -34,6 +34,7 @@ function getProductCategories()
 			{
 				html += '<option value="" selected="selected">Select Game Type</option>';
 				$.each(data.data, function (i, value) {
+					//html += '<input type="checkbox" name="gameType" value="'+value.term_taxonomy_id+'">'+value.name+'<br />';
 					html += '<option value="'+value.term_taxonomy_id+'">'+value.name+'</option>';
         			//html += '<a href="category.html?term_id='+value.term_id+'&term_taxonomy_id='+value.term_taxonomy_id+'&slug='+value.slug+'">'+value.name+'</a>';
 				})

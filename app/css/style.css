@@ -18,10 +18,20 @@ body {
 	position:relative;
     left: 0px;
     top: 5px;
-	z-index:9999999999999999;
+	z-index:999;
 }
-
-
+.back-box{
+	float:left;
+	display:block;
+	width:100%;}
+.back-box .back-btn{
+	width:auto !important;
+	display:inline !important;
+	padding:5px 15px 5px 25px;
+	background:url(../img/back.png) no-repeat;
+	background-size: 10px 15px;
+    background-position: 10px 6px; 
+	}
 .header1 .headerLogo img {
     width: 74px !important;
     /* position: absolute; */
@@ -262,8 +272,8 @@ input.search {
 }
 .categoury-box a {
   text-decoration: none;
-  display: inline-block;
-  float: left;
+  display: inline;
+  float:none;
   color: #000;
   margin: 5px;
   padding: 5px 13px;
@@ -273,6 +283,7 @@ input.search {
   font-family: arial;
 }
 .categoury-box{
+	text-align:center;
 	display:block;
 	float:left;
 	width:100%;
@@ -708,6 +719,9 @@ form[name="message"] input[name="submit"]{
 .home .header-mid{
 	display:block;}
 @media all and (max-width:420px){
+.categoury-box a{
+	margin:5px 2px;
+	padding:5px 7px;}
 .header .setting img, .header h4 a img{
 	width:80px;}	
 .home-tabs ul li>div{

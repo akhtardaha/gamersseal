@@ -108,7 +108,7 @@ function sendMessagetoCustomer()
 	}
 	if(captcha !== captchaVal){
 		$('#captchaInput').css('border','1px solid #ef4c4d');
-		$('#form-err').text('Please Fill Required Fields!');
+		$('#form-err').text('You Have Entered A Wrong Answer!');
 	}
 	else
 	{
@@ -117,14 +117,19 @@ function sendMessagetoCustomer()
 	}
 	title = title.replace("#", " no "); 
 	message = message.replace("#", " no ");
-	if(message == '' || title == '' || captcha == '' || captcha !== captchaVal){
+	if(message == '' || title == '' || captcha == ''){
 		$('#form-err').text('Please Fill Required Fields!');
 		return false;}
+	else if(captcha !== captchaVal){
+		$('#form-err').text('You Have Entered A Wrong Answer!');
+		return false;
+		}
 		var url = API_URL+'send_message_seller/?key=1234567891011&user_id='+user_id+'&seller_id='+buyer_id+'&title='+title+'&message='+message;
 		console.log(url);
 		var html = '';
 		var imageGallery = '';
 		var descBoxes = '';
+		$('#captchaInput').val('');
 	    $.ajax({
          url:url,
         type: "POST",
@@ -174,6 +179,22 @@ function updateOrderShippingStatus()
 		var order_id = getQueryVariable('order_id');
 		var user_id = window.localStorage.getItem("loginuserID");
 		var shipping_status = $('#shippingStatusDrop').val();
+		//console.log(shipping_status);
+		if(shipping_status=='Change Shipping Status'){
+			endButtonLoading('changeShipping');
+			$('#shippingStatusDrop').css('border-color','rgb(239, 76, 77)');
+			console.log('Please Select Shipping Status!');
+			navigator.notification.alert(
+                    data.shipping_status,  // message
+                    function(){setTimeout(function() {location.reload();}, 200);},    // callback
+                    'Please Select Shipping Status!',            // title
+                    'OK'             // buttonName
+                );
+			
+			return false;
+			}
+		$('#shippingStatusDrop').css('border-color','#ccc');
+		
 		var url = API_URL+'update_order_shipping_status/?key=1234567891011&user_id='+user_id+'&shipping_status='+shipping_status+'&order_id='+order_id;
 		console.log(url);
 	    $.ajax({
