@@ -46,8 +46,11 @@ function getSellerOrder(order_id)
                     html += '<p>Totla Bill: $'+value.total+'</p>';
                     html += '<p>Address: '+value.billing_shipping_data.billing.address_1+' '+value.billing_shipping_data.billing.city+' '+value.billing_shipping_data.billing.country+'</p>';
                     html += '<p>Mobile #: '+value.billing_shipping_data.billing.phone+'</p>';
+					if(value.shipping_status)
+					{
 					html += '<p>Shipping Status: '+value.shipping_status+'</p>';
-                    html += '</div>';
+					}
+					html += '</div>';
                 //html += '</a>';
             	html += '</li>';
 				$('#buyer_id').val(value.uid);
@@ -180,21 +183,23 @@ function updateOrderShippingStatus()
 		var user_id = window.localStorage.getItem("loginuserID");
 		var shipping_status = $('#shippingStatusDrop').val();
 		//console.log(shipping_status);
-		if(shipping_status=='Change Shipping Status'){
+		if(shipping_status == ''){
 			endButtonLoading('changeShipping');
 			$('#shippingStatusDrop').css('border-color','rgb(239, 76, 77)');
 			console.log('Please Select Shipping Status!');
 			navigator.notification.alert(
-                    data.shipping_status,  // message
-                    function(){setTimeout(function() {location.reload();}, 200);},    // callback
-                    'Please Select Shipping Status!',            // title
+                    'Please Select Shipping Status!',  // message
+                    function(){},    // callback
+                    'Shipping Status Missing',            // title
                     'OK'             // buttonName
                 );
 			
 			return false;
 			}
+		else
+		{
 		$('#shippingStatusDrop').css('border-color','#ccc');
-		
+		}
 		var url = API_URL+'update_order_shipping_status/?key=1234567891011&user_id='+user_id+'&shipping_status='+shipping_status+'&order_id='+order_id;
 		console.log(url);
 	    $.ajax({

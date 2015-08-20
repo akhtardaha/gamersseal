@@ -1460,7 +1460,7 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
 	        'posts_per_page' => -1,
 
-	        'post_status'    => 'any',
+	        'post_status'    => $json_api->query->post_status,
 
 	        'post_parent'    => $json_api->query->post_id
 
@@ -1511,7 +1511,13 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	if($sizeof) update_post_meta($post->id, "_thumbnail_id", $post->attachments[($sizeof-1)]->id);	
 
 		}
-
+		
+		
+	/*$my_post = array();
+    $my_post['ID'] = $json_api->query->post_id;
+  	$my_post['post_status'] = $json_api->query->post_status;
+	// Update the post into the database
+  	wp_update_post($my_post);*/
 	
 
 	//print_r($post);
@@ -6463,13 +6469,26 @@ foreach($meta_keys as $k){
 			$post_id = $json_api->query->post_id;
 			$terms_id = $json_api->query->terms_id;	
 			
-			$query = "INSERT INTO wp_term_relationships (object_id,term_taxonomy_id) VALUES ($post_id,$terms_id)";
-			$res = $wpdb->query($query);
+			$query = "DELETE FROM wp_term_relationships WHERE object_id='".$post_id."' ";
+			$wpdb->query($query);
+		
+			
+			
+			$termsArray = explode(',', $terms_id);
+			//print_r($termsArray);
+			$where = '';
+			foreach ($termsArray as $termsID)
+			{
+				$where .= "('".$post_id."','".$termsID."'),";
+			}
+			$where = rtrim($where,',');
+			
+			$queryINS = "INSERT INTO wp_term_relationships (object_id,term_taxonomy_id) VALUES ".$where." ";
+			$res = $wpdb->query($queryINS);
 			if($res)
 			{
 				$response['success'] = 1;
 				$response['status'] = "Product category Updated Successfully";
-				
 			}
 			else
 			{
@@ -7037,14 +7056,19 @@ foreach($meta_keys as $k){
 				foreach($sorted_ids as $sorted_id)
 				{
 					$post = get_post($sorted_id);
+					if($post->post_status == 'publish')
+					{
 					$sales_price = get_post_meta($sorted_id, 'sales_price');
 					$delivery_time = get_post_meta($sorted_id, 'delivery_time');
 					$post->display_name = get_the_author_meta('display_name', $post->post_author);
 					$images = get_post_meta( $sorted_id, 'images' );
+					$visible = get_post_meta($sorted_id, 'visible');
 					$post->sales_price = $sales_price[0];
 					$post->images = $images[0];
 					$post->delivery_time = $delivery_time[0];
+					$post->visible = $visible[0];
 					$posts_data[] = $post;
+					}
 					//$posts_data[] = $meta;
 				}
 				
@@ -7070,14 +7094,19 @@ foreach($meta_keys as $k){
 				foreach($sorted_ids as $sorted_id)
 				{
 					$post = get_post($sorted_id);
+					if($post->post_status == 'publish')
+					{
 					$sales_price = get_post_meta($sorted_id, 'sales_price');
 					$delivery_time = get_post_meta($sorted_id, 'delivery_time');
 					$post->display_name = get_the_author_meta('display_name', $post->post_author);
 					$images = get_post_meta( $sorted_id, 'images' );
+					$visible = get_post_meta($sorted_id, 'visible');
 					$post->sales_price = $sales_price[0];
 					$post->images = $images[0];
 					$post->delivery_time = $delivery_time[0];
+					$post->visible = $visible[0];
 					$posts_data[] = $post;
+					}
 					//$posts_data[] = $meta;
 				}
 				
@@ -7100,14 +7129,19 @@ foreach($meta_keys as $k){
 				foreach($sorted_ids as $sorted_id)
 				{
 					$post = get_post($sorted_id);
+					if($post->post_status == 'publish')
+					{
 					$sales_price = get_post_meta($sorted_id, 'sales_price');
 					$delivery_time = get_post_meta($sorted_id, 'delivery_time');
 					$post->display_name = get_the_author_meta('display_name', $post->post_author);
 					$images = get_post_meta( $sorted_id, 'images' );
+					$visible = get_post_meta($sorted_id, 'visible');
 					$post->sales_price = $sales_price[0];
 					$post->images = $images[0];
 					$post->delivery_time = $delivery_time[0];
+					$post->visible = $visible[0];
 					$posts_data[] = $post;
+					}
 					//$posts_data[] = $meta;
 				}
 				

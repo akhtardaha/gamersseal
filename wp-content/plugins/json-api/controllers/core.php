@@ -61,6 +61,7 @@ class JSON_API_Core_Controller {
   public function get_post() {
     global $json_api, $post;
     $post = $json_api->introspector->get_current_post();
+	//echo 'Hello!';
 	//print_r($post);
 	//die();
     if ($post) {

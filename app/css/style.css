@@ -24,14 +24,16 @@ body {
 	float:left;
 	display:block;
 	width:100%;}
-.back-box .back-btn{
-	width:auto !important;
-	display:inline !important;
-	padding:5px 15px 5px 25px;
-	background:url(../img/back.png) no-repeat;
-	background-size: 10px 15px;
-    background-position: 10px 6px; 
-	}
+.back-box .back-btn {
+    width: auto !important;
+    display: inline !important;
+    padding: 5px 15px 5px 25px;
+    background: #fff url(../img/back.png) no-repeat;
+    background-size: 9px;
+    background-position: 10px 6px;
+    font-size: 13px;
+    margin-left: 10px;
+}
 .header1 .headerLogo img {
     width: 74px !important;
     /* position: absolute; */
@@ -198,13 +200,13 @@ select.mobile-dropdown, select {
   text-transform: capitalize !important;
 }
 .search.not-srch {
-  background: none;
-  padding-left: 10px;
-  width: 96%;
-  margin: 10px 0;
-  border-radius: 15px;
-  border: 1px solid #ccc;
-  white-space:nowrap;
+    background: none;
+    padding-left: 10px;
+    width: 96%;
+    margin: 10px 0;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    /* white-space: nowrap; */
 }
 .specification {
     text-align: center;

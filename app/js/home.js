@@ -86,29 +86,62 @@ function getPosts()
 				{
 					html += '<ul  class="products-list">';
 					$.each(posts, function (i, value) {
-						if(counter == totalPosts){ var last = 'last'} else {var last ='';}
-						html += '<li class="'+last+'"><a href="single.html?post_id='+value.id+'">';
-						if(value.custom_fields.images)
+						if(value.custom_fields.visible)
 						{
-						html += '<img src="'+GAME_IMAGES_PATH+value.custom_fields.images[0]+'" alt="ninja" class="product-thumb"/>';
+							if(value.custom_fields.visible[0] != 0)
+							{
+								if(counter == totalPosts){ var last = 'last'} else {var last ='';}
+								html += '<li class="'+last+'"><a href="single.html?post_id='+value.id+'">';
+								if(value.custom_fields.images)
+								{
+								html += '<img src="'+GAME_IMAGES_PATH+value.custom_fields.images[0]+'" alt="ninja" class="product-thumb"/>';
+								}
+								else
+								{
+								html += '<img src="img/gamesdefault.png" alt="ninja" class="product-thumb"/>';	
+								}
+								html += '<div class="product-list-right">';
+								html += '<h5>'+value.title+'</h5>';
+								var excerpt = value.excerpt;
+								html += '<p>'+excerpt.substr(0, 100)+'</p>';
+								//console.log(value.custom_fields.images[0]);
+								html += '<span class="price">Price: $'+value.custom_fields.sales_price[0]+'</span>';
+								if(value.custom_fields.delivery_time)
+								{
+								html += '<span class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</span>';
+								}
+								html += '<span class="seller_name">Seller : '+value.author.name+'</span>';
+								html += '</div></a></li>';
+								counter++;
+							}
 						}
 						else
 						{
-						html += '<img src="img/gamesdefault.png" alt="ninja" class="product-thumb"/>';	
+							if(counter == totalPosts){ var last = 'last'} else {var last ='';}
+								html += '<li class="'+last+'"><a href="single.html?post_id='+value.id+'">';
+								if(value.custom_fields.images)
+								{
+								html += '<img src="'+GAME_IMAGES_PATH+value.custom_fields.images[0]+'" alt="ninja" class="product-thumb"/>';
+								}
+								else
+								{
+								html += '<img src="img/gamesdefault.png" alt="ninja" class="product-thumb"/>';	
+								}
+								html += '<div class="product-list-right">';
+								html += '<h5>'+value.title+'</h5>';
+								var excerpt = value.excerpt;
+								html += '<p>'+excerpt.substr(0, 100)+'</p>';
+								//console.log(value.custom_fields.images[0]);
+								html += '<span class="price">Price: $'+value.custom_fields.sales_price[0]+'</span>';
+								if(value.custom_fields.delivery_time)
+								{
+								html += '<span class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</span>';
+								}
+								html += '<span class="seller_name">Seller : '+value.author.name+'</span>';
+								html += '</div></a></li>';
+								counter++;
 						}
-						html += '<div class="product-list-right">';
-						html += '<h5>'+value.title+'</h5>';
-						var excerpt = value.excerpt;
-						html += '<p>'+excerpt.substr(0, 100)+'</p>';
-						//console.log(value.custom_fields.images[0]);
-						html += '<span class="price">Price: $'+value.custom_fields.sales_price[0]+'</span>';
-						if(value.custom_fields.delivery_time)
-						{
-						html += '<span class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</span>';
-						}
-						html += '<span class="seller_name">Seller : '+value.author.name+'</span>';
-						html += '</div></a></li>';
-						counter++;
+						
 					})
 					html += '</ul>';
 					html += '<form name="sort-by-price" id="price-sort">';
@@ -170,29 +203,32 @@ function getRecentPosts()
 				{
 					html += '<ul  class="products-list">';
 					$.each(posts, function (i, value) {
-						if(counter == totalPosts){ var last = 'last'} else {var last ='';}
-						html += '<li class="'+last+'"><a href="single.html?post_id='+value.ID+'">';
-						if(value.images)
+						if(value.visible != 0)
 						{
-						html += '<img src="'+GAME_IMAGES_PATH+value.images[0]+'" alt="ninja" class="product-thumb"/>';
-						}
-						else
-						{
-						html += '<img src="img/gamesdefault.png" alt="ninja" class="product-thumb"/>';	
-						}
-						html += '<div class="product-list-right">';
-						html += '<h5>'+value.post_title+'</h5>';
-						var excerpt = value.post_content;
-						html += '<p>'+excerpt.substr(0, 100)+'</p>';
-						//console.log(value.custom_fields.images[0]);
-						html += '<span class="price">Price: $'+value.sales_price+'</span>';
-						if(value.delivery_time)
-						{
-						html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
-						}
-						html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
-						html += '</div></a></li>';
-						counter++;
+									if(counter == totalPosts){ var last = 'last'} else {var last ='';}
+									html += '<li class="'+last+'"><a href="single.html?post_id='+value.ID+'">';
+									if(value.images)
+									{
+									html += '<img src="'+GAME_IMAGES_PATH+value.images[0]+'" alt="ninja" class="product-thumb"/>';
+									}
+									else
+									{
+									html += '<img src="img/gamesdefault.png" alt="ninja" class="product-thumb"/>';	
+									}
+									html += '<div class="product-list-right">';
+									html += '<h5>'+value.post_title+'</h5>';
+									var excerpt = value.post_content;
+									html += '<p>'+excerpt.substr(0, 100)+'</p>';
+									//console.log(value.custom_fields.images[0]);
+									html += '<span class="price">Price: $'+value.sales_price+'</span>';
+									if(value.delivery_time)
+									{
+									html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
+									}
+									html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
+									html += '</div></a></li>';
+									counter++;
+							}
 					})
 					html += '</ul>';
 					html += '<form name="sort-by-price" id="price-sort">';
@@ -254,6 +290,8 @@ function getPopularPosts()
 				{
 					html += '<ul  class="products-list">';
 					$.each(posts, function (i, value) {
+					if(value.visible != 0)
+					{
 						if(counter == totalPosts){ var last = 'last'} else {var last ='';}
 						html += '<li class="'+last+'"><a href="single.html?post_id='+value.ID+'">';
 						if(value.images)
@@ -277,6 +315,7 @@ function getPopularPosts()
 						html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
 						html += '</div></a></li>';
 						counter++;
+					}
 					})
 					html += '</ul>';
 					html += '<form name="sort-by-price" id="price-sort">';

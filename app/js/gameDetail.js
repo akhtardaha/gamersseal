@@ -80,7 +80,8 @@ function getPostDetail(post_id)
 				  console.log(pimg);
 				      //P_ABILD
 						 //slider_images += '<li><img onclick="updateImage(this)" src="'+pimg+'" style="max-height:50px; max-width: 50px;"  /></li>';
-						 main_images += '<div class="swiper-slide"><a style="width:100%;height:90%;float:left;display:block;" href="javascript:void(0)" onclick="window.open(\''+pimg+'\',\''+blank+'\');"><img id="main-image" src="'+pimg+'" align="center" valign="center" style="max-width: 300px; max-height: 200px;" /></div></div>';
+						 //main_images += '<div class="swiper-slide"><a style="width:100%;height:90%;float:left;display:block;" href="javascript:void(0)" onclick="window.open(\''+pimg+'\',\''+blank+'\');"><img id="main-image" src="'+pimg+'" align="center" valign="center" style="max-width: 300px; max-height: 200px;" /></div></div>';
+						 main_images += '<div class="swiper-slide"><a style="width:100%;height:90%;float:left;display:block;" href="javascript:void(0)"><img id="main-image" src="'+pimg+'" align="center" valign="center" style="max-width: 300px; max-height: 200px;" /></div></div>';
 				   //alert(html2);
 				   
 		   }

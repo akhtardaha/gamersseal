@@ -87,7 +87,8 @@ class JSON_API_Introspector {
         $id = $post_id;
       }
       $posts = $this->get_posts(array(
-        'p' => $id
+        'p' => $id,
+		'post_status' => 'any'
       ), true);
     } else if ($slug || $post_slug) {
       if (!$slug) {
