@@ -347,7 +347,9 @@ input.search {
 	width:100%;
 	position:relative;
 	margin-bottom:10px;
-	overflow-y:auto;}
+	/*overflow-y:auto;*/
+	overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;}
 .cart, .setting{
   display: inline-block;
   padding: 0;

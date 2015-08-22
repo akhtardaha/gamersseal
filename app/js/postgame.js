@@ -118,10 +118,22 @@ function addPost()
 	{
 		$('#stock').css('border','1px solid #cccccc');
 	}
-	
-	
-	
 	var imgCount = window.localStorage.getItem("imageCount");
+	if(imgCount < 3)
+	{
+		$('#uploadImg1').css('border','1px solid #ef4c4d');
+		$('#uploadImg2').css('border','1px solid #ef4c4d');
+		$('#uploadImg3').css('border','1px solid #ef4c4d');;
+		$('#form-err').text('Please Fill Required Fields!');
+		endButtonLoading('SignIn');
+	}
+	else
+	{
+		$('#uploadImg1').css('border','1px solid #cccccc');
+		$('#uploadImg2').css('border','1px solid #cccccc');
+		$('#uploadImg3').css('border','1px solid #cccccc');
+	}
+	
 	if(postTitle == '' || postDetail == '' || price == '' || stock == '')
 	{
 		$('#form-err').text('Please Fill Required Fields!');
