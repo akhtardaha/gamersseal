@@ -7,8 +7,20 @@
  
         function getImage(btnID) {
             // Retrieve image file location from specified source
+			var imgCount = window.localStorage.getItem("imageCount");
+			if(imgCount >= 5)
+			{
+				navigator.notification.alert(
+							"You cannot Upload more then 5 images",  // message
+							function(){},        // callback
+						   'Upload Images',            // title
+							'OK'                  // buttonName
+				);
+				return false;
+			}
 			startButtonLoading('uploadImg'+btnID);
             navigator.camera.getPicture(uploadPhoto, function(message) {
+				endClassButtonLoading('uploadImg');
 				console.log('get picture failed');
 				},{
 				quality: 50, 
@@ -75,6 +87,7 @@
         }
  
         function fail(error) {
+			endClassButtonLoading('uploadImg');
             console.log("Error found, Error code ="+error.code);
 			//alert("An error has occurred: Code = " = error.code);
         }
