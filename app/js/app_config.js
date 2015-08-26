@@ -171,7 +171,7 @@ function sideBarMenu()
 				{
 				html += '<li><a href="cart.html">Shopping Cart</a></li>';
 				html += '<li class="loginMenu"><a href="login.html">Sign in</a></li>';
-                html += '<li class="registerMenu"><a href="register.html">Sign up</a></li>';
+                html += '<li class="registerMenu"><a href="register.html">Signup</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
 				}
 				else
