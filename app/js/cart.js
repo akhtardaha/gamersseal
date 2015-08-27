@@ -62,7 +62,7 @@ function getProductsFromCart()
                     }
                     else
                     {
-                        $('ul.products-list').html("<li class='notice'>No Items to Display here</li>");
+                        $('ul.products-list').html("<li class='notice'>No Items To Display Here</li>");
 						$('.checkoutBtn').hide();
                     }
                 }

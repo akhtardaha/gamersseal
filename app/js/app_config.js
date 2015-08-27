@@ -49,6 +49,7 @@ $( ".setting" ).click(function() {
 	 $('.main-wraper').css('opacity','0.3');
     }
 });
+  $('.content-wraper').prepend('<div class="back-box"><a href="" class="specification back-btn" onclick="goBack()">Back</a></div>');
 })
 
 $(document).ready(function(){
@@ -162,15 +163,15 @@ function sideBarMenu()
 				{
 				    html += '<li class="bdr-btm"><a href="shippingstatus.html">Shipping Status</a></li>';
 					html += '<li><a href="managegames.html">Stock Management</a></li>';
-					html += '<li class="bdr-btm"><a href="postgame.html">Add New Item</a></li>';
+					html += '<li class="bdr-btm"><a href="postgame.html">Add New Game</a></li>';
 					html += '<li><a href="salesreport.html">Sales Reports</a></li>';
-					html += '<li><a href="postgame.html">Post a Game</a></li>';
+					html += '<li><a href="postgame.html">Add New Game</a></li>';
 				}
 				
 				if(!(window.localStorage.getItem("loginuserCookie")))
 				{
 				html += '<li><a href="cart.html">Shopping Cart</a></li>';
-				html += '<li class="loginMenu"><a href="login.html">Sign in</a></li>';
+				html += '<li class="loginMenu"><a href="login.html">Sign In</a></li>';
                 html += '<li class="registerMenu"><a href="register.html">Signup</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
 				}
@@ -181,11 +182,11 @@ function sideBarMenu()
 				html += '<li><a href="orderstatus.html">Order Status</a></li>';
                 html += '<li class="bdr-btm"><a href="setting.html">Settings</a></li>';
 				html += '<li class="profileMenu"><a href="profile.html">Profile</a></li>';	
-				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();">Sign out</a></li>';
+				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();">Sign Out</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
 				}
 				
-				html += '<li class="bdr-btm"><a href="halloffames.html">Hall of Fame</a></li>';
+				html += '<li class="bdr-btm"><a href="halloffames.html">Hall Of Fame</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">GoTo Home</a></li>';
                 
 			html += '</ul>';

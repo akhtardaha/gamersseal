@@ -11,7 +11,16 @@ body {
     overflow-x: hidden;
     font-family: arial;
 }
-	
+.sales-label, .text-lbl{
+	float:left;
+	display:block;
+	width:100%;
+	padding-left:10px;}
+.home .back-box{
+	display:none;}
+.fixed-size{
+	min-width:130px;
+	text-align:center;}
 .headerLogo img {
     width: 80px;
     /*position: absolute;*/
