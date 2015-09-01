@@ -6,11 +6,12 @@ if(window.localStorage.getItem("loginuserCookie"))
 function signInUser()
 {
 	//$.validate();
+	startButtonLoading('SignIn');
 	var username = $('#username').val();
 	var password = $('#password').val();
 	
 	if(username && password){
-	$('.loginBtn').addClass('loadingSmall');
+	startButtonLoading('SignIn');
 	$.ajax({
         url:API_URL+'generate_auth_cookie/?key=1234567891011&username='+username+'&password='+password+' ',
         type: "POST",
@@ -18,7 +19,7 @@ function signInUser()
 		dataType: 'jsonp',
         success:function(data)
         {
-			$('.loginBtn').removeClass('loadingSmall');
+			endButtonLoading('SignIn');
 			console.log(data);
 			if(data.status == 'ok')
 			{
@@ -66,6 +67,7 @@ function signInUser()
 	}
 	else if(username != '' && password == '')
 	{
+		endButtonLoading('SignIn');
 		console.log('Invalid User name or password');
 		$('#password').css('border-color','#F00');
 		$('#username').css('border-color','#ccc');
@@ -79,6 +81,7 @@ function signInUser()
 	}
 	else if(username == '' && password != '')
 	{
+		endButtonLoading('SignIn');
 		console.log('Invalid User name or password');
 		$('#username').css('border-color','#F00');
 		$('#password').css('border-color','#ccc');
@@ -92,6 +95,7 @@ function signInUser()
 	}
 	else
 	{
+		endButtonLoading('SignIn');
 		console.log('Invalid User name or password');
 		$('#password').css('border-color','#F00');
 		$('#username').css('border-color','#F00');

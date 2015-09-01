@@ -41,7 +41,7 @@ body {
     background-size: 9px;
     background-position: 10px 6px;
     font-size: 13px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 .header1 .headerLogo img {
     width: 74px !important;

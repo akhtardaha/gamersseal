@@ -49,7 +49,7 @@ $( ".setting" ).click(function() {
 	 $('.main-wraper').css('opacity','0.3');
     }
 });
-  $('.content-wraper').prepend('<div class="back-box"><a href="" class="specification back-btn" onclick="goBack()">Back</a></div>');
+  $('.content-wraper').prepend('<div class="back-box"><a href="javascript:void(0);" class="specification back-btn" onclick="goBack()">Back</a></div>');
 })
 
 $(document).ready(function(){
@@ -64,6 +64,11 @@ $(document).ready(function(){
 
 function goBack() {
     window.history.go(-1);
+	//var page = getQueryVariable('page');
+	//if(page)
+	//{
+	//window.location = page+'.html';
+	//}
 	//navigator.app.backHistory();
 }
 

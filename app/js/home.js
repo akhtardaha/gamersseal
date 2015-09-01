@@ -48,7 +48,7 @@ $(document).ready(function(){
 	});
 
 
-   getProductCategories();
+   	getProductCategories();
    	getProductsList();
 	getPosts();
 	getSearchProduct('moha');
@@ -62,6 +62,7 @@ function getPosts()
 		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
 		var url = API_URL_DEFAULT+'get_posts/?post_type='+type;
+		
 		var html = '';
 	    $.ajax({
          url:url,
