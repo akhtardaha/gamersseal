@@ -63,7 +63,8 @@ $(document).ready(function(){
 })
 
 function goBack() {
-    window.history.go(-1)
+    window.history.go(-1);
+	//navigator.app.backHistory();
 }
 
 function tabContentstartLoading()

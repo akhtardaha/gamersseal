@@ -95,7 +95,7 @@ var fname = $('#fname').val();
 		if(password != cpassword)
 		{
 			$('.fieldError').addClass('PasswordError');
-			$('.fieldError').html('Password not matched! Please enter same password in both password fields');
+			$('.fieldError').html('Password not matched! Please enter same password in Password and Confirm Password fields');
 			$('.fieldError').fadeIn();
 			$('#password').css('border','1px solid goldenrod');
 			$('#cpassword').css('border','1px solid goldenrod');
