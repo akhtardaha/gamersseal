@@ -112,7 +112,7 @@ function getPosts()
 								html += '<span class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</span>';
 								}
 								html += '<span class="seller_name">Seller : '+value.author.name+'</span>';
-								html += '</div></a></li>';
+								html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
 								counter++;
 							}
 						}
@@ -139,7 +139,7 @@ function getPosts()
 								html += '<span class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</span>';
 								}
 								html += '<span class="seller_name">Seller : '+value.author.name+'</span>';
-								html += '</div></a></li>';
+								html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
 								counter++;
 						}
 						
@@ -227,7 +227,7 @@ function getRecentPosts()
 									html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
 									}
 									html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
-									html += '</div></a></li>';
+									html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
 									counter++;
 							}
 					})
@@ -314,7 +314,7 @@ function getPopularPosts()
 						html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
 						}
 						html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
-						html += '</div></a></li>';
+						html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
 						counter++;
 					}
 					})
@@ -368,7 +368,7 @@ function getProductsList()
 				var posts = data.posts;
 				var author = data.author;
 				var totalPosts = data.count;
-					html += '<option value="">All Games</option>';
+					html += '<option value="">Platform</option>';
 					$.each(posts, function (i, value) {
 	
 						html += '<option value="'+value.id+'">'+value.title+'</option>';
@@ -567,7 +567,7 @@ function sortGames(num)
 						html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
 						}
 						html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
-						html += '</div></a></li>';
+						html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
 						counter++;
 					})
 					html += '</ul>';

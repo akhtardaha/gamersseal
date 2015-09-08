@@ -187,13 +187,13 @@ function sideBarMenu()
 				html += '<li><a href="message-board.html">Message Board</a></li>';
 				html += '<li><a href="orderstatus.html">Order Status</a></li>';
                 html += '<li class="bdr-btm"><a href="setting.html">Settings</a></li>';
-				html += '<li class="profileMenu"><a href="profile.html">Profile</a></li>';	
+				html += '<li class="profileMenu"><a href="profile.html">User Profile</a></li>';	
 				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();">Sign Out</a></li>';
-				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
+				html += '<li class="gameMenu"><a href="index.html">Shop</a></li>';
 				}
 				
 				html += '<li class="bdr-btm"><a href="halloffames.html">Hall Of Fame</a></li>';
-				html += '<li class="gameMenu"><a href="index.html">GoTo Home</a></li>';
+				html += '<li class="gameMenu"><a href="index.html">Home</a></li>';
                 
 			html += '</ul>';
 			$('.slide-menu').html(html);

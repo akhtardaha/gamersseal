@@ -77,7 +77,7 @@ function getCategoryProducts(term_id)
 								html += '<p>'+excerpt.substr(0, 100)+'</p>';
 								html += '<p>Price: $'+value.custom_fields.sales_price[0]+'</p>';
 								html += '</div>';
-							html += '</a>';
+							html += '</a><a class="fvt-str" href="#">&nbsp;</a>';
 						html += '</li>';
 					}
 				}
@@ -99,7 +99,7 @@ function getCategoryProducts(term_id)
 								html += '<p>'+excerpt.substr(0, 100)+'</p>';
 								html += '<p>Price: $'+value.custom_fields.sales_price[0]+'</p>';
 								html += '</div>';
-							html += '</a>';
+							html += '</a><a class="fvt-str" href="#">&nbsp;</a>';
 						html += '</li>';
 				}
 				})
