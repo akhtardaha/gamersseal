@@ -708,3 +708,17 @@ function resumeApp()
 $(function() {
     $( "#from , #to" ).datepicker();
   });*/
+  
+function nl2br_js(myString) {
+var regX = /\n/gi ;
+
+s = new String(myString);
+s = s.replace(regX, "<br /> \n");
+return s;
+}
+
+jQuery.fn.nl2br = function(){
+   return this.each(function(){
+     jQuery(this).val().replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n");
+   });
+};

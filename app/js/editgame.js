@@ -90,12 +90,16 @@ function getPostDetail(post_id)
 				  $('#gameType').val(gameCategory);
 				 $('#contactEmail').val(author.email);
 				 var content = post.excerpt;
-				 content = content.replace(/(<([^>]+)>)/ig,"");
+				 //content = content.replace(/(<([^>]+)>)/ig,"");
+				 //var cont = nl2br_js(content);
+				 content = content.replace(/<br\s?\/?>/g,"\n");
 				 $('#details').val(content);
 				 $('#gameID').val(post.id);
 				 $('#stock').val(post.custom_fields.stock_qty[0]);
 				 $('#gameSlug').val(post.slug);
 				 $('#publish').val(post.custom_fields.visible[0]);
+				 
+				 $('#details').nl2br();
 				 
 				 //$('.descBoxes').html(descBoxes);
 			}
@@ -172,6 +176,8 @@ function updateGame()
 		$('#gameType').css('border','1px solid #cccccc');
 		$('#details').css('border','1px solid #cccccc');
 		$('#stock').css('border','1px solid #cccccc');
+		
+		details = details.replace(/\r\n|\r|\n/g,"<br />");
 		
 		var url = API_URL+'update_post/?key=1234567891011&cookie='+cooke+'&id='+gameID+'&slug='+gameSlug+'&post_id='+gameID+'&post_status='+publish+'&post_type='+type+'&title='+postTitle+'&content='+details+'';
 		console.log(url);

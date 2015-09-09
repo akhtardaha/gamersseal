@@ -914,7 +914,7 @@ public function generate_auth_cookie() {
 
 
 
-    		$json_api->error("Invalid username and/or password.", 'error', '401');
+    		$json_api->error("Invalid User name or password", 'error', '401');
 
 
 
@@ -1344,7 +1344,9 @@ public function update_post() {
 
     global $json_api;
 
-
+	$json_api->query->content = nl2br($json_api->query->content);
+	
+	//echo $json_api->query->content;
 
 foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
