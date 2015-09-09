@@ -85,6 +85,13 @@ function getPosts()
 				}
 				else
 				{
+					html += '<form name="sort-by-price" id="price-sort">';
+					html += '<select name="product" id="price_filter2" class="mobile-dropdown" onchange="return sortGames(2);">';
+						html += '<option>Sort By…</option>';
+						html += '<option value="DESC">Highest to Lowest </option>';
+						html += '<option value="ASC">Lowest to Highest </option>';
+					html += '</select>';
+        			html += '</form>';
 					html += '<ul  class="products-list">';
 					$.each(posts, function (i, value) {
 						if(value.custom_fields.visible)
@@ -145,13 +152,6 @@ function getPosts()
 						
 					})
 					html += '</ul>';
-					html += '<form name="sort-by-price" id="price-sort">';
-					html += '<select name="product" id="price_filter2" class="mobile-dropdown" onchange="return sortGames(2);">';
-						html += '<option>Sort By…</option>';
-						html += '<option value="DESC">Highest to Lowest </option>';
-						html += '<option value="ASC">Lowest to Highest </option>';
-					html += '</select>';
-        			html += '</form>';
 				}
 			}
 			else
@@ -202,6 +202,13 @@ function getRecentPosts()
 				}
 				else
 				{
+					html += '<form name="sort-by-price" id="price-sort">';
+					html += '<select name="product" id="price_filter1" class="mobile-dropdown" onchange="return sortGames(1);">';
+						html += '<option>Sort By…</option>';
+						html += '<option value="DESC">Highest to Lowest </option>';
+						html += '<option value="ASC">Lowest to Highest </option>';
+					html += '</select>';
+        			html += '</form>';
 					html += '<ul  class="products-list">';
 					$.each(posts, function (i, value) {
 						if(value.visible != 0)
@@ -232,13 +239,7 @@ function getRecentPosts()
 							}
 					})
 					html += '</ul>';
-					html += '<form name="sort-by-price" id="price-sort">';
-					html += '<select name="product" id="price_filter1" class="mobile-dropdown" onchange="return sortGames(1);">';
-						html += '<option>Sort By…</option>';
-						html += '<option value="DESC">Highest to Lowest </option>';
-						html += '<option value="ASC">Lowest to Highest </option>';
-					html += '</select>';
-        			html += '</form>';
+					
 				}
 			}
 			else
@@ -289,6 +290,13 @@ function getPopularPosts()
 				}
 				else
 				{
+					html += '<form name="sort-by-price" id="price-sort">';
+					html += '<select name="product" id="price_filter3" class="mobile-dropdown" onchange="return sortGames(3);">';
+						html += '<option>Sort By…</option>';
+						html += '<option value="DESC">Highest to Lowest </option>';
+						html += '<option value="ASC">Lowest to Highest </option>';
+					html += '</select>';
+        			html += '</form>';
 					html += '<ul  class="products-list">';
 					$.each(posts, function (i, value) {
 					if(value.visible != 0)
@@ -319,13 +327,6 @@ function getPopularPosts()
 					}
 					})
 					html += '</ul>';
-					html += '<form name="sort-by-price" id="price-sort">';
-					html += '<select name="product" id="price_filter3" class="mobile-dropdown" onchange="return sortGames(3);">';
-						html += '<option>Sort By…</option>';
-						html += '<option value="DESC">Highest to Lowest </option>';
-						html += '<option value="ASC">Lowest to Highest </option>';
-					html += '</select>';
-        			html += '</form>';
 				}
 			}
 			else
@@ -353,7 +354,7 @@ function getProductsList()
 		var type = 'wpmarketplace';
 		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
-		var url = API_URL_DEFAULT+'get_posts/?post_type='+type;
+		var url = API_URL+'fetch_products_categories/?key=1234567891011';
 		var html = '';
 	    $.ajax({
          url:url,
@@ -365,31 +366,25 @@ function getProductsList()
 			console.log(data);
 			if(data.status == 'ok')
 			{
-				var posts = data.posts;
-				var author = data.author;
-				var totalPosts = data.count;
-					html += '<option value="">Platform</option>';
-					$.each(posts, function (i, value) {
-	
-						html += '<option value="'+value.id+'">'+value.title+'</option>';
-					})
+				html += '<option value="">Platform</option>';
+				$.each(data.data, function (i, value) {
+					html += '<option value="category.html?term_id='+value.term_id+'&term_taxonomy_id='+value.term_taxonomy_id+'&slug='+value.slug+'">'+value.name+'</option>';
+        			//html += '<a href="category.html?term_id='+value.term_id+'&term_taxonomy_id='+value.term_taxonomy_id+'&slug='+value.slug+'">'+value.name+'</a>';
+				})
 			}
-
 			$('#product-filter').html(html);
-			
 			
 		},
         error:function(){
 
         }
     });
-		
 }
 
-function gotoProduct()
+function gotoCategory()
 {
-	var product_id = $('#product-filter').val();
-	window.location = 'single.html?post_id='+product_id+'';
+	var category_url = $('#product-filter').val();
+	window.location = category_url;
 }
 
 
@@ -544,6 +539,25 @@ function sortGames(num)
 				}
 				else
 				{
+					html += '<form name="sort-by-price" id="price-sort">';
+					if(num == 1)
+					{
+					html += '<select name="product" id="price_filter1" class="mobile-dropdown" onchange="return sortGames(1);">';
+					}
+					else if(num == 2)
+					{
+					html += '<select name="product" id="price_filter2" class="mobile-dropdown" onchange="return sortGames(2);">';
+					}
+					else
+					{
+					html += '<select name="product" id="price_filter3" class="mobile-dropdown" onchange="return sortGames(3);">';
+					}
+						html += '<option>Sort By…</option>';
+						html += '<option value="DESC">Highest to Lowest </option>';
+						html += '<option value="ASC">Lowest to Highest </option>';
+					html += '</select>';
+        			html += '</form>';
+					
 					html += '<ul  class="products-list">';
 					$.each(posts, function (i, value) {
 						if(counter == totalPosts){ var last = 'last'} else {var last ='';}
@@ -572,24 +586,7 @@ function sortGames(num)
 					})
 					html += '</ul>';
 					
-					html += '<form name="sort-by-price" id="price-sort">';
-					if(num == 1)
-					{
-					html += '<select name="product" id="price_filter1" class="mobile-dropdown" onchange="return sortGames(1);">';
-					}
-					else if(num == 2)
-					{
-					html += '<select name="product" id="price_filter2" class="mobile-dropdown" onchange="return sortGames(2);">';
-					}
-					else
-					{
-					html += '<select name="product" id="price_filter3" class="mobile-dropdown" onchange="return sortGames(3);">';
-					}
-						html += '<option>Sort By…</option>';
-						html += '<option value="DESC">Highest to Lowest </option>';
-						html += '<option value="ASC">Lowest to Highest </option>';
-					html += '</select>';
-        			html += '</form>';
+					
 				}
 			}
 			else
