@@ -49,7 +49,12 @@ function getSearchResult(searchTerm)
 						html += '<h5>'+value.title+'</h5>';
 						var excerpt = value.content;
 						html += '<p>'+excerpt.substr(0, 100)+'</p>';
-						html += '<p>Price: $'+value.custom_fields.sales_price[0]+'</p>';
+						html += '<div class="price">Price: $'+value.custom_fields.sales_price[0]+'</div>';
+						if(value.custom_fields.delivery_time)
+								{
+								html += '<div class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</div>';
+								}
+								html += '<div class="seller_name">Seller : '+value.author.name+'</div>';
 						html += '</div>';
 					html += '</a>';
 				html += '</li>';

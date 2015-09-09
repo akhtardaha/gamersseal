@@ -61,7 +61,7 @@ function getCartTotal()
 						gamerseal_charges_amount = Math.round(totalCart/100 * gamerseal_charges);
 						var OrderTotal = parseFloat(totalCart) + parseFloat(totalShippingCost) + parseFloat(gamerseal_charges_amount);
 						html +='<div class="CartTotalBox">';
-						html += '<div class="CartTotal"><span>Total Itemized Bill </span> $'+totalCart.toFixed(2)+'</div>';
+						html += '<div class="CartTotal"><span>Total Itemised Bill </span> $'+totalCart.toFixed(2)+'</div>';
 						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
 						
 						html += '<div class="CartGst">Gamer Seal Charges '+gamerseal_charges+'% = $'+gamerseal_charges_amount.toFixed(2)+'</div>';

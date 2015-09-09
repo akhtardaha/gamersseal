@@ -11,6 +11,15 @@ body {
     overflow-x: hidden;
     font-family: arial;
 }
+.advertisement{
+	padding:15px 0;
+	display:block;
+	float:left;
+	width:100%;}
+form.addgame, form.register{
+	display:block;
+	float:left;
+	width:80%;}
 .sales-label, .text-lbl{
 	float:left;
 	display:block;
