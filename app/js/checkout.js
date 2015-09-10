@@ -6,7 +6,11 @@ $(document).ready(function(){
 	{
 		getCartTotal();
 		getUserTransactionsPerDay();
-		getUserPurchasePerDay();		
+		getUserPurchasePerDay();
+		$('#shipemail').val(window.localStorage.getItem("loginuserEmail"));
+		var name = window.localStorage.getItem("loginuserDisplayname").split(" ");
+		$('#shipfname').val(name[0]);
+		$('#shiplname').val(name[1]);
 	}
 	else
 	{

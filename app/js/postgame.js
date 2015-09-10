@@ -1,7 +1,9 @@
 // JavaScript Document
 $(document).ready(function(){
+	
 	if(window.localStorage.getItem("loginuserCookie"))
 	{
+		$('#email').val(window.localStorage.getItem("loginuserEmail"));
 		getProductCategories();	
 		window.localStorage.setItem("GamesPics",'');
 		window.localStorage.setItem("imageCount",0);

@@ -11,6 +11,10 @@ body {
     overflow-x: hidden;
     font-family: arial;
 }
+.left-nav li a img{
+	width:15px;
+	height:auto;
+	margin-right:5px;}
 .advertisement{
 	padding:15px 0;
 	display:block;

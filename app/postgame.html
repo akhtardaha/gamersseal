@@ -28,7 +28,7 @@
         
         <input type="text" id="title" name="title" placeholder="Title" class="search not-srch"/>
         <input type="number" id="price" name="price" placeholder="Price" class="search not-srch" onkeypress="return isNumberKey(event);"/>
-        <input type="email" id="email" name="email" placeholder="Contact Email e.g johnsmith@hotmail.com" class="search not-srch" />
+        <input type="email" id="email" name="email" placeholder="Contact Email e.g johnsmith@hotmail.com" class="search not-srch" value="" />
         <input type="number" id="delivery-time" name="delivery-time" placeholder="Estimated Delivery Time" class="search not-srch" onkeypress="return isNumberKey(event);"/>
         <input type="number" id="stock" name="stock" placeholder="Stock" class="search not-srch"/>
         <input type="number" id="shiping-cost" name="shiping-cost" placeholder="Shipping Cost" class="search not-srch"/>
@@ -47,6 +47,7 @@
                 </ul>
             </div>
         </div>
+        <input type="text" id="condition" name="Condition" placeholder="Condition of Game" class="search not-srch"/>
         <p>Age Restriction:</p>
         <div id="age-filter">
         <input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="CTC"><img class="age-img" src="img/icon_ctc.png" alt="CTC" /><br>
@@ -69,7 +70,7 @@
             <option value="1">Live</option>
         </select>
         <label id="form-err"></label>
-        <input type="button" id="SignIn" onclick="return addPost();" name="SignIn" value="Add" class="search btn not-srch" style="float:left;" />
+        <input type="button" id="SignIn" onclick="return addPost();" name="SignIn" value="Add Item" class="search btn not-srch" style="float:left;" />
         </form>
         </div></div><!-- /content -->
  
