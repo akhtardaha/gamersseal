@@ -14,19 +14,37 @@ $(document).ready(function(){
 		$('.gameMenu').addClass('ui-corner-bottom');
 		
 	}
-  getPopularPosts();
-  var recent_viewed_games = window.localStorage.getItem("RecentViewed");
-  if(recent_viewed_games)
-  {
-	  getRecentPosts();
-  }
-  else
-  {
-	  var html = '<p style="padding:5px;">Recent viewed Games list empty</p>';
-	  $('#tabs-1').html(html);
-  }
-	
+  
+	getPopularPosts();
   $( ".home-tabs ul li>div" ).click(function() {
+	 	var tabName = $(this).attr('data-tab');
+		
+		if(tabName == '#tabs-1')
+		{
+			  var recent_viewed_games = window.localStorage.getItem("RecentViewed");
+			  if(recent_viewed_games)
+			  {
+				  getRecentPosts();
+			  }
+			  else
+			  {
+				  var html = '<p style="padding:5px;">Recent viewed Games list empty</p>';
+				  $('#tabs-1').html(html);
+			  }	
+		}
+		else if(tabName == '#tabs-2')
+		{
+			getPosts();
+		}
+		else if(tabName == '#tabs-3')
+		{
+			getPopularPosts();	
+		}
+		else if(tabName == '#tabs-4')
+		{
+			getFavoritePosts();
+		}
+		
     	$( ".home-tabs > div" ).css('display','none');
 		 $( '.home-tabs ul li').removeClass('tab-open');
 		 $( this ).parent('li').addClass('tab-open');
@@ -50,9 +68,10 @@ $(document).ready(function(){
 
    	getProductCategories();
    	getProductsList();
-	getPosts();
+	
 	getSearchProduct('moha');
 	getCategoryProducts(3);
+
 })
 
 
@@ -119,8 +138,11 @@ function getPosts()
 								html += '<span class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</span>';
 								}
 								html += '<span class="seller_name">Seller : '+value.author.name+'</span>';
-								html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
+								html += '</div></a>';
+								html += '<a class="fvt-str product'+value.id+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.id+'\');">&nbsp;</a>';
+								html += '</li>';
 								counter++;
+								checkfavorite(value.id);
 							}
 						}
 						else
@@ -146,8 +168,11 @@ function getPosts()
 								html += '<span class="price">Delivery Time: '+value.custom_fields.delivery_time[0]+' days</span>';
 								}
 								html += '<span class="seller_name">Seller : '+value.author.name+'</span>';
-								html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
+								html += '</div></a>';
+								html += '<a class="fvt-str product'+value.id+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.id+'\');">&nbsp;</a>';
+								html += '</li>';
 								counter++;
+								checkfavorite(value.id);
 						}
 						
 					})
@@ -234,8 +259,11 @@ function getRecentPosts()
 									html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
 									}
 									html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
-									html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
+									html += '</div></a>';
+									html += '<a class="fvt-str product'+value.ID+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.ID+'\');">&nbsp;</a>';
+									html += '</li>';
 									counter++;
+									checkfavorite(value.ID);
 							}
 					})
 					html += '</ul>';
@@ -322,8 +350,11 @@ function getPopularPosts()
 						html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
 						}
 						html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
-						html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
+						html += '</div></a>';
+						html += '<a class="fvt-str product'+value.ID+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.ID+'\');">&nbsp;</a>';
+						html += '</li>';
 						counter++;
+						checkfavorite(value.ID);
 					}
 					})
 					html += '</ul>';
@@ -345,6 +376,101 @@ function getPopularPosts()
 
         }
     });
+		
+}
+
+function getFavoritePosts()
+	{
+		var type = 'wpmarketplace';
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		if(user_id)
+		{
+		var url = API_URL+'get_favorite_games/?key=1234567891011&post_type='+type+'&user_id='+user_id;
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			if(data.status == 'ok')
+			{
+				//html += '<ul data-role="listview" data-inset="true" data-filter="true" data-split-icon="gear" data-split-theme="c">'; 
+				var posts = data.posts;
+				var totalPosts = posts.length;
+				var counter = 1;
+				if(totalPosts == 0)
+				{
+					html += '<p>There is no Game available Yet</p>';	
+				}
+				else
+				{
+					html += '<form name="sort-by-price" id="price-sort">';
+					html += '<select name="product" id="price_filter4" class="mobile-dropdown" onchange="return sortGames(4);">';
+						html += '<option>Sort By…</option>';
+						html += '<option value="DESC">Highest to Lowest </option>';
+						html += '<option value="ASC">Lowest to Highest </option>';
+					html += '</select>';
+        			html += '</form>';
+					html += '<ul  class="products-list">';
+					$.each(posts, function (i, value) {
+					if(value.visible != 0)
+					{
+						if(counter == totalPosts){ var last = 'last'} else {var last ='';}
+						html += '<li class="'+last+'"><a href="single.html?post_id='+value.ID+'">';
+						if(value.images)
+						{
+						html += '<img src="'+GAME_IMAGES_PATH+value.images[0]+'" alt="ninja" class="product-thumb"/>';
+						}
+						else
+						{
+						html += '<img src="img/gamesdefault.png" alt="ninja" class="product-thumb"/>';	
+						}
+						html += '<div class="product-list-right">';
+						html += '<h5>'+value.post_title+'</h5>';
+						var excerpt = value.post_content;
+						html += '<p>'+excerpt.substr(0, 100)+'</p>';
+						//console.log(value.custom_fields.images[0]);
+						html += '<span class="price">Price: $'+value.sales_price+'</span>';
+						if(value.delivery_time)
+						{
+						html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
+						}
+						html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
+						html += '</div></a>';
+						html += '<a class="fvt-str product'+value.ID+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.ID+'\');">&nbsp;</a>';
+						html += '</li>';
+						counter++;
+						checkfavorite(value.ID);
+					}
+					})
+					html += '</ul>';
+				}
+			}
+			else
+			{
+				console.log(data.status);
+				html += '<p>'+data.error+'</p>';
+				
+			}
+			$('#tabs-4').html(html);
+			
+			
+		},
+        error:function(){
+
+        }
+    });
+		}
+		else
+		{
+			var html = '<p>Please login to see your Favorite Items!</p>';	
+			$('#tabs-4').html(html);
+		}
 		
 }
 
@@ -516,6 +642,10 @@ function sortGames(num)
 		{
 		var url = API_URL+'get_sorted_games/?key=1234567891011&sorting='+sorting+'&filter='+filter+'&type=popular';
 		}
+		else if(num == 4)
+		{
+		var url = API_URL+'get_sorted_games/?key=1234567891011&sorting='+sorting+'&filter='+filter+'&type=favorite&user_id='+user_id+' ';
+		}
 		
 		console.log(url);
 		var html = '';
@@ -548,9 +678,13 @@ function sortGames(num)
 					{
 					html += '<select name="product" id="price_filter2" class="mobile-dropdown" onchange="return sortGames(2);">';
 					}
-					else
+					else if(num == 3)
 					{
 					html += '<select name="product" id="price_filter3" class="mobile-dropdown" onchange="return sortGames(3);">';
+					}
+					else if(num == 4)
+					{
+					html += '<select name="product" id="price_filter4" class="mobile-dropdown" onchange="return sortGames(4);">';
 					}
 						html += '<option>Sort By…</option>';
 						html += '<option value="DESC">Highest to Lowest </option>';
@@ -581,8 +715,11 @@ function sortGames(num)
 						html += '<span class="price">Delivery Time: '+value.delivery_time+' days</span>';
 						}
 						html += '<span class="seller_name">Seller : '+value.display_name+'</span>';
-						html += '</div></a><a class="fvt-str" href="#">&nbsp;</a></li>';
+						html += '</div></a>';
+						html += '<a class="fvt-str product'+value.ID+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.ID+'\');">&nbsp;</a>';
+						html += '</li>';
 						counter++;
+						checkfavorite(value.ID);
 					})
 					html += '</ul>';
 					
@@ -605,9 +742,13 @@ function sortGames(num)
 			{
 			$('#tabs-2').html(html);
 			}
-			else
+			else if(num == 3)
 			{
 			$('#tabs-3').html(html);
+			}
+			else if(num == 4)
+			{
+			$('#tabs-4').html(html);	
 			}
 			
 		},

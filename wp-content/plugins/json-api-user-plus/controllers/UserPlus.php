@@ -914,7 +914,7 @@ public function generate_auth_cookie() {
 
 
 
-    		$json_api->error("Invalid username and/or password.", 'error', '401');
+    		$json_api->error("Invalid User name or password", 'error', '401');
 
 
 
@@ -1344,7 +1344,9 @@ public function update_post() {
 
     global $json_api;
 
-
+	$json_api->query->content = nl2br($json_api->query->content);
+	
+	//echo $json_api->query->content;
 
 foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 
@@ -7018,9 +7020,10 @@ foreach($meta_keys as $k){
 			$filter = $json_api->query->filter;
 		    $sort = $json_api->query->sorting;
 			$recent_ids = $json_api->query->ids;
+			$user_id = $json_api->query->user_id;
 			$type = $json_api->query->type;
 			
-			if($type)
+			if($type == 'popular')
 			{
 			$queryPopular = "SELECT DISTINCT(productid) FROM wp_mp_feature_products";
 			$resultPopular = $wpdb->get_results($queryPopular);
@@ -7031,14 +7034,29 @@ foreach($meta_keys as $k){
 				$popular_ids = rtrim($popular_ids,',');
 			}
 			
+			if($type == 'favorite')
+			{
+			$queryfavorite = "SELECT product_id FROM favorite_items where user_id = '".$user_id."' ";
+			$resultfavorite = $wpdb->get_results($queryfavorite);
+				foreach($resultfavorite as $resultFav)
+				{
+					$favorite_ids .= $resultFav->product_id.",";
+				}
+				$favorite_ids = rtrim($favorite_ids,',');
+			}
+			
 			
 			if($recent_ids)
 			{
 				$query = "SELECT * FROM wp_custom_fields where post_id IN ($recent_ids) order by $filter $sort";
 			}
-			elseif($type)
+			elseif($type == 'popular')
 			{
 				$query = "SELECT * FROM wp_custom_fields where post_id IN ($popular_ids) order by $filter $sort";
+			}
+			elseif($type == 'favorite')
+			{
+				$query = "SELECT * FROM wp_custom_fields where post_id IN ($favorite_ids) order by $filter $sort";
 			}
 			else
 			{
@@ -7449,7 +7467,7 @@ foreach($meta_keys as $k){
 		$order_id = $json_api->query->order_id;
 		$payment_reference = $json_api->query->payment_reference;
 			
-			$payment_method = 'PayPal';
+		$payment_method = 'PayPal';
 		$query = "UPDATE wp_mp_orders SET payment_method = '".$payment_method."',payment_status = 'Completed', payment_reference = '".$payment_reference."' WHERE uid= '".$user_id."' AND order_id = '".$order_id."'";
 			$res = $wpdb->query($query);
 			if($res)
@@ -7463,6 +7481,99 @@ foreach($meta_keys as $k){
 			}
 			
 			return $response;
+  	}
+	
+	
+	public function addtofavorite(){
+
+  		global $json_api;
+		global $wpdb;	
+		$user_id = $json_api->query->user_id;
+		$product_id = $json_api->query->product_id;
+			
+		$query = "SELECT * from favorite_items where user_id = '".$user_id."' AND product_id = '".$product_id."' ";
+		$res = $wpdb->query($query);
+		if($res)
+		{
+			$queryIns = "DELETE FROM favorite_items WHERE user_id = '".$user_id."' AND product_id = '".$product_id."' ";
+			$resIns = $wpdb->query($queryIns);
+			$response = "Removed from Favorite";
+				
+		}
+		else
+		{
+			$queryIns = "INSERT INTO favorite_items (user_id,product_id) VALUES ('".$user_id."', '".$product_id."') ";
+			$resIns = $wpdb->query($queryIns);
+			$response = "Added to Favorite";
+		}
+			
+		return $response;
+  	}
+	
+	
+	
+	public function checkfavorite(){
+
+  		global $json_api;
+		global $wpdb;	
+		$user_id = $json_api->query->user_id;
+		$product_id = $json_api->query->product_id;
+			
+		$query = "SELECT * from favorite_items where user_id = '".$user_id."' AND product_id = '".$product_id."' ";
+		$res = $wpdb->query($query);
+		if($res)
+		{
+			$response = "Yes";
+				
+		}
+		else
+		{
+			$response = "No";
+		}
+			
+		return $response;
+  	}
+	
+	
+	public function get_favorite_games(){
+
+  			global $json_api;
+			global $wpdb;
+			$posts_data = array();
+			$user_id = $json_api->query->user_id;
+			
+			$query = "SELECT product_id FROM favorite_items where user_id = '".$user_id."' ";
+			$result = $wpdb->get_results($query);
+			if($result)
+			{
+				//print_r($result);
+				//die();
+				$sorted_ids = array();
+				foreach($result as $res)
+				{
+					$sorted_ids[] = $res->product_id;
+				}
+				foreach($sorted_ids as $sorted_id)
+				{
+					$post = get_post($sorted_id);
+					if($post->post_status == 'publish')
+					{
+					$sales_price = get_post_meta($sorted_id, 'sales_price');
+					$delivery_time = get_post_meta($sorted_id, 'delivery_time');
+					$post->display_name = get_the_author_meta('display_name', $post->post_author);
+					$images = get_post_meta( $sorted_id, 'images' );
+					$visible = get_post_meta($sorted_id, 'visible');
+					$post->sales_price = $sales_price[0];
+					$post->images = $images[0];
+					$post->delivery_time = $delivery_time[0];
+					$post->visible = $visible[0];
+					$posts_data[] = $post;
+					}
+					//$posts_data[] = $meta;
+				}
+				
+				return array('posts'=>$posts_data);
+			}
   	}
 	
 	
