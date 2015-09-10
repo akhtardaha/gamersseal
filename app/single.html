@@ -100,7 +100,14 @@
             <div class="" style="float:left; width:100%;">
     <h4 class="send">Send Message to Seller</h4>
     <form action="" method="get" name="message">
-    <input type="text" id="title" placeholder="Title" name="title" class="search not-srch" />
+    
+    <select  id="title" name="title" class="search not-srch">
+    <option value="">Topic</option>
+    <option value="Estimated shipping time">Estimated shipping time</option>
+    <option value="Is express shipping available and how much?">Is express shipping available and how much?</option>
+    <option value="Which region the game is from.">Which region the game is from.</option>
+    <option value="Other (Custom Topic Title)">Other (Custom Topic Title)</option>
+    </select>
     <input type="hidden" id="seller_id" />
     <textarea id="message" placeholder="Message" name="message" class="search not-srch" ></textarea>
     <div class="captcha">

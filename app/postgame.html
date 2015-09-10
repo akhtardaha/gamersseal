@@ -28,16 +28,14 @@
         
         <input type="text" id="title" name="title" placeholder="Title" class="search not-srch"/>
         <input type="number" id="price" name="price" placeholder="Price" class="search not-srch" onkeypress="return isNumberKey(event);"/>
-        <input type="email" id="email" name="email" placeholder="Contact Person's E-mail e.g johnsmith@hotmail.com" class="search not-srch" />
+        <input type="email" id="email" name="email" placeholder="Contact Email e.g johnsmith@hotmail.com" class="search not-srch" />
         <input type="number" id="delivery-time" name="delivery-time" placeholder="Estimated Delivery Time" class="search not-srch" onkeypress="return isNumberKey(event);"/>
         <input type="number" id="stock" name="stock" placeholder="Stock" class="search not-srch"/>
         <input type="number" id="shiping-cost" name="shiping-cost" placeholder="Shipping Cost" class="search not-srch"/>
-        <input type="number" id="min-order" name="min-order" placeholder="Minimum Order" class="search not-srch"/>
-        <input type="number" id="max-order" name="max-order" placeholder="Maximum Order" class="search not-srch"/>
         <select name="gameType" id="gameType" multiple>
-        	<option selected="selected">Select Game Type</option>
+        	<option selected="selected">Item Type</option>
         </select>
-        <textarea style="min-height: 70px;" id="content" placeholder="Details" name="details" class="search not-srch"></textarea>
+        <textarea style="min-height: 70px;" id="content" placeholder="Item Description" name="details" class="search not-srch"></textarea>
         <div class="uploadImages">
        		<input type="button" id="uploadImg1" class="search btn not-srch uploadImg" name="image" value="Add Image 1" onclick="return getImage('1');" />
             <input type="button" id="uploadImg2" class="search btn not-srch uploadImg" name="image" value="Add Image 2" onclick="return getImage('2');" />
@@ -66,9 +64,9 @@
             <option value="20">20+</option>
         </select>-->
         <select id="publish" name="visible">
-        	<option selected="selected">Display Options</option>
-            <option value="1">Live</option>
+        	<option selected="selected">Dsiplay options…</option>
             <option value="0">Hidden</option>
+            <option value="1">Live</option>
         </select>
         <label id="form-err"></label>
         <input type="button" id="SignIn" onclick="return addPost();" name="SignIn" value="Add" class="search btn not-srch" style="float:left;" />

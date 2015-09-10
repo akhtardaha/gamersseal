@@ -30,6 +30,8 @@ $(document).ready(function(){
 		$('#captcha-val').val(oneNumber+anoterNumber);
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
+$('.content-wraper').prepend('<div class="advertisement"><marquee direction="left"><a href="#" >This Is An Advertisement</a></marquee></div>');
+$('.content-wraper').append(' <div class="help-center"><a href="#">Help Support Gamers Seal</a></div>');
 getAppStatics();
 app_settings();
 sideBarMenu();
