@@ -11,7 +11,12 @@ body {
     overflow-x: hidden;
     font-family: arial;
 }
-<<<<<<< HEAD
+.advertisement {
+    padding: 5px 0 10px;
+    display: block;
+    float: left;
+    width: 100%;
+}
 .left-nav li a img{
 	width:15px;
 	height:auto;
@@ -21,14 +26,6 @@ body {
 	display:block;
 	float:left;
 	width:100%;}
-=======
-.advertisement {
-    padding: 5px 0 10px;
-    display: block;
-    float: left;
-    width: 100%;
-}
->>>>>>> 1f638181817bbb69c3067c1cab19efcd7bd4c7a5
 form.addgame, form.register{
 	display:block;
 	float:left;

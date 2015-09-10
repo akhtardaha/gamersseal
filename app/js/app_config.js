@@ -166,8 +166,7 @@ function signOutUser()
 function sideBarMenu()
 {
 			var html = '';
-<<<<<<< HEAD
-			html += '<ul class="left-nav">';
+						html += '<ul class="left-nav">';
 				if(window.localStorage.getItem("loginuserABN") != '' && window.localStorage.getItem("loginuserCookie") != '')
 				{
 				    html += '<li class="bdr-btm"><a href="shippingstatus.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shipping Status</a></li>';
@@ -175,7 +174,6 @@ function sideBarMenu()
 					html += '<li class="bdr-btm"><a href="postgame.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Add New Game</a></li>';
 					html += '<li><a href="salesreport.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sales Reports</a></li>';
 					html += '<li><a href="postgame.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Add New Game</a></li>';
-=======
 			html += '<ul >';
 				if(window.localStorage.getItem("loginuserCookie"))
 				{
@@ -189,12 +187,10 @@ function sideBarMenu()
 					html += '<li><a href="managegames.html">Stock Management</a></li>';
 					html += '<li class="bdr-btm"><a href="postgame.html">Add New Item</a></li>';
 					html += '<li><a href="salesreport.html">Sales Reports</a></li>';
->>>>>>> 1f638181817bbb69c3067c1cab19efcd7bd4c7a5
 				}
 				
 				if(!(window.localStorage.getItem("loginuserCookie")))
 				{
-<<<<<<< HEAD
 				html += '<li><a href="cart.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shopping Cart</a></li>';
 				html += '<li class="loginMenu"><a href="login.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sign In</a></li>';
                 html += '<li class="registerMenu"><a href="register.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Signup</a></li>';
@@ -214,7 +210,6 @@ function sideBarMenu()
 				html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Hall Of Fame</a></li>';
 				html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Home</a></li>';
                 
-=======
                 html += '<li class="registerMenu"><a href="register.html">Signup</a></li>';
 				html += '<li class="loginMenu"><a href="login.html">Login</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">Shop Home</a></li>';
@@ -233,7 +228,6 @@ function sideBarMenu()
 				html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();">Sign Out</a></li>';
 				}
 
->>>>>>> 1f638181817bbb69c3067c1cab19efcd7bd4c7a5
 			html += '</ul>';
 			$('.slide-menu').html(html);
 }
