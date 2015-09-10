@@ -11,11 +11,12 @@ body {
     overflow-x: hidden;
     font-family: arial;
 }
-.advertisement{
-	padding:15px 0;
-	display:block;
-	float:left;
-	width:100%;}
+.advertisement {
+    padding: 5px 0 10px;
+    display: block;
+    float: left;
+    width: 100%;
+}
 form.addgame, form.register{
 	display:block;
 	float:left;
@@ -842,3 +843,9 @@ img.age-img{
 #captchaInput{
 	border-radius:5px;
 	border-width:1px;}
+	
+.activeFav
+{
+	background: url(../img/fav.png) no-repeat !important;
+	background-size : 100% !important;
+}

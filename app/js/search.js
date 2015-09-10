@@ -2,7 +2,7 @@
 $(document).ready(function(){
    var searchTerms = getQueryVariable('searchTerms');
    searchTerms = decodeURI(searchTerms);
-   $('a.specification').html('Search Results For ('+searchTerms+')');
+   $('a.searchtitle').html('Search Results For ('+searchTerms+')');
    getSearchResult(searchTerms);
 })
 
@@ -57,7 +57,9 @@ function getSearchResult(searchTerm)
 								html += '<div class="seller_name">Seller : '+value.author.name+'</div>';
 						html += '</div>';
 					html += '</a>';
+					html += '<a class="fvt-str product'+value.id+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.id+'\');">&nbsp;</a>';
 				html += '</li>';
+				checkfavorite(value.id);
 				})
 				}
 				

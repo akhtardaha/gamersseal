@@ -76,9 +76,10 @@ function getCategoryProducts(term_id)
 								var excerpt = value.post_content;
 								html += '<p>'+excerpt.substr(0, 100)+'</p>';
 								html += '<p>Price: $'+value.custom_fields.sales_price[0]+'</p>';
-								html += '</div>';
-							html += '</a><a class="fvt-str" href="#">&nbsp;</a>';
+								html += '</div></a>';
+								html += '<a class="fvt-str product'+value.ID+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.ID+'\');">&nbsp;</a>';
 						html += '</li>';
+						checkfavorite(value.ID);
 					}
 				}
 				else
@@ -98,9 +99,10 @@ function getCategoryProducts(term_id)
 								var excerpt = value.post_content;
 								html += '<p>'+excerpt.substr(0, 100)+'</p>';
 								html += '<p>Price: $'+value.custom_fields.sales_price[0]+'</p>';
-								html += '</div>';
-							html += '</a><a class="fvt-str" href="#">&nbsp;</a>';
+								html += '</div></a>';
+								html += '<a class="fvt-str product'+value.ID+'" href="javascript:void(0);" onclick="return additemtoFavorite(\''+value.ID+'\');">&nbsp;</a>';
 						html += '</li>';
+						checkfavorite(value.ID);
 				}
 				})
 			}

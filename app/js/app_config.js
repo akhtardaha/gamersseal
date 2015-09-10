@@ -30,7 +30,6 @@ $(document).ready(function(){
 		$('#captcha-val').val(oneNumber+anoterNumber);
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
-$('.content-wraper').prepend('<div class="advertisement"><marquee direction="left"><a href="#" >This Is An Advertisement</a></marquee></div>');
 $('.content-wraper').append(' <div class="help-center"><a href="#">Help Support Gamers Seal</a></div>');
 getAppStatics();
 app_settings();
@@ -52,6 +51,7 @@ $( ".setting" ).click(function() {
     }
 });
   $('.content-wraper').prepend('<div class="back-box"><a href="javascript:void(0);" class="specification back-btn" onclick="goBack()">Back</a></div>');
+  $('.content-wraper').prepend('<div class="advertisement"><marquee direction="left"><a href="#" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper pretium lorem, sed porttitor urna hendrerit id.</a></marquee></div>');
 })
 
 $(document).ready(function(){
@@ -167,36 +167,40 @@ function sideBarMenu()
 {
 			var html = '';
 			html += '<ul >';
+				if(window.localStorage.getItem("loginuserCookie"))
+				{
+				html += '<li><a href="cart.html">Shopping Cart</a></li>';
+				html += '<li><a href="message-board.html">Message Board</a></li>';
+				html += '<li><a href="orderstatus.html">Order Status</a></li>';					
+				}
 				if(window.localStorage.getItem("loginuserABN") != '' && window.localStorage.getItem("loginuserCookie") != '')
 				{
 				    html += '<li class="bdr-btm"><a href="shippingstatus.html">Shipping Status</a></li>';
 					html += '<li><a href="managegames.html">Stock Management</a></li>';
-					html += '<li class="bdr-btm"><a href="postgame.html">Add New Game</a></li>';
+					html += '<li class="bdr-btm"><a href="postgame.html">Add New Item</a></li>';
 					html += '<li><a href="salesreport.html">Sales Reports</a></li>';
-					html += '<li><a href="postgame.html">Add New Game</a></li>';
 				}
 				
 				if(!(window.localStorage.getItem("loginuserCookie")))
 				{
-				html += '<li><a href="cart.html">Shopping Cart</a></li>';
-				html += '<li class="loginMenu"><a href="login.html">Sign In</a></li>';
                 html += '<li class="registerMenu"><a href="register.html">Signup</a></li>';
-				html += '<li class="gameMenu"><a href="index.html">Buy Games</a></li>';
+				html += '<li class="loginMenu"><a href="login.html">Login</a></li>';
+				html += '<li class="gameMenu"><a href="index.html">Shop Home</a></li>';
+				html += '<li class="gameMenu"><a href="events.html">Events</a></li>';
+				html += '<li class="bdr-btm gameMenu"><a href="news.html">Gamers Seal  News</a></li>';
+				html += '<li class="gameMenu"><a href="index.html">Home Page</a></li>';
 				}
 				else
 				{
-				html += '<li><a href="cart.html">Shopping Cart</a></li>';
-				html += '<li><a href="message-board.html">Message Board</a></li>';
-				html += '<li><a href="orderstatus.html">Order Status</a></li>';
                 html += '<li class="bdr-btm"><a href="setting.html">Settings</a></li>';
 				html += '<li class="profileMenu"><a href="profile.html">User Profile</a></li>';	
-				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();">Sign Out</a></li>';
 				html += '<li class="gameMenu"><a href="index.html">Shop</a></li>';
-				}
-				
 				html += '<li class="bdr-btm"><a href="halloffames.html">Hall Of Fame</a></li>';
-				html += '<li class="gameMenu"><a href="index.html">Home</a></li>';
-                
+				html += '<li class="gameMenu"><a href="donate.html">Donate</a></li>';
+				html += '<li class="gameMenu bdr-btm"><a href="index.html">Home</a></li>';
+				html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();">Sign Out</a></li>';
+				}
+
 			html += '</ul>';
 			$('.slide-menu').html(html);
 }
@@ -458,6 +462,7 @@ function getUserItemsPerDay()
     });
 		
 }
+
 function getUserPurchasePerDay()
 	{
 		var user_id = window.localStorage.getItem("loginuserID");
@@ -702,6 +707,87 @@ function resumeApp()
 	{
 		window.location = currentURI;	
 	}
+}
+
+
+function additemtoFavorite(product_id)
+{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		if(user_id)
+		{
+			var type = 'wpmarketplace';
+			var url = API_URL+'addtofavorite/?key=1234567891011&user_id='+user_id+'&product_id='+product_id+' ';
+			var html = '';
+			$.ajax({
+				url:url,
+				type: "POST",
+				contentType: "application/json",
+				dataType: 'jsonp',
+				success:function(data)
+				{
+					console.log(data);
+					if(data == "Removed from Favorite")
+					{
+						$('.product'+product_id).removeClass('activeFav');	
+					}
+					else if(data == "Added to Favorite")
+					{
+						$('.product'+product_id).addClass('activeFav');
+					}
+					//$('#product-filter').html(html);
+					
+				},
+				error:function(){
+		
+				}
+			});
+		}
+		else
+		{
+			console.log("Please login before adding Item to Favorite!");
+			navigator.notification.alert(
+				"Please login before adding Item to Favorite!",  // message
+				function(){},        // callback
+				'Login',            // title
+				'OK'                  // buttonName
+			);		
+		}
+}
+
+function checkfavorite(product_id)
+{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		if(user_id)
+		{
+			var type = 'wpmarketplace';
+			var url = API_URL+'checkfavorite/?key=1234567891011&user_id='+user_id+'&product_id='+product_id+' ';
+			var html = '';
+			$.ajax({
+				url:url,
+				type: "POST",
+				contentType: "application/json",
+				dataType: 'jsonp',
+				success:function(data)
+				{
+					console.log(data);
+					if(data == "Yes")
+					{
+						$('.product'+product_id).addClass('activeFav');	
+					}
+					else if(data == "No")
+					{
+						
+					}
+					//$('#product-filter').html(html);
+					
+				},
+				error:function(){
+		
+				}
+			});
+		}
 }
 
 
