@@ -17,6 +17,21 @@ body {
     float: left;
     width: 100%;
 }
+.donate-page .help-center , .donate-page .advertisement{
+	display:none;}
+.age-filter .age-des, .donation-admin-text, .totalDonation{
+	display:block;
+	float:left;
+	width:100%;
+	margin:5px 0;
+	}
+.age-des spam{
+	border: 1px solid #ccc;
+    display:block;
+    float: right;
+    width: 76%;
+    padding: 5px 15px;
+    min-height: 40px;}
 .left-nav li a img{
 	width:15px;
 	height:auto;
@@ -796,12 +811,18 @@ form[name="message"] input[name="submit"]{
 @media all and (max-width:600px){
 .home-tabs ul li>div{
 	font-size:12px;}
+.age-des spam{
+	width:71%;}
 }
 @media all and (max-width:500px){
 .home-tabs ul li>div{
 	font-size:10px;}
+.age-des spam{
+	width:65%;}
 }
 @media all and (max-width:420px){
+.age-des spam{
+	width:55%;}
 .categoury-box a{
 	margin:5px 2px;
 	padding:5px 7px;}

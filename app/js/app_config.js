@@ -23,6 +23,16 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 
 $(document).ready(function(){
+		$('.donate_amount_val').click(function(){
+			var currentdonation = parseInt($('#totalDonationAmount').text()) + parseInt($(this).val());
+			$('#totalDonationAmount').text(currentdonation+'$');
+			})
+		$('#add-custom').blur(function(){
+			if(!isNaN(parseInt($(this).val()))){
+			var currentdonation = parseInt($('#totalDonationAmount').text()) + parseInt($(this).val());
+			$('#totalDonationAmount').text(currentdonation+'$');
+			}
+			})
 		var oneNumber = Math.floor((Math.random() * 3) + 1);
 		var anoterNumber = Math.floor((Math.random() * 7) + 1);
 		$('#number1').text(oneNumber);
