@@ -174,7 +174,7 @@ function sideBarMenu()
 					html += '<li class="bdr-btm"><a href="postgame.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Add New Game</a></li>';
 					html += '<li><a href="salesreport.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sales Reports</a></li>';
 					html += '<li><a href="postgame.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Add New Game</a></li>';
-			html += '<ul >';
+			//html += '<ul >';
 				if(window.localStorage.getItem("loginuserCookie"))
 				{
 				html += '<li><a href="cart.html">Shopping Cart</a></li>';
