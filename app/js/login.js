@@ -9,7 +9,6 @@ function signInUser()
 	startButtonLoading('SignIn');
 	var username = $('#username').val();
 	var password = $('#password').val();
-	
 	if(username && password){
 	startButtonLoading('SignIn');
 	$.ajax({
@@ -23,6 +22,12 @@ function signInUser()
 			console.log(data);
 			if(data.status == 'ok')
 			{
+			var rember = $('#remember').val();
+				if(rember == 'on'){
+				window.localStorage.setItem("rememberStatus",'true');
+				window.localStorage.setItem("rememberUsername",username);
+				window.localStorage.setItem("rememberPassword",password);
+				}
 			console.log('Welcome '+data.user.nickname+'!');
 			var role = data.user.capabilities;
 			role = Object.keys(role);

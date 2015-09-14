@@ -23,6 +23,13 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 
 $(document).ready(function(){
+		if(window.localStorage.getItem("rememberStatus")=='true'){
+			$('#username').val(window.localStorage.getItem("rememberUsername"));
+			$('#password').val(window.localStorage.getItem("rememberPassword"));
+			}
+		$('.news-item').click(function(){
+			$(this).css('height','auto');
+			})
 		$('.donate_amount_val').click(function(){
 			var currentdonation = parseInt($('#totalDonationAmount').text()) + parseInt($(this).val());
 			$('#totalDonationAmount').text(currentdonation+'$');

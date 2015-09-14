@@ -18,12 +18,29 @@ body {
 }
 .donate-page .help-center , .donate-page .advertisement{
 	display:none;}
-.age-filter .age-des, .donation-admin-text, .totalDonation{
+#age-filter .age-des, .donation-admin-text, .totalDonation, .faq-box{
 	display:block;
 	float:left;
 	width:100%;
 	margin:5px 0;
 	}
+.news-list{
+	display: block;
+    float: left;
+    width: 100%;
+    padding: 0;}
+.news-item{
+	height:135px;
+	overflow:hidden;
+	border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 5px 0;}
+.faq-box{
+	border:1px solid #ccc;
+	margin:10px 0;
+	padding:10px 1%;
+	width:98%;
+	border-radius:25px;}
 .age-des span{
 	border: 1px solid #ccc;
     display:block;
@@ -809,6 +826,7 @@ form[name="message"] input[name="submit"]{
 .home .header-mid{
 	display:block;
 }
+
 @media all and (max-width:600px){
 .home-tabs ul li>div{
 	font-size:12px;}
@@ -834,6 +852,10 @@ form[name="message"] input[name="submit"]{
 }
 .home-tabs >ul> li{
 	padding:7px 1px;}
+}
+@media all and (max-width:340px){
+.home-tabs ul li>div{
+	font-size:9px;}
 }
 #deviceready {
   position: relative;
