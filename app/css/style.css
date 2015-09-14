@@ -17,10 +17,11 @@ body {
     float: left;
     width: 100%;
 }
-.left-nav li a img{
-	width:15px;
-	height:auto;
-	margin-right:5px;}
+.left-nav li a img {
+    width: 15px;
+    height: auto;
+    margin-right: 10px;
+}
 .advertisement{
 	padding:15px 0;
 	display:block;
@@ -391,15 +392,16 @@ input.search {
 .close {
 	display:none !important;}
 .open {
-	display:block !important;
-	background:inherit;
-	z-index:999;
-	background-color:#fff;
-	}
-.slide-menu ul{
-	list-style-type:none;
-	margin:0;
-	padding:10px 25px;}
+    display: block !important;
+    background: inherit;
+    z-index: 9999;
+    background-color: #fff;
+}
+.slide-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 10px;
+}
 .slide-menu ul li{
 	float:left;
 	width:100%;}

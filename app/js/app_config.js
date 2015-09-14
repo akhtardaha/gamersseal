@@ -166,68 +166,40 @@ function signOutUser()
 function sideBarMenu()
 {
 			var html = '';
-						html += '<ul class="left-nav">';
+			html += '<ul class="left-nav">';
+				if(window.localStorage.getItem("loginuserCookie"))
+				{
+					html += '<li><a href="cart.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shopping Cart</a></li>';
+					html += '<li><a href="message-board.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Message Board</a></li>';
+					html += '<li><a href="orderstatus.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Order Status</a></li>';					
+				}
 				if(window.localStorage.getItem("loginuserABN") != '' && window.localStorage.getItem("loginuserCookie") != '')
 				{
 				    html += '<li class="bdr-btm"><a href="shippingstatus.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shipping Status</a></li>';
 					html += '<li><a href="managegames.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Stock Management</a></li>';
-					html += '<li class="bdr-btm"><a href="postgame.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Add New Game</a></li>';
+					html += '<li class="bdr-btm"><a href="postgame.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Add New Item</a></li>';
 					html += '<li><a href="salesreport.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sales Reports</a></li>';
-					html += '<li><a href="postgame.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Add New Game</a></li>';
-			html += '<ul >';
-				if(window.localStorage.getItem("loginuserCookie"))
-				{
-				html += '<li><a href="cart.html">Shopping Cart</a></li>';
-				html += '<li><a href="message-board.html">Message Board</a></li>';
-				html += '<li><a href="orderstatus.html">Order Status</a></li>';					
-				}
-				if(window.localStorage.getItem("loginuserABN") != '' && window.localStorage.getItem("loginuserCookie") != '')
-				{
-				    html += '<li class="bdr-btm"><a href="shippingstatus.html">Shipping Status</a></li>';
-					html += '<li><a href="managegames.html">Stock Management</a></li>';
-					html += '<li class="bdr-btm"><a href="postgame.html">Add New Item</a></li>';
-					html += '<li><a href="salesreport.html">Sales Reports</a></li>';
 				}
 				
 				if(!(window.localStorage.getItem("loginuserCookie")))
 				{
-				html += '<li><a href="cart.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shopping Cart</a></li>';
-				html += '<li class="loginMenu"><a href="login.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sign In</a></li>';
-                html += '<li class="registerMenu"><a href="register.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Signup</a></li>';
-				html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Buy Games</a></li>';
+				 	html += '<li class="registerMenu"><a href="register.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Signup</a></li>';
+					html += '<li class="loginMenu"><a href="login.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Login</a></li>';
+					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shop Home</a></li>';
+					html += '<li class="gameMenu"><a href="events.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Events</a></li>';
+					html += '<li class="bdr-btm gameMenu"><a href="news.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Gamers Seal  News</a></li>';
+					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Home Page</a></li>';
 				}
 				else
 				{
-				html += '<li><a href="cart.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shopping Cart</a></li>';
-				html += '<li><a href="message-board.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Message Board</a></li>';
-				html += '<li><a href="orderstatus.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Order Status</a></li>';
-                html += '<li class="bdr-btm"><a href="setting.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Settings</a></li>';
-				html += '<li class="profileMenu"><a href="profile.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>User Profile</a></li>';	
-				html += '<li class="logoutMenu"><a href="#" onclick="return signOutUser();"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sign Out</a></li>';
-				html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shop</a></li>';
+					html += '<li class="bdr-btm"><a href="setting.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Settings</a></li>';
+					html += '<li class="profileMenu"><a href="profile.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>User Profile</a></li>';	
+					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shop</a></li>';
+					html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Hall Of Fame</a></li>';
+					html += '<li class="gameMenu"><a href="donate.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Donate</a></li>';
+					html += '<li class="gameMenu bdr-btm"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Home</a></li>';
+					html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sign Out</a></li>';
 				}
-				
-				html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Hall Of Fame</a></li>';
-				html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Home</a></li>';
-                
-                html += '<li class="registerMenu"><a href="register.html">Signup</a></li>';
-				html += '<li class="loginMenu"><a href="login.html">Login</a></li>';
-				html += '<li class="gameMenu"><a href="index.html">Shop Home</a></li>';
-				html += '<li class="gameMenu"><a href="events.html">Events</a></li>';
-				html += '<li class="bdr-btm gameMenu"><a href="news.html">Gamers Seal  News</a></li>';
-				html += '<li class="gameMenu"><a href="index.html">Home Page</a></li>';
-				}
-				else
-				{
-                html += '<li class="bdr-btm"><a href="setting.html">Settings</a></li>';
-				html += '<li class="profileMenu"><a href="profile.html">User Profile</a></li>';	
-				html += '<li class="gameMenu"><a href="index.html">Shop</a></li>';
-				html += '<li class="bdr-btm"><a href="halloffames.html">Hall Of Fame</a></li>';
-				html += '<li class="gameMenu"><a href="donate.html">Donate</a></li>';
-				html += '<li class="gameMenu bdr-btm"><a href="index.html">Home</a></li>';
-				html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();">Sign Out</a></li>';
-				}
-
 			html += '</ul>';
 			$('.slide-menu').html(html);
 }
