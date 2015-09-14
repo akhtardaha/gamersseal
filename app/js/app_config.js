@@ -176,6 +176,7 @@ function signOutUser()
 function sideBarMenu()
 {
 			var html = '';
+			html = '<ul class="left-nav">';
 				if(window.localStorage.getItem("loginuserCookie"))
 				{
 					html += '<li><a href="cart.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shopping Cart</a></li>';
