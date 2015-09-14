@@ -11,12 +11,6 @@ body {
     overflow-x: hidden;
     font-family: arial;
 }
-.advertisement {
-    padding: 5px 0 10px;
-    display: block;
-    float: left;
-    width: 100%;
-}
 .left-nav li a img {
     width: 15px;
     height: auto;
@@ -30,7 +24,7 @@ body {
 	width:100%;
 	margin:5px 0;
 	}
-.age-des spam{
+.age-des span{
 	border: 1px solid #ccc;
     display:block;
     float: right;
@@ -41,11 +35,12 @@ body {
 	width:15px;
 	height:auto;
 	margin-right:5px;}
-.advertisement{
-	padding:15px 0;
-	display:block;
-	float:left;
-	width:100%;}
+.advertisement {
+    padding: 0px 0 15px;
+    display: block;
+    float: left;
+    width: 100%;
+}
 form.addgame, form.register{
 	display:block;
 	float:left;
@@ -817,17 +812,17 @@ form[name="message"] input[name="submit"]{
 @media all and (max-width:600px){
 .home-tabs ul li>div{
 	font-size:12px;}
-.age-des spam{
+.age-des span{
 	width:71%;}
 }
 @media all and (max-width:500px){
 .home-tabs ul li>div{
 	font-size:10px;}
-.age-des spam{
+.age-des span{
 	width:65%;}
 }
 @media all and (max-width:420px){
-.age-des spam{
+.age-des span{
 	width:55%;}
 .categoury-box a{
 	margin:5px 2px;
@@ -884,4 +879,9 @@ img.age-img{
 {
 	background: url(../img/fav.png) no-repeat !important;
 	background-size : 100% !important;
+}
+
+.age-des {
+    float: left;
+    margin-bottom: 5px;
 }

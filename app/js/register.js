@@ -1,7 +1,7 @@
 // JavaScript Document
 var terms_and_conditions = '<a class="specification">Terms and Conditions</a>';
 terms_and_conditions += window.localStorage.getItem("terms_and_conditions");
-terms_and_conditions += '<div style="margin-top: 15px;" class="lastRow"><input type="checkbox" style="float:left;margin-top: 5px; margin-right:10px;" name="terms" id="terms"  /><label style="position: relative;left: 0px;">Agree to Terms and Conditions</label></div>';
+terms_and_conditions += '<div style="margin-top: 15px;" class="lastRow"><input type="checkbox" style="float:left;margin-top: 5px; margin-right:10px;" name="terms" id="terms"  /><label style="position: relative;left: 0px;">I have Read and Agree To terms and Conditions</label></div>';
  terms_and_conditions += '<a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c search btn not-srch a-btn" onclick="return registerUser();">Register</a>';
 $(document).ready(function(){
 	$('.agreeTerms').html(terms_and_conditions);
@@ -243,7 +243,7 @@ function extraProfileUpdate(cookie,fullname,australianId,dob,address,Suburb,stat
 			if(data.status == 'ok')
 			{
 				navigator.notification.alert(
-						'Thanks for the registration, please check your email. You will notify when your account will be activated by admin',  // message
+						'Please check your email to activate account and to await Admin Approval before you can sign in to your gamers seal account',  // message
 						function(){setTimeout(function(){ window.location = 'index.html'; }, 200);},        // callback
 					   'Registration Completed',            // title
 						'OK'                  // buttonName

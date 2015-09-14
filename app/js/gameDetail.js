@@ -131,13 +131,134 @@ function getPostDetail(post_id)
 				 {
 					var delievery_time = 2; 
 				 }
+				 
+				 if(post.custom_fields.shiping_cost)
+				 {
+				 var shiping_cost = post.custom_fields.shiping_cost[0];
+				 }
+				 else
+				 {
+					var shiping_cost = '0'; 
+				 }
+				 shiping_cost = intToFloat(shiping_cost, 2);
+				 
+				 if(post.custom_fields.location)
+				 {
+				 var location = post.custom_fields.location[0];
+				 }
+				 else
+				 {
+					var location = ''; 
+				 }
+				 
+				 if(post.custom_fields.age_limit)
+				 {
+				 var age_limit = post.custom_fields.age_limit[0];
+				 age_limit =  age_limit.toLowerCase();
+				 }
+				 else
+				 {
+					var age_limit = ''; 
+					
+				 }
+				 
+				 if(post.custom_fields.condition)
+				 {
+				 var condition = post.custom_fields.condition[0];
+				 }
+				 else
+				 {
+					var condition = ''; 
+					
+				 }
+				 
+				 if(post.custom_fields.FrontQuality)
+				 {
+				 var FrontQuality = post.custom_fields.FrontQuality[0];
+				 }
+				 else
+				 {
+					var FrontQuality = ''; 
+					
+				 }
+				 
+				  if(post.custom_fields.Disk1Quality)
+				 {
+				 var Disk1Quality = post.custom_fields.Disk1Quality[0];
+				 }
+				 else
+				 {
+					var Disk1Quality = ''; 
+					
+				 }
+				 
+				  if(post.custom_fields.Disk2Quality)
+				 {
+				 var Disk2Quality = post.custom_fields.Disk2Quality[0];
+				 }
+				 else
+				 {
+					var Disk2Quality = ''; 
+					
+				 }
+				 
+				 if(post.custom_fields.Manual)
+				 {
+				 var Manual = post.custom_fields.Manual[0];
+				 }
+				 else
+				 {
+					var Manual = ''; 
+					
+				 }
+				 
+				 
+				 
+				 
+				 //var location = window.localStorage.getItem("loginuserLocation");
+				 
 				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+gameCat+'</a></div></div>';
                  descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Price:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">$'+price+'</a></div></div>';
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Postage Cost:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">$'+shiping_cost+'</a></div></div>';
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Location:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+location+'</a></div></div>';
 				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Estimated Delivery Time:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+delievery_time+' Days</a></div></div>';
 				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div></div>';
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Seller Rating:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /></a></div></div>';
+				 if(age_limit){
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Classification Rating:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn"><img src="img/icon_'+age_limit+'.png" alt="'+age_limit+'"/></a></div></div>';
+				 }
+				 if(condition){
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Condition of Game:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+condition+'</a></div></div>';
+				 }
+				 
+				 if(FrontQuality || Disk1Quality || Disk2Quality || Manual)
+				 {
+				 descBoxes += '<a href="javascript:void(0)" class="specification">Quality of Game</a>';
+				 }
+				 if(FrontQuality){
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Front:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+FrontQuality+'</a></div></div>';
+				 }
+				 if(Disk1Quality){
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Disk 1 Rear:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+Disk1Quality+'</a></div></div>';
+				 }
+				 if(Disk2Quality){
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Disk 2 Rear:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+Disk2Quality+'</a></div></div>';
+				 }
+				 if(Manual){
+				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Manual:</a></div>';
+   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+Manual+'</a></div></div>';
+				 }
                  descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Details:</a></div>';
 				 var descLimit = window.localStorage.getItem("item_desc_limit");
 				 if(descLimit)

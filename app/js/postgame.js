@@ -36,9 +36,7 @@ function getProductCategories()
 			{
 				html += '<option value="" selected="selected">Select Item Type</option>';
 				$.each(data.data, function (i, value) {
-					//html += '<input type="checkbox" name="gameType" value="'+value.term_taxonomy_id+'">'+value.name+'<br />';
 					html += '<option value="'+value.term_taxonomy_id+'">'+value.name+'</option>';
-        			//html += '<a href="category.html?term_id='+value.term_id+'&term_taxonomy_id='+value.term_taxonomy_id+'&slug='+value.slug+'">'+value.name+'</a>';
 				})
 			}
 			$('#gameType').html(html);
@@ -61,10 +59,16 @@ function addPost()
 	var deliveryTime = $('#delivery-time').val();
 	var stock = $('#stock').val();
 	var shipingCost = $('#shiping-cost').val();
-	var minOrder = $('#min-order').val();
-	var maxOrder = $('#max-order').val();
+	var condition = $('#condition').val();
+	
+	var FrontQuality = $('#FrontQuality').val();
+	var Disk1Quality = $('#Disk1Quality').val();
+	var Disk2Quality = $('#Disk2Quality').val();
+	var Manual = $('#ManualQuality').val();
+	
 	var ageLimit = $('input[name="age-limit"]:checked').val();
 	console.log(ageLimit);
+	console.log(gameType);
 	//var ageLimit = $('#age-limit').val();
 	var manage_stock = 1;
 	
@@ -164,8 +168,10 @@ function addPost()
 	}
 
 	var cooke = window.localStorage.getItem("loginuserCookie");
+	var location = window.localStorage.getItem("loginuserLocation");
 	
-	var url = API_URL+'add_post/?key=1234567891011&cookie='+cooke+'&type=wpmarketplace&title='+postTitle+'&content='+postDetail+'&manage_stock='+manage_stock+'&stock_qty='+stock+'&sales_price='+price+'&delivery_time='+deliveryTime+'&shiping_cost='+shipingCost+'&min_order='+minOrder+'&max_order='+maxOrder+'&images='+pics+'&visible='+publish+'&age_limit='+ageLimit+'&status=pending';
+	var url = API_URL+'add_post/?key=1234567891011&cookie='+cooke+'&type=wpmarketplace&title='+postTitle+'&content='+postDetail+'&manage_stock='+manage_stock+'&stock_qty='+stock+'&sales_price='+price+'&delivery_time='+deliveryTime+'&shiping_cost='+shipingCost+'&images='+pics+'&visible='+publish+'&age_limit='+ageLimit+'&condition='+condition+'&FrontQuality='+FrontQuality+'&Disk1Quality='+Disk1Quality+'&Disk2Quality='+Disk2Quality+'&Manual='+Manual+'&location='+location+'&status=pending';
+	
 	console.log(url);
 		var html = '';
 	    $.ajax({

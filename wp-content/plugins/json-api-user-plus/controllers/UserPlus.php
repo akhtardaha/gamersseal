@@ -954,8 +954,14 @@ public function generate_auth_cookie() {
 			'field'   => 'ABN',
 			'user_id' => $user->ID
 		);
+		
+		$args1 = array(
+			'field'   => 'State',
+			'user_id' => $user->ID
+		);
 
-		$abn = bp_get_profile_field_data( $args );
+		$abn = bp_get_profile_field_data($args);
+		$state = bp_get_profile_field_data($args1);
 
 		
 
@@ -993,9 +999,9 @@ public function generate_auth_cookie() {
 
 				"avatar" => $avatar[1],
 				
-				"abn" => $abn
-
-
+				"abn" => $abn,
+				
+				"state" => $state
 
 			),
 
@@ -1256,16 +1262,25 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	add_post_meta($post->id, "_thumbnail_id", $post->attachments[0]->id);
 	
 	$img = array();
+	
 	$sales_price = $json_api->query->sales_price;
 	$stock_qty = $json_api->query->stock_qty;
 	$manage_stock = $json_api->query->manage_stock;
 	$delivery_time = $json_api->query->delivery_time;
 	$shiping_cost = $json_api->query->shiping_cost;
-	$min_order = $json_api->query->min_order;
-	$max_order = $json_api->query->max_order;
 	$age_limit = $json_api->query->age_limit;
 	$visible = $json_api->query->visible;
 	$images = $json_api->query->images;
+	
+	$condition = $json_api->query->condition;
+	$FrontQuality = $json_api->query->FrontQuality;
+	$Disk1Quality = $json_api->query->Disk1Quality;
+	$Disk2Quality = $json_api->query->Disk2Quality;
+	$Manual = $json_api->query->Manual;
+	
+	$location = $json_api->query->location;
+	
+	
 	$img = explode( ',', $images );
 	
 	$wpmp_list_opts = array (
@@ -1313,6 +1328,8 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	$this->insert_custom_fields_for_filter($post->id,$sales_price,$age_limit);
 	//$wpmp_list_op = maybe_serialize($wpmp_list_opts);
 	add_post_meta($post->id, "wpmp_list_opts", $wpmp_list_opts);
+	
+	
 	add_post_meta($post->id, "stock_qty", $stock_qty);
 	add_post_meta($post->id, "sales_price", $sales_price);
 	add_post_meta($post->id, "manage_stock", $manage_stock);
@@ -1323,6 +1340,13 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	add_post_meta($post->id, "images", $img);
 	add_post_meta($post->id, "age_limit", $age_limit);
 	add_post_meta($post->id, "visible", $visible);
+	add_post_meta($post->id, "location", $location);
+	
+	add_post_meta($post->id, "condition", $condition);
+	add_post_meta($post->id, "FrontQuality", $FrontQuality);
+	add_post_meta($post->id, "Disk1Quality", $Disk1Quality);
+	add_post_meta($post->id, "Disk2Quality", $Disk2Quality);
+	add_post_meta($post->id, "Manual", $Manual);
 	//set_post_type($post->id,'wpmarketplace');	
 	}
 

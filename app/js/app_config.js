@@ -206,7 +206,7 @@ function sideBarMenu()
 					html += '<li class="profileMenu"><a href="profile.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>User Profile</a></li>';	
 					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shop</a></li>';
 					html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Hall Of Fame</a></li>';
-					html += '<li class="gameMenu"><a href="donate.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Donate</a></li>';
+					html += '<li class="gameMenu"><a href="donation.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Donate</a></li>';
 					html += '<li class="gameMenu bdr-btm"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Home</a></li>';
 					html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sign Out</a></li>';
 				}
@@ -799,7 +799,12 @@ function checkfavorite(product_id)
 		}
 }
 
+function intToFloat(num, decPlaces) { 
 
+num = parseInt(num);
+return num.toFixed(decPlaces); 
+
+}
 
 /*
 $(function() {

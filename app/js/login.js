@@ -35,10 +35,11 @@ function signInUser()
 			window.localStorage.setItem("loginuserEmail",data.user.email);
 			window.localStorage.setItem("loginuserID",data.user.id);
 			window.localStorage.setItem("loginuserRole",user_role);
-			window.localStorage.setItem("loginuserABN",data.abn);
+			window.localStorage.setItem("loginuserABN",data.user.abn);
 			window.localStorage.setItem("loginuserNicename",data.user.nicename);
 			window.localStorage.setItem("loginuserNickname",data.user.nickname);
 			window.localStorage.setItem("loginuserUsername",data.user.username);
+			window.localStorage.setItem("loginuserLocation",data.user.state);
 			//console.log(window.localStorage.getItem("loginuserRole"));
 			
 			navigator.notification.alert(
