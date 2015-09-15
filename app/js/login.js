@@ -31,8 +31,8 @@ function signInUser()
 				else
 				{
 				window.localStorage.setItem("rememberStatus",'false');
-				window.localStorage.setItem("rememberUsername",'');
-				window.localStorage.setItem("rememberPassword",'');	
+				//window.localStorage.setItem("rememberUsername",'');
+				//window.localStorage.setItem("rememberPassword",'');	
 				}
 			console.log('Welcome '+data.user.nickname+'!');
 			var role = data.user.capabilities;

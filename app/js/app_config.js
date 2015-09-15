@@ -23,6 +23,13 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 
 $(document).ready(function(){
+		$( ".events-tab.home-tabs ul li>div" ).click(function() {
+			$( ".home-tabs > div" ).css('display','none');
+		 	$( '.home-tabs ul li').removeClass('tab-open');
+		 	$( this ).parent('li').addClass('tab-open');
+			var tab = $(this).attr( "data-tab" );
+			$( tab ).css('display','block');
+		})
 		if(window.localStorage.getItem("rememberStatus")=='true'){
 			$('#username').val(window.localStorage.getItem("rememberUsername"));
 			$('#password').val(window.localStorage.getItem("rememberPassword"));

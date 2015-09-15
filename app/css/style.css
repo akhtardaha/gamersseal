@@ -24,6 +24,9 @@ body {
 	width:100%;
 	margin:5px 0;
 	}
+.editevent{
+	margin-left:25px !important;
+	float:left;}
 .news-list{
 	display: block;
     float: left;
