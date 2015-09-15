@@ -28,11 +28,18 @@ function signInUser()
 				window.localStorage.setItem("rememberUsername",username);
 				window.localStorage.setItem("rememberPassword",password);
 				}
+				else
+				{
+				window.localStorage.setItem("rememberStatus",'false');
+				window.localStorage.setItem("rememberUsername",'');
+				window.localStorage.setItem("rememberPassword",'');	
+				}
 			console.log('Welcome '+data.user.nickname+'!');
 			var role = data.user.capabilities;
 			role = Object.keys(role);
 			var user_role = role[0];
 			//console.log(user_role); 
+			window.localStorage.setItem("loginuserPassword",password);
 			window.localStorage.setItem("loginuserCookie",data.cookie);
 			window.localStorage.setItem("loginuserCookieName",data.cookie_name);
 			window.localStorage.setItem("loginuserPic",data.user.avatar);

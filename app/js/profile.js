@@ -33,14 +33,22 @@ function getUserInfo()
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
    					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.email+'</a></div>';
 					html += '</div>';
+					html += '<div class="specification">Change Account Password</div>';
+					html += '<form action="profile.html" name="login" method="post">';
+						html += '<input type="password" id="old_password" name="old_password" placeholder="Old Password" class="search not-srch"/>';
+						html += '<input type="password" id="password" name="password" placeholder="New Password" class="search not-srch"/>';
+						html += '<input type="password" id="cpassword" name="cpassword" placeholder="Confirm New Password" class="search not-srch"/>';
+						html += '<input type="button" id="changePassword" onclick="return updatePassword();" name="changePassword" value="Change Password" class="search btn not-srch" />';
+					html += '</form>';
 					html += '<div class="specification ui-icon-user show-full-profile less" onclick="toggleProfile();" id="show-full-profile">Show Full Profile</div>';
 					html += '<div class="full-profile">';
+					html += '<a href="editProfile.html" class="search btn not-srch" style="margin: 10px 0px;float: left;">Edit User Profile</a>';
 					html += '<div class="item">';
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Name:</a></div>';
    					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.displayname+'</a></div>';
 					html += '</div>';
 				$.each(profile, function (i, value) {
-					if(i != 'status' && i != 'id' && i != 'nicename' && i != 'email' && i != 'lastname' && i != 'nickname' && i != 'firstname' && i != 'avatar' && i != 'displayname' && i != 'url' && i != '' && value != '' && i != 'Name' )
+					if(i != 'status' && i != 'id' && i != 'nicename' && i != 'email' && i != 'lastname' && i != 'nickname' && i != 'firstname' && i != 'avatar' && i != 'displayname' && i != 'url' && i != '' && value != '' && i != 'Name' && i != 'Driving License' && i != 'Passport')
 					{
 					html += '<div class="item">';
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">'+i+':</a></div>';
@@ -52,6 +60,22 @@ function getUserInfo()
 					$('#popphoto').html('<img src="'+avatar+'" alt="Game Image 01" class="popphoto" >');
 					}
 				})
+				html += '<div class="item">';
+					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Australian ID#:</a></div>';
+   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.Passport+'-'+profile['Driving License']+'</a></div>';
+				html += '</div>';
+				html += '<div class="item">';
+					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">User Rating:</a></div>';
+   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /></a></div>';
+				html += '</div>';
+				html += '<div class="item">';
+					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Total Donation Amount:</a></div>';
+   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">$10</a></div>';
+				html += '</div>';
+				html += '<div class="item">';
+					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Hall of fame Member:</a></div>';
+   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">14082015</a></div>';
+				html += '</div>';
 				html += '</div>';
 				$('.descBoxes').html(html);
 			}
@@ -138,3 +162,90 @@ function toggleProfile()
             console.log("Error found, Error code ="+error.code);
 			//alert("An error has occurred: Code = " = error.code);
         }
+		
+		
+	function updatePassword(){
+	startButtonLoading('changePassword');
+	var old_password = $('#old_password').val();
+	var loginUserPassword = window.localStorage.getItem("loginuserPassword");
+	//console.log(loginUserPassword);
+	var password = $('#password').val();
+	if(old_password != loginUserPassword )
+	{
+				endButtonLoading('changePassword');
+				console.log("Old Password Not Correct");
+				navigator.notification.alert(
+						"Please enter correct Old Password",  // message
+						function(){},        // callback
+					   'Wrong Old Password',            // title
+						'OK'                  // buttonName
+				);
+				return false;	
+	}
+
+	var cpassword = $('#cpassword').val();
+	var user_id = window.localStorage.getItem("loginuserID");
+	var cooke = window.localStorage.getItem("loginuserCookie");
+	var url = '';
+	
+	if(password != '' && cpassword != '')
+	{
+			if(password == cpassword)
+			{
+			startButtonLoading('changePassword');
+			url = API_URL+'update_user/?key=1234567891011&cookie='+cooke+'&user_pass='+cpassword+' ';
+			}
+			else
+			{
+				endButtonLoading('changePassword');
+				console.log("Password Not Matched");
+				navigator.notification.alert(
+						"Password did not Matched, Please enter same!",  // message
+						function(){},        // callback
+					   'Password Not Matched',            // title
+						'OK'                  // buttonName
+				);
+				return false;
+			}
+			console.log(url);
+		$.ajax({
+				url:url,
+				type: "POST",
+				contentType: "application/json",
+				dataType: 'jsonp',
+				success:function(data)
+				{
+					endButtonLoading('changePassword');
+					console.log(data);
+					if(data.status == 'ok')
+					{
+						console.log("Password Updated Successfully!");
+						window.localStorage.setItem("loginuserCookie",'');
+						window.localStorage.setItem("loginuserID",'');
+						navigator.notification.alert(
+								"Password Updated Successfully!",  // message
+								function(){setTimeout(function(){ window.location = 'login.html'; }, 500);},        // callback
+							   "Password Updated",            // title
+								'Done'                  // buttonName
+						);
+						
+					}
+					if(data.status == 'error')
+					{
+						endButtonLoading('changePassword');
+						console.log(data.error);
+						navigator.notification.alert(
+								data.error,  // message
+								function(){setTimeout(function(){location.reload();},300);},        // callback
+							   "Error while Change",            // title
+								'OK'                  // buttonName
+						);
+					}
+					
+				},
+				error:function(){
+					
+				}
+			});
+	}
+}

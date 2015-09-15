@@ -3,25 +3,48 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
-<title>Login Gamers Seal</title>
+<title>Signup with Gamers Seal</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
-    <script src="js/settings.js"></script>
+    <script src="js/editProfile.js"></script>
+    <script src="js/uploadAustralianID.js"></script>
 <style>
-.products-list li {
-  margin: 4px 0;
+select.mobile-dropdown, select {
+  width: 100%;
+  /* float: left; */
+  display: block;
+  padding: 5px 10px;
+  border-radius: 16px;
+  margin: 0px 0;
+  height: 30px;
+  border: 1px solid #ccc;
+  background: none;
+  margin: 10px 0px;
+}
+.specification {
+  text-align: center;
+  font-size: 17px;
+  width: 100%;
   display: block;
   float: left;
-  width: 90%;
-  padding: 0px 5%;
-  border-bottom: 1px solid #ccc;
-  position:relative;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
 }
-.notice
-{
-	padding-left:5%;
+.search.not-srch {
+  background: none;
+  padding-left: 10px;
+  width: 97%;
+  margin: 10px 0;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+.register {
+  float:left;
+  width: 100%;
 }
 </style>
 </head>
@@ -33,26 +56,16 @@
         <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
         
         </div><!-- /header -->
- <div class="slide-menu close"></div>
-        <div class="main-wraper">
-        <div class="content-wraper">
-        <a href="#" class="specification" >User Preferences</a>
+        <div class="slide-menu close"></div>
+  <div class="main-wraper">
+        <div class="content-wraper "><!-- /header -->
         
-        <div class="favrt-games">
-        <a href="#" class="text-lbl" style="margin-bottom:10px;" >Favorite Game Type:</a>
-        <form action="" method="post" name="SearchCat" class="filterCat">
-            <select name="filterCat mobile-dropdown" id="gameType">
-            <option selected="selected">Choose Game Type</option>
-            </select>
-            <input id="addtoFavourite" type="button" name="add" value="Add to Favourites" class="search btn not-srch" onclick="return addUserFavouriteGamesType();" />
-        </form>
-        
-        <ul class="tabContent products-list favourite-list">
-             <img id="loading" src="img/loading.gif" alt="Loading" />
-        </ul>
+        <div class="registerBox">
+				<img id="loading" src="img/loading.gif" alt="Loading" />
         </div>
+        <div class="agreeTerms" style="display:none;">
         </div>
-        </div><!-- /content -->
+        </div></div><!-- /content -->
  
         <div class="footer">
             <h4><a href="mailto:haseeb.baber@gmail.com" >Powered by AHB</a></h4>

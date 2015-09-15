@@ -8,73 +8,7 @@ $(document).ready(function(){
 	getUserFavouriteGamesType();
 })
 	
-function updatePassword(){
-	
-	var password = $('#password').val();
-	var cpassword = $('#cpassword').val();
-	var user_id = window.localStorage.getItem("loginuserID");
-	var cooke = window.localStorage.getItem("loginuserCookie");
-	var url = '';
-	
-	if(password != '' && cpassword != '')
-	{
-			if(password == cpassword)
-			{
-			startButtonLoading('changePassword');
-			url = API_URL+'update_user/?key=1234567891011&cookie='+cooke+'&user_pass='+cpassword+' ';
-			}
-			else
-			{
-				console.log("Password Not Matched");
-				navigator.notification.alert(
-						"Password did not Matched, Please enter same!",  // message
-						function(){},        // callback
-					   'Password Not Matched',            // title
-						'OK'                  // buttonName
-				);
-				return false;
-			}
-			console.log(url);
-		$.ajax({
-				url:url,
-				type: "POST",
-				contentType: "application/json",
-				dataType: 'jsonp',
-				success:function(data)
-				{
-					endButtonLoading('changePassword');
-					console.log(data);
-					if(data.status == 'ok')
-					{
-						console.log("Password Updated Successfully!");
-						window.localStorage.setItem("loginuserCookie",'');
-						window.localStorage.setItem("loginuserID",'');
-						navigator.notification.alert(
-								"Password Updated Successfully!",  // message
-								function(){setTimeout(function(){ window.location = 'login.html'; }, 500);},        // callback
-							   "Password Updated",            // title
-								'Done'                  // buttonName
-						);
-						
-					}
-					if(data.status == 'error')
-					{
-						console.log(data.error);
-						navigator.notification.alert(
-								data.error,  // message
-								function(){setTimeout(function(){location.reload();},300);},        // callback
-							   "Error while Change",            // title
-								'OK'                  // buttonName
-						);
-					}
-					
-				},
-				error:function(){
-					
-				}
-			});
-	}
-}
+
 
 
 function getProductCategories()
