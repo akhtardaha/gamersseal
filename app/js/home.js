@@ -81,7 +81,7 @@ function getPosts()
 		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
 		var url = API_URL_DEFAULT+'get_posts/?post_type='+type;
-		
+		console.log(url);
 		var html = '';
 	    $.ajax({
          url:url,
@@ -551,6 +551,7 @@ function getProductCategories()
 		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
 		var url = API_URL+'fetch_products_categories/?key=1234567891011';
+		console.log(url);
 		var html = '';
 	    $.ajax({
          url:url,

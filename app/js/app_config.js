@@ -741,6 +741,7 @@ function additemtoFavorite(product_id)
 		{
 			var type = 'wpmarketplace';
 			var url = API_URL+'addtofavorite/?key=1234567891011&user_id='+user_id+'&product_id='+product_id+' ';
+			console.log(url);
 			var html = '';
 			$.ajax({
 				url:url,
@@ -786,6 +787,7 @@ function checkfavorite(product_id)
 		{
 			var type = 'wpmarketplace';
 			var url = API_URL+'checkfavorite/?key=1234567891011&user_id='+user_id+'&product_id='+product_id+' ';
+			console.log(url);
 			var html = '';
 			$.ajax({
 				url:url,
