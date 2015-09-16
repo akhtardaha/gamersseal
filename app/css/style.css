@@ -18,12 +18,24 @@ body {
 }
 .donate-page .help-center , .donate-page .advertisement{
 	display:none;}
-#age-filter .age-des, .donation-admin-text, .totalDonation, .faq-box{
+.fame-user{
+	width:49%;
+	float:left;
+	display:block;
+	text-align:center;
+	padding:10px 0.5%;
+}
+.fame-user img{
+	margin:0 auto;}
+#age-filter .age-des, .donation-admin-text, .totalDonation, .faq-box, .hall-time-box, .hall-user-box, .user-id{
 	display:block;
 	float:left;
 	width:100%;
 	margin:5px 0;
 	}
+.hall-time-box, .hall-user-box{
+	border:1px solid #ccc;
+	border-radius:10px;}
 .editevent{
 	margin-left:25px !important;
 	float:left;}
