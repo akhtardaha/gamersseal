@@ -33,7 +33,13 @@ body {
 	width:100%;
 	margin:5px 0;
 	}
-.hall-time-box, .hall-user-box{
+.profile-pic{
+	margin:10px 0.5%;
+	display:block;
+	float:left;
+	width:49%;
+	text-align:center;}
+.hall-user-box{
 	border:1px solid #ccc;
 	border-radius:10px;}
 .editevent{
