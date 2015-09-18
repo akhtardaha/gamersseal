@@ -13,6 +13,8 @@ function getUserInfo()
 	var html = '';
 	var cooke = window.localStorage.getItem("loginuserCookie");
 	var user_id = window.localStorage.getItem("loginuserID");
+	var url = API_URL+'xprofile/?key=1234567891011&user_id='+user_id+'&field=default';
+	console.log(url);
 	$.ajax({
         url:API_URL+'xprofile/?key=1234567891011&user_id='+user_id+'&field=default',
         type: "POST",
