@@ -316,10 +316,6 @@ function placeOrder()
 		
 		
 		
-		
-		
-		
-		
 		if(shipfname != '' && shiplname != '' && shipaddress != '' && shipcity != '' && shipzip != '' && shipemail != '' && shipphone != '')
 		{
 		if(validateEmail(shipemail))
