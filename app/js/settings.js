@@ -7,9 +7,12 @@ $(document).ready(function(){
 	getProductCategories();
 	getUserFavouriteGamesType();
 })
-	
 
-
+function homepagePreference()
+{
+	var homePage = $('#homePage').val();
+	window.localStorage.setItem("homepage",homePage);
+}
 
 function getProductCategories()
 	{
@@ -169,6 +172,100 @@ function removeUserFavouriteGamesType(game_type)
 				);
 			}
 			//$('.favourite-list').html(html);
+			
+		},
+        error:function(){
+
+        }
+    });
+}
+
+
+function sendMessagetoAdmin()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var seller_id = 'Admin';
+		var title = $('#title').val();
+		var message = $('#message').val();
+		var captcha = $('#captchaInput').val();
+		var captchaVal = $('#captcha-val').val();
+	if(title == ''){
+		$('#title').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#title').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(message == ''){
+		$('#message').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#message').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(captcha == ''){
+		$('#captchaInput').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#captchaInput').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(captcha !== captchaVal){
+		$('#captchaInput').css('border','1px solid #ef4c4d');
+		$('#form-err').text('Please Fill Required Fields!');
+	}
+	else
+	{
+		$('#captchaInput').css('border','1px solid #cccccc');
+		$('#form-err').text('');
+	}
+	if(message == '' || title == '' || captcha == '' || captcha !== captchaVal){
+		$('#form-err').text('Please Fill Required Fields!');
+		return false;}
+		var url = API_URL+'send_message_seller/?key=1234567891011&user_id='+user_id+'&seller_id='+seller_id+'&title='+title+'&message='+message;
+		console.log(url);
+		var html = '';
+		var imageGallery = '';
+		var descBoxes = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			stopLoading();
+			console.log(data);
+			if(data.status == 'ok')
+			{
+				$('#title').val('');
+				$('#message').val('');
+				console.log(data.msg.status);
+				navigator.notification.alert(
+                    "Message Sent",  // message
+                    function(){},    // callback
+                    'Sending Message to Seller',            // title
+                    'OK'             // buttonName
+                );
+			}
+			else
+			{
+				console.log(data.msg.status);
+				navigator.notification.alert(
+                    "Message not Sent",  // message
+                    function(){},         // callback
+                    'Sending Message to Seller',            // title
+                    'OK'                  // buttonName
+                );
+				//html += '<p>'+data.error+'</p>';
+				
+			}
 			
 		},
         error:function(){

@@ -37,9 +37,15 @@
         <div class="main-wraper">
         <div class="content-wraper">
         <a href="#" class="specification" >User Preferences</a>
-        
+        <a href="#" class="text-lbl" style="margin-bottom:10px;" >Home page Preference:</a>
+        <select name="homePage mobile-dropdown" id="homePage" onchange="return homepagePreference();">
+            <option value="home">Home page (default)</option>
+            <option value="events">Events</option>
+            <option value="shop">Shop</option>
+            <option value="news">News</option>
+        </select>
         <div class="favrt-games">
-        <a href="#" class="text-lbl" style="margin-bottom:10px;" >Favorite Game Type:</a>
+        <a href="#" class="text-lbl" style="margin-bottom:10px;margin-top:20px;" >Favorite Game Type:</a>
         <form action="" method="post" name="SearchCat" class="filterCat">
             <select name="filterCat mobile-dropdown" id="gameType">
             <option selected="selected">Choose Game Type</option>
@@ -51,11 +57,30 @@
              <img id="loading" src="img/loading.gif" alt="Loading" />
         </ul>
         </div>
+        
+        <a href="#" class="specification" >User Feedback</a>
+        <form action="" method="get" name="message">
+            <select  id="title" name="title" class="search not-srch">
+            <option value="">Topic</option>
+            <option value="General">General</option>
+            <option value="Where could we improve">Where could we improve</option>
+            <option value="Suggestions">Suggestions</option>
+            </select>
+            <input type="hidden" id="seller_id" />
+            <textarea id="message" placeholder="Message" name="message" class="search not-srch" ></textarea>
+            <div class="captcha">
+                <span id="number1">4</span>+<span id="number2">5</span> = <input type="text" id="captchaInput" />
+                <input type="hidden" value="" id="captcha-val" />
+            </div>
+            <label id="form-err"></label>
+            <input type="button" name="submit" onclick="return sendMessagetoAdmin();" value="Send" class="search btn not-srch" />
+    	</form>
+        
         </div>
         </div><!-- /content -->
  
         <div class="footer">
-            <h4><a href="mailto:haseeb.baber@gmail.com" >Powered by AHB</a></h4>
+            <h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>
         </div><!-- /footer -->
  
     </div><!-- /page -->
