@@ -94,12 +94,12 @@ form.addgame, form.register{
 	min-width:130px;
 	text-align:center;}
 .headerLogo img {
-    width: 80px;
-    /*position: absolute;*/
-	position:relative;
-    left: 0px;
-    top: 5px;
-	z-index:999;
+    width: 70px !important;
+    /* position: absolute; */
+    position: relative;
+    left: 10px;
+    top: 0px;
+    z-index: 999;
 }
 .back-box{
 	float:left;
@@ -414,13 +414,15 @@ input.search {
 	width:100%;
 	margin:15px 0;
 	}
-.header{
-	border-bottom:1px solid #ccc;
-	  float: left;
-  display: block;
-  width: 100%;
-  margin-top:15px;
-  padding-bottom:10px;}
+.header {
+    border-bottom: 1px solid #ccc;
+    float: left;
+    display: block;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    /* background-color: blue; */
+}
   .header1{
 	border-bottom:1px solid #ccc;
 	  float: left;

@@ -6758,6 +6758,18 @@ foreach($meta_keys as $k){
 			$app_info = $wpdb->get_results($query2);
 			$app_heading = $app_info[0]->option_value;
 			$app_tagLine= $app_info[1]->option_value;
+			
+			
+			$query3 = "SELECT * FROM wp_home_setting";
+			$res3 = $wpdb->query($query3);
+			$home_settings = $wpdb->get_results($query3);
+			$header_color = $home_settings[0]->header_color;
+			$bg_color = $home_settings[0]->bg_color;
+			$ads_bar = $home_settings[0]->ads_bar;
+			$media_feed = $home_settings[0]->media_feed;
+			$menu_icon_url = $home_settings[0]->menu_icon_url;
+			$terms_cnd = $home_settings[0]->terms_cnd;
+			
 			$query = "SELECT * FROM app_configuration";
 			$res = $wpdb->query($query);
 			$app_configurations = $wpdb->get_results($query);
@@ -6767,6 +6779,12 @@ foreach($meta_keys as $k){
 				$app_configurations[0]->app_name = $app_heading;
 				$app_configurations[0]->app_tagLine = $app_tagLine;
 				//print_r($app_configurations);
+				$app_configurations[0]->menu_icon_url = $menu_icon_url;
+				$app_configurations[0]->media_feed = $media_feed;
+				$app_configurations[0]->app_ads_bar = $ads_bar;
+				$app_configurations[0]->app_header_color = $header_color;
+				$app_configurations[0]->app_background_color = $bg_color;
+				$app_configurations[0]->terms_and_conditions = $terms_cnd;
 				$response['app_configuration'] = $app_configurations;
 			}
 			else

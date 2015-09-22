@@ -7,6 +7,7 @@ var LOGO_PATH = 'http://gamersseal.com/development/uploads/appicon/';
 var UPLOAD_GAME_PICS_URL = 'http://gamersseal.com/development/upload.php';
 var UPLOAD_AUSTRALIAN_ID_PIC = 'http://gamersseal.com/development/upload_id.php';
 var AUSTRALIAN_IDS_PATH = 'http://gamersseal.com/development/uploads/australianids/';
+var WP_UPLOAD_BASE_PATH = 'http://gamersseal.com/development/wp-content/';
 var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -74,8 +75,9 @@ $( ".setting" ).click(function() {
 	 $('.main-wraper').css('opacity','0.3');
     }
 });
+	var app_ads_bar = window.localStorage.getItem("app_ads_bar");
   $('.content-wraper').prepend('<div class="back-box"><a href="javascript:void(0);" class="specification back-btn" onclick="goBack()">Back</a></div>');
-  $('.content-wraper').prepend('<div class="advertisement"><marquee direction="left"><a href="#" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper pretium lorem, sed porttitor urna hendrerit id.</a></marquee></div>');
+  $('.content-wraper').prepend('<div class="advertisement"><marquee direction="left"><a href="#" >'+app_ads_bar+'</a></marquee></div>');
 })
 
 $(document).ready(function(){
@@ -189,40 +191,41 @@ function signOutUser()
 
 function sideBarMenu()
 {
+			var menu_icon_url = window.localStorage.getItem("menu_icon_url");
 			var html = '';
 			html = '<ul class="left-nav">';
 				if(window.localStorage.getItem("loginuserCookie"))
 				{
-					html += '<li><a href="cart.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shopping Cart</a></li>';
-					html += '<li><a href="message-board.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Message Board</a></li>';
-					html += '<li><a href="orderstatus.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Order Status</a></li>';					
+					html += '<li><a href="cart.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shopping Cart</a></li>';
+					html += '<li><a href="message-board.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Message Board</a></li>';
+					html += '<li><a href="orderstatus.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Order Status</a></li>';					
 				}
 				if(window.localStorage.getItem("loginuserABN") != '' && window.localStorage.getItem("loginuserCookie") != '')
 				{
-				    html += '<li class="bdr-btm"><a href="shippingstatus.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shipping Status</a></li>';
-					html += '<li><a href="managegames.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Stock Management</a></li>';
-					html += '<li class="bdr-btm"><a href="postgame.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Add New Item</a></li>';
-					html += '<li><a href="salesreport.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sales Reports</a></li>';
+				    html += '<li class="bdr-btm"><a href="shippingstatus.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shipping Status</a></li>';
+					html += '<li><a href="managegames.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Stock Management</a></li>';
+					html += '<li class="bdr-btm"><a href="postgame.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Add New Item</a></li>';
+					html += '<li><a href="salesreport.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Sales Reports</a></li>';
 				}
 				
 				if(!(window.localStorage.getItem("loginuserCookie")))
 				{
-				 	html += '<li class="registerMenu"><a href="register.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Signup</a></li>';
-					html += '<li class="loginMenu"><a href="login.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Login</a></li>';
-					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shop Home</a></li>';
-					html += '<li class="gameMenu"><a href="events.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Events</a></li>';
-					html += '<li class="bdr-btm gameMenu"><a href="news.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Gamers Seal  News</a></li>';
-					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Home Page</a></li>';
+				 	html += '<li class="registerMenu"><a href="register.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Signup</a></li>';
+					html += '<li class="loginMenu"><a href="login.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Login</a></li>';
+					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shop Home</a></li>';
+					html += '<li class="gameMenu"><a href="events.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Events</a></li>';
+					html += '<li class="bdr-btm gameMenu"><a href="news.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Gamers Seal  News</a></li>';
+					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Home Page</a></li>';
 				}
 				else
 				{
-					html += '<li class="bdr-btm"><a href="setting.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Settings</a></li>';
-					html += '<li class="profileMenu"><a href="profile.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>User Profile</a></li>';	
-					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Shop</a></li>';
-					html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Hall Of Fame</a></li>';
-					html += '<li class="gameMenu"><a href="donation.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Donate</a></li>';
-					html += '<li class="gameMenu bdr-btm"><a href="index.html"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Home</a></li>';
-					html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();"><img align="center" src="img/iphone-4-icon.png" alt="icone"/>Sign Out</a></li>';
+					html += '<li class="bdr-btm"><a href="setting.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Settings</a></li>';
+					html += '<li class="profileMenu"><a href="profile.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>User Profile</a></li>';	
+					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shop</a></li>';
+					html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Hall Of Fame</a></li>';
+					html += '<li class="gameMenu"><a href="donation.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Donate</a></li>';
+					html += '<li class="gameMenu bdr-btm"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Home</a></li>';
+					html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Sign Out</a></li>';
 				}
 			html += '</ul>';
 			$('.slide-menu').html(html);
@@ -280,6 +283,11 @@ function getAppSettings()
 				window.localStorage.setItem("app_name",data.app_configuration[0].app_name);
 				window.localStorage.setItem("app_tagLine",data.app_configuration[0].app_tagLine);
 				
+				window.localStorage.setItem("app_ads_bar",data.app_configuration[0].app_ads_bar);
+				window.localStorage.setItem("app_header_color",data.app_configuration[0].app_header_color);
+				window.localStorage.setItem("media_feed",data.app_configuration[0].media_feed);
+				window.localStorage.setItem("menu_icon_url",data.app_configuration[0].menu_icon_url);
+				
 				app_settings();
 			}
 			
@@ -331,6 +339,11 @@ function getAppStatics()
 				window.localStorage.setItem("app_name",data.app_configuration[0].app_name);
 				window.localStorage.setItem("app_tagLine",data.app_configuration[0].app_tagLine);
 				
+				window.localStorage.setItem("app_ads_bar",data.app_configuration[0].app_ads_bar);
+				window.localStorage.setItem("app_header_color",data.app_configuration[0].app_header_color);
+				window.localStorage.setItem("media_feed",data.app_configuration[0].media_feed);
+				window.localStorage.setItem("menu_icon_url",data.app_configuration[0].menu_icon_url);
+				
 				
 				var user_role = window.localStorage.getItem("loginuserRole");
 				var standard_seal_charges = window.localStorage.getItem("standard_seal_charges");
@@ -357,9 +370,11 @@ function getAppStatics()
 				
 				var app_name = window.localStorage.getItem("app_name");
 				var app_tagLine = window.localStorage.getItem("app_tagLine");
+				var app_header_color = window.localStorage.getItem("app_header_color");
 				
 				$('.header h4').html('<a href="index.html" class="headerLogo"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header">'+app_name+'</span><span class="heaer-tag-line">'+app_tagLine+'</span></div>');
 	$('.main-wraper').css('background-color',app_background_color);
+	$('.header').css('background-color',app_header_color);
 				
 				//app_settings();
 			}

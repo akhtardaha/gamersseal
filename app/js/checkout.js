@@ -1,6 +1,6 @@
 // JavaScript Document
  var cartProducts = {};
-
+getUserInfo();
 $(document).ready(function(){
 	if(window.localStorage.getItem("loginuserCookie"))
 	{
@@ -18,6 +18,45 @@ $(document).ready(function(){
 		
 	}
 })
+
+
+function getUserInfo()
+{
+	var html = '';
+	var cooke = window.localStorage.getItem("loginuserCookie");
+	var user_id = window.localStorage.getItem("loginuserID");
+	$.ajax({
+        url:API_URL+'xprofile/?key=1234567891011&user_id='+user_id+'&field=default',
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			profile = data;
+			if(data.status == 'ok')
+			{
+			var st = profile.State;
+			$('#shipfname').val(profile.firstname);
+			$('#shiplname').val(profile.lastname);
+			$('#shipcompany').val('');
+			$('#shipaddress').val(profile.Address);
+			$('#shipcity').val('');
+			$('#shipzip').val(profile['Post Code']);
+			$('#shipcountry').val('');
+			$('#shipemail').val(profile.email);
+			$('#shipphone').val(profile['Mobile Phone']);
+			$('#shipstate').val(st);
+			
+				
+			}
+			
+		},
+        error:function(){
+			
+        }
+    });
+}
 
 function getCartTotal()
 {
