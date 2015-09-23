@@ -1,5 +1,12 @@
 // JavaScript Document
 $(document).ready(function(){
+	
+	if(!(window.localStorage.getItem("firstTimeLoading")))
+	{			
+		window.localStorage.setItem("firstTimeLoading",1);
+		window.location = 'loading.html';
+	}
+	
 	if(window.localStorage.getItem("loginuserCookie"))
 	{			
 		$('.loginMenu').hide();
