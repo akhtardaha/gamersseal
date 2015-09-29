@@ -55,7 +55,10 @@ function signInUser()
 			window.localStorage.setItem("loginuserLocation",data.user.state);
 			//console.log(window.localStorage.getItem("loginuserRole"));
 			var homePageprefer = window.localStorage.getItem("homepage");
-			
+			if(!homePageprefer)
+			{
+				homePageprefer = 'index';
+			}
 			navigator.notification.alert(
 						'Welcome '+data.user.nickname+'!',  // message
 						function(){setTimeout(function(){ window.location = homePageprefer+'.html'; }, 500);},       // callback

@@ -41,11 +41,19 @@ $(document).ready(function(){
 		$('.donate_amount_val').click(function(){
 			var currentdonation = parseInt($('#totalDonationAmount').text()) + parseInt($(this).val());
 			$('#totalDonationAmount').text(currentdonation+'$');
+			$('#donationAmount').val(currentdonation);
+			$('#add-custom').val('');
+			})
+		$('#clearAmount').click(function(){
+			$('#totalDonationAmount').text('0$');
+			$('#donationAmount').val('0');
+			$('#add-custom').val('');
 			})
 		$('#add-custom').blur(function(){
 			if(!isNaN(parseInt($(this).val()))){
-			var currentdonation = parseInt($('#totalDonationAmount').text()) + parseInt($(this).val());
+			var currentdonation = parseInt($(this).val());
 			$('#totalDonationAmount').text(currentdonation+'$');
+			$('#donationAmount').val(currentdonation);
 			}
 			})
 		var oneNumber = Math.floor((Math.random() * 3) + 1);

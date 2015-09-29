@@ -72,7 +72,7 @@ function getUserInfo()
 				html += '</div>';
 				html += '<div class="item">';
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Total Donation Amount:</a></div>';
-   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">$10</a></div>';
+   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.donation+'$</a></div>';
 				html += '</div>';
 				html += '<div class="item">';
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Hall of fame Member:</a></div>';

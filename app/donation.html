@@ -8,6 +8,8 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/donation.js"></script>
+    
 </head>
 <body>
     <div class="page-wraper donate-page">
@@ -32,10 +34,11 @@
             <input type="button" value="25$" class="search btn not-srch donate_amount_val" id="add25" name="add25"/>
             <input type="button" value="50$" class="search btn not-srch donate_amount_val" id="add50" name="add50"/>
             <input type="button" value="100$" class="search btn not-srch donate_amount_val" id="add100" name="add100"/>
-            <input type="text" placeholder="Custom Amount" class="search not-srch" id="add-custom" name="add-custom"/>
-            <div class="totalDonation">Total Donation Amount <span id="totalDonationAmount">100$</span></div>
+            <input type="button" value="Clear" class="search btn not-srch" id="clearAmount" name="clearAmount"/>
+            <input type="number" placeholder="Custom Amount" class="search not-srch" id="add-custom" name="add-custom"/>
+            <input type="hidden" class="search not-srch" id="donationAmount" name="donationAmount"/>
+            <div class="totalDonation">Total Donation Amount <span id="totalDonationAmount">0$</span></div>
             <div class="anonymous"><input type="checkbox" id="anonymous" value="anonymous"/> Donation Anonymously?</div>
-            <button id="addToCartbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Add to Cart</button>
             <button id="checkoutbtn" class="ui-btn ui-btn-icon-left ui-btn-corner-all search btn not-srch">Checkout</button>
             </div>
         </div>

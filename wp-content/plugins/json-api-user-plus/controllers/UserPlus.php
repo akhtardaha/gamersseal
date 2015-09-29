@@ -2007,7 +2007,7 @@ public function xprofile() {
 	 
 
 	  global $json_api;
-
+		global $wpdb;	
 	  
 
 if (function_exists('bp_is_active')) {	
@@ -2054,6 +2054,18 @@ if (function_exists('bp_is_active')) {
 				$fields_data["lastname"] = $user->last_name;
 				$fields_data["nickname"] = $user->nickname;
   				$fields_data['avatar'] = $avatar[1];
+				
+			$queryDonation = "SELECT SUM(amount) as donation FROM `donations` where user = '".$user->ID."' ";
+			$donation = $wpdb->get_results($queryDonation);
+			if($donation)
+			{
+				$donationAmount = $donation[0]->donation;
+			}
+			else
+			{
+				$donationAmount = 0;
+			}
+				$fields_data['donation'] = $donationAmount;
 
   
 
@@ -7615,6 +7627,57 @@ foreach($meta_keys as $k){
 				}
 				
 				return array('posts'=>$posts_data);
+			}
+  	}
+	
+	
+	
+	public function make_donation(){
+
+  		global $json_api;
+		global $wpdb;	
+		
+		$user_id = $json_api->query->user_id;
+		$name = $json_api->query->name;
+		$email = $json_api->query->email;
+		$phone = $json_api->query->phone;
+		$amount = $json_api->query->amount;
+		$anon = $json_api->query->anon;
+		
+			
+			$query = "INSERT INTO donations (user,name,email,phone,amount,anonymous) VALUES ('".$user_id."','".$name."','".$email."','".$phone."','".$amount."','".$anon."')";
+			$res = $wpdb->query($query);
+			if($res)
+			{
+				return array('msg'=>"Donation Successfully made.");
+				
+			}
+			else
+			{
+				return array('msg'=>"There is some Error while adding donation.");
+			}
+  	}
+	
+	public function get_user_donation(){
+
+  		global $json_api;
+		global $wpdb;	
+		
+		$user_id = $json_api->query->user_id;
+		
+			
+			$query = "SELECT SUM(amount) as donation FROM `donations` where user = '".$user_id."' ";
+			$donation = $wpdb->get_results($query);
+			if($donation)
+			{
+				//print_r($donation);
+				$donationAmount = $donation[0]->donation;
+				return array('donation'=> $donationAmount);
+				
+			}
+			else
+			{
+				return array('donation'=>"0",'msg'=>"There is some Error while fetching donation.");
 			}
   	}
 	
