@@ -22,7 +22,7 @@
 			showIcon:   true,
 			closeAble:  false,
 			closeOther: true,
-			slideSpeed: 250,
+			slideSpeed: 150,
 			activeIndex: false
 		}, options );
 

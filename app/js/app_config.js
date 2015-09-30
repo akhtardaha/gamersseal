@@ -39,20 +39,23 @@ $(document).ready(function(){
 			$(this).css('height','auto');
 			})
 		$('.donate_amount_val').click(function(){
-			var currentdonation = parseInt($('#totalDonationAmount').text()) + parseInt($(this).val());
-			$('#totalDonationAmount').text(currentdonation+'$');
+			var don = $(this).val().replace('$', ''); 
+			var totalDonationAmount = $('#totalDonationAmount').text().replace('$', ''); 
+			console.log(don);
+			var currentdonation = parseInt(totalDonationAmount) + parseInt(don);
+			$('#totalDonationAmount').text('$'+currentdonation);
 			$('#donationAmount').val(currentdonation);
 			$('#add-custom').val('');
 			})
 		$('#clearAmount').click(function(){
-			$('#totalDonationAmount').text('0$');
+			$('#totalDonationAmount').text('$0');
 			$('#donationAmount').val('0');
 			$('#add-custom').val('');
 			})
 		$('#add-custom').blur(function(){
 			if(!isNaN(parseInt($(this).val()))){
 			var currentdonation = parseInt($(this).val());
-			$('#totalDonationAmount').text(currentdonation+'$');
+			$('#totalDonationAmount').text('$'+currentdonation);
 			$('#donationAmount').val(currentdonation);
 			}
 			})

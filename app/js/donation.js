@@ -3,7 +3,7 @@ $(document).ready(function(){
 	
 	if(window.localStorage.getItem("donationAmount"))
 	{
-		$('#totalDonationAmount').text(window.localStorage.getItem("donationAmount")+'$');
+		$('#totalDonationAmount').text('$'+window.localStorage.getItem("donationAmount"));
 		$('#donationAmount').val(window.localStorage.getItem("donationAmount"));
 		$('#add-custom').val('');
 	}
