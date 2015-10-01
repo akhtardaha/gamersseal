@@ -8,6 +8,43 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/halloffame.js"></script>
+    
+    <style>
+    .hall-user-box{
+	border:none !important;
+	border-radius:10px;}
+	#loading {
+		width: 50px;
+		margin-left: 44%;
+		padding: 20px 0px;
+		border: none;
+	}
+	.sales-label, .text-lbl {
+    float: left;
+    display: block;
+    width: 25%;
+    padding-left: 10px;
+    margin: 15px 0px;
+	}
+	.search.not-srch {
+    background: none;
+    padding-left: 10px;
+    width: 55%;
+    margin: 10px 0;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    /* white-space: nowrap; */
+    float: left;
+}
+p.empty {
+    padding: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+    </style>
 </head>
 <body>
     <div class="page-wraper">
@@ -23,23 +60,26 @@
         <div class="ui-content content-wraper">
         	<a href="#" class="specification">Hall of Fame</a>
             <div class="hall-time-box">
-            <select id="year" name="year">
-<script>
-  	var myDate = new Date();
-  	var year = myDate.getFullYear();
- 	for(var i = 1900; i < year+1; i++){
-		if(i==year){
-			var currentYear='selected="selected"';
-			}
-		else{
-			var currentYear='';
-			}
-		document.write('<option value="'+i+'" '+currentYear+'>'+i+'</option>');
-	}
-</script>
+            <label class="sales-label">Year:</label>
+            <select id="year" name="year" class="search not-srch" onchange="changeYearHallofFame();">
+            <option value="" >Choose</option>
+				<script>
+                    var myDate = new Date();
+                    var year = myDate.getFullYear();
+                    for(var i = 1970; i < year+1; i++){
+                        if(i==year){
+                            var currentYear='selected="selected"';
+                            }
+                        else{
+                            var currentYear='';
+                            }
+                        document.write('<option value="'+i+'" '+currentYear+'>'+i+'</option>');
+                    }
+                </script>
 			</select>
-            <select id="month" name="month" class="search not-srch">
-            	<option value="" >Month</option>
+            <label class="sales-label">Month:</label>
+            <select id="month" name="month" class="search not-srch" onchange="changeMonthHallofFame();">
+            	<option value="" >Choose</option>
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -53,8 +93,9 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
             </select>
-            <select id="week" name="week" class="search not-srch">
-            	<option value="">Week</option>
+            <label class="sales-label">Week:</label>
+            <select id="week" name="week" class="search not-srch" onchange="changeWeekHallofFame();">
+            	<option value="" >Choose</option>
                 <option value="1">First</option>
                 <option value="2">Second</option>
                 <option value="3">Third</option>
@@ -62,30 +103,7 @@
             </select>
             </div>
             <div class="hall-user-box">
-            	<div class="fame-user">
-                	<a href="singlefame.html">
-                    	<img src="img/profile.jpg" alt="user" />
-                        <span class="user-id">ID: 92</span>
-                    </a>
-                </div>
-                <div class="fame-user">
-                	<a href="singlefame.html">
-                    	<img src="img/profile.jpg" alt="user" />
-                        <span class="user-id">ID: 92</span>
-                    </a>
-                </div>
-                <div class="fame-user">
-                	<a href="singlefame.html">
-                    	<img src="img/profile.jpg" alt="user" />
-                        <span class="user-id">ID: 92</span>
-                    </a>
-                </div>
-                <div class="fame-user">
-                	<a href="singlefame.html">
-                    	<img src="img/profile.jpg" alt="user" />
-                        <span class="user-id">ID: 92</span>
-                    </a>
-                </div>
+              <img id="loading" src="img/loading.gif" alt="Loading" />
             </div>
                 	
      	</div><!-- /content -->

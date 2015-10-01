@@ -7008,13 +7008,23 @@ foreach($meta_keys as $k){
 		$start_date = $json_api->query->start_date;
 		$end_date = $json_api->query->end_date;
 		
+		if(!($start_date))
+		{
+			$start_date = date("Y-m-d H:i:s",strtotime("-12 month"));
+		}
+		if(!($end_date))
+		{
+			$end_date = date('Y-m-d');
+		}
+		
 		$DateBegin = date('Y-m-d', strtotime($start_date));
     	$DateEnd = date('Y-m-d', strtotime($end_date));
 		
 		
+		
 		if($start_date && $end_date)
 		{
-			$query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+			$query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
 			$sales = $wpdb->get_results($query);
 			if($sales)
 			{
@@ -7643,9 +7653,15 @@ foreach($meta_keys as $k){
 		$phone = $json_api->query->phone;
 		$amount = $json_api->query->amount;
 		$anon = $json_api->query->anon;
-		
+		$don_num = $json_api->query->don_num;
+		$today = date("Y-m-d");
+		$today_dayname = date("l");
+
+		$week = $this->getWeeks($today, $today_dayname);
+		$year = date("Y");
+		$month = date("m");
 			
-			$query = "INSERT INTO donations (user,name,email,phone,amount,anonymous) VALUES ('".$user_id."','".$name."','".$email."','".$phone."','".$amount."','".$anon."')";
+			$query = "INSERT INTO donations (user,name,email,phone,amount,anonymous,don_week,don_month,don_year,don_num) VALUES ('".$user_id."','".$name."','".$email."','".$phone."','".$amount."','".$anon."','".$week."','".$month."','".$year."','".$don_num."')";
 			$res = $wpdb->query($query);
 			if($res)
 			{
@@ -7679,7 +7695,97 @@ foreach($meta_keys as $k){
 			{
 				return array('donation'=>"0",'msg'=>"There is some Error while fetching donation.");
 			}
+			
   	}
+	
+	public function getWeeks($date, $rollover)
+	{
+		$cut        = substr($date, 0, 8);
+		$daylen     = 86400;
+		$timestamp  = strtotime($date);
+		$first      = strtotime($cut . "01");   
+		$elapsed    = (($timestamp - $first) / $daylen)+1;
+		$i          = 1;
+		$weeks      = 0;
+		for($i==1; $i<=$elapsed; $i++)
+		{
+			$dayfind        = $cut . (strlen($i) < 2 ? '0' . $i : $i);
+			$daytimestamp   = strtotime($dayfind);
+			$day            = strtolower(date("l", $daytimestamp));
+			if($day == strtolower($rollover))
+			{
+				$weeks++;  
+			}
+		} 
+		if($weeks==0)
+		{
+			$weeks++; 
+		}
+		return $weeks;  
+	}
+	
+	public function get_hall_of_fame(){
+
+  		global $json_api;
+		global $wpdb;	
+		
+		$type = $json_api->query->type;
+		$year = $json_api->query->don_year;
+		$month = $json_api->query->don_month;
+		$week = $json_api->query->don_week;
+		
+		if($type == 'default')
+		{
+			$year = date("Y");
+			$month = date("m");
+			$query = "SELECT *,SUM(amount) as total_donation FROM donations WHERE don_year = '".$year."' Group By user Order by total_donation DESC LIMIT 4";
+		}
+		else
+		{
+			$where = '';
+			
+			
+			if($year || $month || $week)
+			{
+				if($year)
+				{
+				$where .= " don_year = '".$year."' and";
+				}
+				if($month)
+				{
+				$where .= " don_month = '".$month."' and";
+				}
+				if($week)
+				{
+				$where .= " don_week = '".$week."' and";
+				}
+				$where = substr($where, 0, -3);
+				$query = "SELECT *,SUM(amount) as total_donation FROM `donations` WHERE ".$where." Group By user Order by total_donation DESC LIMIT 4";
+			}
+			else
+			{
+				$year = date("Y");
+				$month = date("m");
+				$query = "SELECT *,SUM(amount) as total_donation FROM donations WHERE don_year = '".$year."' Group By user Order by total_donation DESC LIMIT 4";
+			}
+			
+		}
+			$halloffame = $wpdb->get_results($query);
+			if($halloffame)
+			{
+				return array('halloffame'=> $halloffame,'status' => 'ok');
+				
+			}
+			else
+			{
+				return array('halloffame'=>"0",'msg'=>"There is no Hall Of Member found for this time Period.");
+			}
+			
+  	}
+
+
+    //
+    
 	
 	
   

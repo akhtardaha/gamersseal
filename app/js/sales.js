@@ -19,28 +19,35 @@ function getUserSales(noloading)
 	var start_date = $('#from').val();
 	var to_date = $('#to').val();
 	
-	
-	if(start_date == '' || to_date== '')
+	if(noloading != 1)
 	{
-		console.log('Please Select Dates');
-		//$('#from').css('border-color','#F00');
-		//$('#to').css('border-color','#F00');
-		navigator.notification.alert(
-						'Please Select Dates',  // message
-						function(){},        // callback
-					  	'Error',            // title
-						'OK'                  // buttonName
-		);
-		endButtonLoading('userSalesbtn');
-		return false;
+		if(start_date == '' || to_date== '')
+		{
+			console.log('Please Select Dates');
+			//$('#from').css('border-color','#F00');
+			//$('#to').css('border-color','#F00');
+			navigator.notification.alert(
+							'Please Select Dates',  // message
+							function(){},        // callback
+							'Error',            // title
+							'OK'                  // buttonName
+			);
+			endButtonLoading('userSalesbtn');
+			return false;
+		}
+		else
+		{
+			$('#from').css('border-color','#ccc');
+			$('#to').css('border-color','#ccc');
+		}
+		
+		var url = API_URL+'get_user_sales/?key=1234567891011&user_id='+user_id+'&start_date='+start_date+'&end_date='+to_date+' ';
 	}
 	else
 	{
-		$('#from').css('border-color','#ccc');
-		$('#to').css('border-color','#ccc');
+		var url = API_URL+'get_user_sales/?key=1234567891011&user_id='+user_id;
 	}
 	
-	var url = API_URL+'get_user_sales/?key=1234567891011&user_id='+user_id+'&start_date='+start_date+'&end_date='+to_date+' ';
 	console.log(url);
 	$.ajax({
         url:url,
@@ -78,7 +85,7 @@ function getUserSales(noloading)
 				}
 				else
 				{
-					html = '<li class="notice">No Sales Report Found...</li>';
+					html = '<li class="notice"><p style="padding:0px 15px;">No Sales Found...</p></li>';
 				}
 				
 				//html += '<div class="Pimg"><img id="img'+pid+'" src="img/loadingSmall.gif" class="product-thumb"></div>';

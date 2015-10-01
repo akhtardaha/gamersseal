@@ -18,15 +18,22 @@ body {
 }
 .donate-page .help-center , .donate-page .advertisement{
 	display:none;}
-.fame-user{
-	width:49%;
-	float:left;
-	display:block;
-	text-align:center;
-	padding:10px 0.5%;
+.fame-user {
+    width: 46%;
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 10px 0.5%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 2%;
+    margin-bottom: 5px;
 }
-.fame-user img{
-	margin:0 auto;}
+.fame-user img {
+    margin: 0 auto;
+    max-height: 100px;
+    max-width: 80px;
+}
 #age-filter .age-des, .donation-admin-text, .totalDonation, .faq-box, .hall-time-box, .hall-user-box, .user-id{
 	display:block;
 	float:left;
@@ -929,4 +936,23 @@ img.age-img{
 .age-des {
     float: left;
     margin-bottom: 5px;
+}
+
+.fame-user a span.rank {
+    background-color: wheat;
+    padding: 8px 12px;
+    border-radius: 100%;
+    font-size: 20px;
+}
+
+.fame-user a.FameRank {
+    float: left;
+    width: 28%;
+    margin-top: 45px;
+    margin-right: 2%;
+}
+
+.fame-user a.Fameinfo {
+    float: left;
+    width: 70%;
 }

@@ -75,7 +75,7 @@ var pay = {
 		var state = window.localStorage.getItem("loginuserID");
 		var country = window.localStorage.getItem("loginuserID");*/
 		
-		var url = API_URL+'make_donation/?key=1234567891011&user_id='+user_id+'&name='+name+'&email='+email+'&phone='+phone+'&amount='+amount+'&anon='+anon;
+		var url = API_URL+'make_donation/?key=1234567891011&user_id='+user_id+'&name='+name+'&email='+email+'&phone='+phone+'&amount='+amount+'&anon='+anon+'&don_num='+ref;
 	    $.ajax({
          url:url,
         type: "POST",
