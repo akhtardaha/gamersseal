@@ -7024,12 +7024,13 @@ foreach($meta_keys as $k){
 		
 		if($start_date && $end_date)
 		{
-			$query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+		 $query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
 			$sales = $wpdb->get_results($query);
 			if($sales)
 			{
 				foreach($sales as $sale){
 					//echo $sale->date;
+					//print_r($sale);
 					$orderDate = date('Y-m-d', $sale->date);
 					if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
 					{

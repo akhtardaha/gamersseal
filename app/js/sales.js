@@ -18,6 +18,7 @@ function getUserSales(noloading)
 	var user_id = window.localStorage.getItem("loginuserID");
 	var start_date = $('#from').val();
 	var to_date = $('#to').val();
+	var reportType = $('#to').val();
 	
 	if(noloading != 1)
 	{
