@@ -71,12 +71,12 @@ width:100%;
         <div class="content-wraper">        
             <a href="#" class="specification">Sales Report</a>
             <div class="ui-grid-a descBoxes">
-            <select name="reportType" id="reportType" class="search not-srch">
+            <select name="reportType" id="reportType" class="search not-srch" style="width:100% !important;" onchange="return getUserSalesbyType();">
             	<option value="">Sales Report Type</option>
-                <option value="Daily">Daily</option>
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Yearly">Yearly</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
             </select>
             <div class="salesReportRange">
             <label class="sales-label">From:</label>

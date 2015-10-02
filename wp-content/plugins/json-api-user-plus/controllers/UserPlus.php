@@ -7007,65 +7007,43 @@ foreach($meta_keys as $k){
 		
 		$start_date = $json_api->query->start_date;
 		$end_date = $json_api->query->end_date;
-		
-		if(!($start_date))
-		{
-			$start_date = date("Y-m-d H:i:s",strtotime("-12 month"));
-		}
-		if(!($end_date))
-		{
-			$end_date = date('Y-m-d');
-		}
-		
-		$DateBegin = date('Y-m-d', strtotime($start_date));
-    	$DateEnd = date('Y-m-d', strtotime($end_date));
-		
-		
-		
-		if($start_date && $end_date)
-		{
-		 $query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
-			$sales = $wpdb->get_results($query);
-			if($sales)
-			{
-				foreach($sales as $sale){
-					//echo $sale->date;
-					//print_r($sale);
-					$orderDate = date('Y-m-d', $sale->date);
-					if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
+			
+				if(!($start_date))
+				{
+					$start_date = date("Y-m-d H:i:s",strtotime("-12 month"));
+				}
+				if(!($end_date))
+				{
+					$end_date = date('Y-m-d');
+				}
+				
+				$DateBegin = date('Y-m-d', strtotime($start_date));
+				$DateEnd = date('Y-m-d', strtotime($end_date));
+				
+				 $query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+					$sales = $wpdb->get_results($query);
+					if($sales)
 					{
-						$sale->date = date('d M, Y', $sale->date);
-						$filterSales[] = $sale;	
+						foreach($sales as $sale){
+							//echo $sale->date;
+							//print_r($sale);
+							$orderDate = date('Y-m-d', $sale->date);
+							if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
+							{
+								$sale->date = date('d M, Y', $sale->date);
+								$filterSales[] = $sale;	
+							}
+						}
+						return array('count'=>1,'sales'=>$filterSales);	
 					}
-				}
-				return array('count'=>1,'sales'=>$filterSales);
-				
-			}
-			else
-			{
-				return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
-			}
-		}
-		else
-		{
-			$query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
-			$sales = $wpdb->get_results($query);
-			if($sales)
-			{
-				foreach($sales as $sale){
-						$sale->date = date('d M, Y', $sale->date);
-						$filterSales[] = $sale;	
-				}
-				
-				return array('count'=>1,'sales'=>$filterSales);
-				
-			}
-			else
-			{
-				return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
-			}
-		}
-  	}
+					else
+					{
+						return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+					}
+	}
+	
+	
+	
 	
 	public function insert_custom_fields_for_filter($post_id,$price,$age_limit){
 
@@ -7783,11 +7761,134 @@ foreach($meta_keys as $k){
 			}
 			
   	}
+	
+	
 
 
     //
     
-	
+	public function get_user_sales_by_type(){
+
+  		global $json_api;
+		global $wpdb;
+		
+		$filterSales = array();
+		
+		$user_id = $json_api->query->user_id;
+		$report_type = $json_api->query->report_type;
+				if($report_type == 'daily')
+				{
+					 $query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+						$sales = $wpdb->get_results($query);
+						if($sales)
+						{
+							foreach($sales as $sale){
+								$DateBegin = date('Y-m-d', strtotime(date('Y-m-d')));
+								$DateEnd = date('Y-m-d', strtotime(date('Y-m-d')));
+								
+								$DateBegin = $DateBegin." 00:00:00";
+								$DateEnd = $DateEnd." 23:59:59";
+								
+								$orderDate = date('Y-m-d', $sale->date);
+								if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
+								{
+									$sale->date = date('d M, Y', $sale->date);
+									$filterSales[] = $sale;	
+								}
+							}
+							return array('count'=>1,'sales'=>$filterSales);	
+						}
+						else
+						{
+							return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+						}
+				}
+				
+				if($report_type == 'weekly')
+				{
+					 $query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+						$sales = $wpdb->get_results($query);
+						if($sales)
+						{
+							foreach($sales as $sale){
+								$DateBegin = date("Y-m-d",strtotime("-1 week"));
+								$DateEnd = date('Y-m-d', strtotime(date('Y-m-d')));
+								
+								$DateBegin = $DateBegin." 00:00:00";
+								$DateEnd = $DateEnd." 23:59:59";
+								
+								$orderDate = date('Y-m-d', $sale->date);
+								if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
+								{
+									$sale->date = date('d M, Y', $sale->date);
+									$filterSales[] = $sale;	
+								}
+							}
+							return array('count'=>1,'sales'=>$filterSales);	
+						}
+						else
+						{
+							return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+						}
+				}
+				if($report_type == 'monthly')
+				{
+					 $query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+						$sales = $wpdb->get_results($query);
+						if($sales)
+						{
+							foreach($sales as $sale){
+								
+								$DateBegin = date("Y-m-d",strtotime("-1 month"));
+								$DateEnd = date('Y-m-d', strtotime(date('Y-m-d')));
+								
+								 $DateBegin = $DateBegin." 00:00:00";
+								 $DateEnd = $DateEnd." 23:59:59";
+								
+								$orderDate = date('Y-m-d', $sale->date);
+								if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
+								{
+									$sale->date = date('d M, Y', $sale->date);
+									$filterSales[] = $sale;	
+								}
+							}
+							return array('count'=>1,'sales'=>$filterSales);	
+						}
+						else
+						{
+							return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+						}
+				}
+				if($report_type == 'yearly')
+				{
+					 $query = "SELECT wp_mp_order_items.*,wp_mp_orders.uid,wp_mp_orders.date,wp_mp_orders.order_status,wp_mp_orders.payment_status FROM wp_mp_order_items INNER JOIN wp_mp_orders ON wp_mp_order_items.oid=wp_mp_orders.order_id where wp_mp_orders.seller_id = '".$user_id."' AND wp_mp_orders.order_status = 'completed' AND wp_mp_orders.payment_status = 'completed' order by date DESC";
+						$sales = $wpdb->get_results($query);
+						if($sales)
+						{
+							foreach($sales as $sale){
+								$DateBegin = date("Y-m-d",strtotime("-1 year"));
+								$DateEnd = date('Y-m-d', strtotime(date('Y-m-d')));
+								
+								$DateBegin = $DateBegin;
+								$DateEnd = $DateEnd;
+								
+								$orderDate = date('Y-m-d', $sale->date);
+								if (($orderDate > $DateBegin) && ($orderDate < $DateEnd))
+								{
+									$sale->date = date('d M, Y', $sale->date);
+									$filterSales[] = $sale;	
+								}
+							}
+							return array('count'=>1,'sales'=>$filterSales);	
+						}
+						else
+						{
+							return array('count'=>0,'msg'=>"There is some Error while fetching User Sales.");
+						}
+				}
+		
+					
+	}	
 	
   
 
