@@ -407,6 +407,13 @@ if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_c
 	<?php endif; ?>
 	</td>
 </tr>
+
+<tr class="user-email-wrap">
+	<th><label for="rating"><?php _e('Rating(1-5)'); ?> </label></th>
+        <td><input type="text" name="user_rating" id="rating" value="<?php echo esc_attr( $profileuser->user_rating ) ?>" class="regular-text ltr" />
+	</td>
+</tr>
+
 <?php if($profileuser->ausid_img_path){ ?>
 <tr class="user-email-wrap">
 	<th><label for="ausid"><?php _e('Australian ID'); ?> </label></th>
