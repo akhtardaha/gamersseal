@@ -81,7 +81,8 @@ function edit_user( $user_id = 0 ) {
 		$user->nickname = sanitize_text_field( $_POST['nickname'] );
 	if ( isset( $_POST['display_name'] ) )
 		$user->display_name = sanitize_text_field( $_POST['display_name'] );
-
+	if ( isset( $_POST['user_rating'] ) )
+            $user->user_rating = sanitize_text_field( $_POST['user_rating'] );
 	if ( isset( $_POST['description'] ) )
 		$user->description = trim( $_POST['description'] );
 
