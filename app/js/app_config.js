@@ -6,7 +6,9 @@ var GAME_IMAGES_PATH = 'http://gamersseal.com/development/wp-content/uploads/wpm
 var LOGO_PATH = 'http://gamersseal.com/development/uploads/appicon/';
 var UPLOAD_GAME_PICS_URL = 'http://gamersseal.com/development/upload.php';
 var UPLOAD_AUSTRALIAN_ID_PIC = 'http://gamersseal.com/development/upload_id.php';
+var UPLOAD_EVENT_API = 'http://gamersseal.com/development/upload_event.php';
 var AUSTRALIAN_IDS_PATH = 'http://gamersseal.com/development/uploads/australianids/';
+var EVENT_UPLOAD_PATH = 'http://gamersseal.com/development/uploads/events/';
 var WP_UPLOAD_BASE_PATH = 'http://gamersseal.com/development/wp-content/';
 var db = window.openDatabase("gamersseal","1.0","Gamersseal",30000000);
 
@@ -211,7 +213,7 @@ function sideBarMenu()
 					html += '<li><a href="message-board.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Message Board</a></li>';
 					html += '<li><a href="orderstatus.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Order Status</a></li>';					
 				}
-				if(window.localStorage.getItem("loginuserABN") != '' && window.localStorage.getItem("loginuserCookie") != '')
+				if(window.localStorage.getItem("loginuserCookie") && window.localStorage.getItem("loginuserABN") != '')
 				{
 				    html += '<li class="bdr-btm"><a href="shippingstatus.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shipping Status</a></li>';
 					html += '<li><a href="managegames.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Stock Management</a></li>';
@@ -301,6 +303,10 @@ function getAppSettings()
 				window.localStorage.setItem("media_feed",data.app_configuration[0].media_feed);
 				window.localStorage.setItem("menu_icon_url",data.app_configuration[0].menu_icon_url);
 				
+				window.localStorage.setItem("splash_screen_text",data.app_configuration[0].splash_screen_text);
+				window.localStorage.setItem("admin_msg_for_user",data.app_configuration[0].admin_msg_for_user);
+				window.localStorage.setItem("donation_text",data.app_configuration[0].donation_text);
+				
 				app_settings();
 			}
 			
@@ -357,6 +363,10 @@ function getAppStatics()
 				window.localStorage.setItem("media_feed",data.app_configuration[0].media_feed);
 				window.localStorage.setItem("menu_icon_url",data.app_configuration[0].menu_icon_url);
 				
+				window.localStorage.setItem("splash_screen_text",data.app_configuration[0].splash_screen_text);
+				window.localStorage.setItem("admin_msg_for_user",data.app_configuration[0].admin_msg_for_user);
+				window.localStorage.setItem("donation_text",data.app_configuration[0].donation_text);
+				
 				
 				var user_role = window.localStorage.getItem("loginuserRole");
 				var standard_seal_charges = window.localStorage.getItem("standard_seal_charges");
@@ -384,6 +394,8 @@ function getAppStatics()
 				var app_name = window.localStorage.getItem("app_name");
 				var app_tagLine = window.localStorage.getItem("app_tagLine");
 				var app_header_color = window.localStorage.getItem("app_header_color");
+				/*var donation_text = window.localStorage.getItem("donation_text");
+				var loading_screen_footer = window.localStorage.getItem("loading_screen_footer");*/
 				
 				$('.header h4').html('<a href="index.html" class="headerLogo"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header">'+app_name+'</span><span class="heaer-tag-line">'+app_tagLine+'</span></div>');
 	$('.main-wraper').css('background-color',app_background_color);

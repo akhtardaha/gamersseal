@@ -1001,7 +1001,9 @@ public function generate_auth_cookie() {
 				
 				"abn" => $abn,
 				
-				"state" => $state
+				"state" => $state,
+				
+				"user_rating" => $user->user_rating
 
 			),
 
@@ -6780,7 +6782,9 @@ foreach($meta_keys as $k){
 			$ads_bar = $home_settings[0]->ads_bar;
 			$media_feed = $home_settings[0]->media_feed;
 			$menu_icon_url = $home_settings[0]->menu_icon_url;
-			$terms_cnd = $home_settings[0]->terms_cnd;
+			$splash_screen_text = $home_settings[0]->splash_screen_text;
+			$donation_text = $home_settings[0]->donation_text;
+			$admin_msg_for_user = $home_settings[0]->admin_msg_for_user;
 			
 			$query = "SELECT * FROM app_configuration";
 			$res = $wpdb->query($query);
@@ -6797,6 +6801,9 @@ foreach($meta_keys as $k){
 				$app_configurations[0]->app_header_color = $header_color;
 				$app_configurations[0]->app_background_color = $bg_color;
 				$app_configurations[0]->terms_and_conditions = $terms_cnd;
+				$app_configurations[0]->splash_screen_text = $splash_screen_text;
+				$app_configurations[0]->donation_text = $donation_text;
+				$app_configurations[0]->admin_msg_for_user = $admin_msg_for_user;
 				$response['app_configuration'] = $app_configurations;
 			}
 			else
@@ -7888,7 +7895,161 @@ foreach($meta_keys as $k){
 				}
 		
 					
-	}	
+	}
+	
+	
+	
+public function add_event() {
+
+    global $json_api;
+
+
+
+foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
+
+
+
+	 if (!$json_api->query->cookie) {
+
+			$json_api->error("You must include a 'cookie' var in your request. Use the `generate_auth_cookie` Auth API method.");
+
+		}
+
+	
+
+	$user_id = wp_validate_auth_cookie($json_api->query->cookie, 'logged_in');
+
+	//echo '$user_id: '.$user_id;	
+
+	
+
+		if (!$user_id) {
+
+			$json_api->error("Invalid authentication cookie. Use the `generate_auth_cookie` method.");
+
+		}
+
+	
+
+	
+
+	if(!$this->disable_author_check){
+
+		
+
+	if (!user_can($user_id,'edit_posts')) {
+
+    $json_api->error("You need to login with a user capable of creating posts.");
+
+      }
+
+	  
+
+	}
+
+		
+
+	
+
+    if(!$this->disable_nonce){
+
+ if (!$json_api->query->nonce) {
+
+			$json_api->error("You must include 'nonce' var in your request. Use the 'get_nonce' Core API method. ");
+
+		}
+
+ else $nonce =  sanitize_text_field( $json_api->query->nonce ) ;
+
+ 
+
+ $nonce_id = $json_api->get_nonce_id('userplus', 'add_post');
+
+
+
+ if( !wp_verify_nonce($json_api->query->nonce, $nonce_id) ) {
+
+
+
+    $json_api->error("Invalid access, unverifiable 'nonce' value. Use the 'get_nonce' Core API method. ");
+
+        }
+
+ }
+
+    	
+
+	
+
+	if (!$json_api->query->title) {
+
+      $json_api->error("You must include 'title' value to create post.");
+
+    }
+
+	
+
+	if (!$json_api->query->content) {
+
+      $json_api->error("You must include 'content' value to create post.");
+
+    }
+
+	
+
+	if (!$json_api->query->status) {
+
+      $json_api->error("You must include 'status' value to create post. 'draft' or 'publish'");
+
+    }
+
+	
+
+   
+
+	$post = new JSON_API_Post();
+
+	
+
+	$user_info = get_userdata($user_id);	
+
+	$_REQUEST['author'] = $user_info->user_nicename;
+
+	
+
+	$id = $post->create($_REQUEST);	
+
+	
+
+	
+
+    if (empty($id)) {
+
+      $json_api->error("Could not create post.");
+
+    }else {		
+
+	add_post_meta($post->id, "_thumbnail_id", $post->attachments[0]->id);
+	
+	$img = array();
+	
+	$eventDate = $json_api->query->eventDate;
+	$eventLocation = $json_api->query->eventLocation;
+	$event_picture = $json_api->query->event_picture;
+	$eventCost = $json_api->query->eventCost;
+	$eventRequirement = $json_api->query->eventRequirement;
+	
+	add_post_meta($post->id, "event_date", $eventDate);
+	add_post_meta($post->id, "event_location", $eventLocation);
+	add_post_meta($post->id, "event_picture", $event_picture);
+	add_post_meta($post->id, "event_cost", $eventCost);
+	add_post_meta($post->id, "event_requirement", $eventRequirement);
+	//set_post_type($post->id,'wpmarketplace');	
+	}
+	//print_r($post);
+    return array('post' => $post, 'success' => 'Event Added Successfully');
+
+  }	
 	
   
 

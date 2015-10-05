@@ -10,6 +10,7 @@
     <script src="js/app_config.js"></script>
     <link rel="stylesheet" href="css/smk-accordion.css" />
     <script type="text/javascript" src="js/smk-accordion.js"></script>
+    <script type="text/javascript" src="js/events.js"></script>
     <style>
 	.home-tabs ul li>div {
 		font-size: 14px;
@@ -41,13 +42,7 @@
 		border: none;
 	}
     </style>
-    <script type="text/javascript">
-	$(document).ready(function(){
-		$(".accordion").smk_Accordion({
-			closeAble: true, //boolean
-		});
-	})
-	</script>
+    
 </head>
 <body>
     <div class="page-wraper">
@@ -65,52 +60,34 @@
             
             <div class="home-tabs events-tab" id="home-tabs">
           <ul>
-            <li class="tab-open"><div data-tab='#tabs-3'>WA</div></li>
-            <li><div data-tab='#tabs-2'>SA</div></li>
-            <li><div data-tab='#tabs-1'>TAS</div></li>
-            <li><div data-tab='#tabs-4'>QLD</div></li>
-            <li><div data-tab='#tabs-5'>NSA</div></li>
-            <li><div data-tab='#tabs-6'>NT</div></li>
-            <li><div data-tab='#tabs-7'>VIC</div></li>
+            <li class="tab-open"><div onclick="return getEvents('WA');" data-tab='#tabs-WA'>WA</div></li>
+            <li><div onclick="return getEvents('SA');" data-tab='#tabs-SA'>SA</div></li>
+            <li><div onclick="return getEvents('TAS');" data-tab='#tabs-TAS'>TAS</div></li>
+            <li><div onclick="return getEvents('QLD');" data-tab='#tabs-QLD'>QLD</div></li>
+            <li><div onclick="return getEvents('NSA');" data-tab='#tabs-NSA'>NSA</div></li>
+            <li><div onclick="return getEvents('NT');" data-tab='#tabs-NT'>NT</div></li>
+            <li><div onclick="return getEvents('VIC');" data-tab='#tabs-VIC'>VIC</div></li>
           </ul>
-          	<div id="tabs-3" style="display:block;">
-            	<div class="accordion">
-			 		<div class="accordion_in"><div class="acc_head"><div class="acc_icon_expand"></div><img src="http://gamersseal.com/development/wp-content/uploads/2015/09/images.jpg" alt="News of GamersSeal" class="product-thumb"><h5>Event of GamersSeal</h5></div><div class="acc_content" style="display: none;"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut elit a urna lacinia dignissim. Phasellus sed est egestas, tincidunt leo vel, congue dolor. Mauris bibendum volutpat mauris id fringilla. Etiam ac cursus quam. Aliquam semper ipsum sit amet bibendum ultrices. Ut efficitur at lorem ac sagittis.</p>
-</div></div>
-<div class="accordion_in"><div class="acc_head"><div class="acc_icon_expand"></div><img src="http://gamersseal.com/development/wp-content/uploads/2015/09/images1.jpg" alt="News of GamersSeal" class="product-thumb"><h5>2nd Event of GamersSeal</h5></div><div class="acc_content" style="display: none;"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut elit a urna lacinia dignissim. Phasellus sed est egestas, tincidunt leo vel, congue dolor. Mauris bibendum volutpat mauris id fringilla. Etiam ac cursus quam. Aliquam semper ipsum sit amet bibendum ultrices. Ut efficitur at lorem ac sagittis.</p>
-</div></div>
-				</div>
+          	<div id="tabs-WA" style="display:block;">
+                	<img id="loading" src="img/loading.gif" alt="Loading" />
           </div>
-          	<div id="tabs-2">
-            	<div class="accordion">
-                	<div class="accordion_in"><div class="acc_head"><div class="acc_icon_expand"></div><img src="http://gamersseal.com/development/wp-content/uploads/2015/09/images.jpg" alt="News of GamersSeal" class="product-thumb"><h5>2nd State Event of GamersSeal</h5></div><div class="acc_content" style="display: none;"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut elit a urna lacinia dignissim. Phasellus sed est egestas, tincidunt leo vel, congue dolor. Mauris bibendum volutpat mauris id fringilla. Etiam ac cursus quam. Aliquam semper ipsum sit amet bibendum ultrices. Ut efficitur at lorem ac sagittis.</p>
-</div></div>
-				</div>
+          	<div id="tabs-SA">
+                	<img id="loading" src="img/loading.gif" alt="Loading" />
           </div>
-         	<div id="tabs-1">
-            	<div class="accordion">
+         	<div id="tabs-TAS">
 			 		<img id="loading" src="img/loading.gif" alt="Loading" />
-				</div>
           </div>
-          	<div id="tabs-4">
-            	<div class="accordion">
+          	<div id="tabs-QLD">
 			 		<img id="loading" src="img/loading.gif" alt="Loading" />
-				</div>
           </div>
-          	<div id="tabs-5">
-            	<div class="accordion">
+          	<div id="tabs-NSA">
 			 		<img id="loading" src="img/loading.gif" alt="Loading" />
-				</div>
           </div>
-          	<div id="tabs-6">
-            	<div class="accordion">
+          	<div id="tabs-NT">
 			 		<img id="loading" src="img/loading.gif" alt="Loading" />
-				</div>
           </div>
-          	<div id="tabs-7">
-            	<div class="accordion">
+          	<div id="tabs-VIC">
 			 		<img id="loading" src="img/loading.gif" alt="Loading" />
-				</div>
           </div>
         </div>
             

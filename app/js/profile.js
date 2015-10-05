@@ -66,18 +66,28 @@ function getUserInfo()
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Australian ID#:</a></div>';
    					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.Passport+'-'+profile['Driving License']+'</a></div>';
 				html += '</div>';
+				var user_rating = window.localStorage.getItem("loginuserRating");
+				if(user_rating)
+				{
 				html += '<div class="item">';
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">User Rating:</a></div>';
-   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /></a></div>';
+					
+   					html += '<div class="ui-block-b">';
+					html += '<a class="ui-shadow ui-btn">';
+					for (i = 1; i <= user_rating; i++) {
+    					html += '<img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" />';
+					}
+					html += '</a></div>';
 				html += '</div>';
+				}
 				html += '<div class="item">';
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Total Donation Amount:</a></div>';
    					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.donation+'$</a></div>';
 				html += '</div>';
-				html += '<div class="item">';
-					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Hall of fame Member:</a></div>';
-   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">14082015</a></div>';
-				html += '</div>';
+				//html += '<div class="item">';
+					//html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Hall of fame Member:</a></div>';
+   					//html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">14082015</a></div>';
+				//html += '</div>';
 				html += '</div>';
 				$('.descBoxes').html(html);
 			}

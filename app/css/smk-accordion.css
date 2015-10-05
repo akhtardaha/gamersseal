@@ -46,9 +46,17 @@
  * --------------------------------------------------------------
  */
 .smk_accordion .accordion_in .acc_content {
-  background: #F9F9F9;
-  color: #7B7E85;
-  padding: 3px 10px;
+    background: #F9F9F9;
+    color: #000000;
+    padding: 5px 5%;
+    font-size: 13px;
+    float: left;
+}
+.smk_accordion .accordion_in .acc_content p {
+    width: 98%;
+    float: left;
+    line-height: 18px;
+    margin: 0px;
 }
 .smk_accordion .accordion_in .acc_content h1:first-of-type,
 .smk_accordion .accordion_in .acc_content h2:first-of-type,

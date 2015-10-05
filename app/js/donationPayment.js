@@ -74,7 +74,7 @@ var pay = {
 		/*var city = window.localStorage.getItem("loginuserID");
 		var state = window.localStorage.getItem("loginuserID");
 		var country = window.localStorage.getItem("loginuserID");*/
-		
+		var admin_msg_for_user = window.localStorage.getItem("admin_msg_for_user");
 		var url = API_URL+'make_donation/?key=1234567891011&user_id='+user_id+'&name='+name+'&email='+email+'&phone='+phone+'&amount='+amount+'&anon='+anon+'&don_num='+ref;
 	    $.ajax({
          url:url,
@@ -90,7 +90,7 @@ var pay = {
 			$('#deviceready').hide();
 			$('.tabContent').hide();
 			$('.donationTitle').html('Donation Successfully Submitted');
-			$('.paymentSuccess').html('<p>Thank You, your Donation was successful and your Donation Payment Ref# '+ref+'</p><a href="index.html" style="margin-top: 10px;float: left;" class="search not-srch btn">Continue</a>');
+			$('.paymentSuccess').html('<p>'+admin_msg_for_user+'</p><p> Your Donation Payment Ref# '+ref+'</p><a href="index.html" style="margin-top: 10px;float: left;" class="search not-srch btn">Continue</a>');
 			$('.paymentSuccess').show();
 		},
         error:function(){}

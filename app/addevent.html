@@ -8,6 +8,31 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
+    <script src="js/add_event.js"></script>
+    <script src="js/uploadEvent.js"></script>
+    
+    <style>
+	.search.not-srch {
+		background: none;
+		padding-left: 10px;
+		width: 85%;
+		margin: 10px 0;
+		border-radius: 15px;
+		/* white-space: nowrap; */
+	}
+	select.mobile-dropdown, select {
+		width: 89%;
+		float: left;
+		display: block;
+		padding: 5px 10px;
+		border-radius: 20px;
+		margin: 0px 0;
+		height: 28px;
+		background: none;
+		color: #666;
+		text-transform: capitalize !important;
+	}
+    </style>
 </head>
 <body>
     <div class="page-wraper">
@@ -25,14 +50,14 @@
         <form action="" name="addevent" class="addevent">
         
         <div class="uploadImages">
-       		<input type="button" id="uploadImg1" class="search btn not-srch uploadImg" name="image" value="Add Image" onclick="return getImage('1');" />
+       		<input type="button" id="uploadImg" class="search btn not-srch uploadImg" name="image" value="Add Image" onclick="return getImage();" />
             <div class="uploadedImages">
             	<ul></ul>
             </div>
         </div>
         <input type="text" id="title" name="title" placeholder="Name" class="search not-srch"/>
         <select id="location" name="location">
-        	<option selected="selected">Select Location…</option>
+        	<option value="" selected="selected">Select Location…</option>
             <option value="WA">WA</option>
             <option value="SA">SA</option>
             <option value="TAS">TAS</option>
@@ -46,7 +71,7 @@
         <textarea style="min-height: 70px;" id="content" placeholder="Event Description" name="details" class="search not-srch"></textarea>
         <input type="text" id="RequirementsForAttendance" name="RequirementsForAttendance" placeholder="Requirements For Attendance" class="search not-srch"/>
         <label id="form-err"></label>
-        <input type="button" id="addNewEvent" name="addNewEvent" value="Add Event" class="search btn not-srch" style="float:left;" />
+        <input type="button" id="addNewEvent" name="addNewEvent" value="Add Event" class="search btn not-srch" style="float:left;" onclick="return add_event();" />
         </form>
         </div></div><!-- /content -->
  

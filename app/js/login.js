@@ -53,6 +53,7 @@ function signInUser()
 			window.localStorage.setItem("loginuserNickname",data.user.nickname);
 			window.localStorage.setItem("loginuserUsername",data.user.username);
 			window.localStorage.setItem("loginuserLocation",data.user.state);
+			window.localStorage.setItem("loginuserRating",data.user.user_rating);
 			//console.log(window.localStorage.getItem("loginuserRole"));
 			var homePageprefer = window.localStorage.getItem("homepage");
 			if(!homePageprefer)

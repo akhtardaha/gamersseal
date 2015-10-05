@@ -8,7 +8,7 @@
 
   Description: Extends the JSON API for RESTful user registration, authentication, password reset, Facebook Login, user meta and BuddyPress Profile related functions
 
-  Version: 1.3
+  Version: 1.5
 
   Author: Ali Qureshi
 
@@ -19,7 +19,7 @@
  */
 
 
-define('JAUP_VERSION', '1.4');
+define('JAUP_VERSION', '1.5');
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
@@ -213,6 +213,18 @@ echo '<table class="form-table">
                         <label>
 						<input type="checkbox" id="nonce" name="wp_jaup_settings[nonce]" value="1"' . checked( 1, $jaup_options['nonce'], false ) . '/>
 						<label for="nonce">Disable Nonce requirement.</label>
+
+                            
+                    </fieldset>
+                </td>
+            </tr>
+			 <tr>
+                <th scope="row">Allow Post Submission</th>
+                <td>
+                    <fieldset>
+                        <label>
+						<input type="checkbox" id="authoring" name="wp_jaup_settings[authoring]" value="1"' . checked( 1, $jaup_options['authoring'], false ) . '/>
+						<label for="authoring">Disable Post editing capability requirement for `add_post`, `update_post`, `delete_post` endpoints.</label>
 
                             
                     </fieldset>

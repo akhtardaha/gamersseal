@@ -255,18 +255,22 @@ img{
 	text-align:center;
 	padding:15px 0;
 	}
-.lodin-text{
-	width:100%;
-	float:left;
-	display:block;
-	margin-top:25px;
-	margin-bottom:15px;}
-.footer-loading{
-	position: fixed;
+.lodin-text {
+    width: 100%;
+    float: left;
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+.footer-loading {
+    position: fixed;
     bottom: 0;
     width: 100%;
     text-align: center;
-    padding-bottom: 20px;}
+    padding-bottom: 20px;
+    font-size: 13px;
+}
 .login-logo img{
 	width:100px;
 	padding:25px 0;}
@@ -961,4 +965,10 @@ img.age-img{
 {
 	float:left;
 	width:100%;
+}
+
+.loading-bar {
+    width: 86%;
+    float: left;
+    margin-left: 7%;
 }

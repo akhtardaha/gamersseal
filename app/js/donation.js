@@ -1,5 +1,7 @@
 // JavaScript Document
 $(document).ready(function(){
+	var donation_text = window.localStorage.getItem("donation_text");
+	$('.donation-admin-text').html(donation_text);
 	
 	if(window.localStorage.getItem("donationAmount"))
 	{
