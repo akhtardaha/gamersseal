@@ -40,7 +40,7 @@ function getUserInfo()
 						html += '<input type="password" id="old_password" name="old_password" placeholder="Old Password" class="search not-srch"/>';
 						html += '<input type="password" id="password" name="password" placeholder="New Password" class="search not-srch"/>';
 						html += '<input type="password" id="cpassword" name="cpassword" placeholder="Confirm New Password" class="search not-srch"/>';
-						html += '<input type="button" id="changePassword" onclick="return updatePassword();" name="changePassword" value="Change Password" class="search btn not-srch" />';
+						html += '<a id="changePassword" style="float:left;" onclick="return updatePassword();" class="search btn not-srch">Change Password</a>';
 					html += '</form>';
 					html += '<div class="specification ui-icon-user show-full-profile less" onclick="toggleProfile();" id="show-full-profile">Show Full Profile</div>';
 					html += '<div class="full-profile">';
