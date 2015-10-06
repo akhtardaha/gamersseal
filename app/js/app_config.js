@@ -307,6 +307,9 @@ function getAppSettings()
 				window.localStorage.setItem("admin_msg_for_user",data.app_configuration[0].admin_msg_for_user);
 				window.localStorage.setItem("donation_text",data.app_configuration[0].donation_text);
 				
+				window.localStorage.setItem("hall_of_fame_img",data.app_configuration[0].hall_of_fame_img);
+				window.localStorage.setItem("faq_text",data.app_configuration[0].faq_text);
+				
 				app_settings();
 			}
 			
@@ -366,6 +369,9 @@ function getAppStatics()
 				window.localStorage.setItem("splash_screen_text",data.app_configuration[0].splash_screen_text);
 				window.localStorage.setItem("admin_msg_for_user",data.app_configuration[0].admin_msg_for_user);
 				window.localStorage.setItem("donation_text",data.app_configuration[0].donation_text);
+				
+				window.localStorage.setItem("hall_of_fame_img",data.app_configuration[0].hall_of_fame_img);
+				window.localStorage.setItem("faq_text",data.app_configuration[0].faq_text);
 				
 				
 				var user_role = window.localStorage.getItem("loginuserRole");

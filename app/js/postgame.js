@@ -1,6 +1,6 @@
 // JavaScript Document
 $(document).ready(function(){
-	
+	getClassificationtext();
 	if(window.localStorage.getItem("loginuserCookie"))
 	{
 		$('#email').val(window.localStorage.getItem("loginuserEmail"));
@@ -291,5 +291,36 @@ function set_post_type(post_id)
 
         }
     });
+}
+
+function getClassificationtext()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'fetch_app_settings/?key=1234567891011';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			if(data.status == 'ok')
+			{
+				var age_classification = data.app_configuration[0].age_classification;
+				$.each(age_classification, function (i, value) {
+					$('span.'+i).html(value);
+				})
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
 }
 

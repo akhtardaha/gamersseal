@@ -977,3 +977,8 @@ img.age-img{
     float: left;
     margin-left: 7%;
 }
+
+#age-filter {
+    font-size: 12px;
+    color: #666;
+}

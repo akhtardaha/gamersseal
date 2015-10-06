@@ -1521,7 +1521,23 @@ foreach($_REQUEST as $key=>$val) $_REQUEST[$key] = urldecode($val);
 	
 
 	$id = $post->update($_REQUEST);		
-
+	
+	$p_type = $json_api->query->post_type;
+	if($p_type == 'g_event')
+	{
+		$eventDate = $json_api->query->eventDate;
+		$eventLocation = $json_api->query->eventLocation;
+		$event_picture = $json_api->query->event_picture;
+		$eventCost = $json_api->query->eventCost;
+		$eventRequirement = $json_api->query->eventRequirement;
+	
+		update_post_meta($post->id, "event_date", $eventDate);
+		update_post_meta($post->id, "event_location", $eventLocation);
+		update_post_meta($post->id, "event_picture", $event_picture);
+		update_post_meta($post->id, "event_cost", $eventCost);
+		update_post_meta($post->id, "event_requirement", $eventRequirement);
+		
+	}
 	
 
     if (empty($id)) {
@@ -6766,6 +6782,7 @@ foreach($meta_keys as $k){
 	{
 		global $json_api;
 		global $wpdb;
+		$age_classification = array();
 		
 			$query2 = "SELECT * FROM wp_options where option_name IN ('blogname','blogdescription') order by option_id ASC";
 			$res2 = $wpdb->query($query2);
@@ -6786,6 +6803,19 @@ foreach($meta_keys as $k){
 			$donation_text = $home_settings[0]->donation_text;
 			$admin_msg_for_user = $home_settings[0]->admin_msg_for_user;
 			
+			$loading_screen_text = $home_settings[0]->loading_screen_text;
+			$faq_text = $home_settings[0]->faq_text;
+			$hall_of_fame_img = $home_settings[0]->hall_of_fame_img;
+			$age_classification['ctc'] = $home_settings[0]->age_ctc;
+			$age_classification['g'] = $home_settings[0]->age_g;
+			$age_classification['pg'] = $home_settings[0]->age_pg;
+			$age_classification['m'] = $home_settings[0]->age_m;
+			$age_classification['ma'] = $home_settings[0]->age_ma;
+			$age_classification['r'] = $home_settings[0]->age_r;
+			$age_classification['x'] = $home_settings[0]->age_x;
+			
+			
+			
 			$query = "SELECT * FROM app_configuration";
 			$res = $wpdb->query($query);
 			$app_configurations = $wpdb->get_results($query);
@@ -6804,6 +6834,12 @@ foreach($meta_keys as $k){
 				$app_configurations[0]->splash_screen_text = $splash_screen_text;
 				$app_configurations[0]->donation_text = $donation_text;
 				$app_configurations[0]->admin_msg_for_user = $admin_msg_for_user;
+				
+				$app_configurations[0]->loading_screen_text = $loading_screen_text;
+				$app_configurations[0]->faq_text = stripslashes(html_entity_decode($faq_text));
+				$app_configurations[0]->hall_of_fame_img = $hall_of_fame_img;
+				$app_configurations[0]->age_classification = $age_classification;
+				
 				$response['app_configuration'] = $app_configurations;
 			}
 			else

@@ -66,7 +66,12 @@ function getEvents(state)
 					}
 						
 						html += '<div class="accordion_in">';
-							html += '<div class="acc_head"><img src="'+EVENT_UPLOAD_PATH+event_picture+'" alt="'+value.title+'" class="product-thumb" /><h5>'+value.title+'</h5><p>Event Date: '+event_date+'</p></div>';
+							html += '<div class="acc_head" style="position: relative;"><img src="'+EVENT_UPLOAD_PATH+event_picture+'" alt="'+value.title+'" class="product-thumb" /><h5 style="width: 80%;clear:right;">'+value.title+'</h5><p style="font-size: 12px;">Event Date: '+event_date+'</p>';
+							if(user_id == value.author.id)
+							{
+								html += '<a style="position:absolute;right:10px;width: 35px;top: 10px;" href="editevent.html?event_id='+value.id+'"><img style="width: 100%;float: left;" src="img/edit.png" alt="Edit" /></a>';
+							}
+							html += '</div>';
 							html += '<div class="acc_content">';
 								html += '<p><strong>Event Cost:</strong> $'+event_cost+'</p>';
 								html += '<p><strong>Event Loaction:</strong> '+event_location+'</p>';

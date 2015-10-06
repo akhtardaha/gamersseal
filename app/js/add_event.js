@@ -1,5 +1,6 @@
 // JavaScript Document
 $(document).ready(function(){
+	window.localStorage.setItem("event_picture",'');
 	if(!(window.localStorage.getItem("loginuserCookie")))
 	{
 		setTimeout(function(){window.location = 'login.html';},200);	
@@ -8,6 +9,7 @@ $(document).ready(function(){
 
 function add_event()
 	{
+		startButtonLoading('addNewEvent');
 		var type = 'g_event';
 		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
@@ -89,6 +91,7 @@ function add_event()
 			success:function(data)
 			{
 				console.log(data);
+				endButtonLoading('addNewEvent');
 				if(data.status == 'ok')
 				{
 					console.log("Event Added Successfully");

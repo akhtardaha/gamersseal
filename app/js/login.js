@@ -1,4 +1,8 @@
 // JavaScript Document
+$(document).ready(function(){
+	var faq_text = window.localStorage.getItem("faq_text");
+	$('.faq-box').html(faq_text);
+})
 if(window.localStorage.getItem("loginuserCookie"))
 {
 	setTimeout(function(){ window.location = 'index.html'; }, 500);
