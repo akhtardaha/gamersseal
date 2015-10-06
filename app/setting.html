@@ -50,7 +50,7 @@
             <select name="filterCat mobile-dropdown" id="gameType">
             <option selected="selected">Choose Game Type</option>
             </select>
-            <input id="addtoFavourite" type="button" name="add" value="Add to Favourites" class="search btn not-srch" onclick="return addUserFavouriteGamesType();" />
+            <a id="addtoFavourite" style="float:left;" class="search btn not-srch" onclick="return addUserFavouriteGamesType();">Add to Favourites</a>
         </form>
         
         <ul class="tabContent products-list favourite-list">
@@ -73,7 +73,7 @@
                 <input type="hidden" value="" id="captcha-val" />
             </div>
             <label id="form-err"></label>
-            <input type="button" name="submit" onclick="return sendMessagetoAdmin();" value="Send" class="search btn not-srch" />
+            <a onclick="return sendMessagetoAdmin();" style="float:left;" class="search btn not-srch">Send</a>
     	</form>
         
         </div>

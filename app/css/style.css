@@ -16,6 +16,10 @@ body {
     height: auto;
     margin-right: 10px;
 }
+hr.myhr{
+    width: 100%;
+    float: left;
+    visibility: hidden;}
 .donate-page .help-center , .donate-page .advertisement{
 	display:none;}
 .fame-user {
@@ -148,7 +152,8 @@ a {
 }
 
 h4.send{
-	float:left;}
+	float:left;
+	width:100%;}
 
 .header .setting
 {

@@ -53,7 +53,7 @@
                     <option value="Canceled">Canceled</option>
                  </select>
                  
-    <input type="button" name="submit" id="changeShipping" onclick="return updateOrderShippingStatus();" value="Submit" class="search btn not-srch" />
+    <a type="button" name="submit" id="changeShipping" onclick="return updateOrderShippingStatus();" style="float:left;" class="search btn not-srch">Submit</a>
     </form>
     <h4 class="send">Send Message to Customer</h4>
     <form action="" method="get" name="message">
@@ -65,7 +65,7 @@
         <input type="hidden" value="" id="captcha-val" />
     </div>
     <label id="form-err"></label>
-    <input type="button" name="submit" value="Send" class="search btn not-srch" onclick="return sendMessagetoCustomer();" />
+    <a type="button" name="submit" style="float:left;" class="search btn not-srch" onclick="return sendMessagetoCustomer();">Send</a>
     </form>
         </div><!-- /content -->
  </div>

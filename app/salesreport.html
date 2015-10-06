@@ -81,9 +81,10 @@ width:100%;
             <div class="salesReportRange">
             <label class="sales-label">From:</label>
             <input type="date" name="from" placeholder="From" id="from" class="search not-srch" />
+            <hr class="myhr"/>
             <label class="sales-label">To:</label>
             <input type="date" name="to" placeholder="To" id="to" class="search not-srch" />
-            <input type="button" id="userSalesbtn" onclick="return getUserSales();" name="userSalesbtn" value="Update Sales Report" class="search btn not-srch" />
+            <a id="userSalesbtn" style="clear:left;" onclick="return getUserSales();" name="userSalesbtn" class="search btn not-srch">Update Sales Report</a>
             </div>
             <ul class="tabContent products-list">
             <img id="loading" src="img/loading.gif" alt="Loading" />
