@@ -16,6 +16,9 @@ body {
     height: auto;
     margin-right: 10px;
 }
+.right-content-feed{
+	padding:0;
+	margin:0;}
 hr.myhr{
     width: 100%;
     float: left;
@@ -221,7 +224,7 @@ li.your-reply{
 	text-decoration:underline;}
 .fvt-str {
     height: 25px;
-    width: 25px;
+    width: 25px !important;
     background: url(../img/star.png) no-repeat;
     display: block;
     float: right;
