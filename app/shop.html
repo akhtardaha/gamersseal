@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+<title>Login Gamers Seal</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />  
+	<script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/app_config.js"></script>
+    <script src="js/home.js"></script>
+<style>
+#loading {
+  width: 50px;
+  margin-left: 40%;
+  padding: 20px 0px;
+}
+.product-list-right {
+    margin: 0px 0;
+}
+p {
+    text-decoration: none;
+    float: left;
+    color: #000;
+    font-size: 12px;
+    font-family: arial;
+}
+</style>
+</head>
+<body>
+    <div class="page-wraper home">
+    <div class="header home-header"> 	
+        <h4 class="ui-title ui-title-center home-header"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a>
+        <div class="header-mid">
+        	<span class="top-header">GAMERS SEAL</span>
+            <span class="heaer-tag-line">By Gamers 4 Gamers</span>
+        </div>
+        </h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div> 
+        </div><!-- /header -->
+        <div class="slide-menu close"></div>
+ <div class="main-wraper">
+        <div class="content-wraper">
+        	<input type="text" id="searchTerms" name="search" value="" class="search" placeholder="SEARCH GAMERS SEAL" />
+        <div class="categoury-box">
+        	
+        </div>
+        <form name="product-dropdown" id="product-dropdown">
+        	<select name="product" id="product-filter" class="mobile-dropdown" onchange="return gotoCategory();">
+            	<option>Platform</option>
+            </select>
+        </form>
+        <div class="home-tabs" id="home-tabs">
+          <ul>
+            <li class="tab-open"><div data-tab='#tabs-3'>Popular Items</div></li>
+            <li><div data-tab='#tabs-2'>Newest Items</div></li>
+            <li><div data-tab='#tabs-1'>Recently Viewed</div></li>
+            <li><div data-tab='#tabs-4'>Favourite Items</div></li>
+          </ul>
+           <div id="tabs-3" style="display:block;">
+            <img id="loading" src="img/loading.gif" alt="Loading" />
+          </div>
+          <div id="tabs-2">
+            <img id="loading" src="img/loading.gif" alt="Loading" />
+          </div>
+         <div id="tabs-1">
+            <img id="loading" src="img/loading.gif" alt="Loading" />
+          </div>
+          <div id="tabs-4">
+            <img id="loading" src="img/loading.gif" alt="Loading" />
+          </div>
+        </div>
+       
+        </div>
+ </div><!-- /content -->
+ 
+        <div class="footer">
+            <h4><a href="mailto:haseeb.baber@gmail.com" >Powered by AHB</a></h4>
+        </div><!-- /footer -->
+ 
+    </div><!-- /page -->
+</body>
+</html>

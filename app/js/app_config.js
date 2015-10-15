@@ -1,4 +1,7 @@
 // JavaScript Document
+var FACEBOOK_FEEDS_URL ='http://gamersseal.com/development/gamerfb/tweet.php';
+var TWITTER_FEEDS_URL ='http://gamersseal.com/development/gamerfb/tweet.php';
+var YOUTUBE_FEEDS_URL ='https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UCxE_vzom-qMPAbNPVe3ulsQ&key=AIzaSyAN7KmeREQz9_GQZui43sLo0r6n-Ynd7nI';
 
 var API_URL ='http://gamersseal.com/development/api/userplus/';
 var API_URL_DEFAULT ='http://gamersseal.com/development/api/';
@@ -68,7 +71,7 @@ $(document).ready(function(){
 		$('#captcha-val').val(oneNumber+anoterNumber);
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
-$('.content-wraper').append(' <div class="help-center"><a href="#">Help Support Gamers Seal</a></div>');
+$('.content-wraper').append(' <div class="help-center"><a href="donation.html">Help Support Gamers Seal</a></div>');
 getAppStatics();
 app_settings();
 sideBarMenu();
@@ -225,7 +228,7 @@ function sideBarMenu()
 				{
 				 	html += '<li class="registerMenu"><a href="register.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Signup</a></li>';
 					html += '<li class="loginMenu"><a href="login.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Login</a></li>';
-					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shop Home</a></li>';
+					html += '<li class="gameMenu"><a href="shop.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shop Home</a></li>';
 					html += '<li class="gameMenu"><a href="events.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Events</a></li>';
 					html += '<li class="bdr-btm gameMenu"><a href="news.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Gamers Seal  News</a></li>';
 					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Home Page</a></li>';
@@ -234,7 +237,7 @@ function sideBarMenu()
 				{
 					html += '<li class="bdr-btm"><a href="setting.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Settings</a></li>';
 					html += '<li class="profileMenu"><a href="profile.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>User Profile</a></li>';	
-					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shop</a></li>';
+					html += '<li class="gameMenu"><a href="shop.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shop</a></li>';
 					html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Hall Of Fame</a></li>';
 					html += '<li class="gameMenu"><a href="donation.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Donate</a></li>';
 					html += '<li class="gameMenu bdr-btm"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Home</a></li>';
@@ -495,7 +498,7 @@ function getUserItemsPerDay()
 						console.log("You can not Add items more then "+premium_item_day+" per day!");
 						navigator.notification.alert(
 							"You can not Add items more then "+premium_item_day+" per day!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'shop.html'; },200)},        // callback
 						   'Daily Upload Limit',            // title
 							'OK'                  // buttonName
 						);	
@@ -512,7 +515,7 @@ function getUserItemsPerDay()
 						console.log("You can not Add items more then "+standard_item_day+" per day!");
 						navigator.notification.alert(
 							"You can not Add items more then "+standard_item_day+" per day!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'shop.html'; },200)},        // callback
 						   'Daily Upload Limit',            // title
 							'OK'                  // buttonName
 						);	
@@ -569,7 +572,7 @@ function getUserPurchasePerDay()
 							console.log("You can not Buy Games more then "+premium_daily_purchase+" amount per day!");
 							navigator.notification.alert(
 							"You can not Buy Games more then "+premium_daily_purchase+" amount per day!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'shop.html'; },200)},        // callback
 						   'Daily Purchase',            // title
 							'OK'                  // buttonName
 						);	
@@ -589,7 +592,7 @@ function getUserPurchasePerDay()
 						console.log("You can not Buy Games more then "+standard_daily_purchase+" amount per day!");
 						navigator.notification.alert(
 							"You can not Buy Games more then "+standard_daily_purchase+" amount per day!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'shop.html'; },200)},        // callback
 						   'Daily Purchase',            // title
 							'OK'                  // buttonName
 						);	
@@ -606,7 +609,7 @@ function getUserPurchasePerDay()
 						console.log("You can not Buy Games more then "+guest_daily_purchase+" amount per day!");
 						navigator.notification.alert(
 							"You can not Buy Games more then "+guest_daily_purchase+" amount per day!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'shop.html'; },200)},        // callback
 						   'Daily Purchase',            // title
 							'OK'                  // buttonName
 						);	
@@ -663,7 +666,7 @@ function getUserTransactionsPerDay()
 							console.log("You can not do more then "+premium_daily_transaction+" Transactions per day!");
 							navigator.notification.alert(
 							"You can not do more then "+premium_daily_transaction+" Transactions per day!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'shop.html'; },200)},        // callback
 						   'Daily Transactions',            // title
 							'OK'                  // buttonName
 						);	
@@ -682,7 +685,7 @@ function getUserTransactionsPerDay()
 						console.log("You can not do more then "+standard_daily_transaction+" Transactions per day!");
 						navigator.notification.alert(
 							"You can not do more then "+standard_daily_transaction+" Transactions per day!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'shop.html'; },200)},        // callback
 						   'Daily Transactions',            // title
 							'OK'                  // buttonName
 						);	
@@ -699,7 +702,7 @@ function getUserTransactionsPerDay()
 						console.log("You can not do more then "+guest_daily_transaction+" Transactions per day!");
 						navigator.notification.alert(
 							"You can not do more then "+guest_daily_transaction+" Transactions per day!",  // message
-							function(){setTimeout(function(){ window.location = 'index.html'; },200)},        // callback
+							function(){setTimeout(function(){ window.location = 'shop.html'; },200)},        // callback
 						   'Daily Transactions',            // title
 							'OK'                  // buttonName
 						);	

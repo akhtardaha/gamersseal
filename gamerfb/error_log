@@ -1,0 +1,41 @@
+[11-Oct-2015 09:00:24 UTC] PHP Warning:  require(/home/stripeycallan/public_html/development/gamerfb/src/facebook/autoload.php): failed to open stream: No such file or directory in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 8
+[11-Oct-2015 09:06:27 UTC] PHP Warning:  require(src/facebook/autoload.php): failed to open stream: No such file or directory in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 8
+[11-Oct-2015 09:06:27 UTC] PHP Warning:  require(src/facebook/autoload.php): failed to open stream: No such file or directory in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 8
+[11-Oct-2015 09:11:30 UTC] PHP Warning:  require(/src/facebook/autoload.php): failed to open stream: No such file or directory in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 8
+[11-Oct-2015 09:31:13 UTC] PHP Fatal error:  Uncaught exception 'Facebook\Exceptions\FacebookSDKException' with message 'Cross-site request forgery validation failed. The "state" param from the URL and session do not match.' in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php:285
+Stack trace:
+#0 /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php(249): Facebook\Helpers\FacebookRedirectLoginHelper->validateCsrf()
+#1 /home/stripeycallan/public_html/development/gamerfb/feedne.php(49): Facebook\Helpers\FacebookRedirectLoginHelper->getAccessToken()
+#2 {main}
+  thrown in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php on line 285
+[11-Oct-2015 09:34:08 UTC] PHP Fatal error:  Uncaught exception 'Facebook\Exceptions\FacebookSDKException' with message 'Cross-site request forgery validation failed. The "state" param from the URL and session do not match.' in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php:285
+Stack trace:
+#0 /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php(249): Facebook\Helpers\FacebookRedirectLoginHelper->validateCsrf()
+#1 /home/stripeycallan/public_html/development/gamerfb/feedne.php(49): Facebook\Helpers\FacebookRedirectLoginHelper->getAccessToken()
+#2 {main}
+  thrown in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php on line 285
+[12-Oct-2015 18:39:59 UTC] PHP Fatal error:  Uncaught exception 'Facebook\Exceptions\FacebookSDKException' with message 'Cross-site request forgery validation failed. The "state" param from the URL and session do not match.' in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php:285
+Stack trace:
+#0 /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php(249): Facebook\Helpers\FacebookRedirectLoginHelper->validateCsrf()
+#1 /home/stripeycallan/public_html/development/gamerfb/feedne.php(49): Facebook\Helpers\FacebookRedirectLoginHelper->getAccessToken()
+#2 {main}
+  thrown in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php on line 285
+[12-Oct-2015 18:44:46 UTC] PHP Fatal error:  Uncaught exception 'Facebook\Exceptions\FacebookSDKException' with message 'Cross-site request forgery validation failed. The "state" param from the URL and session do not match.' in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php:285
+Stack trace:
+#0 /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php(249): Facebook\Helpers\FacebookRedirectLoginHelper->validateCsrf()
+#1 /home/stripeycallan/public_html/development/gamerfb/feedne.php(49): Facebook\Helpers\FacebookRedirectLoginHelper->getAccessToken()
+#2 {main}
+  thrown in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php on line 285
+[12-Oct-2015 18:48:37 UTC] PHP Fatal error:  Uncaught exception 'Facebook\Exceptions\FacebookSDKException' with message 'Cross-site request forgery validation failed. The "state" param from the URL and session do not match.' in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php:285
+Stack trace:
+#0 /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php(249): Facebook\Helpers\FacebookRedirectLoginHelper->validateCsrf()
+#1 /home/stripeycallan/public_html/development/gamerfb/feedne.php(49): Facebook\Helpers\FacebookRedirectLoginHelper->getAccessToken()
+#2 {main}
+  thrown in /home/stripeycallan/public_html/development/gamerfb/src/Facebook/Helpers/FacebookRedirectLoginHelper.php on line 285
+[13-Oct-2015 18:21:02 UTC] PHP Notice:  Undefined index: code in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 21
+[13-Oct-2015 18:21:02 UTC] PHP Warning:  file_get_contents(https://graph.facebook.com/oauth/access_token?client_id=135100593240392&amp;redirect_uri=http%3A%2F%2Fgamersseal.com%2Fdevelopment%2Fgamerfb%2Ffeedne.php&amp;client_secret=0d22415620c386bfe5ac0f5f0e327c10&amp;code=): failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+ in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 23
+[13-Oct-2015 18:21:02 UTC] PHP Notice:  Undefined index: access_token in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 27
+[13-Oct-2015 18:21:02 UTC] PHP Warning:  file_get_contents(https://graph.facebook.com/me/feed?access_token=): failed to open stream: HTTP request failed! HTTP/1.1 400 Bad Request
+ in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 28
+[13-Oct-2015 18:26:50 UTC] PHP Fatal error:  Call to undefined method Facebook\Facebook::api() in /home/stripeycallan/public_html/development/gamerfb/feedne.php on line 27

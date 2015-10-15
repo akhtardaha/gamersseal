@@ -8,7 +8,9 @@
 	<script type="text/javascript" src="cordova.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
     <script src="js/app_config.js"></script>
-    <script src="js/home.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/moment.js"></script>
+   <!-- <script src="js/moment-with-locales.js"></script>-->
 <style>
 #loading {
   width: 50px;
@@ -25,10 +27,23 @@ p {
     font-size: 12px;
     font-family: arial;
 }
+.product-list-right {
+    display: inline-block;
+    float: left;
+    width: 69%;
+}
+.product-thumb {
+    max-width: 70px;
+    height: auto;
+    float: left;
+    margin: 0 1%;
+    border: 1px solid #eee;
+    margin-right: 8px;
+}
 </style>
 </head>
 <body>
-    <div class="page-wraper home">
+    <div class="page-wraper feed">
     <div class="header home-header"> 	
         <h4 class="ui-title ui-title-center home-header"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a>
         <div class="header-mid">
@@ -40,37 +55,55 @@ p {
         </div><!-- /header -->
         <div class="slide-menu close"></div>
  <div class="main-wraper">
-        <div class="content-wraper">
-        	<input type="text" id="searchTerms" name="search" value="" class="search" placeholder="SEARCH GAMERS SEAL" />
-        <div class="categoury-box">
-        	
-        </div>
-        <form name="product-dropdown" id="product-dropdown">
-        	<select name="product" id="product-filter" class="mobile-dropdown" onchange="return gotoCategory();">
-            	<option>Platform</option>
-            </select>
-        </form>
-        <div class="home-tabs" id="home-tabs">
-          <ul>
-            <li class="tab-open"><div data-tab='#tabs-3'>Popular Items</div></li>
-            <li><div data-tab='#tabs-2'>Newest Items</div></li>
-            <li><div data-tab='#tabs-1'>Recently Viewed</div></li>
-            <li><div data-tab='#tabs-4'>Favourite Items</div></li>
-          </ul>
-           <div id="tabs-3" style="display:block;">
-            <img id="loading" src="img/loading.gif" alt="Loading" />
-          </div>
-          <div id="tabs-2">
-            <img id="loading" src="img/loading.gif" alt="Loading" />
-          </div>
-         <div id="tabs-1">
-            <img id="loading" src="img/loading.gif" alt="Loading" />
-          </div>
-          <div id="tabs-4">
-            <img id="loading" src="img/loading.gif" alt="Loading" />
-          </div>
-        </div>
-       
+        <div class="content-wraper feed-wraper">
+            <a href="#" class="specification">Twitter</a>
+        	<ul class="products-list right-content-feed twitterFeeds">
+            	<li class="single-feed">
+                	<img id="loading" src="img/loading.gif" alt="Loading" />
+                </li>
+                </ul>
+               
+               
+               <a href="#" class="specification">YouTube</a>
+        	<ul class="products-list right-content-feed youtubeFeeds">
+            	<li class="single-feed">
+                	<img id="loading" src="img/loading.gif" alt="Loading" />
+                </li>
+                </ul>
+                
+                <a href="#" class="specification">Facebook</a>
+        	<ul class="products-list right-content-feed facebookFeeds">
+            	<li class="single-feed"><img src="img/fb.jpg" alt="ninja" class="product-thumb">
+                	<div class="product-list-right">
+                		<h5>this is just a twitte</h5>
+                    	<p>gamersseal is thae amazing platform to buy games and enjoy that<br /> its more amazing sometime then you have idea,</p>
+                    </div>
+                </li>
+                <li class="single-feed">
+                	<img src="img/fb.jpg" alt="ninja" class="product-thumb">
+                	<div class="product-list-right">
+                		<h5>this is just a twitte</h5>
+                    	<p>gamersseal is thae amazing platform to buy games and enjoy that<br /> its more amazing sometime then you have idea,</p>
+                    </div>
+                </li>
+                <li class="single-feed">
+                	<img src="img/fb.jpg" alt="ninja" class="product-thumb">
+                	<div class="product-list-right">
+                		<h5>this is just a twitte</h5>
+                    	<p>gamersseal is thae amazing platform to buy games and enjoy that<br /> its more amazing sometime then you have idea,</p>
+                    </div>
+                </li>
+                <li class="single-feed">
+                	<img src="img/fb.jpg" alt="ninja" class="product-thumb">
+                	<div class="product-list-right">
+                		<h5>this is just a twitte</h5>
+                    	<p>gamersseal is thae amazing platform to buy games and enjoy that<br /> its more amazing sometime then you have idea,</p>
+                    </div>
+                </li>
+                </ul>
+            
+            
+            </div>
         </div>
  </div><!-- /content -->
  
@@ -78,6 +111,5 @@ p {
             <h4><a href="mailto:haseeb.baber@gmail.com" >Powered by AHB</a></h4>
         </div><!-- /footer -->
  
-    </div><!-- /page -->
 </body>
 </html>
