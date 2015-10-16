@@ -14,6 +14,14 @@ $(document).ready(function(){
 		NewViewed = NewViewed;
 	}
 	window.localStorage.setItem("RecentViewed",NewViewed);
+	
+	$('#captchaInput').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			console.log("ENTER PRESSED");
+			sendMessagetoSeller();
+		}
+	});
 })
 
 function getPostDetail(post_id)

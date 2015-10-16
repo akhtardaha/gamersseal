@@ -3,6 +3,13 @@ $(document).ready(function(){
 	window.localStorage.setItem("event_picture",'');
 	var event_id = getQueryVariable('event_id');
 	getEvent(event_id);
+	$('#RequirementsForAttendance').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			console.log("ENTER PRESSED");
+			update_event();
+		}
+	});
 });
 
 function getEvent(event_id)

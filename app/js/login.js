@@ -2,11 +2,20 @@
 $(document).ready(function(){
 	var faq_text = window.localStorage.getItem("faq_text");
 	$('.faq-box').html(faq_text);
+	$('#password').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+		console.log("ENTER PRESSED");
+		signInUser();
+	}
+	});
 })
 if(window.localStorage.getItem("loginuserCookie"))
 {
 	setTimeout(function(){ window.location = 'index.html'; }, 500);
 }
+
+
 //console.log(window.localStorage.getItem("homepage"));
 function signInUser()
 {

@@ -5,6 +5,13 @@ terms_and_conditions += '<div style="margin-top: 15px;" class="lastRow"><input t
  terms_and_conditions += '<a href="javascript:void(0)" class="submitBtn ui-btn select ui-btn-up-c search btn not-srch a-btn" onclick="return registerUser();">Register</a>';
 $(document).ready(function(){
 	$('.agreeTerms').html(terms_and_conditions);
+	$('#australianId').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			console.log("ENTER PRESSED");
+			continueRegister();
+		}
+	});
 })
 
 function continueRegister(){

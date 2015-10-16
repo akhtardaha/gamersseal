@@ -12,6 +12,15 @@ $(document).ready(function(){
 		setTimeout(function(){window.location = 'login.html';},200);
 		
 	}
+	
+	$('#captchaInput').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			console.log("ENTER PRESSED");
+			sendMessagetoCustomer();
+		}
+	});
+	
 })
 
 function getSellerOrder(order_id)

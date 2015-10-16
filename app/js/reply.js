@@ -8,6 +8,14 @@ $(document).ready(function(){
 	var senderID = getQueryVariable('senderID');
 	$('.specification').html(senderName);
 	getMessage(subject);
+	
+	$('#captchaInput').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			console.log("ENTER PRESSED");
+			replyUserMessage();
+		}
+	});
 })
 
 function getMessage(subject)

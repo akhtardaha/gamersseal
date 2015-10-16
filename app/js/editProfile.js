@@ -1,6 +1,15 @@
 // JavaScript Document
 $(document).ready(function(){
 	getUserInfo();
+	
+	$('#passport').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			console.log("ENTER PRESSED");
+			continueRegister();
+		}
+	});
+	
 })
 
 

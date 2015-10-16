@@ -5,6 +5,14 @@ $(document).ready(function(){
 	{
 		setTimeout(function(){window.location = 'login.html';},200);	
 	}
+	
+	$('#RequirementsForAttendance').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			console.log("ENTER PRESSED");
+			add_event();
+		}
+	});
 });
 
 function add_event()

@@ -1,6 +1,12 @@
 // JavaScript Document
 $(document).ready(function(){
-
+	$('#user_login').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			console.log("ENTER PRESSED");
+			retrieve_password();
+		}
+	});
 })
 
 function retrieve_password()
