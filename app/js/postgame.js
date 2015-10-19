@@ -34,7 +34,7 @@ function getProductCategories()
 			console.log(data);
 			if(data.status == 'ok')
 			{
-				html += '<option value="" selected="selected">Select Item Type</option>';
+				html += '<option value="" class="label-list">Select Item Type</option>';
 				$.each(data.data, function (i, value) {
 					html += '<option value="'+value.term_taxonomy_id+'">'+value.name+'</option>';
 				})

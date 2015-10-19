@@ -37,13 +37,15 @@ function signInUser()
 			if(data.status == 'ok')
 			{
 			var rember = $('#remember').val();
-				if(rember == 'on'){
+				if($('#remember').is(":checked")){
+					console.log('on');
 				window.localStorage.setItem("rememberStatus",'true');
 				window.localStorage.setItem("rememberUsername",username);
 				window.localStorage.setItem("rememberPassword",password);
 				}
 				else
 				{
+					console.log('off');
 				window.localStorage.setItem("rememberStatus",'false');
 				//window.localStorage.setItem("rememberUsername",'');
 				//window.localStorage.setItem("rememberPassword",'');	

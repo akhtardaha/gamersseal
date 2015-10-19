@@ -237,7 +237,8 @@ function getPostDetail(post_id)
 				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Contact Email:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+author.email+'</a></div></div>';
 				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Seller Rating:</a></div>';
-   				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /></a></div></div>';
+				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn"><img src="img/fav.png" alt="Gamer Seal" width="30" /><img src="img/fav.png" alt="Gamer Seal" width="30" /><img src="img/fav.png" alt="Gamer Seal" width="30" /></a></div></div>';
+   				 //descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn"><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /><img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" /></a></div></div>';
 				 if(age_limit){
 				 descBoxes += '<div class="row-single"><div class="ui-block-a"><a class="ui-shadow ui-btn">Classification Rating:</a></div>';
    				 descBoxes += '<div class="ui-block-b"><a class="ui-shadow ui-btn"><img src="img/icon_'+age_limit+'.png" alt="'+age_limit+'"/></a></div></div>';

@@ -121,7 +121,7 @@ function getCartTotal()
 						html += '<div class="CartGst">GST '+gstPercenet+'% included in price</div>';
 						
 						
-						html += '<div class="CartGst">Gamer Seal Charges '+gamerseal_charges+'% = $'+gamerseal_charges_amount.toFixed(2)+'</div>';
+						html += '<div class="CartGst">GamersSeal Charges '+gamerseal_charges+'% = $'+gamerseal_charges_amount.toFixed(2)+'</div>';
 						
 						if(totalShippingCost != 0)
 						{

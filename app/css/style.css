@@ -22,6 +22,7 @@ body {
 .advertisement marquee a {
     font-size: 16px;
 }
+
 hr.myhr{
     width: 100%;
     float: left;
@@ -771,7 +772,7 @@ textarea {
   max-width: 90px;
 }
 .CartTotalBox{
-	float:right;
+	margin:0 auto;
 	display:block;
 	width:95%;
 	max-width:275px;}
@@ -871,7 +872,20 @@ form[name="message"] input[name="submit"]{
 .home .header-mid{
 	display:block;
 }
-
+.addgame select .label-list{
+	color:#a9a9a9;}
+@media all and (min-width:768px){
+.fame-user img{
+	max-height:160px;
+	height:160px;
+	width:160px;
+	max-width:160px;
+	}
+}
+@media all and (min-width:600px){
+.addgame select{
+	width:98%;}
+}
 @media all and (max-width:600px){
 .home-tabs ul li>div{
 	font-size:12px;}

@@ -29,6 +29,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 
 $(document).ready(function(){
+		$('#searchTerms').val('');
 		$( ".events-tab.home-tabs ul li>div" ).click(function() {
 			$( ".home-tabs > div" ).css('display','none');
 		 	$( '.home-tabs ul li').removeClass('tab-open');
@@ -37,8 +38,8 @@ $(document).ready(function(){
 			$( tab ).css('display','block');
 		})
 		if(window.localStorage.getItem("rememberStatus")=='true'){
-			$('#username').val(window.localStorage.getItem("rememberUsername"));
-			$('#password').val(window.localStorage.getItem("rememberPassword"));
+			$('.login-wraper #username').val(window.localStorage.getItem("rememberUsername"));
+			$('.login-wraper #password').val(window.localStorage.getItem("rememberPassword"));
 			}
 		$('.news-item').click(function(){
 			$(this).css('height','auto');
@@ -71,7 +72,7 @@ $(document).ready(function(){
 		$('#captcha-val').val(oneNumber+anoterNumber);
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
-$('.content-wraper').append(' <div class="help-center"><a href="donation.html">Help Support Gamers Seal</a></div>');
+$('.content-wraper').append(' <div class="help-center"><a href="donation.html">Help Support GamersSeal</a></div>');
 getAppStatics();
 app_settings();
 sideBarMenu();
@@ -821,7 +822,7 @@ function additemtoFavorite(product_id)
 			console.log("Please login before adding Item to Favorite!");
 			navigator.notification.alert(
 				"Please login before adding Item to Favorite!",  // message
-				function(){},        // callback
+				function(){window.location= 'login.html'},        // callback
 				'Login',            // title
 				'OK'                  // buttonName
 			);		
