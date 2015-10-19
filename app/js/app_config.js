@@ -1,5 +1,5 @@
 // JavaScript Document
-var FACEBOOK_FEEDS_URL ='http://gamersseal.com/development/gamerfb/tweet.php';
+var FACEBOOK_FEEDS_URL ='https://graph.facebook.com/917893571581949/feed?access_token=194194357300787|c4932674be222e977c214168c052074d';
 var TWITTER_FEEDS_URL ='http://gamersseal.com/development/gamerfb/tweet.php';
 var YOUTUBE_FEEDS_URL ='https://www.googleapis.com/youtube/v3/search?order=date&part=snippet&channelId=UCxE_vzom-qMPAbNPVe3ulsQ&key=AIzaSyAN7KmeREQz9_GQZui43sLo0r6n-Ynd7nI';
 

@@ -23,6 +23,8 @@ $(document).ready(function(){
 	}
 	getTwitterFeeds();
 	getYoutubeFeeds();
+	getFacebookFeeds();
+	getRecentContributors();
 })
 
 
@@ -173,6 +175,147 @@ function getYoutubeFeeds()
         error:function(){
 
         }
+    });
+		
+}
+
+
+function getFacebookFeeds()
+	{
+		var url = FACEBOOK_FEEDS_URL;
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			var facebook = data.data;
+			var totalFacebook = facebook.length;
+			console.log(totalFacebook);
+			if(totalFacebook > 0)
+			{
+				console.log(data);
+				$.each(facebook, function (i, value) {
+					var dtl = value.from.name;
+					 if(dtl>50){
+						value.from.name = value.text.substr(0,50)+"...";
+					} 
+					var userName = value.from.name;
+					var profile_image_url = 'http://graph.facebook.com/'+value.from.id+'/picture?type=square';
+					var media_url =  '';
+					var postLink = '';
+					var postID = value.id;
+					
+					if(value.picture)
+					{
+						 media_url = value.picture;
+					}
+					
+					if(value['link'])
+					{
+						 postLink = value['link'];
+					}
+					else
+					{
+						postLink = 'https://www.facebook.com/'+userName+'/';
+					}
+					
+					var blank = '_blank';
+					html += '<li class="single-feed">';
+						html += '<a href="#" onclick="window.open(\''+postLink+'\',\''+blank+'\')">';
+                		html += '<img src="'+profile_image_url+'" alt="'+userName+'" class="product-thumb">';
+                		html += '<div class="product-list-right">';
+						html += '<h5>'+value.from.name+'</h5>';
+						html += '<p>'+value.message+'</p>';
+							if(media_url)
+							{
+							html += '<img src="'+media_url+'" alt="" />';	
+							}
+							
+                    		html += '<p>'+moment(value.created_time).format('lll')+'</p>';
+                    	html += '</div>';
+						html += '</a>';
+                	html += '</li>';
+					
+					return i<5;
+				})
+				
+			}
+			else
+			{
+				console.log(data);
+				html += '<p>'+data+'</p>';
+				
+			}
+			//$('#tabs-1').html(html);
+			//$('#tabs-2').html(html);
+			$('.facebookFeeds').html(html);
+			
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
+function getRecentContributors()
+	{
+		var url = API_URL+'get_donation/?key=1234567891011';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         	url:url,
+        	type: "POST",
+			contentType: "application/json",
+			dataType: 'jsonp',
+			success:function(data)
+			{
+				console.log(data);
+				var donations = data.donations;
+				var totalDonations = donations.length;
+				if(totalDonations > 0)
+				{
+					$.each(donations, function (i, value) {
+						html += '<li class="single-feed">';
+							if(value.anonymous == 1)
+							{
+								var amount = parseFloat(value.amount);
+								html += '<h5>Anonymous Donation</h5>';
+								html += '<p><strong>Donation Amount : </strong> $'+amount.toFixed(2)+'</p>';
+								html += '<p><strong>Donation Date : </strong>'+moment(value.donation_date).format('lll')+'</p>';
+							}
+							else
+							{
+								var amount = parseFloat(value.amount);
+								html += '<p><strong>User ID : </strong> '+value.user+'</p>';
+								html += '<p><strong>Username : </strong> '+value.name+'</p>';
+								html += '<p><strong>Donation Amount : </strong> $'+amount.toFixed(2)+'</p>';
+								html += '<p><strong>Donation Date : </strong>'+moment(value.donation_date).format('lll')+'</p>';
+							}
+						html += '</li>';
+					})
+				}
+				else
+				{
+					console.log(data);
+					html += '<p>'+data.msg+'</p>';
+					
+				}
+				//$('#tabs-1').html(html);
+				//$('#tabs-2').html(html);
+				$('.recentCont').html(html);
+				
+				
+			},
+			error:function(){
+	
+			}
     });
 		
 }

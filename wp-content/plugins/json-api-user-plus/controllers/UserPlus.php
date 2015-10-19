@@ -7720,6 +7720,30 @@ foreach($meta_keys as $k){
 			
   	}
 	
+	public function get_donation(){
+
+  		global $json_api;
+		global $wpdb;	
+		
+		$user_id = $json_api->query->user_id;
+		
+			
+			$query = "SELECT * FROM donations Order By donation_date DESC Limit 5";
+			$donation = $wpdb->get_results($query);
+			if($donation)
+			{
+				//print_r($donation);
+				//$donationAmount = $donation[0]->donation;
+				return array('donations'=> $donation);
+				
+			}
+			else
+			{
+				return array('donations'=>"0",'msg'=>"There is some Error while fetching donation.");
+			}
+			
+  	}
+	
 	public function getWeeks($date, $rollover)
 	{
 		$cut        = substr($date, 0, 8);
