@@ -1022,3 +1022,8 @@ img.age-img{
     padding: 2px 0px;
     width: 100%;
 }
+
+.terms {
+    text-align: justify;
+    padding: 25px 10px;
+}

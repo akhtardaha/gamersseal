@@ -9,6 +9,11 @@ $(document).ready(function(){
 		signInUser();
 	}
 	});
+	
+	if(window.localStorage.getItem("rememberStatus"))
+	{
+		$('#remember').attr("checked","checked");
+	}
 })
 if(window.localStorage.getItem("loginuserCookie"))
 {

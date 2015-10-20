@@ -12,7 +12,7 @@ function getSearchResult(searchTerm)
 		var type = 'wpmarketplace';
 		var user_id = window.localStorage.getItem("loginuserID");
 		var cooke = window.localStorage.getItem("loginuserCookie");
-		var url = API_URL_DEFAULT+'get_search_results/?search='+searchTerm;
+		var url = API_URL_DEFAULT+'get_search_results/?search='+searchTerm+'&post_type='+type;
 		console.log(url);
 		var html = '';
 	    $.ajax({

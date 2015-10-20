@@ -476,7 +476,15 @@ function getFavoritePosts()
 		else
 		{
 			var html = '<p>Please login to see your Favorite Items!</p>';	
+			
 			$('#tabs-4').html(html);
+			console.log("Please login to see your Favorite Items!");
+						navigator.notification.alert(
+							"Please login to see your Favorite Items!",  // message
+							function(){setTimeout(function(){ window.location = 'login.html'; },200)},        // callback
+						   'Favorite Items',            // title
+							'OK'                  // buttonName
+						);	
 		}
 		
 }

@@ -6802,6 +6802,7 @@ foreach($meta_keys as $k){
 			$splash_screen_text = $home_settings[0]->splash_screen_text;
 			$donation_text = $home_settings[0]->donation_text;
 			$admin_msg_for_user = $home_settings[0]->admin_msg_for_user;
+			$terms_cnd = $home_settings[0]->terms_cnd;
 			
 			$loading_screen_text = $home_settings[0]->loading_screen_text;
 			$faq_text = $home_settings[0]->faq_text;
