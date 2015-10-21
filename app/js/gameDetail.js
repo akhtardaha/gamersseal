@@ -150,13 +150,13 @@ function getPostDetail(post_id)
 				 }
 				 shiping_cost = intToFloat(shiping_cost, 2);
 				 
-				 if(post.custom_fields.location)
+				 if(post.custom_fields.state)
 				 {
-				 var location = post.custom_fields.location[0];
+				 var location = post.custom_fields.state[0];
 				 }
 				 else
 				 {
-					var location = ''; 
+					var state = ''; 
 				 }
 				 
 				 if(post.custom_fields.age_limit)

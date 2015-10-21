@@ -76,7 +76,7 @@ function getEvents(state)
 								html += '<p><strong>Event Cost:</strong> $'+event_cost+'</p>';
 								html += '<p><strong>Event Loaction:</strong> '+event_location+'</p>';
 								html += '<p><strong>Event Requirement:</strong> '+event_requirement+'</p>';
-								html += value.content;
+								html += value.excerpt;
 							html += '</div>';
 						html += '</div>';
 						

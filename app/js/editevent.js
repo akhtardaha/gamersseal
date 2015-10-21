@@ -54,9 +54,15 @@ function getEvent(event_id)
 					}
 				var event_title = eventObject.title;
 				var event_content = eventObject.content;
+				var excerpt = eventObject.excerpt;
+				
 				
 				$('#title').val(event_title);
-				$('#content').val(event_content);
+				//event_content = event_content.replace(/(<([^>]+)>)/ig,"");
+				var regex = /<br\s*[\/]?>/gi;
+				excerpt = excerpt.replace(regex, "\n");
+				$('#content').val(excerpt);
+				
 				$('#location').val(event_location);
 				$('#date').val(event_date);
 				$('#cost').val(event_cost);
@@ -145,7 +151,8 @@ function update_event()
 			$('#date').css('border','1px solid #cccccc');
 			$('#content').css('border','1px solid #cccccc');
 		
-			//console.log(url);
+			console.log(url);
+			eventContent = eventContent.replace(/\n/g, "<br />");
 			var url = API_URL+'update_post/?key=1234567891011&cookie='+cooke+'&slug='+slug+'&post_id='+event_id+'&post_type='+type+'&title='+eventTitle+'&content='+eventContent+'&eventDate='+eventDate+'&eventLocation='+eventLocation+'&event_picture='+event_picture+'&eventCost='+eventCost+'&eventRequirement='+eventRequirement+'';
 			console.log(url);
 			var html = '';

@@ -24,28 +24,38 @@ function getMessages()
 			console.log(data);
 			var messages = data.msg.messages;
 			var messagesTotal = messages.length;
+			//messagesTotal = 0;
 			var counter = 1;
 			if(data.status == 'ok')
 			{
-				$.each(messages, function (i, value) {
-				if(counter == messagesTotal){ var last = 'last'} else {var last ='';}
-				if(value.sender_id == 'admin')
+				if(messagesTotal > 0)
 				{
-					value.sender_name = 'Admin';
+					$.each(messages, function (i, value) {
+					if(counter == messagesTotal){ var last = 'last'} else {var last ='';}
+					if(value.sender_id == 'admin')
+					{
+						value.sender_name = 'Admin';
+					}
+					html += '<li class="'+last+'">';
+					html += '<a href="reply.html?senderID='+value.sender_id+'&sender='+encodeURI(value.sender_name)+'&subject='+encodeURI(value.message_title)+'">';
+						html += '<div class="user-img">';
+						html += value.avatar;
+						html += '</div>';
+						html += '<div class="product-list-user">';
+						html += '<h5>'+value.sender_name+'</h5>';
+						html += '<p>'+value.message_title+'</p>';
+						html += '</div>';
+					html += '</a>';
+					html += '</li>';
+					counter++;
+					})
 				}
-				html += '<li class="'+last+'">';
-                html += '<a href="reply.html?senderID='+value.sender_id+'&sender='+encodeURI(value.sender_name)+'&subject='+encodeURI(value.message_title)+'">';
-					html += '<div class="user-img">';
-                    html += value.avatar;
-                    html += '</div>';
-                    html += '<div class="product-list-user">';
-                    html += '<h5>'+value.sender_name+'</h5>';
-                    html += '<p>'+value.message_title+'</p>';
-                    html += '</div>';
-                html += '</a>';
-            	html += '</li>';
-				counter++;
-				})
+				else
+				{
+					html += '<li>';
+						html += '<p>You have no message in Message Board</p>';
+					html += '</li>';
+				}
 				$('.tabContent').html(html);
 			}
 			if(data.status == 'error')

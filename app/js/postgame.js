@@ -170,6 +170,8 @@ function addPost()
 	var cooke = window.localStorage.getItem("loginuserCookie");
 	var location = window.localStorage.getItem("loginuserLocation");
 	
+	postDetail = postDetail.replace(/\n/g, "<br />");
+	
 	var url = API_URL+'add_post/?key=1234567891011&cookie='+cooke+'&type=wpmarketplace&title='+postTitle+'&content='+postDetail+'&manage_stock='+manage_stock+'&stock_qty='+stock+'&sales_price='+price+'&delivery_time='+deliveryTime+'&shiping_cost='+shipingCost+'&images='+pics+'&visible='+publish+'&age_limit='+ageLimit+'&condition='+condition+'&FrontQuality='+FrontQuality+'&Disk1Quality='+Disk1Quality+'&Disk2Quality='+Disk2Quality+'&Manual='+Manual+'&location='+location+'&status=pending';
 	
 	console.log(url);

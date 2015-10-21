@@ -52,11 +52,13 @@ function getUserInfo()
 				$.each(profile, function (i, value) {
 					if(i != 'status' && i != 'id' && i != 'nicename' && i != 'email' && i != 'lastname' && i != 'nickname' && i != 'firstname' && i != 'avatar' && i != 'displayname' && i != 'url' && i != '' && value != '' && i != 'Name' && i != 'Driving License' && i != 'Passport')
 					{
-					html += '<div class="item">';
-					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">'+i+':</a></div>';
-   					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+value+'</a></div>';
-					html += '</div>';
-					
+							if(value != '')
+							{
+								html += '<div class="item">';
+								html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">'+i+':</a></div>';
+								html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+value+'</a></div>';
+								html += '</div>';
+							}
 					var avatar = profile.avatar;
 					window.localStorage.setItem("loginuserPic",avatar);
 					$('#popphoto').html('<img src="'+avatar+'" alt="Game Image 01" class="popphoto" >');
@@ -80,10 +82,13 @@ function getUserInfo()
 					html += '</a></div>';
 				html += '</div>';
 				}
+				if(profile.donation)
+				{
 				html += '<div class="item">';
 					html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Total Donation Amount:</a></div>';
    					html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">'+profile.donation+'$</a></div>';
 				html += '</div>';
+				}
 				//html += '<div class="item">';
 					//html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">Hall of fame Member:</a></div>';
    					//html += '<div class="ui-block-b"><a class="ui-shadow ui-btn">14082015</a></div>';
