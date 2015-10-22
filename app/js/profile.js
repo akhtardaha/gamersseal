@@ -52,7 +52,7 @@ function getUserInfo()
 				$.each(profile, function (i, value) {
 					if(i != 'status' && i != 'id' && i != 'nicename' && i != 'email' && i != 'lastname' && i != 'nickname' && i != 'firstname' && i != 'avatar' && i != 'displayname' && i != 'url' && i != '' && value != '' && i != 'Name' && i != 'Driving License' && i != 'Passport')
 					{
-							if(value != '')
+							if(value != '' && value != null)
 							{
 								html += '<div class="item">';
 								html += '<div class="ui-block-a"><a class="ui-shadow ui-btn">'+i+':</a></div>';
@@ -77,7 +77,7 @@ function getUserInfo()
    					html += '<div class="ui-block-b">';
 					html += '<a class="ui-shadow ui-btn">';
 					for (i = 1; i <= user_rating; i++) {
-    					html += '<img src="'+LOGO_PATH+app_icon+'" alt="Gamer Seal" width="30" />';
+    					html += '<img src="img/fav.png" alt="Gamer Seal" width="20" />';
 					}
 					html += '</a></div>';
 				html += '</div>';

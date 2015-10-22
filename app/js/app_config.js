@@ -73,6 +73,7 @@ $(document).ready(function(){
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
 $('.content-wraper').append(' <div class="help-center"><a href="donation.html">Help Support GamersSeal</a></div>');
+getMenuIcons();
 getAppStatics();
 app_settings();
 sideBarMenu();
@@ -213,38 +214,38 @@ function sideBarMenu()
 			html = '<ul class="left-nav">';
 				if(window.localStorage.getItem("loginuserCookie"))
 				{
-					html += '<li><a href="cart.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shopping Cart</a></li>';
-					html += '<li><a href="message-board.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Message Board</a></li>';
-					html += '<li><a href="orderstatus.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Order Status</a></li>';					
+					html += '<li><a href="cart.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Shopping_cart_icon')+'" alt="icone"/>Shopping Cart</a></li>';
+					html += '<li><a href="message-board.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Message_Board_icon')+'" alt="icone"/>Message Board</a></li>';
+					html += '<li><a href="orderstatus.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Order_Status_icon')+'" alt="icone"/>Order Status</a></li>';					
 				}
 				if(window.localStorage.getItem("loginuserCookie") && window.localStorage.getItem("loginuserABN") != '')
 				{
-				    html += '<li class="bdr-btm"><a href="shippingstatus.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shipping Status</a></li>';
-					html += '<li><a href="managegames.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Stock Management</a></li>';
-					html += '<li class="bdr-btm"><a href="postgame.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Add New Item</a></li>';
-					html += '<li><a href="salesreport.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Sales Reports</a></li>';
+				    html += '<li class="bdr-btm"><a href="shippingstatus.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Shipping_Status_icon')+'" alt="icone"/>Shipping Status</a></li>';
+					html += '<li><a href="managegames.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Stock_Management_icon')+'" alt="icone"/>Stock Management</a></li>';
+					html += '<li class="bdr-btm"><a href="postgame.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Add_New_Item_icon')+'" alt="icone"/>Add New Item</a></li>';
+					html += '<li><a href="salesreport.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Sales_Reports_icon')+'" alt="icone"/>Sales Reports</a></li>';
 				}
 				
 				if(!(window.localStorage.getItem("loginuserCookie")))
 				{
-				 	html += '<li class="registerMenu"><a href="register.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Signup</a></li>';
-					html += '<li class="loginMenu"><a href="login.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Login</a></li>';
-					html += '<li class="gameMenu"><a href="shop.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shop Home</a></li>';
-					html += '<li class="gameMenu"><a href="events.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Events</a></li>';
-					html += '<li class="bdr-btm gameMenu"><a href="news.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Gamers Seal  News</a></li>';
-					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Home Page</a></li>';
+				 	html += '<li class="registerMenu"><a href="register.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Signup_icon')+'" alt="icone"/>Signup</a></li>';
+					html += '<li class="loginMenu"><a href="login.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Login_icon')+'" alt="icone"/>Login</a></li>';
+					html += '<li class="gameMenu"><a href="shop.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Shop_Home_icon')+'" alt="icone"/>Shop Home</a></li>';
+					html += '<li class="gameMenu"><a href="events.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Events_icon')+'" alt="icone"/>Events</a></li>';
+					html += '<li class="bdr-btm gameMenu"><a href="news.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Gamers_Seal_News_icon')+'" alt="icone"/>Gamers Seal  News</a></li>';
+					html += '<li class="gameMenu"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Home_Page_icon')+'" alt="icone"/>Home Page</a></li>';
 				}
 				else
 				{
-					html += '<li class="bdr-btm"><a href="setting.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Settings</a></li>';
-					html += '<li class="profileMenu"><a href="profile.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>User Profile</a></li>';	
-					html += '<li class="gameMenu"><a href="shop.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Shop</a></li>';
-					html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Hall Of Fame</a></li>';
-					html += '<li class="gameMenu"><a href="donation.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Donate</a></li>';
-					html += '<li class="gameMenu bdr-btm"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Home</a></li>';
-					html += '<li class="gameMenu"><a href="events.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Events</a></li>';
-					html += '<li class="bdr-btm gameMenu"><a href="news.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Gamers Seal  News</a></li>';
-					html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();"><img align="center" src="'+WP_UPLOAD_BASE_PATH+menu_icon_url+'" alt="icone"/>Sign Out</a></li>';
+					html += '<li class="bdr-btm"><a href="setting.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Settings_icon')+'" alt="icone"/>Settings</a></li>';
+					html += '<li class="profileMenu"><a href="profile.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('User_Profile_icon')+'" alt="icone"/>User Profile</a></li>';	
+					html += '<li class="gameMenu"><a href="shop.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Shop_icon')+'" alt="icone"/>Shop</a></li>';
+					html += '<li class="bdr-btm"><a href="halloffames.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Hall_Of_Fame_icon')+'" alt="icone"/>Hall Of Fame</a></li>';
+					html += '<li class="gameMenu"><a href="donation.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Donate_icon')+'" alt="icone"/>Donate</a></li>';
+					html += '<li class="gameMenu bdr-btm"><a href="index.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Home_icon')+'" alt="icone"/>Home</a></li>';
+					html += '<li class="gameMenu"><a href="events.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Events_icon')+'" alt="icone"/>Events</a></li>';
+					html += '<li class="bdr-btm gameMenu"><a href="news.html"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Gamers_Seal_News_icon')+'" alt="icone"/>Gamers Seal  News</a></li>';
+					html += '<li class="gameMenu logoutMenu"><a href="#" onclick="return signOutUser();"><img align="center" src="'+WP_UPLOAD_BASE_PATH+window.localStorage.getItem('Sign_Out_icon')+'" alt="icone"/>Sign Out</a></li>';
 				}
 			html += '</ul>';
 			$('.slide-menu').html(html);
@@ -314,7 +315,45 @@ function getAppSettings()
 				window.localStorage.setItem("hall_of_fame_img",data.app_configuration[0].hall_of_fame_img);
 				window.localStorage.setItem("faq_text",data.app_configuration[0].faq_text);
 				
+				var menu_icons = data.app_configuration[0].menu_icons;
+				
+				
 				app_settings();
+			}
+			
+		},
+        error:function(){
+
+        }
+    });
+		
+}
+
+console.log(window.localStorage.getItem('Shopping_cart_icon'));
+function getMenuIcons()
+	{
+		var user_id = window.localStorage.getItem("loginuserID");
+		var cooke = window.localStorage.getItem("loginuserCookie");
+		var url = API_URL+'fetch_app_settings/?key=1234567891011';
+		console.log(url);
+		var html = '';
+	    $.ajax({
+         url:url,
+        type: "POST",
+		contentType: "application/json",
+		dataType: 'jsonp',
+        success:function(data)
+        {
+			console.log(data);
+			if(data.status == 'ok')
+			{
+				var menu_icons = data.app_configuration[0].menu_icons;
+				$.each(menu_icons, function (i, value) {
+					i = i.replace(/ /g,"_");
+					console.log(i+'_icon');
+					console.log(value);
+					window.localStorage.setItem(i+'_icon',value);
+				})
 			}
 			
 		},

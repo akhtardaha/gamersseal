@@ -5,6 +5,22 @@
     -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important; 
     outline: none !important;
 }
+::-webkit-input-placeholder {
+   color: #666;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #666;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #666;  
+}
+
+:-ms-input-placeholder {  
+   color: #666;  
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -87,10 +103,11 @@ hr.myhr{
     width: 76%;
     padding: 5px 15px;
     min-height: 40px;}
-.left-nav li a img{
-	width:15px;
-	height:auto;
-	margin-right:5px;}
+.left-nav li a img {
+    width: 20px;
+    height: auto;
+    margin-right: 5px;
+}
 .advertisement {
     padding: 0px 0 15px;
     display: block;
@@ -872,8 +889,6 @@ form[name="message"] input[name="submit"]{
 .home .header-mid{
 	display:block;
 }
-.addgame select .label-list{
-	color:#a9a9a9;}
 @media all and (min-width:768px){
 .fame-user img{
 	max-height:160px;

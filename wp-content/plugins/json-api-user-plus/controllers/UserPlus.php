@@ -6784,6 +6784,14 @@ foreach($meta_keys as $k){
 		global $wpdb;
 		$age_classification = array();
 		
+			$query4 = "SELECT * FROM wp_menu_icons";
+			$menu_icons = $wpdb->get_results($query4);
+			$menuIcons = array();
+			foreach ($menu_icons as $menu_icon){
+				$menuIcons[$menu_icon->menu_name] = $menu_icon->menu_icon_path;
+			}
+		
+		
 			$query2 = "SELECT * FROM wp_options where option_name IN ('blogname','blogdescription') order by option_id ASC";
 			$res2 = $wpdb->query($query2);
 			$app_info = $wpdb->get_results($query2);
@@ -6803,6 +6811,7 @@ foreach($meta_keys as $k){
 			$donation_text = $home_settings[0]->donation_text;
 			$admin_msg_for_user = $home_settings[0]->admin_msg_for_user;
 			$terms_cnd = $home_settings[0]->terms_cnd;
+			
 			
 			$loading_screen_text = $home_settings[0]->loading_screen_text;
 			$faq_text = $home_settings[0]->faq_text;
@@ -6840,6 +6849,7 @@ foreach($meta_keys as $k){
 				$app_configurations[0]->faq_text = stripslashes(html_entity_decode($faq_text));
 				$app_configurations[0]->hall_of_fame_img = $hall_of_fame_img;
 				$app_configurations[0]->age_classification = $age_classification;
+				$app_configurations[0]->menu_icons = $menuIcons;
 				
 				$response['app_configuration'] = $app_configurations;
 			}
