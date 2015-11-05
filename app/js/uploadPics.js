@@ -64,7 +64,10 @@
 			endClassButtonLoading('uploadImg');
             console.log("Response = " + r.response);
 			var PicName = r.response;
-			var imageThumb = '<li><img src="'+GAME_IMAGES_PATH+PicName+'" alt="'+PicName+'"/></li>'
+			
+			var picID = PicName.replace(/\./g,'');
+			picID = picID.replace(/\-/g,'');
+			var imageThumb = '<li style="position:relative;" id="'+picID+'"><img src="'+GAME_IMAGES_PATH+PicName+'" alt="'+PicName+'"/><img style="position:absolute;right:0px;top:0px;width:16px;height:16px;" src="img/trash.png" alt="Remove" onclick="removePic(\''+PicName+'\',\''+picID+'\');"/></li>'
 			$('.uploadedImages ul').append(imageThumb);
 			
 			var oldPics = window.localStorage.getItem("GamesPics");
@@ -101,3 +104,19 @@
 				.replace(/[^\w-]+/g,'')
 				;
 		}
+		
+		function removePic(PicName,picID)
+		{
+			$('.uploadedImages ul li#'+picID).remove(); 	
+			var PicList = window.localStorage.getItem("GamesPics");
+			//alert(PicName);
+			PicList = PicList.split(',');
+  			PicList.splice(PicList.indexOf(PicName), 1);
+  			PicList.join(',');
+			window.localStorage.setItem("GamesPics",PicList);
+			//alert(window.localStorage.getItem("GamesPics"));
+			
+		}
+		
+
+

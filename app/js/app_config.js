@@ -381,6 +381,12 @@ function getAppStatics()
 			console.log(data);
 			if(data.status == 'ok')
 			{
+				var app_background_color = data.app_configuration[0].app_background_color;
+				//app_background_color = app_background_color.replace(/\#\#/g, '');
+				//app_background_color = app_background_color;
+				
+				window.localStorage.setItem("app_background_color",app_background_color);
+				
 				window.localStorage.setItem("gst",data.app_configuration[0].gst);
 				
 				window.localStorage.setItem("guest_daily_purchase",data.app_configuration[0].guest_daily_purchase);
