@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+<title>Login Gamers Seal</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/app_config.js"></script>
+    <script src="js/sales.js"></script>
+<style>
+.Pimg {
+  float: left;
+  margin: 5px 10px 0 15px;
+  /* border: 1px solid #eeeeee; */
+  text-align: center;
+  width: 30%;
+  min-height: 50px;
+}
+.Pimg img {
+width:100%;
+}
+.products-list li {
+  margin: 15px 0;
+  display: block;
+  float: left;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+.products-list p {
+  font-size: 13px;
+  font-family: Arial;
+  text-transform: INHERIT;
+}
+.sales-label, .text-lbl {
+    float: left;
+    display: block;
+    width: 70px;
+    padding-left: 10px;
+    margin: 10px 0;
+    line-height: 25px;
+    /* text-align: right; */
+    /* margin-right: 10px; */
+}
+.search.not-srch {
+    background: none;
+    padding-left: 10px;
+    width: 50%;
+    margin: 10px 0;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    /* white-space: nowrap; */
+    float: left;
+}
+</style>
+</head>
+<body>
+    <div class="page-wraper">
+	 <div class="header">
+     	<div class="cart"><a href="javascript:void(0);" onclick="return goBack();"><img src="img/back.png" alt="Back"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
+        </div><!-- /header -->
+        <div class="slide-menu close">
+           
+        </div>
+  <div class="main-wraper">
+        
+        <div class="content-wraper">        
+            <a href="#" class="specification">Sales Report</a>
+            <div class="ui-grid-a descBoxes">
+            <select name="reportType" id="reportType" class="search not-srch" style="width:100% !important;" onchange="return getUserSalesbyType();">
+            	<option value="">Sales Report Type</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+            <div class="salesReportRange">
+            <label class="sales-label">From:</label>
+            <input type="date" name="from" placeholder="From" id="from" class="search not-srch" />
+            <hr class="myhr"/>
+            <label class="sales-label">To:</label>
+            <input type="date" name="to" placeholder="To" id="to" class="search not-srch" />
+            <a id="userSalesbtn" style="clear:left;" onclick="return getUserSales();" name="userSalesbtn" class="search btn not-srch">Update Sales Report</a>
+            </div>
+            <ul class="tabContent products-list">
+            <img id="loading" src="img/loading.gif" alt="Loading" />
+        	</ul>
+            <div class="totalSales"></div>
+    			<!--<div class="ui-block-a"><a class="ui-shadow ui-btn">Code:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">XXX</a></div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Iteam name:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">XBox</a></div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Stock:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">7</a></div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Price:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">758</a></div>
+                <div class="ui-block-a"><a class="ui-shadow ui-btn">Sale Date and Time:</a></div>
+   				<div class="ui-block-b"><a class="ui-shadow ui-btn">05:00 2 April 2015</a></div>-->
+			</div>      
+            <div>
+        </div><!-- /content -->
+ </div>
+  </div>
+        <div class="footer">
+            <h4><a href="mailto:haseeb.baber@gmail.com" >Powered by AHB</a></h4>
+        </div><!-- /footer -->
+ 
+    </div><!-- /page -->
+</body>
+</html>

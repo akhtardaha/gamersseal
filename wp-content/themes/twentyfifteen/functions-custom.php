@@ -1,7 +1,9 @@
 <?php 
-
+ob_start();
 /** Step 2 (from text above). */
+add_action( 'admin_menu', 'addScripts' );
 add_action( 'admin_menu', 'my_plugin_menu' );
+
 
 /** Step 1. */
 function my_plugin_menu() {
@@ -36,6 +38,8 @@ function app_configuration_options()
 	$app_background_color = $option['app_background_color'];
 	$app_icon = $option['app_icon'];
 	$terms_and_conditions = $option['terms_and_conditions'];
+	$halloffame = $option['hall_of_fame'];
+	
 	
 	$guest_daily_purchase =  $option['guest_daily_purchase'];
 	$standard_daily_purchase =  $option['standard_daily_purchase'];
@@ -135,6 +139,12 @@ function app_configuration_options()
                 </div>
             </div>
             <div class="confSections">
+            	<div class="confSection" style="width:33%; float:left;">
+            	<p><strong>Hall of Fame:</strong><br />
+                <textarea id="halloffame" style="width: 95%; height: 200px;" name="halloffame"><?php echo $halloffame; ?></textarea></p>
+                </div>
+            </div>
+            <div class="confSections">
             	<p><input type="button" onClick="return submitConfiguration();" name="Submit" value="Store Configuration" /></p>
                 <input type="hidden" name="siteUrl" id="siteUrl" value="<?php echo get_site_url(); ?>">
                 <input type="hidden" name="confID" id="confID" value="<?php echo $id; ?>">
@@ -165,7 +175,7 @@ function message_board_menu() {
 function message_board_options()
 {
  global $wpdb;
- $querystr = "SELECT * FROM message_board";
+ $querystr = "SELECT * FROM message_board ORDER BY message_id DESC";
  $messages = $wpdb->get_results($querystr, ARRAY_A);
 ?>
 
@@ -176,7 +186,7 @@ function message_board_options()
             		<fieldset>
                         <legend>Send New Admin Message</legend>
                          <p><strong>Choose User to Send Message:</strong><br />
-                            <select id="users" name="users">
+                            <select style="width: 50%; border: thin solid rgb(161, 172, 191); height: 32px;" id="users" name="users">
                             	<option value="">Choose Reciever</option>
                                 <?php
 								$all_Users = get_users();
@@ -188,6 +198,9 @@ function message_board_options()
                                     <?php } ?>
 								<?php }?>
                             </select>
+                         </p>
+                         <p><strong>Message Title :</strong><br />
+                           <input id="title" style="width: 50%; border: thin solid rgb(161, 172, 191); height: 32px;"  name="title" /></p>
                          </p>
                          <p><strong>Message :</strong><br />
                            <textarea id="message" style="width: 95%; height: 300px;" name="message"></textarea></p>
@@ -205,6 +218,7 @@ function message_board_options()
                                 	<th style="text-align: left;">Message ID</th>
                                     <th style="text-align: left;">Sender</th>
                                     <th style="text-align: left;">Reciever</th>
+                                    <th style="text-align: left;">Title</th>
                                     <th style="text-align: left;">Message</th>
                                     <th style="text-align: left;">Message Type</th>
                                     <th style="text-align: left;">Options</th>
@@ -226,6 +240,7 @@ function message_board_options()
 										}?>
 									 </td>
                                     <td><?php $reciever = get_userdata($message['reciever_id']); echo $reciever->display_name; ?></td>
+                                    <td><?php echo $message['message_title'];?></td>
                                     <td><?php echo $message['message_txt'];?></td>
                                     <td><?php echo $message['message_type'];?></td>
                                     <td><a href="javascript:void(0)" onclick="return deleteMessage(<?php echo $message['message_id']; ?>);">Delete</a></td>
@@ -240,8 +255,9 @@ function message_board_options()
     </div>
 <?php
 }
-?>
 
+function addScripts()
+{?>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">  
@@ -261,6 +277,7 @@ $(document).ready(function(){
 		},
 		onChange: function (hsb, hex, rgb) {
 		$('#appbgclr').css('backgroundColor', '#' + hex);
+		$('#appbgclr').val('#'+hex);
 		}
 	})
 	.bind('keyup', function(){
@@ -279,7 +296,7 @@ function submitConfiguration()
 	var standarditemday = $('#standarditemday').val();
 	var premiumitemday = $('#premiumitemday').val();
 	var appbgclr = $('#appbgclr').val();
-	appbgclr = '#'+appbgclr;
+	appbgclr = appbgclr;
 	var appicon = $('#appicon').val();
 	var terms = $('#terms').val();
 	var siteUrl = $('#siteUrl').val();
@@ -292,8 +309,11 @@ function submitConfiguration()
 	var standardTransactionDay = $('#standardTransactionDay').val();
 	var premiumTransactionDay = $('#premiumTransactionDay').val();
 	
+	var halloffame = $('#halloffame').val();
 	
-	var data = { gst: gst, desclimit: desclimit,guestcharges: guestcharges ,standardcharges: standardcharges ,premiumcharges: premiumcharges ,standarditemday: standarditemday ,premiumitemday: premiumitemday,appbgclr:appbgclr,appicon:appicon, terms:terms, confID:confID,guestBuyAmountDay:guestBuyAmountDay,standardBuyAmountDay:standardBuyAmountDay,premiumBuyAmountDay:premiumBuyAmountDay,guestTransactionDay:guestTransactionDay,standardTransactionDay:standardTransactionDay,premiumTransactionDay:premiumTransactionDay};
+	
+	
+	var data = { gst: gst, desclimit: desclimit,guestcharges: guestcharges ,standardcharges: standardcharges ,premiumcharges: premiumcharges ,standarditemday: standarditemday ,premiumitemday: premiumitemday,appbgclr:appbgclr,appicon:appicon, terms:terms, confID:confID,guestBuyAmountDay:guestBuyAmountDay,standardBuyAmountDay:standardBuyAmountDay,premiumBuyAmountDay:premiumBuyAmountDay,guestTransactionDay:guestTransactionDay,standardTransactionDay:standardTransactionDay,premiumTransactionDay:premiumTransactionDay,halloffame:halloffame};
 	var url = siteUrl+'/update_app_configuration.php';
 	$.ajax({
 	  type: "POST",
@@ -321,6 +341,7 @@ function submitMessage()
 {
 	var sender = 'admin';
 	var reciever = $('#users').val();
+	var title = $('#title').val();
 	var message = $('#message').val();
 	var message_type = 'admin';
 	var status = 1;
@@ -328,7 +349,7 @@ function submitMessage()
 	
 	if(reciever != '' || message != '')
 	{
-		var data = { sender: sender, reciever: reciever,message: message ,message_type: message_type ,status: status};
+		var data = { sender: sender, reciever: reciever, title:title, message: message ,message_type: message_type ,status: status};
 		var url = siteUrl+'/admin_message.php';
 		$.ajax({
 		  type: "POST",
@@ -337,7 +358,8 @@ function submitMessage()
 		  success: function(data) 
 		  {
 			  alert(data);
-			  $('#users').val('');
+			  $('#users').val(''); 
+			  $('#title').val('');
 			  $('#message').val('');
 			  setTimeout(function(){location.reload();},500);
 			  
@@ -375,4 +397,446 @@ $(document).ready(function(){
 })
 
 </script>
+<?php }
+
+//// added meta box by fiaz 10-06-2015
+
+add_action('add_meta_boxes', 'add_custom_meta_boxes');
+
+function add_custom_meta_boxes() {
+    add_meta_box('age-limit-id', 'Age Limit', 'display_age_limit_meta_box', 'wpmarketplace', 'normal', 'high');
+    add_meta_box('visibility-id', 'Visibility', 'display_visibility_meta_box', 'wpmarketplace', 'normal', 'high');
+
+    //die();
+}
+
+function display_age_limit_meta_box($post) {
+    $age = get_post_meta($post->ID, 'age_limit', true);
+
+    $selected = isset($values['age_limit']) ? esc_attr($values['age_limit'][0]) : '';
+    $check = isset($values['age_limit']) ? esc_attr($values['age_limit'][0]) : '';
+    ?>
+    <p>
+        <label for="age_limit">Age Limit</label>
+        <select name="age_limit" id="age_limit">
+            <option value="18" <?php if ($age == '18')
+        echo'selected="selected"'; ?>>18+</option>
+            <option value="15" <?php if ($age == '15')
+                    echo'selected="selected"'; ?>>15+</option>
+        </select>
+    </p>
+    <?php
+}
+
+function display_visibility_meta_box($post) {
+    $visi = get_post_meta($post->ID, 'visibility', true);
+    ?>
+    <p>
+        <label for="visibility">Visibility</label>
+        <select name="visibility" id="visibility">
+            <option value="1" <?php if ($visi == '1')
+        echo'selected="selected"'; ?>>Show</option>
+            <option value="0" <?php if ($visi == '0')
+                    echo'selected="selected"'; ?>>Hide</option>
+        </select>
+    </p>
+    <?php
+}
+
+// Sanitize user input.
+// add custom fields in seprate table  
+
+
+function save_custom_fields($post) {
+   
+    if (isset($_POST['age_limit'])) {
+        $age = get_post_meta($post, 'age_limit', true);
+        $price = get_post_meta($post, 'sales_price', true);
+       
+        $recent_author = get_user_by('ID', $recent["post_author"]);
+
+        $ageval = sanitize_html_class($_POST['age_limit']);
+        $visi = sanitize_html_class($_POST['visibility']);
+
+        update_post_meta($post, 'age_limit', $ageval);
+        update_post_meta($post, 'visibility', $visi);
+        // Update the meta field in the database.
+        global $wpdb;
+
+        // go and put $marker on the markers table
+        $wpdb->query("INSERT INTO wp_custom_fields (post_id,age_limit,product_price)VALUES('$post','$ageval','$price')");
+        
+    }
+}
+
+function update_custom_fields($post) {
+    if (isset($_POST['age_limit'])) {
+        $ageval = sanitize_html_class($_POST['age_limit']);
+
+        $price = get_post_meta($post, 'sales_price', true);
+        $visi = sanitize_html_class($_POST['visibility']);
+
+
+        update_post_meta($post, 'visibility', $visi);
+// Update the meta field in the database.
+        update_post_meta($post, 'age_limit', $ageval);
+        global $wpdb;
+        //// go and put $marker on the markers table
+        $wpdb->query("UPDATE wp_custom_fields SET age_limit='$ageval', product_price='$price' WHERE post_id=$post");
+        
+    }
+}
+
+add_action('user_register','newuser_deactive');
+
+function newuser_deactive($user_id){
+  global $wpdb;
+
+        // go and put $marker on the markers table
+        $wpdb->query("INSERT INTO wp_usermeta(user_id,meta_key,meta_value)VALUES('$user_id','is_active','n'),('$user_id','block_msg_permenant','New User Deactive')");
+}
+
+function wps_wp_admin_area_notice() { 
+    global $wpdb;
+   $querystr = "
+    SELECT count(user_id) as users 
+    FROM $wpdb->usermeta
+    WHERE meta_value like '%New User Deactive%'
+   ";
+
+ $newuser = $wpdb->get_results($querystr);
+ $uc;
+ foreach($newuser as $u){
+   $uc=$u->users;  
+ }
+ 
+ if($uc > 0){
+    $base= get_bloginfo('url').'wp-admin/admin.php?page=permanent_blocked_user_list';
+ 
+   echo ' <div class="error"><p> You have '.$uc.' new Users, Please Activate them ! <a href "'.$base.'" >Activate User</a></p>
+          </div>';
+   
+          }
+}
+add_action('admin_notices', 'wps_wp_admin_area_notice');
+
+add_action('save_post', 'save_custom_fields');
+add_action('edit_post', 'update_custom_fields');
+
+function after_update($post) {
+    global $post;
+    $name = get_author_name($post->post_author);
+    $custom_term = get_the_terms($post->ID, 'ptype');
+   
+    global $wpdb;
+    foreach ($custom_term as $term) {
+        echo $term->name;
+        //// go and put $marker on the markers table
+        $wpdb->query("UPDATE wp_custom_fields SET game_type='$term->name' WHERE post_id=$post->ID");
+       
+    }
+
+    
+// Get user display name  
+}
+
+//add_action('post_updated', 'after_update');
+
+// fiaz phase2 work
+
+function add_home_setting_menu_item() {
+    add_menu_page("Home Setting", "Home Setting", "manage_options", "home-setting", "home_settings_fn", null, 99);
+}
+
+add_action("admin_menu", "add_home_setting_menu_item");
+
+add_action('admin_enqueue_scripts', 'mw_enqueue_color_picker');
+
+function mw_enqueue_color_picker($hook_suffix) {
+    // first check that $hook_suffix is appropriate for your admin page
+    wp_enqueue_style('wp-color-picker');
+    wp_enqueue_script('my-script-handle', plugins_url('my-script.js', __FILE__), array('wp-color-picker'), false, true);
+}
+
+function home_settings_fn() {
+    global $wpdb;
+    $querystr = "
+    SELECT * 
+    FROM wp_home_setting
+    WHERE wp_post_id=1
+           
+   ";
+
+    $newuser = $wpdb->get_results($querystr);
+    $uc;
+
+    foreach ($newuser as $u) {
+        $uc = $u;
+    }
+    ?>
+    <form action="" name="form1" method="post" enctype="multipart/form-data">
+        <table class="form-table">
+
+            <tr>
+                <th scope="row">
+            <h3>Home Settings</h3>
+            </th>
+
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="h_category">Header Color</label>
+                </th>
+                <td>
+                    <input type="text" value="<?php echo $uc->header_color; ?>" name="header_color" class="header_color" />
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="h_category">Background Color</label>
+                </th>
+                <td>
+                    <input type="text" value="<?php echo $uc->bg_color; ?>" name="bg_color" class="bg_color" />
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">
+                    <label for="h_category">Advertisement bar</label>
+                </th>
+                <td>
+                    <textarea type="text" name="ads_bar" class="ads_bar" ><?php echo $uc->ads_bar; ?></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="h_category">Terms and Conditions</label>
+                </th>
+                <td>
+                    <textarea type="text" cols="50" rows="20" name="terms_cnd" class="ads_bar" ><?php echo $uc->terms_cnd; ?></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">
+                    <label for="h_category">Media Feeds </label>
+                </th>
+                <td>
+                    <select name="media_feed" id="visibility">
+                        <option value="1" <?php if ($uc->media_feed == '1')
+        echo'selected="selected"'; ?>>Show</option>
+                        <option value="0" <?php if ($uc->media_feed == '0')
+        echo'selected="selected"'; ?>>Hide</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <label for="h_category">Menu icon</label>
+                </th>
+                <td style="width:200px;">
+                    <input type="file" name="file"/>
+                </td>
+                <td>
+                    <img src="<?php echo get_site_url(); ?>/wp-content<?php echo $uc->menu_icon_url; ?>" width="30" height="30" alt=""/>
+                </td>
+            </tr>
+        </table>
+        <?php submit_button('Save Changes', '', 'homesetting'); ?>
+    </form>
+    <script>
+        jQuery(document).ready(function($){
+                            
+            $('.header_color').wpColorPicker();
+            $('.bg_color').wpColorPicker();
+        });
+    </script>
+    <?php
+}
+
+if (isset($_POST['homesetting']))
+    save_home_settings();
+
+function save_home_settings() {
+
+    if (!function_exists('wp_handle_upload')) {
+        require_once( ABSPATH . 'wp-admin/includes/file.php' );
+    }
+    if (isset($_FILES['file'])) {
+        $uploadedfile = $_FILES['file'];
+
+        $upload_overrides = array('test_form' => false);
+
+        $movefile = wp_handle_upload($uploadedfile, $upload_overrides);
+    }
+    if ($movefile && !isset($movefile['error'])) {
+
+        $url = explode('wp-content', $movefile['file']);
+    } else {
+        /**
+         * Error generated by _wp_handle_upload()
+         * @see _wp_handle_upload() in wp-admin/includes/file.php
+         */
+        echo $movefile['error'];
+    }
+//exit;
+    global $wpdb;
+
+    $wpdb->update(
+            'wp_home_setting', array(
+        'header_color' => $_POST['header_color'],
+        'bg_color' => $_POST['bg_color'],
+        'ads_bar' => $_POST['ads_bar'],
+        'media_feed' => $_POST['media_feed'],
+        'menu_icon_url' => $url[1],
+        'terms_cnd' => $_POST['terms_cnd']
+            ), array('wp_post_id' => 1), array(
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s',
+        '%s'
+            ), array('%d')
+    );
+}
+
+add_action( 'init', 'create_posttype_event' );
+function create_posttype_event() {
+    register_post_type( 'g_event',
+		array(
+			'labels' => array(
+				'name' => __( 'Events' ),
+				'singular_name' => __( 'Event' ),
+				'add_new' => __( 'Add New Event' ),
+				'add_new_item' => __( 'Add New Event' ),
+				'edit_item' => __( 'Edit Event' ),
+				'new_item' => __( 'Add New Event' ),
+				'view_item' => __( 'View Event' ),
+				'search_items' => __( 'Search Event' ),
+				'not_found' => __( 'No events found' ),
+				'not_found_in_trash' => __( 'No events found in trash' )
+			),
+			'public' => true,
+			'supports' => array( 'title', 'editor', 'thumbnail', 'comments' ),
+			'capability_type' => 'post',
+			'rewrite' => array("slug" => "events"), // Permalinks format
+			'menu_position' => 5,
+			'register_meta_box_cb' => 'add_events_metaboxes'
+		)
+	);
+  register_taxonomy_for_object_type( 'category', 'g_event' );
+}
+
+// Add the Events Meta Boxes
+
+function add_events_metaboxes() {
+	add_meta_box('wpt_events_date', 'Event Date', 'wpt_events_date', 'g_event', 'side', 'low');
+	add_meta_box('wpt_events_location', 'Event Location', 'wpt_events_location', 'g_event', 'normal', 'high');
+        add_meta_box('wpt_events_cost', 'Event Cost', 'wpt_events_cost', 'g_event', 'side', 'low');
+        add_meta_box('wpt_events_requirement', 'Requirements for attendance ', 'wpt_events_requirement', 'g_event', 'normal', 'high');
+}
+
+// The Event Location Metabox
+
+function wpt_events_location() {
+	global $post;
+	
+	// Noncename needed to verify where the data originated
+	echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' . 
+	wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+	
+	// Get the location data if its already been entered
+	$location = get_post_meta($post->ID, '_location', true);
+	
+	// Echo out the field
+	echo '<input type="text" name="_location" value="' . $location  . '" class="widefat" />';
+
+}
+
+function wpt_events_cost() {
+	global $post;
+	
+	// Noncename needed to verify where the data originated
+	echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' . 
+	wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+	
+	// Get the location data if its already been entered
+	$cost = get_post_meta($post->ID, '_cost', true);
+	
+	// Echo out the field
+	echo '<input type="text" name="_cost" value="' . $cost  . '" class="widefat" />';
+
+}
+
+function wpt_events_requirement() {
+	global $post;
+	
+	// Noncename needed to verify where the data originated
+	echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' . 
+	wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+	
+	// Get the location data if its already been entered
+	$requirement = get_post_meta($post->ID, '_requirement', true);
+	
+	// Echo out the field
+	echo '<input type="text" name="_requirement" value="' . $requirement  . '" class="widefat" />';
+
+}
+function wpt_events_date() {
+	global $post;
+	
+	// Noncename needed to verify where the data originated
+	echo '<input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="' . 
+	wp_create_nonce( plugin_basename(__FILE__) ) . '" />';
+	
+	// Get the location data if its already been entered
+	$date = get_post_meta($post->ID, '_date', true);
+	
+	// Echo out the field
+	echo '<input type="text" name="_date" value="' . $date  . '" class="widefat" />';
+
+}
+
+// Save the Metabox Data
+
+function wpt_save_events_meta($post_id, $post) {
+	
+	// verify this came from the our screen and with proper authorization,
+	// because save_post can be triggered at other times
+	if ( !wp_verify_nonce( $_POST['eventmeta_noncename'], plugin_basename(__FILE__) )) {
+	return $post->ID;
+	}
+
+	// Is the user allowed to edit the post or page?
+	if ( !current_user_can( 'edit_post', $post->ID ))
+		return $post->ID;
+
+	// OK, we're authenticated: we need to find and save the data
+	// We'll put it into an array to make it easier to loop though.
+	
+	$events_meta['_location'] = $_POST['_location'];
+        $events_meta['_date'] = $_POST['_date'];
+        $events_meta['_cost'] = $_POST['_cost'];
+        $events_meta['_requirement'] = $_POST['_requirement'];
+	
+	// Add values of $events_meta as custom fields
+	
+	foreach ($events_meta as $key => $value) { // Cycle through the $events_meta array!
+		if( $post->post_type == 'revision' ) return; // Don't store custom data twice
+		$value = implode(',', (array)$value); // If $value is an array, make it a CSV (unlikely)
+		if(get_post_meta($post->ID, $key, FALSE)) { // If the custom field already has a value
+			update_post_meta($post->ID, $key, $value);
+		} else { // If the custom field doesn't have a value
+			add_post_meta($post->ID, $key, $value);
+		}
+		if(!$value) delete_post_meta($post->ID, $key); // Delete if blank
+	}
+
+}
+
+add_action('save_post', 'wpt_save_events_meta', 1, 2); // save the custom fields
+
+
+
 

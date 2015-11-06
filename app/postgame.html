@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+<title>Login Gamers Seal</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/app_config.js"></script>
+    <script src="js/postgame.js"></script>
+    <script src="js/uploadPics.js"></script>
+    <script src="js/jquery.deserialize.js"></script>  
+    <style>
+    .specification {
+		text-align: center;
+		font-size: 16px;
+		width: 96%;
+		display: block;
+		float: left;
+		border: 1px solid #ccc;
+		border-radius: 25px;
+		margin: 10px 0;
+		padding: 5px 0;
+		background-color: #fff;
+		font-family: arial;
+	}
+    </style>
+</head>
+<body>
+    <div class="page-wraper">
+	  <div class="header">
+     	<div class="cart"><a href="javascript:void(0);" onclick="return goBack();"><img src="img/back.png" alt="Back"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
+        </div>
+        <div class="slide-menu close"></div>
+ <div class="main-wraper">
+        
+        <div class="content-wraper">
+        <form action="" name="addgame" class="addgame">
+        
+        <input type="text" id="title" name="title" placeholder="Title" class="search not-srch"/>
+        <input type="number" id="price" name="price" placeholder="Price" class="search not-srch" onkeypress="return isNumberKey(event);"/>
+        <input type="email" autocomplete="off" id="email" name="email" placeholder="Contact Email e.g johnsmith@hotmail.com" class="search not-srch" value="" />
+        <input type="number" id="delivery-time" name="delivery-time" placeholder="Estimated Delivery Time" class="search not-srch" onkeypress="return isNumberKey(event);"/>
+        <input type="number" id="stock" name="stock" placeholder="Stock" class="search not-srch"/>
+        <input type="number" id="shiping-cost" name="shiping-cost" placeholder="Shipping Cost" class="search not-srch"/>
+        
+        <select name="gameType" id="gameType" multiple>
+        	<option >Item Type</option>
+        </select>
+        
+        <textarea style="min-height: 70px;" id="content" placeholder="Item Description" name="details" class="search not-srch"></textarea>
+        
+        <div class="uploadImages">
+       		<input type="button" id="uploadImg1" class="search btn not-srch uploadImg" name="image" value="Add Image" onclick="return getImage('1');" />
+            <div class="uploadedImages">
+            	<ul></ul>
+            </div>
+        </div>
+        
+        <select id="condition" name="Condition" class="search not-srch">
+        	<option selected="selected">Condition of Item</option>
+            <option value="New">New</option>
+            <option value="Pre-owned">Pre-owned</option>
+        </select>
+        
+        <div class="specification">Quality of Item</div>
+        
+        <select id="FrontQuality" name="FrontQuality" class="search not-srch">
+        	<option selected="selected">Front</option>
+            <option value="Like New">Like New</option>
+            <option value="Minor Damage">Minor Damage</option>
+            <option value="Heavy Damage">Heavy Damage</option>
+        </select>
+        
+        <select id="Disk1Quality" name="Disk1Quality" class="search not-srch">
+        	<option selected="selected">Disk 1 Rear</option>
+            <option value="Like New">Like New</option>
+            <option value="Minor Damage">Minor Damage</option>
+            <option value="Heavy Damage">Heavy Damage</option>
+        </select>
+        
+        <select id="Disk2Quality" name="Disk2Quality" class="search not-srch">
+        	<option selected="selected">Disk 2 Rear</option>
+            <option value="Like New">Like New</option>
+            <option value="Minor Damage">Minor Damage</option>
+            <option value="Heavy Damage">Heavy Damage</option>
+        </select>
+        
+        <select id="ManualQuality" name="ManualQuality" class="search not-srch">
+        	<option selected="selected">Manual</option>
+            <option value="Like New">Like New</option>
+            <option value="Minor Damage">Minor Damage</option>
+            <option value="Heavy Damage">Heavy Damage</option>
+        </select>
+        
+        
+        <p style="float:left;">Age Restriction:</p>
+        <div id="age-filter">
+        <div class="age-des"><input type="radio" style="margin-top:20px; float:left;" name="age-limit" checked="checked" value="CTC"><img class="age-img" align="center" src="img/icon_ctc.png" alt="CTC" /><span class="ctc">its a genral categoury for all users</span></div><br>
+        <div class="age-des"><input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="G"><img class="age-img" align="center" src="img/icon_g.png" alt="G" /><span class="g">its a genral categoury for all users</span></div><br>
+        <div class="age-des"><input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="PG"><img class="age-img" align="center" src="img/icon_pg.png" alt="PG" /><span class="pg">its a genral categoury for all users</span></div><br>
+        <div class="age-des"><input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="M"><img class="age-img" align="center" src="img/icon_m.png" alt="M" /><span class="m">its a genral categoury for all users</span></div><br>
+        <div class="age-des"><input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="MA"><img class="age-img" align="center" src="img/icon_ma.png" alt="MA" /><span class="ma">its a genral categoury for all users</span></div><br>
+        <div class="age-des"><input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="R"><img class="age-img" align="center" src="img/icon_r.png" alt="R" /><span class="r">its a genral categoury for all users</span></div><br>
+		<div class="age-des"><input type="radio" style="margin-top:20px; float:left;" name="age-limit" value="X"><img class="age-img" align="center" src="img/icon_x.png" alt="X" /><span class="x">its a genral categoury for all users</span></div>
+       	</div>
+
+        <select id="publish" name="visible">
+        	<option selected="selected">Display options…</option>
+            <option value="0">Hidden</option>
+            <option value="1">Live</option>
+        </select>
+        
+        <label id="form-err"></label>
+        <a id="SignIn" onclick="return addPost();" name="SignIn" style="float:left;" class="search btn not-srch" style="float:left;">Add Item</a>
+        </form>
+        </div></div><!-- /content -->
+ 
+        <div class="footer">
+            <h4><a href="mailto:haseeb.baber@gmail.com" >Powered by AHB</a></h4>
+        </div><!-- /footer -->
+ 
+    </div><!-- /page -->
+</body>
+</html>

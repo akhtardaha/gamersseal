@@ -1,5 +1,5 @@
 <?php $page_id = 'awpcp-admin-csv-importer' ?>
-<?php $page_title = __('AWPCP Classifieds Management System: Import Ad', 'AWPCP') ?>
+<?php $page_title = __('GamersSeal Products Management System: Import Products', 'AWPCP') ?>
 
 <?php include(AWPCP_DIR . '/admin/templates/admin-panel-header.tpl.php') ?>
 

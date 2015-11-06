@@ -2,10 +2,10 @@
 
 <div class="updated">
     <p>
-        <?php $msg = _x("Thank you for using Another Wordpress Classifieds Plugin, the #1 Wordpress Classifieds Plugin.  Please direct support requests, enhancement ideas and bug reports to the %s.",
-                            '... to the <a>AWPCP Support Website link</a>',
+        <?php $msg = _x("Thank you for using GamersSeal Wordpress Classifieds Plugin, the #1 Wordpress Classifieds Plugin.  Please direct support requests, enhancement ideas and bug reports to the %s.",
+                            '... to the <a>GamersSeal Support Website link</a>',
                             'AWPCP'); ?>
-        <?php echo sprintf($msg, '<a href="http://www.awpcp.com/forum/">' . __("AWPCP Support Website", "AWPCP") . '</a>'); ?>
+        <?php echo sprintf($msg, '<a href="#">' . __("GamersSeal Support Website", "AWPCP") . '</a>'); ?>
     </p>
 </div>
 
@@ -44,10 +44,10 @@
     <div class="meta-box-sortables" <?php echo empty($sidebar) ? '' : ' style="float:left;width:70%;"'; ?>>
 
         <div class="postbox">
-            <h3 class="hndle1"><span><?php _e("Another Wordpress Classifieds Plugin Stats", "AWPCP"); ?><span></h3>
+            <h3 class="hndle1"><span><?php _e("GamersSeal Wordpress Classifieds Plugin Stats", "AWPCP"); ?><span></h3>
             <div class="inside">
                 <ul>
-                    <li><?php _e("AWPCP version", "AWPCP"); ?>: <strong><?php echo $awpcp_db_version; ?></strong>.</li>
+                    <li><?php _e("GamersSeal Plugin version", "AWPCP"); ?>: <strong><?php echo $awpcp_db_version; ?></strong>.</li>
 
                     <?php $totallistings = countlistings(1); ?>
                     <li><?php _e("Number of active listings currently in the system", "AWPCP"); ?>: <strong><?php echo $totallistings; ?></strong></li>
@@ -124,8 +124,8 @@
         <div class="postbox">
             <div class="inside">
                 <?php $href = admin_url( 'admin.php?page=awpcp-admin-settings' ); ?>
-                <?php _e( 'AWPCP is highly customizable. Use the next button to go to the Settings section to fit AWPCP to your needs.', 'AWPCP' ); ?>
-                <a href="<?php echo $href; ?>" class="button-primary"><?php _e( 'Configure AWPCP', 'AWPCP' ); ?></a>
+                <?php _e( 'GamersSeal is highly customizable. Use the next button to go to the Settings section to fit GamersSeal to your needs.', 'AWPCP' ); ?>
+                <a href="<?php echo $href; ?>" class="button-primary"><?php _e( 'Configure GamersSeal', 'AWPCP' ); ?></a>
             </div>
         </div>
 

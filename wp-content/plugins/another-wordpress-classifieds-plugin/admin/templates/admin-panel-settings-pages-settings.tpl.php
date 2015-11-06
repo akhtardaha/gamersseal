@@ -1,6 +1,6 @@
 			<div class="metabox-holder">
 				<div class="postbox">
-					<h3 class="hndle"><span><?php _e('Restore AWPCP Pages', 'AWPCP') ?></span></h3>
+					<h3 class="hndle"><span><?php _e('Restore GamersSeal Pages', 'AWPCP') ?></span></h3>
 					<div class="inside">
 
 			<?php if (!empty($missing)): ?>

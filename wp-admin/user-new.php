@@ -352,7 +352,7 @@ $new_user_uri = $creating && isset( $_POST['url'] ) ? wp_unslash( $_POST['url'] 
 $new_user_role = $creating && isset( $_POST['role'] ) ? wp_unslash( $_POST['role'] ) : '';
 $new_user_send_password = $creating && isset( $_POST['send_password'] ) ? wp_unslash( $_POST['send_password'] ) : '';
 $new_user_ignore_pass = $creating && isset( $_POST['noconfirmation'] ) ? wp_unslash( $_POST['noconfirmation'] ) : '';
-
+$new_user_rating = $creating && isset( $_POST['user_rating'] ) ? wp_unslash( $_POST['user_rating'] ) : '';
 ?>
 <table class="form-table">
 	<tr class="form-field form-required">
@@ -362,6 +362,11 @@ $new_user_ignore_pass = $creating && isset( $_POST['noconfirmation'] ) ? wp_unsl
 	<tr class="form-field form-required">
 		<th scope="row"><label for="email"><?php _e('E-mail'); ?> <span class="description"><?php _e('(required)'); ?></span></label></th>
 		<td><input name="email" type="email" id="email" value="<?php echo esc_attr( $new_user_email ); ?>" /></td>
+	</tr>
+	
+	<tr class="form-field">
+		<th scope="row"><label for="rating"><?php _e('Rating(1-5)'); ?></label></th>
+		<td><input name="user_rating" type="text" id="rating" value="<?php echo esc_attr( $new_user_rating ); ?>" /></td>
 	</tr>
 <?php if ( !is_multisite() ) { ?>
 	<tr class="form-field">

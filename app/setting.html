@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,user-scalable=no" />
+<title>Login Gamers Seal</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="cordova.js"></script>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/app_config.js"></script>
+    <script src="js/settings.js"></script>
+<style>
+.products-list li {
+  margin: 4px 0;
+  display: block;
+  float: left;
+  width: 90%;
+  padding: 0px 5%;
+  border-bottom: 1px solid #ccc;
+  position:relative;
+}
+.notice
+{
+	padding-left:5%;
+}
+</style>
+</head>
+<body>
+    <div class="page-wraper">
+	 <div class="header">
+     	<div class="cart"><a href="javascript:void(0);" onclick="return goBack();"><img src="img/back.png" alt="Back"/></a></div>
+        <h4 class="ui-title ui-title-center"><a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a></h4>
+        <div class="setting"><img src="img/menu.png" alt="Cart"/></div>
+        
+        </div><!-- /header -->
+ <div class="slide-menu close"></div>
+        <div class="main-wraper">
+        <div class="content-wraper">
+        <a href="#" class="specification" >User Preferences</a>
+        <a href="#" class="text-lbl" style="margin-bottom:10px;" >Home page Preference:</a>
+        <select name="homePage mobile-dropdown" id="homePage" onchange="return homepagePreference();">
+            <option value="index">Home page (default)</option>
+            <option value="events">Events</option>
+            <option value="shop">Shop</option>
+            <option value="news">News</option>
+        </select>
+        <div class="favrt-games">
+        <a href="#" class="text-lbl" style="margin-bottom:10px;margin-top:20px;" >Favorite Game Type:</a>
+        <form action="" method="post" name="SearchCat" class="filterCat">
+            <select name="filterCat mobile-dropdown" id="gameType">
+            <option selected="selected">Choose Game Type</option>
+            </select>
+            <a id="addtoFavourite" style="float:left;" class="search btn not-srch" onclick="return addUserFavouriteGamesType();">Add to Favourites</a>
+        </form>
+        
+        <ul class="tabContent products-list favourite-list">
+             <img id="loading" src="img/loading.gif" alt="Loading" />
+        </ul>
+        </div>
+        
+        <a href="#" class="specification" >Suggestions and Feedback</a>
+        <form action="" method="get" name="message">
+            <select  id="title" name="title" class="search not-srch">
+            <option value="">Topic</option>
+            <option value="General">General</option>
+            <option value="Where could we improve">Where could we improve?</option>
+            <option value="Suggestions">Suggestions</option>
+            </select>
+            <input type="hidden" id="seller_id" />
+            <textarea id="message" placeholder="Message" name="message" class="search not-srch" ></textarea>
+            <div class="captcha">
+                <span id="number1">4</span>+<span id="number2">5</span> = <input type="text" id="captchaInput" />
+                <input type="hidden" value="" id="captcha-val" />
+            </div>
+            <label id="form-err"></label>
+            <a onclick="return sendMessagetoAdmin();" style="float:left;" class="search btn not-srch">Send</a>
+    	</form>
+        
+        </div>
+        </div><!-- /content -->
+ 
+        <div class="footer">
+            <h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>
+        </div><!-- /footer -->
+ 
+    </div><!-- /page -->
+</body>
+</html>

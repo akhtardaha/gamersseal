@@ -263,7 +263,8 @@ class WP_Users_List_Table extends WP_List_Table {
 			'name'     => __( 'Name' ),
 			'email'    => __( 'E-mail' ),
 			'role'     => __( 'Role' ),
-			'posts'    => __( 'Posts' )
+			'posts'    => __( 'Posts' ),
+                        'ausid'    => __( 'Australian ID' )
 		);
 
 		if ( $this->is_site_users )
@@ -436,6 +437,15 @@ class WP_Users_List_Table extends WP_List_Table {
 						$r .= 0;
 					}
 					$r .= "</td>";
+					break;
+                                   case 'ausid':
+					$r .= "<td $attributes>";
+                                    if($user_object->ausid_img_path){
+                                        $r .='Yes';
+                                    }else{
+                                       $r .='NO'; 
+                                    }
+                                    $r .= "</td>";
 					break;
 				default:
 					$r .= "<td $attributes>";

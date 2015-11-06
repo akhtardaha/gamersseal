@@ -2000,8 +2000,9 @@ function wp_insert_user( $userdata ) {
 		$user_nicename = $alt_user_nicename;
 	}
 
-	$compacted = compact( 'user_pass', 'user_email', 'user_url', 'user_nicename', 'display_name', 'user_registered' );
+	$compacted = compact( 'user_pass', 'user_email', 'user_url', 'user_nicename', 'display_name', 'user_registered','user_rating' );
 	$data = wp_unslash( $compacted );
+        $data['user_rating']= $userdata['user_rating'];
 
 	if ( $update ) {
 		if ( $user_email !== $old_user_data->user_email ) {
