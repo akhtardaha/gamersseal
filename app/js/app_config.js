@@ -72,7 +72,7 @@ $(document).ready(function(){
 		$('#captcha-val').val(oneNumber+anoterNumber);
 $('.footer').html('<h4><a href="mailto:haseeb.baber@gmail.com">Powered by AHB</a></h4>');
 $('.header h4').html('<a href="index.html"><img src="img/logo.png" alt="Gamer Seal" width="100" /></a><div class="header-mid"><span class="top-header"></span><span class="heaer-tag-line"></span></div>');
-$('.content-wraper').append(' <div class="help-center"><a href="donation.html">Help Support GamersSeal</a></div>');
+$('.footer').prepend(' <div class="help-center" style="margin-bottom:10px;"><a href="donation.html">Help Support GamersSeal</a></div>');
 getMenuIcons();
 getAppStatics();
 app_settings();
@@ -100,7 +100,7 @@ $( ".setting" ).click(function() {
 
 $(document).ready(function(){
 	var headerheight = 75;
-	var footerheight = 65;
+	var footerheight = 85;
 	var totalScreenHeight = $(window).innerHeight();
 	$('.page-wraper').css('height',totalScreenHeight+'px');
 	var totalContentHeight = totalScreenHeight - parseInt(headerheight) - parseInt(footerheight);

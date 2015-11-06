@@ -6650,7 +6650,7 @@ foreach($meta_keys as $k){
 			else
 			{
 				$response['success'] = 0;
-				$response['status'] = "There is some Error while Fetching Messages.";
+				$response['messages'] = $data;
 			}
 				
 		}  

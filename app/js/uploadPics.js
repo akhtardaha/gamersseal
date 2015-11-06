@@ -114,6 +114,9 @@
   			PicList.splice(PicList.indexOf(PicName), 1);
   			PicList.join(',');
 			window.localStorage.setItem("GamesPics",PicList);
+			var imageCount = window.localStorage.getItem("imageCount");
+			imageCount = parseInt(imageCount) - 1;
+			window.localStorage.setItem("imageCount",imageCount);
 			//alert(window.localStorage.getItem("GamesPics"));
 			
 		}
